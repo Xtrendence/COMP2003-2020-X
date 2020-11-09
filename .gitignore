@@ -1,1 +1,5 @@
 .idea
+node_modules
+app/node_modules
+app/.idea
+web/.idea
