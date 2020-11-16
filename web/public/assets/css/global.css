@@ -23,11 +23,21 @@
 }
 
 .navbar button{
-
+    background:transparent;
+    outline:none;
+    border:none;
+    display:block;
+    text-align:left;
+    height:50px;
+    width:225px;
+    cursor:pointer;
+    color:var(--accent-contrast);
+    font-size:var(--font-larger);
+    font-family:var(--font-family);
 }
 
-.navbar button:active{
-
+.navbar button.active{
+    background:var(--accent-darkest);
 }
 
 /*card frame design*/
