@@ -40,6 +40,14 @@
     background:var(--accent-darkest);
 }
 
+/*icons*/
+.navbar svg{
+    fill:var(--accent-contrast);
+    padding:5px 20px 5px 0;
+    width:40px;
+    vertical-align:middle;
+}
+
 /*card frame design*/
 .card{
 
