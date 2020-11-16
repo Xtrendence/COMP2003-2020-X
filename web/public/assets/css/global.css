@@ -28,7 +28,7 @@
     border:none;
     display:block;
     text-align:left;
-    height:50px;
+    height:70px;
     width:225px;
     cursor:pointer;
     color:var(--accent-contrast);
@@ -36,15 +36,24 @@
     font-family:var(--font-family);
 }
 
+.navbar a{
+    text-decoration:none;
+}
+
 .navbar button.active{
     background:var(--accent-darkest);
+}
+
+.navbar button:hover{
+    background:var(--accent-darkest);
+    transition:0.25s;
 }
 
 /*icons*/
 .navbar svg{
     fill:var(--accent-contrast);
-    padding:5px 20px 5px 0;
-    width:40px;
+    padding:10px 20px 10px 0;
+    width:50px;
     vertical-align:middle;
 }
 
