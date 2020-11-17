@@ -22,29 +22,31 @@ body {
     font-size: var(--font-smaller);
 }
 
+.wrapper {
+    margin-left: 225px;
+}
+
 .title-card {
     background: var(--accent-gradient);
     box-shadow: var(--shadow-smooth);
     color: var(--accent-contrast);
     font-size: var(--font-medium);
-    float:right;
     padding: 10px 5px 10px 5px;
-    margin: 20px 20px 0 auto;
-    width: calc(100% - 40px - 10px - 225px);
-    border-radius: 5px;
+    margin: 20px auto 0 auto;
+    width: calc(100% - 40px);
+    border-radius: 10px;
     display: block;
 }
 
-.card {
+.wide-card {
     background: var(--main-first);
     box-shadow: var(--shadow-smooth);
     color: var(--main-contrast);
-    float:right;
     padding: 10px 5px 10px 5px;
-    margin: 20px 20px 0 auto;
-    width: calc(100% - 40px - 10px - 225px);
-    border-radius: 5px;
-    display: inline-block;
+    margin: 20px auto 0 auto;
+    width: calc(100% - 40px);
+    border-radius: 10px;
+    display: block;
 }
 
 /*all navbar design*/
