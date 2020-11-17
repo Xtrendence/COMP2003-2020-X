@@ -24,6 +24,7 @@ body {
 
 .wrapper {
     margin-left: 225px;
+    font-size: 0;
 }
 
 .title-card {
@@ -31,9 +32,9 @@ body {
     box-shadow: var(--shadow-smooth);
     color: var(--accent-contrast);
     font-size: var(--font-medium);
-    padding: 10px 5px 10px 5px;
+    padding: 10px 10px 10px 10px;
     margin: 20px auto 0 auto;
-    width: calc(100% - 40px);
+    width: calc(100% - 40px - 20px);
     border-radius: 10px;
     display: block;
 }
@@ -42,11 +43,24 @@ body {
     background: var(--main-first);
     box-shadow: var(--shadow-smooth);
     color: var(--main-contrast);
-    padding: 10px 5px 10px 5px;
+    padding: 10px 10px 10px 10px;
     margin: 20px auto 0 auto;
-    width: calc(100% - 40px);
+    width: calc(100% - 40px - 20px);
     border-radius: 10px;
     display: block;
+    font-size: var(--font-smaller);
+}
+
+.small-card {
+    background: var(--main-first);
+    box-shadow: var(--shadow-smooth);
+    color: var(--main-contrast);
+    padding: 10px 10px 10px 10px;
+    margin: 20px auto 0 20px;
+    width: calc(50% - 20px - 20px - 10px );
+    border-radius: 10px;
+    display: inline-block;
+    font-size: var(--font-smaller);
 }
 
 /*all navbar design*/
