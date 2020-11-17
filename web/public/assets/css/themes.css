@@ -1,16 +1,16 @@
-:root{
-    --accent-lightest:rgb(104,112,141);
-    --accent-light:rgb(95,103,129);
-    --accent-medium:rgb(78,84,106);
-    --accent-dark:rgb(61,65,82);
-    --accent-darkest:rgb(43,47,59);
-    --accent-contrast:rgb(255,255,255);
-    --accent-gradient:linear-gradient(120deg, var(--accent-lightest) 25%, var(--accent-medium) 50%, var(--accent-dark) 100%);
-    --main-first:rgb(255,255,255);
-    --main-second:rgb(245,245,245);
-    --main-third:rgb(240,240,240);
-    --main-fourth:rgb(230,230,230);
-    --main-fifth:rgb(210,210,210);
-    --main-sixth:rgb(190,190,190);
-    --main-contrast:rgb(75,75,75);
+:root {
+    --accent-lightest: rgb(104,112,141);
+    --accent-light: rgb(95,103,129);
+    --accent-medium: rgb(78,84,106);
+    --accent-dark: rgb(61,65,82);
+    --accent-darkest: rgb(43,47,59);
+    --accent-contrast: rgb(255,255,255);
+    --accent-gradient: linear-gradient(120deg, var(--accent-lightest) 25%, var(--accent-medium) 50%, var(--accent-dark) 100%);
+    --main-first: rgb(255,255,255);
+    --main-second: rgb(245,245,245);
+    --main-third: rgb(240,240,240);
+    --main-fourth: rgb(230,230,230);
+    --main-fifth: rgb(210,210,210);
+    --main-sixth: rgb(190,190,190);
+    --main-contrast: rgb(75,75,75);
 }
