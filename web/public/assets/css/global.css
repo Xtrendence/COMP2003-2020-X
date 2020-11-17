@@ -11,13 +11,28 @@
     --font-larger: 20px;
 }
 
-/*body*/
-body {
-
+html, input, textarea {
+    font-family: var(--font-family);
 }
 
-.card {
+/*body*/
+body {
+    background: var(--main-second);
+    margin:0;
+    font-size: var(--font-smaller);
+}
 
+.title-card {
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    float:right;
+    padding: 10px 5px 10px 5px;
+    margin: 20px 20px 0 auto;
+    width: calc(100% - 40px - 10px - 225px);
+    border-radius: 5px;
+    display: block;
 }
 
 /*all navbar design*/
@@ -42,7 +57,6 @@ body {
     cursor: pointer;
     color: var(--accent-contrast);
     font-size: var(--font-larger);
-    font-family: var(--font-family);
 }
 
 .navbar a {
