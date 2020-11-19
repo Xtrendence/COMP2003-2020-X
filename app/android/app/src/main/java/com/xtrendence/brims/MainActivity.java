@@ -1,4 +1,4 @@
-package com.brimssms;
+package com.xtrendence.brims;
 
 import android.os.Bundle;
 
