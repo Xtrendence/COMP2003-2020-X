@@ -1,4 +1,4 @@
-package com.xtrendence.brims.generated;
+package com.brimssms.generated;
 
 import java.util.Arrays;
 import java.util.List;

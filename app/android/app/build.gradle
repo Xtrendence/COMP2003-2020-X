@@ -131,11 +131,11 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.xtrendence.brims'
+        applicationId "com.brimssms"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0"
     }
     splits {
         abi {
