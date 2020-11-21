@@ -24,6 +24,7 @@ export const globalStyles = {
 	shadowRadius: 3.84,
 	shadowElevation: 5,
 	borderRadius: 10,
+	fontFamily: "Roboto",
 	smallFont: 16,
 	mediumFont: 18,
 	bigFont: 20,
