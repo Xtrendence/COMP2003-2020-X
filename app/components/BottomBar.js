@@ -14,8 +14,6 @@ import { HelpPage } from '../screens/HelpPage';
 const BottomTab = createMaterialBottomTabNavigator();
 
 export function BottomBar() {
-	const iconSize = 22;
-
 	return (
 		<NavigationContainer>
 			<BottomTab.Navigator 
@@ -31,7 +29,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Falls",
 						tabBarIcon: () => {
-							return <Icon name="warning" color={globalColors.accentContrast} size={iconSize} />
+							return <Icon name="warning" color={globalColors.accentContrast} size={globalStyles.bottomBarIconSize} />
 						},
 					}}
 				/>
@@ -41,7 +39,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Charts",
 						tabBarIcon: ({ color }) => {
-							return <Icon name="bar-graph" color={globalColors.accentContrast} size={iconSize} />
+							return <Icon name="bar-graph" color={globalColors.accentContrast} size={globalStyles.bottomBarIconSize} />
 						},
 					}}
 				/>
@@ -51,7 +49,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Questions",
 						tabBarIcon: ({ color }) => {
-							return <Icon name="pencil" color={globalColors.accentContrast} size={iconSize} />
+							return <Icon name="pencil" color={globalColors.accentContrast} size={globalStyles.bottomBarIconSize} />
 						},
 					}}
 				/>
@@ -61,7 +59,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Calendar",
 						tabBarIcon: ({ color }) => {
-							return <Icon name="calendar" color={globalColors.accentContrast} size={iconSize} />
+							return <Icon name="calendar" color={globalColors.accentContrast} size={globalStyles.bottomBarIconSize} />
 						},
 					}}
 				/>
@@ -71,7 +69,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Help",
 						tabBarIcon: ({ color }) => {
-							return <Icon name="help" color={globalColors.accentContrast} size={iconSize} />
+							return <Icon name="help" color={globalColors.accentContrast} size={globalStyles.bottomBarIconSize} />
 						},
 					}}
 				/>
@@ -81,9 +79,6 @@ export function BottomBar() {
 }
 
 const styles = StyleSheet.create({
-	navbar: {
-		
-	},
 	bar: {
 		backgroundColor: globalColors.accentLight,
 		height: 55

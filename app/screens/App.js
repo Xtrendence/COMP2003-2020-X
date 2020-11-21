@@ -9,12 +9,3 @@ export default function App() {
 		<BottomBar></BottomBar>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: globalColors.accentLight,
-		alignItems: 'flex-start',
-		justifyContent: 'center',
-	},
-});

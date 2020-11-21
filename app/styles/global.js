@@ -27,4 +27,5 @@ export const globalStyles = {
 	smallFont: 16,
 	mediumFont: 18,
 	bigFont: 20,
+	bottomBarIconSize: 22,
 };
