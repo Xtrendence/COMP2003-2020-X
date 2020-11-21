@@ -14,18 +14,16 @@ import { HelpPage } from '../screens/HelpPage';
 const BottomTab = createMaterialBottomTabNavigator();
 
 export function BottomBar() {
+	const iconSize = 22;
+
 	return (
 		<NavigationContainer>
 			<BottomTab.Navigator 
 				initialRouteName="Questions" 
-				activeColor={globalColors.accentDark} 
-				backgroundColor={"#000000"}
-				tabBarOptions={{
-					activeTintColor: globalColors.accentDark,
-					showLabel: true,
-					labelStyle: styles.label,
-					labelPosition: "beside-icon"
-				}}
+				activeColor={globalColors.accentContrast}
+				labeled={true}
+				shifting={false}
+				barStyle={styles.bar}
 			>
 				<BottomTab.Screen 
 					name="Falls" 
@@ -33,7 +31,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Falls",
 						tabBarIcon: () => {
-							return <Icon name="warning" color={globalColors.accentContrast} size={26} />
+							return <Icon name="warning" color={globalColors.accentContrast} size={iconSize} />
 						},
 					}}
 				/>
@@ -43,7 +41,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Charts",
 						tabBarIcon: ({ color }) => {
-							return <Icon name="bar-graph" color={globalColors.accentContrast} size={26} />
+							return <Icon name="bar-graph" color={globalColors.accentContrast} size={iconSize} />
 						},
 					}}
 				/>
@@ -53,7 +51,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Questions",
 						tabBarIcon: ({ color }) => {
-							return <Icon name="pencil" color={globalColors.accentContrast} size={26} />
+							return <Icon name="pencil" color={globalColors.accentContrast} size={iconSize} />
 						},
 					}}
 				/>
@@ -63,7 +61,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Calendar",
 						tabBarIcon: ({ color }) => {
-							return <Icon name="calendar" color={globalColors.accentContrast} size={26} />
+							return <Icon name="calendar" color={globalColors.accentContrast} size={iconSize} />
 						},
 					}}
 				/>
@@ -73,7 +71,7 @@ export function BottomBar() {
 					options={{
 						tabBarLabel: "Help",
 						tabBarIcon: ({ color }) => {
-							return <Icon name="help" color={globalColors.accentContrast} size={26} />
+							return <Icon name="help" color={globalColors.accentContrast} size={iconSize} />
 						},
 					}}
 				/>
@@ -84,9 +82,10 @@ export function BottomBar() {
 
 const styles = StyleSheet.create({
 	navbar: {
-		backgroundColor: globalColors.accentLight
+		
 	},
-	label: {
-		color: globalColors.accentContrast
-	}
+	bar: {
+		backgroundColor: globalColors.accentLight,
+		height: 55
+	},
 });
