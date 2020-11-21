@@ -5,8 +5,17 @@ import { globalColors, globalStyles } from '../styles/global';
 
 export const ChartsPage = ({ navigation }) => {
 	return (
-		<View>
+		<View style={styles.container}>
 			<Text>Charts Page</Text>
 		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		alignItems:'center',
+		justifyContent:'center',
+		backgroundColor: globalColors.mainSecond,
+	}
+});

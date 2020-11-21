@@ -80,7 +80,6 @@ export function BottomBar() {
 
 const styles = StyleSheet.create({
 	bar: {
-		backgroundColor: globalColors.accentLight,
-		height: 55
+		backgroundColor: globalColors.accentLight
 	},
 });
