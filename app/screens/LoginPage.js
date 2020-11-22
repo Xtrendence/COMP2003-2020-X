@@ -32,7 +32,7 @@ export const LoginPage = ({ navigation }) => {
 		return (
 			<View style={styles.pageContainer}>
 				<View style={styles.bannerWrapper}>
-					<Text style={styles.banner}>Login</Text>
+					<Text style={styles.banner}>Register</Text>
 				</View>
 				<View style={styles.loginForm}>
 					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="First Name"></TextInput>
