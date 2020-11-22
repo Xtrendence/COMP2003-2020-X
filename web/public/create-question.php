@@ -37,6 +37,14 @@
         Ask a Question - User
     </div>
     <div class="thick-card">
+        <div class="text">
+            Question Text
+        </div>
+        <input>
+        <div class="text">
+            Question Type
+        </div>
+        <input>
 
     </div>
 </div>
