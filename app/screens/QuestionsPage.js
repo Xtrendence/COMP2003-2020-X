@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TextInput } from 'react-native';
 import { globalColors, globalStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
@@ -18,35 +18,24 @@ export const QuestionsPage = ({ navigation }) => {
 				<Text style={styles.title}>Have you been getting more headaches?</Text>
 				<RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
 					<View style={styles.radioBlock}>
-						<RadioButton
-							value="No"
-							uncheckedColor={globalColors.accentMedium}
-							color={globalColors.accentMedium}
-							style={styles.radio}
-						/>
-						<Text style={styles.label}>No</Text>
+						<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+						<Text>No</Text>
 					</View>
 					<View style={styles.radioBlock}>
-						<RadioButton
-							value="Same"
-							uncheckedColor={globalColors.accentMedium}
-							color={globalColors.accentMedium}
-							style={styles.radio}
-						/>
-						<Text style={styles.label}>Same</Text>
+						<RadioButton value="Same" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+						<Text>Same</Text>
 					</View>
 					<View style={styles.radioBlock}>
-						<RadioButton
-							value="Yes"
-							uncheckedColor={globalColors.accentMedium}
-							color={globalColors.accentMedium}
-							style={styles.radio}
-						/>
-						<Text style={styles.label}>Yes</Text>
+						<RadioButton value="Yes" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+						<Text>Yes</Text>
 					</View>
 				</RadioButton.Group>
 			</Card>
 			<View style={styles.divider}></View>
+			<Card>
+				<Text style={styles.title}>What did you have for lunch?</Text>
+				<TextInput style={styles.inputField} placeholder="Answer..." multiline={true}></TextInput>
+			</Card>
 		</View>
 	);
 }
@@ -80,10 +69,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		flexDirection: "row",
 	},
-	radio: {
-
+	inputField: {
+		
 	},
-	label: {
-
-	}
 });
