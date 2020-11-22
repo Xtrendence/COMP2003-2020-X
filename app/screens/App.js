@@ -5,7 +5,7 @@ import { BottomBar } from '../components/BottomBar';
 import { globalColors, globalStyles } from '../styles/global';
 
 export default function App() {
-	let loggedIn = false;
+	let loggedIn = true;
 
 	if(loggedIn) {
 		return (
