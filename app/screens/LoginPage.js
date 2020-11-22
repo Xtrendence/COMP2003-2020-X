@@ -14,8 +14,8 @@ export const LoginPage = ({ navigation }) => {
 					<Text style={styles.banner}>Login</Text>
 				</View>
 				<View style={styles.loginForm}>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="User ID..."></TextInput>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password..." secureTextEntry></TextInput>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="User ID"></TextInput>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" secureTextEntry></TextInput>
 					<TouchableOpacity style={styles.actionButton}>
 						<Text style={styles.actionText}>Login</Text>
 					</TouchableOpacity>
@@ -35,9 +35,9 @@ export const LoginPage = ({ navigation }) => {
 					<Text style={styles.banner}>Login</Text>
 				</View>
 				<View style={styles.loginForm}>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="First Name..."></TextInput>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Last Name..."></TextInput>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password..." secureTextEntry></TextInput>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="First Name"></TextInput>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Last Name"></TextInput>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" secureTextEntry></TextInput>
 					<TouchableOpacity style={styles.actionButton}>
 						<Text style={styles.actionText}>Register</Text>
 					</TouchableOpacity>

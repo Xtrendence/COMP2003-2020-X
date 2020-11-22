@@ -12,6 +12,7 @@ export const globalColors = {
 	mainFifth: 'rgb(210,210,210)',
 	mainSixth: 'rgb(190,190,190)',
 	mainContrast: 'rgb(75,75,75)',
+	mainPlaceholder: 'rgb(150,150,150)',
 };
 
 export const globalStyles = {
