@@ -9,7 +9,7 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export const QuestionsPage = ({ navigation }) => {
-	const [checked, setChecked] = React.useState("");
+	const [selected, setSelected] = React.useState({});
 
 	return (
 		<View style={styles.container}>
@@ -17,7 +17,7 @@ export const QuestionsPage = ({ navigation }) => {
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
 					<Text style={styles.title}>Have you been getting more headaches?</Text>
-					<RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
+					<RadioButton.Group onValueChange={value => setSelected({ ...selected, 0:value })} value={selected[0]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
 							<Text>No</Text>
@@ -49,7 +49,7 @@ export const QuestionsPage = ({ navigation }) => {
 				</View>
 				<Card>
 					<Text style={styles.title}>You feel more balance issues at night.</Text>
-					<RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
+					<RadioButton.Group onValueChange={value => setSelected({ ...selected, 1:value })} value={selected[1]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
 							<Text>Disagree</Text>
