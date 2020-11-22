@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { globalColors, globalStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
@@ -14,28 +14,74 @@ export const QuestionsPage = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.topBarPlaceholder}></View>
-			<Card>
-				<Text style={styles.title}>Have you been getting more headaches?</Text>
-				<RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
-					<View style={styles.radioBlock}>
-						<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-						<Text>No</Text>
+			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
+				<Card>
+					<Text style={styles.title}>Have you been getting more headaches?</Text>
+					<RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
+						<View style={styles.radioBlock}>
+							<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+							<Text>No</Text>
+						</View>
+						<View style={styles.radioBlock}>
+							<RadioButton value="Same" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+							<Text>Same</Text>
+						</View>
+						<View style={styles.radioBlock}>
+							<RadioButton value="Yes" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+							<Text>Yes</Text>
+						</View>
+					</RadioButton.Group>
+				</Card>
+				<View style={styles.dividerWrapper}>
+					<View style={styles.divider}></View>
+				</View>
+				<Card>
+					<Text style={styles.title}>What did you have for lunch?</Text>
+					<TextInput style={styles.inputField} placeholder="Answer..." multiline={true}></TextInput>
+					<View style={styles.buttonWrapper}>
+						<TouchableOpacity style={styles.actionButton}>
+							<Text style={styles.actionText}>Save</Text>
+						</TouchableOpacity>
 					</View>
-					<View style={styles.radioBlock}>
-						<RadioButton value="Same" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-						<Text>Same</Text>
+				</Card>
+				<View style={styles.dividerWrapper}>
+					<View style={styles.divider}></View>
+				</View>
+				<Card>
+					<Text style={styles.title}>You feel more balance issues at night.</Text>
+					<RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
+						<View style={styles.radioBlock}>
+							<RadioButton value="Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+							<Text>Disagree</Text>
+						</View>
+						<View style={styles.radioBlock}>
+							<RadioButton value="Somewhat Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+							<Text>Somewhat Disagree</Text>
+						</View>
+						<View style={styles.radioBlock}>
+							<RadioButton value="Neutral" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+							<Text>Neutral</Text>
+						</View>
+						<View style={styles.radioBlock}>
+							<RadioButton value="Somewhat Agree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+							<Text>Somewhat Agree</Text>
+						</View>
+						<View style={styles.radioBlock}>
+							<RadioButton value="Agree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+							<Text>Agree</Text>
+						</View>
+					</RadioButton.Group>
+				</Card>
+				<Card>
+					<Text style={styles.title}>What did you have for lunch?</Text>
+					<TextInput style={styles.inputField} placeholder="Answer..." multiline={true}></TextInput>
+					<View style={styles.buttonWrapper}>
+						<TouchableOpacity style={styles.actionButton}>
+							<Text style={styles.actionText}>Save</Text>
+						</TouchableOpacity>
 					</View>
-					<View style={styles.radioBlock}>
-						<RadioButton value="Yes" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-						<Text>Yes</Text>
-					</View>
-				</RadioButton.Group>
-			</Card>
-			<View style={styles.divider}></View>
-			<Card>
-				<Text style={styles.title}>What did you have for lunch?</Text>
-				<TextInput style={styles.inputField} placeholder="Answer..." multiline={true}></TextInput>
-			</Card>
+				</Card>
+			</ScrollView>
 		</View>
 	);
 }
@@ -46,11 +92,24 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'flex-start',
 		backgroundColor: globalColors.mainSecond,
+		width: "100%",
 	},
 	topBarPlaceholder: {
 		backgroundColor: globalColors.accentLightest,
 		width: "100%",
 		height: 50,
+	},
+	cardContainer: {
+		width: "100%",
+		height: "100%",
+		paddingLeft: 20,
+	},
+	dividerWrapper: {
+		flex: 1,
+		width: "100%",
+		justifyContent: "center",
+		alignItems: "center",
+		marginLeft: -20
 	},
 	divider: {
 		width: screenWidth - 200,
@@ -76,5 +135,24 @@ const styles = StyleSheet.create({
 		height: 60,
 		padding: 10,
 		textAlignVertical: "top",
+	},
+	buttonWrapper: {
+		width: "100%",
+		marginTop: 10,
+		justifyContent: "center",
+		alignItems: "flex-end"
+	},
+	actionButton: {
+		backgroundColor: globalColors.accentDark,
+		width: 70,
+		height: 35,
+		justifyContent: "center",
+		borderRadius: globalStyles.borderRadius,
+	},
+	actionText: {
+		fontSize: globalStyles.mediumFont,
+		fontWeight: "bold",
+		color: globalColors.accentContrast,
+		textAlign: "center"
 	},
 });
