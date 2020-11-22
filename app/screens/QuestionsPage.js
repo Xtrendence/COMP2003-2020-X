@@ -9,7 +9,8 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export const QuestionsPage = ({ navigation }) => {
-	const [selected, setSelected] = React.useState({});
+	const [checked, setChecked] = React.useState({});
+	const [answers, setAnswers] = React.useState({});
 
 	return (
 		<View style={styles.container}>
@@ -17,7 +18,7 @@ export const QuestionsPage = ({ navigation }) => {
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
 					<Text style={styles.title}>Have you been getting more headaches?</Text>
-					<RadioButton.Group onValueChange={value => setSelected({ ...selected, 0:value })} value={selected[0]}>
+					<RadioButton.Group onValueChange={value => setChecked({ ...checked, 0:value })} value={checked[0]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
 							<Text>No</Text>
@@ -37,9 +38,9 @@ export const QuestionsPage = ({ navigation }) => {
 				</View>
 				<Card>
 					<Text style={styles.title}>What did you have for lunch?</Text>
-					<TextInput style={styles.inputField} placeholder="Answer..." multiline={true}></TextInput>
+					<TextInput style={styles.inputField} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 1:value })} value={answers[1]}></TextInput>
 					<View style={styles.buttonWrapper}>
-						<TouchableOpacity style={styles.actionButton}>
+						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(1, answers[1])}>
 							<Text style={styles.actionText}>Save</Text>
 						</TouchableOpacity>
 					</View>
@@ -49,7 +50,7 @@ export const QuestionsPage = ({ navigation }) => {
 				</View>
 				<Card>
 					<Text style={styles.title}>You feel more balance issues at night.</Text>
-					<RadioButton.Group onValueChange={value => setSelected({ ...selected, 1:value })} value={selected[1]}>
+					<RadioButton.Group onValueChange={value => setChecked({ ...checked, 2:value })} value={checked[2]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
 							<Text>Disagree</Text>
@@ -74,9 +75,9 @@ export const QuestionsPage = ({ navigation }) => {
 				</Card>
 				<Card>
 					<Text style={styles.title}>What did you have for lunch?</Text>
-					<TextInput style={styles.inputField} placeholder="Answer..." multiline={true}></TextInput>
+					<TextInput style={styles.inputField} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 3:value })} value={answers[3]}></TextInput>
 					<View style={styles.buttonWrapper}>
-						<TouchableOpacity style={styles.actionButton}>
+						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(3, answers[3])}>
 							<Text style={styles.actionText}>Save</Text>
 						</TouchableOpacity>
 					</View>
@@ -84,6 +85,10 @@ export const QuestionsPage = ({ navigation }) => {
 			</ScrollView>
 		</View>
 	);
+
+	function saveAnswer(key, value) {
+		
+	}
 }
 
 const styles = StyleSheet.create({
