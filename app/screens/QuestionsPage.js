@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
 		fontSize: globalStyles.smallFont,
 		fontWeight: "bold",
 		color: globalColors.mainContrast,
+		marginBottom: 10,
 	},
 	radioBlock: {
 		flexWrap: "wrap",
@@ -70,6 +71,10 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 	},
 	inputField: {
-		
+		backgroundColor: globalColors.mainThird,
+		borderRadius: globalStyles.borderRadius,
+		height: 60,
+		padding: 10,
+		textAlignVertical: "top",
 	},
 });
