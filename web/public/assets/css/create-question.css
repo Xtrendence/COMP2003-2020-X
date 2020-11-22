@@ -1,1 +1,13 @@
 
+.thick-card {
+    background: var(--main-first);
+    box-shadow: var(--shadow-smooth);
+    color: var(--main-contrast);
+    padding: 10px 10px 10px 10px;
+    margin: 20px auto 0 auto;
+    width: 50%;
+    border-radius: 10px;
+    display: block;
+    position: center;
+    font-size: var(--font-smaller);
+}

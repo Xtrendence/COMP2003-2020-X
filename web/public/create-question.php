@@ -34,7 +34,10 @@
 
 <div class="wrapper">
     <div class="title-card">
-        Questions and Answers - User
+        Ask a Question - User
+    </div>
+    <div class="thick-card">
+
     </div>
 </div>
 
