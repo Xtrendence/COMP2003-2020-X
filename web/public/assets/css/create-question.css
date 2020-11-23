@@ -31,3 +31,29 @@ input{
     border: none;
     outline: none;
 }
+
+/*radio button */
+.radio-button-container{
+    display: block;
+    font-weight: bold;
+    margin: 20px auto 0 auto;
+    horiz-align: center;
+}
+.form-radio-button {
+    background: var(--main-second);
+    box-shadow: var(--shadow-smooth);
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    display: inline-block;
+    margin: auto 10px 0 20px;
+}
+
+.form-radio-button:hover {
+    background: var(--main-fifth);
+    cursor: pointer;
+}
+
+.form-radio-button.active {
+    background-color: var(--accent-medium);
+}

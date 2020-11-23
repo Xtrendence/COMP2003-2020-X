@@ -44,10 +44,14 @@
         <div class="text">
             Question Type
         </div>
-        <input>
-
+        <div class="radio-button-container">
+            <div class="form-radio-button">
+            </div>
+            <label>Multiple Choice</label>
+        </div>
     </div>
 </div>
+
 
 </body>
 </html>
