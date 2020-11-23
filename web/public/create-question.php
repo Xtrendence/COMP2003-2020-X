@@ -45,9 +45,12 @@
             Question Type
         </div>
         <div class="radio-button-container">
-            <div class="form-radio-button">
-            </div>
-            <label>Multiple Choice</label>
+            <div class="form-radio-button"></div>
+            <span>Multiple Choice</span>
+        </div>
+        <div class="radio-button-container">
+            <div class="form-radio-button"></div>
+            <span>User Input</span>
         </div>
     </div>
 </div>
