@@ -4,7 +4,7 @@
     box-shadow: var(--shadow-smooth);
     color: var(--main-contrast);
     padding: 10px 10px 10px 10px;
-    margin: 20px auto 0 auto;
+    margin: 20px auto 20px auto;
     width: 50%;
     border-radius: 10px;
     display: block;
@@ -65,4 +65,15 @@ input {
 
 .choice{
     display: block;
+}
+
+/*misc*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
 }

@@ -13,10 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let optionContainer = document.getElementById("multiple-sub");
 
     multipleChoiceOption.addEventListener("click", function() {
-        while (optionContainer.hasChildNodes()) {
-            optionContainer.removeChild(optionContainer.lastElementChild);
-        }
-
         choices.value = null;
         if (multipleChoiceOption.className === "form-radio-button") {
             option.classList.remove("hidden");
@@ -24,8 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
             longAnswerText.classList.add("hidden");
             longAnswer.classList.remove("active");
             multipleChoiceOption.classList.add("active");
-
-
+            while (optionContainer.hasChildNodes()) {
+                optionContainer.removeChild(optionContainer.lastElementChild);
+            }
         } else {
             option.classList.add("hidden");
             multipleChoiceOption.classList.remove("active");
@@ -47,14 +44,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    choices.addEventListener("keypress", function(){
-        while (optionContainer.hasChildNodes()) {
-            optionContainer.removeChild(optionContainer.lastElementChild);
+    choices.addEventListener("keyup", function(e){
+        if (e.key.toLowerCase() === "backspace") {
+            while (optionContainer.hasChildNodes()) {
+                optionContainer.removeChild(optionContainer.lastElementChild);
+            }
         }
-        optionContainer.classList.remove("hidden");
-        for(let i = 0; i < choices.value; i++) {
-            input.type = "text";
-            optionContainer.appendChild(input);
+    });
+
+    choices.addEventListener("keypress", function(e){
+        if (e.key.toLowerCase() === "enter") {
+
+                for (let i = 2; i < (choices.value); i++) {
+                    let input = document.createElement("input");
+                    input.type = "text";
+                    optionContainer.appendChild(input);
+                }
+            
         }
+
     });
 });
