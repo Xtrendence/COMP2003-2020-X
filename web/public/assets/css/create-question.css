@@ -60,6 +60,7 @@ input{
 
 .form-radio-button.active {
     background: var(--accent-lightest);
+    pointer-events: none;
 }
 
 .choice{
