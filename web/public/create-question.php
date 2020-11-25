@@ -31,17 +31,17 @@
 
 <div class="wrapper">
     <div class="title-card">
-        Ask a Question - User
+        <span>Ask a Question - User</span>
     </div>
 
     <div class="thick-card">
         <div class="text">
-            Question Text
+            <span>Question Text</span>
         </div>
         <input>
 
         <div class="text">
-            Question Type
+            <span>Question Type</span>
         </div>
 
         <div class="radio-button-container">
@@ -50,15 +50,22 @@
         </div>
 
         <div class="radio-button-container">
-            <div class="form-radio-button"></div>
+            <div id="long-answer" class="form-radio-button"></div>
             <span class="the-label">User Input</span>
         </div>
 
         <div id="multiple" class="">
             <div class="text">
-                Number of Choices
+                <span>Number of Choices</span>
             </div>
-            <input id="number-of-choices">
+            <input type="number" id="number-of-choices">
+        </div>
+
+        <div id="single" class="hidden">
+            <div class="text">
+                <span>Character limit</span>
+            </div>
+            <input type="number" id="characters">
         </div>
     </div>
 </div>
