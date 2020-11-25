@@ -38,7 +38,7 @@
         <div class="text">
             <span>Question Text</span>
         </div>
-        <input>
+        <input placeholder="Question...">
 
         <div class="text">
             <span>Question Type</span>
@@ -58,12 +58,12 @@
             <div class="text">
                 <span>Number of Choices</span>
             </div>
-            <input id="number-of-choices" type="number" min="2" max="16">
+            <input placeholder="Number..." id="number-of-choices" type="number" min="2" max="16">
             <div class="text">
                 <span>Choices</span>
             </div>
-            <input type="text">
-            <input type="text">
+            <input placeholder="Choice 1..." type="text">
+            <input placeholder="Choice 2..." type="text">
             <div id="multiple-sub">
 
             </div>
@@ -73,7 +73,7 @@
             <div class="text">
                 <span>Character limit</span>
             </div>
-            <input id="characters" type="number" min="1">
+            <input placeholder="Limit..." id="characters" type="number" min="1">
 
         </div>
     </div>
