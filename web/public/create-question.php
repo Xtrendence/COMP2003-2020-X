@@ -58,14 +58,18 @@
             <div class="text">
                 <span>Number of Choices</span>
             </div>
-            <input type="number" id="number-of-choices">
+            <input id="number-of-choices" type="number" min="2" max="16">
+            <div id="multiple-sub" class="hidden">
+                <div class="text">Choices</div>
+            </div>
         </div>
 
         <div id="single" class="hidden">
             <div class="text">
                 <span>Character limit</span>
             </div>
-            <input type="number" id="characters">
+            <input id="characters" type="number" min="1">
+
         </div>
     </div>
 </div>

@@ -18,12 +18,12 @@
     margin: 20px auto 0 auto
 }
 
-input{
+input {
     background: var(--main-second);
     box-shadow: var(--shadow-smooth);
     color: var(--main-contrast);
     padding: 10px 10px 10px 10px;
-    margin: 10px auto 0 auto;
+    margin: 10px auto 10px auto;
     width: calc(100% - 40px - 20px);
     border-radius: 10px;
     display: block;
