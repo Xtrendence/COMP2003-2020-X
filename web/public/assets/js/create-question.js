@@ -58,9 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 for (let i = 2; i < (choices.value); i++) {
                     let input = document.createElement("input");
                     input.type = "text";
+                    input.placeholder = "Choice "+(i+1)+"...";
                     optionContainer.appendChild(input);
                 }
-            
+
         }
 
     });
