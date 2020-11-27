@@ -12,7 +12,7 @@
     font-size: var(--font-smaller);
 }
 
-.text{
+.text {
     text-align: center;
     font-weight: bold;
     margin: 20px auto 0 auto
@@ -32,15 +32,32 @@ input {
     outline: none;
 }
 
+/*submit button*/
+.button-wrapper {
+    padding: 20px 20px 10px 20px;
+    width: 100%;
+
+}
+
+.submit-button {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+}
+
 /*radio button */
-.radio-button-container{
+.radio-button-container {
     display: block;
     font-weight: bold;
     margin: 20px auto 0 auto;
 
-}
-
-.the-label{
 }
 
 .form-radio-button {
@@ -63,7 +80,7 @@ input {
     pointer-events: none;
 }
 
-.choice{
+.choice {
     display: block;
 }
 
@@ -76,4 +93,14 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+input.error {
+    box-shadow: 0 1px 1px rgba(125,103,129,0.12), 0 2px 2px rgba(108,84,106,0.16), 0 4px 4px rgba(100,65,82,0.18), 0 8px 8px rgba(100,47,59,0.20);
+}
+
+.submission {
+    font-size: var(--font-medium);
+    color: var(--accent-gradient);
+    text-align: center;
 }

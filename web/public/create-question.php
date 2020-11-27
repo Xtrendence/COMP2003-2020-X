@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./assets/css/create-question.css">
     <script src = "../public/assets/js/create-question.js"></script>
     <meta charset="UTF-8">
-    <title>Question and Answer page</title>
+    <title>Question &amp Answer page</title>
 </head>
 
 <body>
@@ -38,7 +38,7 @@
         <div class="text">
             <span>Question Text</span>
         </div>
-        <input placeholder="Question...">
+        <input id="question" placeholder="Question...">
 
         <div class="text">
             <span>Question Type</span>
@@ -62,8 +62,8 @@
             <div class="text">
                 <span>Choices</span>
             </div>
-            <input placeholder="Choice 1..." type="text">
-            <input placeholder="Choice 2..." type="text">
+            <input id="ch1" placeholder="Choice 1..." type="text">
+            <input id="ch2" placeholder="Choice 2..." type="text">
             <div id="multiple-sub">
 
             </div>
@@ -73,8 +73,16 @@
             <div class="text">
                 <span>Character limit</span>
             </div>
-            <input placeholder="Limit..." id="characters" type="number" min="1">
+            <input placeholder="Limit..." id="characters" type="number">
+        </div>
 
+        <div class="button-wrapper">
+            <button id="submit" class="submit-button">
+                <span>Submit Question</span>
+            </button>
+        </div>
+        <div id="sub" class="hidden">
+            <span>Question Submitted</span>
         </div>
     </div>
 </div>
