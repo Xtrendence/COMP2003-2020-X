@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../public/assets/css/themes.css">
     <link rel="stylesheet" href="../public/assets/css/global.css">
     <meta charset="UTF-8">
-    <title>Help page</title>
+    <title>Help Page</title>
 </head>
 
 <body>
@@ -36,13 +36,17 @@
     </button>
 </div>
 
+
 <div class="wrapper">
 
-
-
-    
-
+    <div class="title-card"
+         <h1>FAQ & General Help</h1>
     </div>
+
+
+
+</div>
+
 
 
 </div>
