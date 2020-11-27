@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import { globalColors, globalStyles } from '../styles/global';
+import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
 
@@ -17,7 +17,7 @@ export const QuestionsPage = ({ navigation }) => {
 			<View style={styles.topBarPlaceholder}></View>
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
-					<Text style={styles.title}>Have you been getting more headaches?</Text>
+					<Text style={globalComponentStyles.cardTitle}>Have you been getting more headaches?</Text>
 					<RadioButton.Group onValueChange={value => setChecked({ ...checked, 0:value })} value={checked[0]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
@@ -37,8 +37,8 @@ export const QuestionsPage = ({ navigation }) => {
 					<View style={styles.divider}></View>
 				</View>
 				<Card>
-					<Text style={styles.title}>What did you have for lunch?</Text>
-					<TextInput style={styles.inputField} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 1:value })} value={answers[1]}></TextInput>
+					<Text style={globalComponentStyles.cardTitle}>What did you have for lunch?</Text>
+					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 1:value })} value={answers[1]}></TextInput>
 					<View style={styles.buttonWrapper}>
 						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(1, answers[1])}>
 							<Text style={styles.actionText}>Save</Text>
@@ -49,7 +49,7 @@ export const QuestionsPage = ({ navigation }) => {
 					<View style={styles.divider}></View>
 				</View>
 				<Card>
-					<Text style={styles.title}>You feel more balance issues at night.</Text>
+					<Text style={globalComponentStyles.cardTitle}>You feel more balance issues at night.</Text>
 					<RadioButton.Group onValueChange={value => setChecked({ ...checked, 2:value })} value={checked[2]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
@@ -74,8 +74,8 @@ export const QuestionsPage = ({ navigation }) => {
 					</RadioButton.Group>
 				</Card>
 				<Card>
-					<Text style={styles.title}>What did you have for lunch?</Text>
-					<TextInput style={styles.inputField} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 3:value })} value={answers[3]}></TextInput>
+					<Text style={globalComponentStyles.cardTitle}>What did you have for dinner?</Text>
+					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 3:value })} value={answers[3]}></TextInput>
 					<View style={styles.buttonWrapper}>
 						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(3, answers[3])}>
 							<Text style={styles.actionText}>Save</Text>
@@ -123,23 +123,10 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		borderRadius: globalStyles.borderRadius,
 	},
-	title: {
-		fontSize: globalStyles.smallFont,
-		fontWeight: "bold",
-		color: globalColors.mainContrast,
-		marginBottom: 10,
-	},
 	radioBlock: {
 		flexWrap: "wrap",
 		alignItems: "center",
 		flexDirection: "row",
-	},
-	inputField: {
-		backgroundColor: globalColors.mainThird,
-		borderRadius: globalStyles.borderRadius,
-		height: 60,
-		padding: 10,
-		textAlignVertical: "top",
 	},
 	buttonWrapper: {
 		width: "100%",
