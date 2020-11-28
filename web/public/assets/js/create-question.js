@@ -3,30 +3,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /**
      * @desc variables made from id's in the create-question.php
+     * all are in order as seen in the php file
      */
     let enquiry = document.getElementById("question");
 
     let multipleChoiceRadioButton = document.getElementById("multiple-choice-op");
+    let longAnswerRadioButton = document.getElementById("long-answer");
+
     let multipleOption = document.getElementById("multiple");
-    let choices = document.getElementById("number-of-choices");
+    let numberOfChoices = document.getElementById("number-of-choices");
     let optionContainer = document.getElementById("multiple-sub");
-    let choiceFields = document.getElementById("choice-field");
 
-    let longAnswer = document.getElementById("long-answer");
     let longAnswerText = document.getElementById("single");
-    let characters = document.getElementById("characters");
+    let characterLimit = document.getElementById("characters");
 
-    let submit = document.getElementById("submit");
-    let sub = document.getElementById("sub");
+    let submitButton = document.getElementById("submit");
+    let submitText = document.getElementById("sub");
 
 
     multipleChoiceRadioButton.addEventListener("click", function() {
-        choices.value = null;
+        numberOfChoices.value = null;
 
         multipleOption.classList.remove("hidden");
         multipleChoiceRadioButton.classList.add("active");
         longAnswerText.classList.add("hidden");
-        longAnswer.classList.remove("active");
+        longAnswerRadioButton.classList.remove("active");
         multipleChoiceRadioButton.classList.add("active");
         if (optionContainer.children.length > 0){
             while (optionContainer.hasChildNodes()) {
@@ -34,30 +35,30 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        if (sub.classList.contains("submission")) {
-            sub.classList.add("hidden");
-            sub.classList.remove("submission");
+        if (submitText.classList.contains("submission")) {
+            submitText.classList.add("hidden");
+            submitText.classList.remove("submission");
         }
     });
 
-    longAnswer.addEventListener("click", function() {
-        characters.value = null;
+    longAnswerRadioButton.addEventListener("click", function() {
+        characterLimit.value = null;
 
         longAnswerText.classList.remove("hidden");
-        longAnswer.classList.add("active");
+        longAnswerRadioButton.classList.add("active");
         multipleChoiceRadioButton.classList.remove("active");
         multipleOption.classList.add("hidden");
         multipleChoiceRadioButton.classList.remove("active");
 
-        if (sub.classList.contains("submission")) {
-            sub.classList.add("hidden");
-            sub.classList.remove("submission");
+        if (submitText.classList.contains("submission")) {
+            submitText.classList.add("hidden");
+            submitText.classList.remove("submission");
         }
     });
 
-    choices.addEventListener("keyup", function(e){
+    numberOfChoices.addEventListener("keyup", function(e){
         if (e.key.toLowerCase() === "backspace") {
-            if (choices.value > 3 || choices.value <= 16) {
+            if (numberOfChoices.value > 3 || numberOfChoices.value <= 16) {
                 while (optionContainer.hasChildNodes()) {
                     optionContainer.removeChild(optionContainer.lastElementChild);
                 }
@@ -65,11 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    choices.addEventListener("keypress", function(e){
+    numberOfChoices.addEventListener("keypress", function(e){
         if (e.key.toLowerCase() === "enter") {
-            choices.classList.remove("error");
-            if (choices.value <= 16) {
-                for (let i = 2; i < (choices.value); i++) {
+            numberOfChoices.classList.remove("error");
+            if (numberOfChoices.value <= 16) {
+                for (let i = 2; i < (numberOfChoices.value); i++) {
                     let input = document.createElement("input");
                     input.type = "text";
                     input.classList.add("choice-field");
@@ -77,13 +78,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     optionContainer.appendChild(input);
                 }
             }else {
-                choices.classList.add("error");
+                numberOfChoices.classList.add("error");
             }
         }
 
     });
 
-    submit.addEventListener("click", function(){
+    submitButton.addEventListener("click", function(){
         if (multipleChoiceRadioButton.classList.contains("active")){
             let choiceOptions = []
             let choiceFields = document.getElementsByClassName("choice-field");
@@ -96,11 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.table(key, questionInformation[key]);
             });
 
-            sub.classList.remove("hidden");
-            sub.classList.add("submission");
+            submitText.classList.remove("hidden");
+            submitText.classList.add("submission");
 
             enquiry.value = "";
-            choices.value = "";
+            numberOfChoices.value = "";
             for (let i = 0; i < 2; i++) {
                 choiceFields[i].value = "";
             }
@@ -111,15 +112,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
         else{
-            if (characters.value < 50) {
-                characters.classList.add("error");
+            if (characterLimit.value < 50) {
+                characterLimit.classList.add("error");
             }
             else{
-                let questionInformation = {"Question" : enquiry.value , "Type" : "Long Answer", "Length" : characters.value};
-                sub.classList.remove("hidden");
-                sub.classList.add("submission");
+                let questionInformation = {"Question" : enquiry.value , "Type" : "Long Answer", "Length" : characterLimit.value};
+                submitText.classList.remove("hidden");
+                submitText.classList.add("submission");
                 enquiry.value = "";
-                characters.value = null;
+                characterLimit.value = null;
                 Object.keys(questionInformation).forEach(key => {
                     console.table(key, questionInformation[key]);
                 });
