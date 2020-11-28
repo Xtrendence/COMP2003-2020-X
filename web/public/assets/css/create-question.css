@@ -36,7 +36,6 @@ input {
 .button-wrapper {
     padding: 20px 20px 10px 20px;
     width: 100%;
-
 }
 
 .submit-button {
@@ -57,7 +56,6 @@ input {
     display: block;
     font-weight: bold;
     margin: 20px auto 0 auto;
-
 }
 
 .form-radio-button {
@@ -76,8 +74,11 @@ input {
 }
 
 .form-radio-button.active {
-    background: var(--accent-lightest);
+    background: var(--accent-gradient);
     pointer-events: none;
+}
+
+.the-label{
 }
 
 .choice {
