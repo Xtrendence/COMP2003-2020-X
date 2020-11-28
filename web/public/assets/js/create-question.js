@@ -4,11 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let enquiry = document.getElementById("question");
     let question = document.getElementById("question").value;
 
-
     let multipleChoiceOption = document.getElementById("multiple-choice-op");
     let option = document.getElementById("multiple");
     let choices = document.getElementById("number-of-choices");
     let optionContainer = document.getElementById("multiple-sub");
+    let ch1 = document.getElementById("ch1");
+    let ch2 = document.getElementById("ch2");
 
     let longAnswer = document.getElementById("long-answer");
     let longAnswerText = document.getElementById("single");
@@ -20,33 +21,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     multipleChoiceOption.addEventListener("click", function() {
         choices.value = null;
-        if (multipleChoiceOption.className === "form-radio-button") {
-            option.classList.remove("hidden");
-            multipleChoiceOption.classList.add("active");
-            longAnswerText.classList.add("hidden");
-            longAnswer.classList.remove("active");
-            multipleChoiceOption.classList.add("active");
+
+        option.classList.remove("hidden");
+        multipleChoiceOption.classList.add("active");
+        longAnswerText.classList.add("hidden");
+        longAnswer.classList.remove("active");
+        multipleChoiceOption.classList.add("active");
+        if (optionContainer.children.length > 0){
             while (optionContainer.hasChildNodes()) {
                 optionContainer.removeChild(optionContainer.lastElementChild);
             }
-        } else {
-            option.classList.add("hidden");
-            multipleChoiceOption.classList.remove("active");
+        }
+
+        if (sub.classList.contains("submission")) {
+            sub.classList.add("hidden");
+            sub.classList.remove("submission");
         }
     });
 
     longAnswer.addEventListener("click", function() {
         characters.value = null;
-        if (longAnswer.className === "form-radio-button") {
-            longAnswerText.classList.remove("hidden");
-            longAnswer.classList.add("active");
-            multipleChoiceOption.classList.remove("active");
-            option.classList.add("hidden");
-            multipleChoiceOption.classList.remove("active");
 
-        } else {
-            longAnswerText.classList.add("hidden");
-            longAnswer.classList.remove("active");
+        longAnswerText.classList.remove("hidden");
+        longAnswer.classList.add("active");
+        multipleChoiceOption.classList.remove("active");
+        option.classList.add("hidden");
+        multipleChoiceOption.classList.remove("active");
+
+        if (sub.classList.contains("submission")) {
+            sub.classList.add("hidden");
+            sub.classList.remove("submission");
         }
     });
 
@@ -79,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     submit.addEventListener("click", function(){
-        if (multipleChoiceOption.className === "form-radio-button"){
+        if (multipleChoiceOption.classList.contains("active")){
             let choiceOptions = []
             for (let i = 0; i < (choices.value); i++) {
                 let theID = "ch" + (i+1);
@@ -91,9 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
             sub.classList.add("submission");
             enquiry.value = "";
             choices.value = "";
+            ch1.value = "";
+            ch2.value = "";
             while (optionContainer.hasChildNodes()) {
                 optionContainer.removeChild(optionContainer.lastElementChild);
             }
+            Object.keys(questionInformation).forEach(key => {
+                console.log(key, questionInformation[key]);
+            });
         }
         else{
             if (characters.value < 50) {
@@ -105,7 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 sub.classList.add("submission");
                 enquiry.value = "";
                 characters.value = null;
+                Object.keys(questionInformation).forEach(key => {
+                    console.log(key, questionInformation[key]);
+                });
             }
         }
+
     });
 });
