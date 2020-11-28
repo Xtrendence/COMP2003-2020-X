@@ -65,7 +65,6 @@
             <input class="choice-field" placeholder="Choice 1..." type="text">
             <input class="choice-field" placeholder="Choice 2..." type="text">
             <div id="multiple-sub">
-
             </div>
         </div>
 
@@ -81,6 +80,7 @@
                 <span>Submit Question</span>
             </button>
         </div>
+
         <div id="sub" class="hidden">
             <span>Question Submitted</span>
         </div>
