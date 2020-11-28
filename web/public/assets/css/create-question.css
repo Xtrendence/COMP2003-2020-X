@@ -32,25 +32,6 @@ input {
     outline: none;
 }
 
-/*submit button*/
-.button-wrapper {
-    padding: 20px 20px 10px 20px;
-    width: 100%;
-}
-
-.submit-button {
-    text-align: center;
-    padding: 10px 10px 10px 10px;
-    background: var(--accent-gradient);
-    color: var(--accent-contrast);
-    font-weight: bold;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    font-size: var(--font-medium);
-    cursor: pointer;
-}
-
 /*radio button */
 .radio-button-container {
     display: block;
@@ -79,10 +60,32 @@ input {
 }
 
 .the-label{
+    top: 50%;
 }
 
 .choice {
     display: block;
+}
+
+/*submit button*/
+.button-wrapper {
+    padding: 20px 20px 10px 20px;
+}
+
+.submit-button {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    margin: auto auto;
+    display: block;
+
 }
 
 /*misc*/
