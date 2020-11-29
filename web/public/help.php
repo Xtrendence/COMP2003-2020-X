@@ -9,6 +9,7 @@
 <head>
     <link rel="stylesheet" href="../public/assets/css/themes.css">
     <link rel="stylesheet" href="../public/assets/css/global.css">
+    <link rel="stylesheet" href="../public/assets/css/help/style.css">
     <meta charset="UTF-8">
     <title>Help Page</title>
 </head>
@@ -37,11 +38,47 @@
 </div>
 
 
+
+
 <div class="wrapper">
 
-    <div class="title-card"
-         <h1>FAQ & General Help</h1>
+    <div class="title-card">
+    <h1>FAQ & General Help</h1>
     </div>
+
+    <div class="wide-card">
+        <h2>How do I change user details?</h2>
+    </div>
+
+    <div class="wide-card">
+        <h2>How do I ask users questions?</h2>
+    </div>
+
+     <div class="wide-card">
+         <span>How does the notification system work?</span>
+     </div>
+
+    <div class="wide-card">
+        <h2>How do I delete a user?</h2>
+    </div>
+
+    <div class="wide-card">
+        <h2>How can I edit a question?</h2>
+    </div>
+
+    <div class="wide-card">
+        <h2>How can I delete a question?</h2>
+    </div>
+
+    <div class="wide-card">
+        <h2>What do the charts represent?</h2>
+    </div>
+
+    <div class="wide-card">
+        <h2>Where does the data get saved?</h2>
+    </div>
+
+
 
 
 
