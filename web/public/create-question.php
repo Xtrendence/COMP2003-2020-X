@@ -46,12 +46,12 @@
 
         <div class="radio-button-container">
             <div id="multiple-choice-op" class="form-radio-button active"></div>
-            <span class="the-label">Multiple Choice</span>
+            <span>Multiple Choice</span>
         </div>
 
         <div class="radio-button-container">
             <div id="long-answer" class="form-radio-button"></div>
-            <span class="the-label">User Input</span>
+            <span>User Input</span>
         </div>
 
         <div id="multiple" class="">
