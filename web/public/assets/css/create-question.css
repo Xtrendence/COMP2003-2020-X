@@ -37,6 +37,7 @@ input {
     display: block;
     font-weight: bold;
     margin: 20px auto 0 auto;
+    line-height: 25px;
 }
 
 .form-radio-button {
@@ -59,8 +60,8 @@ input {
     pointer-events: none;
 }
 
-.the-label{
-    top: 50%;
+.radio-button-container span{
+    vertical-align: top;
 }
 
 .choice {
