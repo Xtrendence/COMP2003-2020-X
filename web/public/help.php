@@ -43,39 +43,39 @@
 <div class="wrapper">
 
     <div class="title-card">
-    <h1>FAQ & General Help</h1>
+    <span>FAQ & General Help</span>
     </div>
 
     <div class="wide-card">
-        <h2>How do I change user details?</h2>
+        <span class="body-text">How do I change user details?</span>
     </div>
 
     <div class="wide-card">
-        <h2>How do I ask users questions?</h2>
+        <span class="body-text">How do I ask users questions?</span>
     </div>
 
      <div class="wide-card">
-         <span>How does the notification system work?</span>
+         <span class="body-text">How does the notification system work?</span>
      </div>
 
     <div class="wide-card">
-        <h2>How do I delete a user?</h2>
+        <span class="body-text">How do I delete a user?</span>
     </div>
 
     <div class="wide-card">
-        <h2>How can I edit a question?</h2>
+        <span class="body-text">How can I edit a question?</span>
     </div>
 
     <div class="wide-card">
-        <h2>How can I delete a question?</h2>
+        <span class="body-text">How can I delete a question?</span>
     </div>
 
     <div class="wide-card">
-        <h2>What do the charts represent?</h2>
+        <span class="body-text">What do the charts represent?</span>
     </div>
 
     <div class="wide-card">
-        <h2>Where does the data get saved?</h2>
+        <span class="body-text">Where does the data get saved?</span>
     </div>
 
 
