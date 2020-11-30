@@ -138,3 +138,19 @@ body {
     outline: none;
     cursor: default;
 }
+
+/*misc*/
+.seperator {
+    background: var(--accent-gradient);
+    color: var(--main-contrast);
+    box-shadow: var(--shadow-smooth);
+    padding: 2px 2px 2px 2px;
+    margin: 20px auto 0 auto;
+    width: calc(100% - 40px - 20px);
+    border-radius: 10px;
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
