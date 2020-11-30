@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         longAnswerRadioButton.classList.remove("active");
         multipleChoiceRadioButton.classList.add("active");
 
-        if (optionContainer.children.length > 0){
+        if (optionContainer.children.length > 0) {
             optionContainer.innerHTML = "";
         }
 
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
      *      once that is checked, it removes all the child nodes from the option container where the
      *      number of choices are larger than 2 and 16 or less
      */
-    numberOfChoices.addEventListener("keyup", function(e){
+    numberOfChoices.addEventListener("keyup", function(e) {
         if (e.key.toLowerCase() === "backspace") {
             if (numberOfChoices.value > 2 || numberOfChoices.value <= 16) {
                 optionContainer.innerHTML = "";
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
      *      when this is the case it will add the appropriate number of choice boxes into
      *      the option container. if not it will highlight the box with an error
      */
-    numberOfChoices.addEventListener("keyup", function(){
+    numberOfChoices.addEventListener("keyup", function() {
         optionContainer.innerHTML = "";
         if (numberOfChoices.value <= 16) {
             numberOfChoices.classList.remove("error");
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /**
      * @desc checks that limit is more than 50 characters
      */
-    characterLimit.addEventListener("keyup", function(){
+    characterLimit.addEventListener("keyup", function() {
         if (characterLimit.value < 50) {
             characterLimit.classList.add("error");
         } else {
@@ -123,12 +123,13 @@ document.addEventListener("DOMContentLoaded", () => {
      *      be highlighted red. Once corrected, it creates the object containing the question, type of question
      *      and the character limit.
      */
-    submitButton.addEventListener("click", function(){
-        if (multipleChoiceRadioButton.classList.contains("active")){
+    submitButton.addEventListener("click", function() {
+        if (multipleChoiceRadioButton.classList.contains("active")) {
             let choiceOptions = []
             let choiceFields = document.getElementsByClassName("choice-field");
             for (let i = 0; i < choiceFields.length; i++) {
                 choiceOptions.push(choiceFields[i].value);
+                choiceFields[i].value = "";
             }
 
             let questionInformation = {"Question" : enquiry.value , "Type" : "Multiple Choice", "Choices" : choiceOptions};
@@ -141,9 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
             submitText.classList.add("submission");
             enquiry.value = "";
             numberOfChoices.value = "";
-            for (let i = 0; i < 2; i++) {
-                choiceFields[i].value = "";
-            }
             optionContainer.innerHTML = "";
         } else {
 
