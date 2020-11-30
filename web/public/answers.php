@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/answers.css">
     <meta charset="UTF-8">
-    <title>Question &amp Answer page</title>
+    <title>Question &amp; Answer page</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
 
 <div class="wrapper">
     <div class="title-card">
-        Questions &amp Answers - User
+        Questions &amp; Answers - User
     </div>
 </div>
 
