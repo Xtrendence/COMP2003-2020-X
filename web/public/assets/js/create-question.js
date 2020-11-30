@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let formComplete = true;
         for (let i = 0; i < input.length; i ++) {
             if (input[i].value.trim() === "" && !input[i].classList.contains("hidden") && !input[i].parentElement.classList.contains("hidden")) {
-                input[i].classList.add("error")
+                input[i].classList.add("error");
                 formComplete = false;
             } else {
-                input[i].classList.remove("error")
+                input[i].classList.remove("error");
             }
         }
         return formComplete;
@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     multipleChoiceRadioButton.addEventListener("click", function() {
         let input = document.getElementsByTagName("input");
-        for (let i = 0; i < input.length; i ++) {
-            input[i].classList.remove("error")
-            }
+        for (let i = 0; i < input.length; i++) {
+            input[i].classList.remove("error");
+        }
 
         for (let i = 0; i < 2; i++) {
             choiceFields[i].value = "";
@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     longAnswerRadioButton.addEventListener("click", function() {
         let input = document.getElementsByTagName("input");
-        for (let i = 0; i < input.length; i ++) {
-            input[i].classList.remove("error")
+        for (let i = 0; i < input.length; i++) {
+            input[i].classList.remove("error");
         }
 
         characterLimit.value = null;
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     submitButton.addEventListener("click", function() {
         if (checkForm()) {
             if (multipleChoiceRadioButton.classList.contains("active")) {
-                let choiceOptions = []
+                let choiceOptions = [];
                 let choiceFields = document.getElementsByClassName("choice-field");
                 for (let i = 0; i < choiceFields.length; i++) {
                     choiceOptions.push(choiceFields[i].value);
