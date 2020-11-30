@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../public/assets/css/global.css">
     <link rel="stylesheet" href="../public/assets/css/create-question.css">
     <meta charset="UTF-8">
-    <title></title>
+    <title>Developers Page</title>
 </head>
 
 <body>
