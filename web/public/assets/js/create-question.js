@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let multipleOption = document.getElementById("multiple");
     let numberOfChoices = document.getElementById("number-of-choices");
+    let choiceFields = document.getElementsByClassName("choice-field");
     let optionContainer = document.getElementById("multiple-sub");
 
     let longAnswerText = document.getElementById("single");
@@ -26,6 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
      *      filled in
      */
     multipleChoiceRadioButton.addEventListener("click", function() {
+        for (let i = 0; i < 2; i++) {
+            choiceFields[i].value = "";
+        }
         numberOfChoices.value = null;
         multipleOption.classList.remove("hidden");
         multipleChoiceRadioButton.classList.add("active");
@@ -34,9 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         multipleChoiceRadioButton.classList.add("active");
 
         if (optionContainer.children.length > 0){
-            while (optionContainer.hasChildNodes()) {
-                optionContainer.removeChild(optionContainer.lastElementChild);
-            }
+            optionContainer.innerHTML = "";
         }
 
         if (submitText.classList.contains("submission")) {
@@ -72,9 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     numberOfChoices.addEventListener("keyup", function(e){
         if (e.key.toLowerCase() === "backspace") {
             if (numberOfChoices.value > 2 || numberOfChoices.value <= 16) {
-                while (optionContainer.hasChildNodes()) {
-                    optionContainer.removeChild(optionContainer.lastElementChild);
-                }
+                optionContainer.innerHTML = "";
             }
         }
     });
@@ -85,22 +85,31 @@ document.addEventListener("DOMContentLoaded", () => {
      *      when this is the case it will add the appropriate number of choice boxes into
      *      the option container. if not it will highlight the box with an error
      */
-    numberOfChoices.addEventListener("keypress", function(e){
-        if (e.key.toLowerCase() === "enter") {
-            if (numberOfChoices.value <= 16) {
-                numberOfChoices.classList.remove("error");
-                for (let i = 2; i < (numberOfChoices.value); i++) {
-                    let input = document.createElement("input");
-                    input.type = "text";
-                    input.classList.add("choice-field");
-                    input.placeholder = "Choice " + (i + 1) + "...";
-                    optionContainer.appendChild(input);
-                }
-            } else {
-                numberOfChoices.classList.add("error");
+    numberOfChoices.addEventListener("keyup", function(){
+        optionContainer.innerHTML = "";
+        if (numberOfChoices.value <= 16) {
+            numberOfChoices.classList.remove("error");
+            for (let i = 2; i < (numberOfChoices.value); i++) {
+                let input = document.createElement("input");
+                input.type = "text";
+                input.classList.add("choice-field");
+                input.placeholder = "Choice " + (i + 1) + "...";
+                optionContainer.appendChild(input);
             }
+        } else {
+            numberOfChoices.classList.add("error");
         }
+    });
 
+    /**
+     * @desc checks that limit is more than 50 characters
+     */
+    characterLimit.addEventListener("keyup", function(){
+        if (characterLimit.value < 50) {
+            characterLimit.classList.add("error");
+        } else {
+            characterLimit.classList.remove("error");
+        }
     });
 
     /**
@@ -135,23 +144,18 @@ document.addEventListener("DOMContentLoaded", () => {
             for (let i = 0; i < 2; i++) {
                 choiceFields[i].value = "";
             }
-
-            while (optionContainer.hasChildNodes()) {
-                optionContainer.removeChild(optionContainer.lastElementChild);
-            }
+            optionContainer.innerHTML = "";
         } else {
-            if (characterLimit.value < 50) {
-                characterLimit.classList.add("error");
-            } else {
-                let questionInformation = {"Question" : enquiry.value , "Type" : "Long Answer", "Length" : characterLimit.value};
-                submitText.classList.remove("hidden");
-                submitText.classList.add("submission");
-                enquiry.value = "";
-                characterLimit.value = null;
-                Object.keys(questionInformation).forEach(key => {
-                    console.table(key, questionInformation[key]);
-                });
-            }
+
+        let questionInformation = {"Question" : enquiry.value , "Type" : "Long Answer", "Length" : characterLimit.value};
+        submitText.classList.remove("hidden");
+        submitText.classList.add("submission");
+        enquiry.value = "";
+        characterLimit.value = null;
+
+        Object.keys(questionInformation).forEach(key => {
+            console.table(key, questionInformation[key]);
+        });
         }
     });
 });
