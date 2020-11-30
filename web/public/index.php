@@ -38,9 +38,11 @@ php
 </div>
 
 <div class="wrapper">
-    <div class="title-card">
 
+    <div class="title-card">
+        <span class="title-text">BRIMS SMS</span>
     </div>
+
 </div>
 
 </body>

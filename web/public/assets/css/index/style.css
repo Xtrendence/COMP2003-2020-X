@@ -5,7 +5,10 @@
 .title-text{
     font-size: var(--font-larger);
     font-weight: bold;
-    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 8em
+
 
 }
 
