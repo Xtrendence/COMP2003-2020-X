@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
      * @desc variables made from id's in the create-question.php
      * all are in order as seen in the php file
      */
-    let input = document.getElementsByTagName("input");
     let enquiry = document.getElementById("question");
 
     let multipleChoiceRadioButton = document.getElementById("multiple-choice-op");
@@ -27,9 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
      * @returns {boolean}
      */
     function checkForm() {
+        let input = document.getElementsByTagName("input");
         let formComplete = true;
         for (let i = 0; i < input.length; i ++) {
-            if (input[i].value === "") {
+            if (input[i].value.trim() === "" && !input[i].classList.contains("hidden") && !input[i].parentElement.classList.contains("hidden")) {
                 input[i].classList.add("error")
                 formComplete = false;
             } else {
@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
      *      filled in
      */
     multipleChoiceRadioButton.addEventListener("click", function() {
+        let input = document.getElementsByTagName("input");
         for (let i = 0; i < input.length; i ++) {
             input[i].classList.remove("error")
             }
@@ -75,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
      *      filled in
      */
     longAnswerRadioButton.addEventListener("click", function() {
+        let input = document.getElementsByTagName("input");
         for (let i = 0; i < input.length; i ++) {
             input[i].classList.remove("error")
         }
@@ -150,8 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
      *      and the character limit.
      */
     submitButton.addEventListener("click", function() {
-        let completeness = checkForm();
-        if (completeness === true) {
+        if (checkForm()) {
             if (multipleChoiceRadioButton.classList.contains("active")) {
                 let choiceOptions = []
                 let choiceFields = document.getElementsByClassName("choice-field");
@@ -176,7 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 numberOfChoices.value = "";
                 optionContainer.innerHTML = "";
             } else {
-
                 let questionInformation = {
                     "Question": enquiry.value,
                     "Type": "Long Answer",

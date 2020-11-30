@@ -101,7 +101,7 @@ input[type=number] {
 }
 
 input.error {
-    box-shadow: 0 1px 1px rgba(125,103,129,0.2), 0 2px 2px rgba(108,84,106,0.3), 0 4px 4px rgba(100,65,82,0.4), 0 8px 8px rgba(100,47,59,0.5);
+    box-shadow: var(--error-shadow);
 }
 
 .submission {
