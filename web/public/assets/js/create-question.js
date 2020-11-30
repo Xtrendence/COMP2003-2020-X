@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * @desc variables made from id's in the create-question.php
      * all are in order as seen in the php file
      */
+    let input = document.getElementsByTagName("input");
     let enquiry = document.getElementById("question");
 
     let multipleChoiceRadioButton = document.getElementById("multiple-choice-op");
@@ -22,11 +23,32 @@ document.addEventListener("DOMContentLoaded", () => {
     let submitText = document.getElementById("sub");
 
     /**
-     * @desc event listener that looks for the click on the multiple choice radio button
+     * @desc checks to see is all input boxes have been inputted into
+     * @returns {boolean}
+     */
+    function checkForm() {
+        let formComplete = true;
+        for (let i = 0; i < input.length; i ++) {
+            if (input[i].value === "") {
+                input[i].classList.add("error")
+                formComplete = false;
+            } else {
+                input[i].classList.remove("error")
+            }
+        }
+        return formComplete;
+    }
+
+    /**
+     * @desc event listener removes any error boxes, then looks for the click on the multiple choice radio button
      *      it clears all the input boxes, not the question box, and shows all the relevant information boxes to be
      *      filled in
      */
     multipleChoiceRadioButton.addEventListener("click", function() {
+        for (let i = 0; i < input.length; i ++) {
+            input[i].classList.remove("error")
+            }
+
         for (let i = 0; i < 2; i++) {
             choiceFields[i].value = "";
         }
@@ -48,11 +70,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
-     * @desc event listener that looks for the click on the long answer radio button
+     * @desc event listener removes any error boxes, then looks for the click on the long answer radio button
      *      it clears all the input boxes, not the question box, and shows all the relevant information boxes to be
      *      filled in
      */
     longAnswerRadioButton.addEventListener("click", function() {
+        for (let i = 0; i < input.length; i ++) {
+            input[i].classList.remove("error")
+        }
+
         characterLimit.value = null;
         longAnswerText.classList.remove("hidden");
         longAnswerRadioButton.classList.add("active");
@@ -87,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     numberOfChoices.addEventListener("keyup", function() {
         optionContainer.innerHTML = "";
-        if (numberOfChoices.value <= 16) {
+        if (numberOfChoices.value >= 2 && numberOfChoices.value <= 16) {
             numberOfChoices.classList.remove("error");
             for (let i = 2; i < (numberOfChoices.value); i++) {
                 let input = document.createElement("input");
@@ -124,36 +150,47 @@ document.addEventListener("DOMContentLoaded", () => {
      *      and the character limit.
      */
     submitButton.addEventListener("click", function() {
-        if (multipleChoiceRadioButton.classList.contains("active")) {
-            let choiceOptions = []
-            let choiceFields = document.getElementsByClassName("choice-field");
-            for (let i = 0; i < choiceFields.length; i++) {
-                choiceOptions.push(choiceFields[i].value);
-                choiceFields[i].value = "";
+        let completeness = checkForm();
+        if (completeness === true) {
+            if (multipleChoiceRadioButton.classList.contains("active")) {
+                let choiceOptions = []
+                let choiceFields = document.getElementsByClassName("choice-field");
+                for (let i = 0; i < choiceFields.length; i++) {
+                    choiceOptions.push(choiceFields[i].value);
+                    choiceFields[i].value = "";
+                }
+
+                let questionInformation = {
+                    "Question": enquiry.value,
+                    "Type": "Multiple Choice",
+                    "Choices": choiceOptions
+                };
+
+                Object.keys(questionInformation).forEach(key => {
+                    console.table(key, questionInformation[key]);
+                });
+
+                submitText.classList.remove("hidden");
+                submitText.classList.add("submission");
+                enquiry.value = "";
+                numberOfChoices.value = "";
+                optionContainer.innerHTML = "";
+            } else {
+
+                let questionInformation = {
+                    "Question": enquiry.value,
+                    "Type": "Long Answer",
+                    "Length": characterLimit.value
+                };
+                submitText.classList.remove("hidden");
+                submitText.classList.add("submission");
+                enquiry.value = "";
+                characterLimit.value = null;
+
+                Object.keys(questionInformation).forEach(key => {
+                    console.table(key, questionInformation[key]);
+                });
             }
-
-            let questionInformation = {"Question" : enquiry.value , "Type" : "Multiple Choice", "Choices" : choiceOptions};
-
-            Object.keys(questionInformation).forEach(key => {
-                console.table(key, questionInformation[key]);
-            });
-
-            submitText.classList.remove("hidden");
-            submitText.classList.add("submission");
-            enquiry.value = "";
-            numberOfChoices.value = "";
-            optionContainer.innerHTML = "";
-        } else {
-
-        let questionInformation = {"Question" : enquiry.value , "Type" : "Long Answer", "Length" : characterLimit.value};
-        submitText.classList.remove("hidden");
-        submitText.classList.add("submission");
-        enquiry.value = "";
-        characterLimit.value = null;
-
-        Object.keys(questionInformation).forEach(key => {
-            console.table(key, questionInformation[key]);
-        });
         }
     });
 });
