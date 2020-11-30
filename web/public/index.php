@@ -8,6 +8,7 @@ php
 <head>
     <link rel="stylesheet" href="../public/assets/css/themes.css">
     <link rel="stylesheet" href="../public/assets/css/global.css">
+    <link rel="stylesheet" href="../public/assets/css/index/style.css">
 
     <meta charset="UTF-8">
     <title>BRIMS SMS Home</title>
