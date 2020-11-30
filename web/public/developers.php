@@ -8,7 +8,8 @@
 <head>
     <link rel="stylesheet" href="../public/assets/css/themes.css">
     <link rel="stylesheet" href="../public/assets/css/global.css">
-    <link rel="stylesheet" href="../public/assets/css/create-question.css">
+    <link rel="stylesheet" href="../public/assets/css/developers/style.css">
+
     <meta charset="UTF-8">
     <title>Developers Page</title>
 </head>
@@ -37,9 +38,7 @@
 </div>
 
 <div class="wrapper">
-    <div class="title-card">
 
-    </div>
 </div>
 
 </body>
