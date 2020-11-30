@@ -1,0 +1,15 @@
+.body-text{
+    font-size: var(--font-medium);
+}
+
+.title-text{
+    font-size: var(--font-larger);
+    font-weight: bold;
+    text-align: center;
+
+}
+
+.subtitle-text{
+    font-size: medium;
+    font-weight: bold;
+}
