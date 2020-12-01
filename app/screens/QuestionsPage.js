@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpa
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
+import { TopBar } from '../components/TopBar';
 import LoadingScreen from '../components/LoadingScreen';
 
 const screenWidth = Dimensions.get("window").width;
@@ -19,7 +20,7 @@ export const QuestionsPage = ({ navigation }) => {
 			{ loading &&
 				<LoadingScreen>Saving...</LoadingScreen>
 			}
-			<View style={styles.topBarPlaceholder}></View>
+			<TopBar>Questions</TopBar>
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>Have you been getting more headaches?</Text>
