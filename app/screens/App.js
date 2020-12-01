@@ -10,6 +10,7 @@ export default function App() {
 	
 	if(loggedIn) {
 		return (
+			// BottomBar is the NavigationContainer that allows the user to navigate between the different screens of the app. By default, the "Questions" page is shown.
 			<BottomBar></BottomBar>
 			
 		);
