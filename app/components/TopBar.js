@@ -11,13 +11,13 @@ export function TopBar(props) {
     return (
         <View style={styles.header}>
             <TouchableOpacity style={styles.cogView}>
-                <Icon name="cog" color={globalColors.accentContrast} size={globalStyles.TopBarIconSize}  />
+                <Icon name="cog" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
             </TouchableOpacity>
             <View style={styles.textView}>
                 <Text style={styles.headerText}>{ props.children }</Text>
             </View>
             <TouchableOpacity style={styles.logoutView}>
-                <Icon name="log-out" color={globalColors.accentContrast} size={globalStyles.TopBarIconSize}  />
+                <Icon name="log-out" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
             </TouchableOpacity>
         </View>
     );
