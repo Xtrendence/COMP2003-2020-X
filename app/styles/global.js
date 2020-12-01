@@ -30,7 +30,7 @@ export const globalStyles = {
 	mediumFont: 18,
 	bigFont: 20,
 	bottomBarIconSize: 22,
-	TopBarIconSize: 20,
+	topBarIconSize: 20,
 };
 
 export const globalComponentStyles = {
