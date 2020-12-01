@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: "bold",
-        fontSize: 20,
+        fontSize: globalStyles.bigFont,
         color: globalColors.accentContrast,
         letterSpacing: 1,
     },
