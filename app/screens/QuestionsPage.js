@@ -4,16 +4,21 @@ import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpa
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
+import LoadingScreen from '../components/LoadingScreen';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export const QuestionsPage = ({ navigation }) => {
+	const [loading, setLoading] = React.useState(false);
 	const [checked, setChecked] = React.useState({});
 	const [answers, setAnswers] = React.useState({});
 
 	return (
 		<View style={styles.container}>
+			{ loading &&
+				<LoadingScreen>Saving...</LoadingScreen>
+			}
 			<View style={styles.topBarPlaceholder}></View>
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
@@ -38,7 +43,7 @@ export const QuestionsPage = ({ navigation }) => {
 				</View>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>What did you have for lunch?</Text>
-					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => saveAnswer(1, value)} value={answers[1]}></TextInput>
+					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 1:value })} value={answers[1]}></TextInput>
 					<View style={styles.buttonWrapper}>
 						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(1, answers[1])}>
 							<Text style={styles.actionText}>Save</Text>
@@ -75,7 +80,7 @@ export const QuestionsPage = ({ navigation }) => {
 				</Card>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>What did you have for dinner?</Text>
-					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => saveAnswer(3, value)} value={answers[3]}></TextInput>
+					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 3:value })} value={answers[3]}></TextInput>
 					<View style={styles.buttonWrapper}>
 						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(3, answers[3])}>
 							<Text style={styles.actionText}>Save</Text>
@@ -90,15 +95,15 @@ export const QuestionsPage = ({ navigation }) => {
 		setChecked({ ...checked, [key]:value });
 	}
 	function saveAnswer(key, value) {
-		setAnswers({ ...answers, [key]:value });
+		setLoading(true);
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'flex-start',
+		alignItems: "center",
+		justifyContent: "flex-start",
 		backgroundColor: globalColors.mainSecond,
 		width: "100%",
 	},
