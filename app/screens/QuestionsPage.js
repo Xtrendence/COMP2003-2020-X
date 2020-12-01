@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpa
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
+import { TopBar } from '../components/TopBar';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
