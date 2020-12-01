@@ -4,22 +4,26 @@ import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpa
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
-import { TopBar } from '../components/TopBar';
+import LoadingScreen from '../components/LoadingScreen';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export const QuestionsPage = ({ navigation }) => {
+	const [loading, setLoading] = React.useState(false);
 	const [checked, setChecked] = React.useState({});
 	const [answers, setAnswers] = React.useState({});
 
 	return (
 		<View style={styles.container}>
+			{ loading &&
+				<LoadingScreen>Saving...</LoadingScreen>
+			}
 			<View style={styles.topBarPlaceholder}></View>
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>Have you been getting more headaches?</Text>
-					<RadioButton.Group onValueChange={value => setChecked({ ...checked, 0:value })} value={checked[0]}>
+					<RadioButton.Group onValueChange={value => saveChecked(0, value)} value={checked[0]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
 							<Text>No</Text>
@@ -51,7 +55,7 @@ export const QuestionsPage = ({ navigation }) => {
 				</View>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>You feel more balance issues at night.</Text>
-					<RadioButton.Group onValueChange={value => setChecked({ ...checked, 2:value })} value={checked[2]}>
+					<RadioButton.Group onValueChange={value => saveChecked(2, value)} value={checked[2]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
 							<Text>Disagree</Text>
@@ -87,16 +91,19 @@ export const QuestionsPage = ({ navigation }) => {
 		</View>
 	);
 
+	function saveChecked(key, value) {
+		setChecked({ ...checked, [key]:value });
+	}
 	function saveAnswer(key, value) {
-		
+		setLoading(true);
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'flex-start',
+		alignItems: "center",
+		justifyContent: "flex-start",
 		backgroundColor: globalColors.mainSecond,
 		width: "100%",
 	},
