@@ -18,7 +18,7 @@ export const QuestionsPage = ({ navigation }) => {
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>Have you been getting more headaches?</Text>
-					<RadioButton.Group onValueChange={value => setChecked({ ...checked, 0:value })} value={checked[0]}>
+					<RadioButton.Group onValueChange={value => saveChecked(0, value)} value={checked[0]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
 							<Text>No</Text>
@@ -38,7 +38,7 @@ export const QuestionsPage = ({ navigation }) => {
 				</View>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>What did you have for lunch?</Text>
-					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 1:value })} value={answers[1]}></TextInput>
+					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => saveAnswer(1, value)} value={answers[1]}></TextInput>
 					<View style={styles.buttonWrapper}>
 						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(1, answers[1])}>
 							<Text style={styles.actionText}>Save</Text>
@@ -50,7 +50,7 @@ export const QuestionsPage = ({ navigation }) => {
 				</View>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>You feel more balance issues at night.</Text>
-					<RadioButton.Group onValueChange={value => setChecked({ ...checked, 2:value })} value={checked[2]}>
+					<RadioButton.Group onValueChange={value => saveChecked(2, value)} value={checked[2]}>
 						<View style={styles.radioBlock}>
 							<RadioButton value="Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
 							<Text>Disagree</Text>
@@ -75,7 +75,7 @@ export const QuestionsPage = ({ navigation }) => {
 				</Card>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>What did you have for dinner?</Text>
-					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 3:value })} value={answers[3]}></TextInput>
+					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => saveAnswer(3, value)} value={answers[3]}></TextInput>
 					<View style={styles.buttonWrapper}>
 						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(3, answers[3])}>
 							<Text style={styles.actionText}>Save</Text>
@@ -86,8 +86,11 @@ export const QuestionsPage = ({ navigation }) => {
 		</View>
 	);
 
+	function saveChecked(key, value) {
+		setChecked({ ...checked, [key]:value });
+	}
 	function saveAnswer(key, value) {
-		
+		setAnswers({ ...answers, [key]:value });
 	}
 }
 
