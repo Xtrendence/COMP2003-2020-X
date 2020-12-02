@@ -2,3 +2,7 @@
     font-size: var(--font-medium);
     font-weight: bold;
 }
+
+.caret-text {
+    font-size: var(--font-medium);
+}

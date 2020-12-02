@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../public/assets/css/help/style.css">
 
     <script src="assets/js/help-cards.js"></script>
-    
+
     <meta charset="UTF-8">
     <title>Help Page</title>
 </head>
@@ -63,10 +63,6 @@
 
     <div class="wide-card">
         <span class="body-text">How do I delete a user?</span>
-    </div>
-
-    <div class="wide-card">
-        <span class="body-text">How can I edit a question?</span>
     </div>
 
     <div class="wide-card">
