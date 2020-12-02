@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		width: "100%",
 		height: "100%",
-		backgroundColor: "rgba(10,10,10,0.85)",
+		backgroundColor: "rgba(18,18,18,0.85)",
 	},
 	loadingText: {
 		fontSize: globalStyles.bigFont,

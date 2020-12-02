@@ -20,7 +20,7 @@ export const QuestionsPage = ({ navigation }) => {
 			{ loading &&
 				<LoadingScreen>Saving...</LoadingScreen>
 			}
-			<TopBar>Questions</TopBar>
+			<TopBar navigation={navigation}>Questions</TopBar>
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>Have you been getting more headaches?</Text>
@@ -97,6 +97,9 @@ export const QuestionsPage = ({ navigation }) => {
 	}
 	function saveAnswer(key, value) {
 		setLoading(true);
+		setTimeout(() => {
+			setLoading(false);
+		}, 100);
 	}
 }
 

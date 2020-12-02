@@ -7,7 +7,7 @@ import { TopBar } from '../components/TopBar';
 export const ChartsPage = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
-			<TopBar>Charts</TopBar>
+			<TopBar navigation={navigation}>Charts</TopBar>
 		</View>
 	);
 }

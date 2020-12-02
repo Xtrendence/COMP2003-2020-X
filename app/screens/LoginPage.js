@@ -1,19 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Svg, Path } from 'react-native-svg';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, DevSettings } from 'react-native';
 import { globalColors, globalStyles } from '../styles/global';
+import LoadingScreen from '../components/LoadingScreen';
 
 export const LoginPage = ({ navigation }) => {
+	const [loading, setLoading] = React.useState(false);
+	const [username, setUsername] = React.useState();
+	const [password, setPassword] = React.useState();
+
 	return (
 		<View style={styles.pageContainer}>
+			{ loading &&
+				<LoadingScreen>Logging In...</LoadingScreen>
+			}
 			<View style={styles.bannerWrapper}>
 				<Text style={styles.banner}>Login</Text>
 			</View>
 			<View style={styles.loginForm}>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username"></TextInput>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" secureTextEntry></TextInput>
-				<TouchableOpacity style={styles.actionButton}>
+				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} ></TextInput>
+				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} secureTextEntry></TextInput>
+				<TouchableOpacity style={styles.actionButton} onPress={() => login()}>
 					<Text style={styles.actionText}>Login</Text>
 				</TouchableOpacity>
 			</View>
@@ -23,6 +31,14 @@ export const LoginPage = ({ navigation }) => {
 			</View>
 		</View>
 	);
+
+	function login() {
+		setLoading(true);
+		setTimeout(() => {
+			setLoading(false);
+			navigation.navigate("BottomBar");
+		}, 100);
+	}
 }
 
 const styles = StyleSheet.create({
