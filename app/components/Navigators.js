@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { globalColors, globalStyles } from '../styles/global';
+import FlashMessage from 'react-native-flash-message';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -23,6 +24,7 @@ export function StackNavigator() {
 				<Stack.Screen name="LoginPage" component={LoginPage} options={{headerShown:false}}/>
 				<Stack.Screen name="BottomBar" component={BottomBar} options={{headerShown:false}}/>
 			</Stack.Navigator>
+			<FlashMessage position="top" />
 		</NavigationContainer>
 	);
 }

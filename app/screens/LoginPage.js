@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Svg, Path } from 'react-native-svg';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, DevSettings } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { showMessage, hideMessage } from 'react-native-flash-message';
 import { globalColors, globalStyles } from '../styles/global';
 import LoadingScreen from '../components/LoadingScreen';
 
@@ -9,6 +10,11 @@ export const LoginPage = ({ navigation }) => {
 	const [loading, setLoading] = React.useState(false);
 	const [username, setUsername] = React.useState();
 	const [password, setPassword] = React.useState();
+
+	// To be deleted once the API has been made.
+	useEffect(() => {
+		login();
+	}, []);
 
 	return (
 		<View style={styles.pageContainer}>
@@ -20,7 +26,7 @@ export const LoginPage = ({ navigation }) => {
 			</View>
 			<View style={styles.loginForm}>
 				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} ></TextInput>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} secureTextEntry></TextInput>
+				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} onSubmitEditing={() => login()} secureTextEntry></TextInput>
 				<TouchableOpacity style={styles.actionButton} onPress={() => login()}>
 					<Text style={styles.actionText}>Login</Text>
 				</TouchableOpacity>
@@ -36,8 +42,13 @@ export const LoginPage = ({ navigation }) => {
 		setLoading(true);
 		setTimeout(() => {
 			setLoading(false);
+			// showMessage({
+			// 	message: "Error",
+			// 	description: "Invalid login credentials.",
+			// 	type: "danger",
+			// });
 			navigation.navigate("BottomBar");
-		}, 100);
+		}, 20);
 	}
 }
 
