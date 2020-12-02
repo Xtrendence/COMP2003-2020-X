@@ -39,6 +39,45 @@
 
 <div class="wrapper">
 
+    <div class="small-card">
+        <span class="cardtitle-text">Jazib Khan</span>
+        <span class="cardrole-text">Product Owner</span>
+        <span class="github-text">Visit GitHub</span>
+    </div>
+
+    <div class="small-card">
+        <span class="cardtitle-text">Shaun Howarth</span>
+        <span class="cardrole-text">Product Owner</span>
+        <span class="github-text">Visit GitHub</span>
+    </div>
+
+    <div class="small-card">
+        <span class="cardtitle-text">Joshua Bent</span>
+        <span class="cardrole-text">Scrum Master</span>
+        <span class="github-text">Visit GitHub</span>
+    </div>
+
+    <div class="small-card">
+        <span class="cardtitle-text">Stephanie Skinner</span>
+        <span class="cardrole-text">Scrum Master</span>
+        <span class="github-text">Visit GitHub</span>
+    </div>
+
+    <div class="small-card">
+        <span class="cardtitle-text">Bethany Ward</span>
+        <span class="cardrole-text">Tech Lead</span>
+        <span class="github-text">Visit GitHub</span>
+    </div>
+
+    <div class="small-card">
+        <span class="cardtitle-text">Khodadad Nouchin</span>
+        <span class="cardrole-text">Tech Lead</span>
+        <span class="github-text">Visit GitHub</span>
+    </div>
+
+
+
+
 </div>
 
 </body>

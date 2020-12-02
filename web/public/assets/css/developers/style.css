@@ -1,13 +1,14 @@
-.cardtitle-text{
+.cardtitle-text {
     font-size: var(--font-medium);
     font-weight:bold;
 }
 
-.cardrole-text{
+.cardrole-text {
     font-size: var(--font-medium);
     font-style:italic;
 }
 
-.github-text{
+.github-text {
     font-size: var(--font-medium);
 }
+
