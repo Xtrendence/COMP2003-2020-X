@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="../public/assets/css/themes.css">
     <link rel="stylesheet" href="../public/assets/css/global.css">
     <link rel="stylesheet" href="../public/assets/css/help/style.css">
+
+    <script src="assets/js/help-cards.js"></script>
+    
     <meta charset="UTF-8">
     <title>Help Page</title>
 </head>
@@ -86,7 +89,7 @@
 
 
 
-</div>
+
 
 </body>
 
