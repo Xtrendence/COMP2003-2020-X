@@ -51,30 +51,59 @@
 
     <div class="wide-card">
         <span class="body-text">How do I change user details?</span>
+
+            <div class="margin-space">
+        <span class="caret-text">Select a user row from the user’s page and hit the edit button to edit their details. You will then be taken to the ‘Edit Details’ page.</span>
+            </div>
+
     </div>
 
     <div class="wide-card">
         <span class="body-text">How do I ask users questions?</span>
+
+            <div class="margin-space">
+        <span class="caret-text">Select a user row from the user’s page and hit the ‘Ask Question’ button. You will then be taken to the ‘Ask a question page’ where you will have the option to either create a question that requires a written answer or a multiple-choice format from the user. When creating a question that requires a written answer you can set a character limit.</span>
+            </div>
     </div>
 
      <div class="wide-card">
          <span class="body-text">How does the notification system work?</span>
-     </div>
+
+            <div class="margin-space">
+         <span class="caret-text">Patients are reminded every day, at a time of their choosing, to record their daily falls. Whenever a researcher asks the patients a question, the patient is alerted and notified of a new question being asked of them.</span>
+            </div>
+    </div>
 
     <div class="wide-card">
         <span class="body-text">How do I delete a user?</span>
+
+            <div class="margin-space">
+        <span class="caret-text">Select a user row from the user’s page and hit the delete button to remove that user from the table. A popup message will show “are you sure?” confirming if you want to delete that user.</span>
+            </div>
     </div>
 
     <div class="wide-card">
         <span class="body-text">How can I delete a question?</span>
+
+            <div class="margin-space">
+        <span class="caret-text">To delete an existing question for a user, hit the ‘View Answers’ button on a user row. On the view answers page each question will have a delete button that you can click on.</span>
+            </div>
     </div>
 
     <div class="wide-card">
         <span class="body-text">What do the charts represent?</span>
+
+            <div class="margin-space">
+        <span class="caret-text">The charts show a graph for the number of falls for a specific user in the last month. There is also an option to export the current graph you are viewing of a user to a spreadsheet (CSV) file format. Click the ‘View Chart’ button within a user’s row on the users’ page to view their fall data.</span>
+            </div>
     </div>
 
     <div class="wide-card">
         <span class="body-text">Where does the data get saved?</span>
+
+            <div class="margin-space">
+        <span class="caret-text">The data will get saved to a relational MySQL database where all of the users’ details will be recorded.</span>
+            </div>
     </div>
 
 
