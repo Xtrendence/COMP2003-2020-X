@@ -12,6 +12,12 @@
     font-size: var(--font-medium);
 }
 
-.developer-icon{
+.developer-svg {
+    fill: mediumpurple;
+    padding: 15px 15px 15px 10px;
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+
 
 }
