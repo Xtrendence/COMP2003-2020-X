@@ -66,7 +66,7 @@
 			return $command;
 		}
 
-		public function readRange($start, $end) {
+		public function readRange($from, $to) {
 			$query = '';
 			$command = $this->connection->prepare($query);
 			$command->execute();

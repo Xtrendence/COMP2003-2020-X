@@ -10,10 +10,10 @@
 
 	$user = new User($db);
 
-	$start = isset($_GET['start']) ? $_GET['start'] : die();
-	$end = isset($_GET['end']) ? $_GET['end'] : die();
+	$from = isset($_GET['from']) ? $_GET['from'] : die();
+	$to = isset($_GET['to']) ? $_GET['to'] : die();
 
-	$result = $user->readRange($start, $end);
+	$result = $user->readRange($from, $to);
 
 	$rows = $result->rowCount();
 
