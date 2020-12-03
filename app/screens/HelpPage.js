@@ -8,7 +8,7 @@ import Card from '../components/Card';
 export const HelpPage = ({ navigation }) => {
 	return (
 		<View>
-			<TopBar>Help</TopBar>
+			<TopBar navigation={navigation}>Help</TopBar>
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 70}}>
 				<View style={styles.imageWrapper}>
 					<Image style={styles.image} source={require("../assets/Logo.png")}/>
