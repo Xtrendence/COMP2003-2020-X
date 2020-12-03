@@ -33,9 +33,9 @@
 		}
 
 		public function read() {
-			$query = '';
+			$query = 'SELECT * FROM ' . $this->table . ' WHERE patientID=:id';
 			$command = $this->connection->prepare($query);
-			$command->bindParam(1, $this->patientID);
+			$command->bindParam(':id', $this->patientID);
 			$command->execute();
 
 			$row = $command->fetch(PDO::FETCH_ASSOC);
@@ -59,7 +59,7 @@
 		}
 
 		public function readAll() {
-			$query = '';
+			$query = 'SELECT * FROM ' . $this->table;
 			$command = $this->connection->prepare($query);
 			$command->execute();
 
@@ -67,8 +67,10 @@
 		}
 
 		public function readRange($from, $to) {
-			$query = '';
+			$query = 'SELECT * FROM ' . $this->table . ' WHERE patientID BETWEEN :from AND :to';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':from', $from);
+			$command->bindParam(':to', $to);
 			$command->execute();
 
 			return $command;

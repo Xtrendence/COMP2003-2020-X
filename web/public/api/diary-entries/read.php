@@ -13,12 +13,16 @@
 
 	$diaryEntry->read();
 
-	$item = array(
-		'entryID' => $diaryEntry->entryID,
-		'patientID' => $diaryEntry->patientID,
-		'entry_date' => $diaryEntry->entry_date,
-		'entry' => $diaryEntry->entry
-	);
+	if(!empty($diaryEntry->entryID)) {
+		$item = array(
+			'entryID' => $diaryEntry->entryID,
+			'patientID' => $diaryEntry->patientID,
+			'entry_date' => $diaryEntry->entry_date,
+			'entry' => $diaryEntry->entry
+		);
 
-	echo json_encode($item);
+		echo json_encode($item, JSON_PRETTY_PRINT);
+	} else {
+		echo json_encode(array('message' => 'No diary entry found.'));
+	}
 ?>

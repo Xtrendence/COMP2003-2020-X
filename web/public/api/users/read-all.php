@@ -42,7 +42,7 @@
 			array_push($array['data'], $item);
 		}
 
-		echo json_encode($array);
+		echo json_encode($array, JSON_PRETTY_PRINT);
 	} else {
 		echo json_encode(array('message' => 'No users found.'));
 	}

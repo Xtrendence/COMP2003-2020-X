@@ -13,11 +13,15 @@
 
 	$fall->read();
 
-	$item = array(
-		'fallID' => $fall->fallID,
-		'patientID' => $fall->patientID,
-		'fall_date' => $fall->fall_date
-	);
+	if(!empty($fall->fallID)) {
+		$item = array(
+			'fallID' => $fall->fallID,
+			'patientID' => $fall->patientID,
+			'fall_date' => $fall->fall_date
+		);
 
-	echo json_encode($item);
+		echo json_encode($item, JSON_PRETTY_PRINT);
+	} else {
+		echo json_encode(array('message' => 'Fall not found.'));
+	}
 ?>

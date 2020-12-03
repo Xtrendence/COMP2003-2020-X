@@ -20,9 +20,9 @@
 		}
 
 		public function read() {
-			$query = '';
+			$query = 'SELECT * FROM ' . $this->table . ' WHERE patientID=:id';
 			$command = $this->connection->prepare($query);
-			$command->bindParam(1, $this->fallID);
+			$command->bindParam(':id', $this->fallID);
 			$command->execute();
 
 			$row = $command->fetch(PDO::FETCH_ASSOC);
@@ -33,8 +33,17 @@
 		}
 
 		public function readAll() {
-			$query = '';
+			$query = 'SELECT * FROM ' . $this->table;
 			$command = $this->connection->prepare($query);
+			$command->execute();
+
+			return $command;
+		}
+
+		public function readUser() {
+			$query = 'SELECT * FROM ' . $this->table . ' WHERE patientID=:id';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->patientID);
 			$command->execute();
 
 			return $command;
