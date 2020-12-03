@@ -45,7 +45,7 @@ patientID INTEGER NOT NULL,
 entry_date DATETIME NOT NULL,
 entry VARCHAR(21844) CHARACTER SET utf8 ,
 PRIMARY KEY (entryID),
-FOREIGN KEY (patientID) REFERENCES PATIENT(patientID) ON UPDATE CASCADE ON DELETE CASCADE /* or RESTRICT? */
+FOREIGN KEY (patientID) REFERENCES PATIENT(patientID) ON UPDATE CASCADE ON DELETE CASCADE 
 );
 
 CREATE TABLE FALL (
@@ -53,8 +53,7 @@ fallID INTEGER NOT NULL AUTO_INCREMENT,
 patientID INTEGER NOT NULL,
 fall_date DATETIME NOT NULL,
 PRIMARY KEY (fallID),
-FOREIGN KEY (patientID) REFERENCES PATIENT(patientID) ON UPDATE CASCADE ON DELETE CASCADE /* or ON 
-DELETE RESTRICT? Do we want info of patients with research content to be allowed to be removed from the DB? */
+FOREIGN KEY (patientID) REFERENCES PATIENT(patientID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE RESEARCHER (
@@ -84,9 +83,9 @@ CREATE TABLE ADMISSION (
 admissionID INTEGER NOT NULL AUTO_INCREMENT,
 patientID INTEGER NOT NULL,
 researcherID INTEGER,
-admission_date DATETIME NOT NULL, /* maybe it should be allowed to be null? Is admission date the date of patient entering app or the date of entering researcher's watchlist?*/
+admission_date DATETIME NOT NULL, 
 PRIMARY KEY (admissionID),
-CONSTRAINT fk1 FOREIGN KEY (patientID) REFERENCES PATIENT(patientID) ON UPDATE CASCADE ON DELETE CASCADE, /* or RESTRICT? */
+CONSTRAINT fk1 FOREIGN KEY (patientID) REFERENCES PATIENT(patientID) ON UPDATE CASCADE ON DELETE CASCADE, 
 CONSTRAINT fk2 FOREIGN KEY (researcherID) REFERENCES RESEARCHER(researcherID) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
@@ -104,8 +103,8 @@ questionID INTEGER NOT NULL,
 patientID INTEGER NOT NULL,
 answer VARCHAR(21844) CHARACTER SET utf8 NOT NULL,
 PRIMARY KEY (answerID),
-CONSTRAINT fk1 FOREIGN KEY (questionID) REFERENCES QUESTION(questionID) ON UPDATE CASCADE ON DELETE CASCADE, /* or RESTRICT? */
-CONSTRAINT fk2 FOREIGN KEY (patientID) REFERENCES PATIENT(patientID) ON UPDATE CASCADE ON DELETE CASCADE /* or RESTRICT? */
+CONSTRAINT fk1 FOREIGN KEY (questionID) REFERENCES QUESTION(questionID) ON UPDATE CASCADE ON DELETE CASCADE, 
+CONSTRAINT fk2 FOREIGN KEY (patientID) REFERENCES PATIENT(patientID) ON UPDATE CASCADE ON DELETE CASCADE 
 );
 
 CREATE TABLE CHOICE (
@@ -119,19 +118,19 @@ FOREIGN KEY (questionID) REFERENCES QUESTION(questionID) ON UPDATE CASCADE ON DE
 /*
 INSERT INTO PATIENT (patient_nhsRef, patient_username, patient_password, patient_fName, patient_lName, patient_dob, 
 patient_addressI, patient_addressII, patient_postcode, patient_tel, patient_mobile, patient_email, patient_comment, 
-fcmToken, fcmToken_creation) VALUES (1111111111, 'maureenW38', MD5('Iamthedefault'), 'Maureen', 'Ward', '1999/05/05 06:00:00', 
+fcmToken, fcmToken_creation) VALUES (1111111111, 'maureenW38', 'Iamthedefault', 'Maureen', 'Ward', '1999/05/05 06:00:00', 
 '80 North Road East', 'Basement Flat', 'PL3 XQC', '01752 123999', '+44 7849198656', 'shroudedLR754battery@gmail.com', 
 'This one is a keeper, she is doing well.', 'cA0p7foP6Rw:APA91bEe4AHewzKxy9Fy2v5UIZ-twKkIU2A_8WOxQjsZMCHCS9roUATLaOs3_E5KcvB3TQDTZvymM-gBkY0KG3-ffTZh45J0vtRfAnPJ6wis4u7rePAUkeMwPZW1DwqLhuqC96y6Mqp',
 NOW());
 
 INSERT INTO PATIENT (patient_nhsRef, patient_username, patient_password, patient_fName, patient_lName, patient_dob, 
 patient_addressI, patient_addressII, patient_postcode, patient_tel, patient_mobile, patient_email, patient_comment, 
-fcmToken, fcmToken_creation) VALUES (1111111112, 'gillianM69', MD5('Iamthesecond'), 'Gillian', 'Marks', '2000/31/12 12:54:23', 
+fcmToken, fcmToken_creation) VALUES (1111111112, 'gillianM69', 'Iamthesecond', 'Gillian', 'Marks', '2000/31/12 12:54:23', 
 '82 North Road East', '1st Floor Flat', 'PL3 XQZ', '01752 123111', '+44 7123456789', 'wobblingcandycane@outlook.com', 
 'Wants to trial new medication.', 'cA0p7foP6Rw:ADO9noTe4BOtherxy9TryinGIZ-toKfINDA_8EAsTerZEGGSS9becAUSeOs3_E5TheR3TAREZnonE-gBkY0KG3-ffTZh45J0vtRfAnPJ6wis4u7rePAUkeMwPZW1DwqLhuqTOLd6You',
 NOW());
 
 INSERT INTO RESEARCHER (researcher_nhsRef, researcher_username, researcher_password, researcher_fName, researcher_lName,
-researcher_tel, researcher_mobile, researcher_email) VALUES (9999999999, 'drrespectable', MD5('defaultdoctorayyy'), 'Roland', 
-'Respeectable', '01752 766644', '07723619882', 'iamtheonedontweighatondontneedaguntogetrespectuponthestreet@yahoo.com');
+researcher_tel, researcher_mobile, researcher_email) VALUES (9999999999, 'drrespectable', 'defaultdoctorayyy', 'Roland', 
+'Respectable', '01752 766644', '07723619882', 'iamtheonedontweighatondontneedaguntogetrespectuponthestreet@yahoo.com');
 */
