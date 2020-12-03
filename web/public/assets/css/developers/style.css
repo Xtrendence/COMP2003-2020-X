@@ -13,11 +13,9 @@
 }
 
 .developer-svg {
-    fill: mediumpurple;
-    padding: 15px 15px 15px 10px;
-    width: 40px;
-    height: 40px;
-    vertical-align: middle;
-
+    width: 100px;
+    height: 100px;
+    float: left;
+    background: transparent;
 
 }
