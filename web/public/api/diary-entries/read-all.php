@@ -2,36 +2,40 @@
 	header('Access-Control-Allow-Origin: *');
 	header('Content-Type: application/json');
 
-	include_once '../config/Database.php';
-	include_once '../models/DiaryEntry.php';
+	if($_SERVER['REQUEST_METHOD'] == 'GET') {
+		include_once '../config/Database.php';
+		include_once '../models/DiaryEntry.php';
 
-	$database = new Database();
-	$db = $database->connect();
+		$database = new Database();
+		$db = $database->connect();
 
-	$diaryEntry = new DiaryEntry($db);
+		$diaryEntry = new DiaryEntry($db);
 
-	$result = $diaryEntry->readAll();
+		$result = $diaryEntry->readAll();
 
-	$rows = $result->rowCount();
+		$rows = $result->rowCount();
 
-	if($rows > 0) {
-		$array = array();
-		$array['data'] = array();
-		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			extract($row);
+		if($rows > 0) {
+			$array = array();
+			$array['data'] = array();
+			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				extract($row);
 
-			$item = array(
-				'entryID' => $entryID,
-				'patientID' => $patientID,
-				'entry_date' => $entry_date,
-				'entry' => $entry
-			);
+				$item = array(
+					'entryID' => $entryID,
+					'patientID' => $patientID,
+					'entry_date' => $entry_date,
+					'entry' => $entry
+				);
 
-			array_push($array['data'], $item);
+				array_push($array['data'], $item);
+			}
+
+			echo json_encode($array, JSON_PRETTY_PRINT);
+		} else {
+			echo json_encode(array('message' => 'No diary entries found.'));
 		}
-
-		echo json_encode($array, JSON_PRETTY_PRINT);
 	} else {
-		echo json_encode(array('message' => 'No diary entries found.'));
+		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
 	}
 ?>
