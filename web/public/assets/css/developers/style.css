@@ -4,7 +4,7 @@
 }
 
 .cardrole-text {
-    font-size: var(--font-medium);
+    font-size: var(--font-smaller);
     font-style:italic;
 }
 
@@ -12,3 +12,6 @@
     font-size: var(--font-medium);
 }
 
+.developer-icon{
+
+}
