@@ -43,6 +43,19 @@ php
         <span class="title-text">BRIMS SMS</span>
     </div>
 
+    <div class="small-card">
+        <span class="subtitle-text">Learn More About MS</span>
+        <span class="body-text">Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord, causing a wide range of potential symptoms, including problems with vision, arm or leg moment, sensation or balance.</br></br>
+        It’s a lifelong condition that can sometimes cause serious disability, although it can occasionally be mild.</br></br>
+        It’s most commonly diagnosed in people in their 20s and 30s, although it can develop at any age. It’s about 2 to 3 times more common in women than men.</span>
+    </div>
+
+    <div class="small-card">
+        <span class="subtitle-text">What is BRIMS SMS?</span>
+        <span class="body-text">Our system allows you, as researchers, to monitor and analyse data regarding the number of falls that sufferers of MS have. Once they install our app, they can use it to record their falls each day, and the data would get saved in the database to be used for research later on. Our app notifies them every day in order to remind them to record any possible falls they may have had. The data can also be used to see how their condition is progressing, and whether or not they’re falling or losing balance more frequently.
+        Our system also lets you ask questions that users can answer. The questions can either be multiple choice ones, or they can allow the user to write their own response. The user would be notified whenever a question is asked of them.</span>
+    </div>
+
 </div>
 
 </body>
