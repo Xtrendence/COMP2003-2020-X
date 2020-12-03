@@ -31,3 +31,7 @@
     left: 0;
     background: var(--accent-gradient);
 }
+
+.small-card {
+    vertical-align: top;
+}
