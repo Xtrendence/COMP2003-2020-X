@@ -1,8 +1,8 @@
-.body-text{
+.body-text {
     font-size: var(--font-medium);
 }
 
-.title-text{
+.title-text {
     font-size: var(--font-larger);
     font-weight: bold;
     margin-left: auto;
@@ -15,4 +15,19 @@
 .subtitle-text{
     font-size: medium;
     font-weight: bold;
+    position: center;
+}
+
+.margin-space {
+    padding: 30px 10px 0px 0px;
+}
+
+.landing-navbar {
+    height: 100%;
+    width: 225px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background: var(--accent-gradient);
 }
