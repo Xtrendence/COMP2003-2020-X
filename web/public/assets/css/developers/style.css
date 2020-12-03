@@ -1,9 +1,9 @@
-.cardtitle-text {
+.card-title-text {
     font-size: var(--font-medium);
     font-weight:bold;
 }
 
-.cardrole-text {
+.card-role-text {
     font-size: var(--font-smaller);
     font-style:italic;
 }
