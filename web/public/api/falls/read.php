@@ -6,8 +6,10 @@
 		include_once '../config/Database.php';
 		include_once '../models/Fall.php';
 
+		$api_key = isset($_GET['key']) ? $_GET['key'] : die("No API key provided.");
+
 		$database = new Database();
-		$db = $database->connect();
+		$db = $database->connect($api_key);
 
 		$fall = new Fall($db);
 		$fall->fallID = isset($_GET['id']) ? $_GET['id'] : die();
