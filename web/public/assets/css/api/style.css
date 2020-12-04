@@ -10,6 +10,7 @@ a {
 }
 .wide-card span {
 	font-size: var(--font-smaller);
+	display: block;
 }
 .method-wrapper, .endpoint-wrapper {
 	display: inline-block;
