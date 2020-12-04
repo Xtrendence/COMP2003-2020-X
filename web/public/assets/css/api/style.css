@@ -1,3 +1,7 @@
+a {
+	text-decoration: none;
+	color: var(--accent-contrast);
+}
 .wide-card {
 	font-size: 0;
 }
