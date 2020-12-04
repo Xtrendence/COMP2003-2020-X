@@ -5,6 +5,9 @@ a {
 .wide-card {
 	font-size: 0;
 }
+.wide-card:last-of-type {
+	margin-bottom: 20px;
+}
 .wide-card span {
 	font-size: var(--font-smaller);
 }
