@@ -1,12 +1,80 @@
-.body-text {
+.body-text1 {
     font-size: var(--font-medium);
     font-weight: bold;
 }
 
-.caret-text {
+.body-text2 {
+    font-size: var(--font-medium);
+    font-weight: bold;
+}
+
+.body-text3 {
+    font-size: var(--font-medium);
+    font-weight: bold;
+}
+
+.body-text4 {
+    font-size: var(--font-medium);
+    font-weight: bold;
+}
+
+.body-text5 {
+    font-size: var(--font-medium);
+    font-weight: bold;
+}
+
+.body-text6 {
+    font-size: var(--font-medium);
+    font-weight: bold;
+}
+
+.body-text7 {
+    font-size: var(--font-medium);
+    font-weight: bold;
+}
+
+
+
+
+.caret-text1 {
     font-size: var(--font-medium);
 }
 
+.caret-text2 {
+    font-size: var(--font-medium);
+}
+
+.caret-text3 {
+    font-size: var(--font-medium);
+}
+
+.caret-text4 {
+    font-size: var(--font-medium);
+}
+
+.caret-text5 {
+    font-size: var(--font-medium);
+}
+
+.caret-text6 {
+    font-size: var(--font-medium);
+}
+
+.caret-text7 {
+    font-size: var(--font-medium);
+}
+
+
+
+
+
+
+
 .margin-space {
     padding: 50px 10px 0px 0px;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
 }
