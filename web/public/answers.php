@@ -4,7 +4,6 @@
 <head>
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
-    <link rel="stylesheet" href="./assets/css/answers.css">
     <meta charset="UTF-8">
     <title>Question &amp; Answer page</title>
 </head>
