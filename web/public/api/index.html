@@ -19,6 +19,7 @@
 				<span>POST /api/users/create.php?key={apiKey}</span>
 				<span>GET /api/users/read-all.php?key={apiKey}</span>
 				<span>GET /api/users/read-range.php?from={patientID}&to={patientID}&key={apiKey}</span>
+				<span>GET /api/falls/read-date.php?id={patientID}&from={fall_date}&to={fall_date}&key={apiKey}</span>
 			</div>
 			<div class="description-wrapper">
 				<span>The API key can be found in a post on Teams.</span>
@@ -224,6 +225,21 @@
 		</div>
 		<div class="wide-card">
 			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read-date.php?id=1&from=2020-12-02+16:30:35&to=2020-12-08+18:20:15" target="_blank">/api/falls/read-date.php?id={patientID}&from={fall_date}&to={fall_date}</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>patientID</span>
+				<span>fall_date</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Get the details of a user's every fall between two dates.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
 				<span>DELETE</span>
 			</div>
 			<div class="endpoint-wrapper">
@@ -293,6 +309,35 @@
 			</div>
 			<div class="description-wrapper">
 				<span>Get the details of a user's every diary entry.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/read-date.php?id=1&from=2020-12-02+16:30:35&to=2020-12-08+18:20:15" target="_blank">/api/diary-entries/read-date.php?id={patientID}&from={entry_date}&to={entry_date}</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>patientID</span>
+				<span>entry_date</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Get the details of a user's every diary entry between two dates.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>DELETE</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/delete.php" target="_blank">/api/diary-entries/delete.php</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>entryID</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Delete a user's diary entry.</span>
 			</div>
 		</div>
 		<!-- Questions -->
