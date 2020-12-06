@@ -1,0 +1,29 @@
+
+.delete-button {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    margin: auto auto;
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.text-wrapper {
+    display: inline-block;
+}
+
+.button-wrapper {
+    float: right;
+    display: inline-block;
+    margin: 7.5px 0 17.5px 10px;
+}
