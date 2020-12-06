@@ -12,6 +12,7 @@
     cursor: pointer;
     margin: auto auto;
     display: inline-block;
+    vertical-align: center;
 }
 
 .block {
@@ -25,5 +26,5 @@
 .button-wrapper {
     float: right;
     display: inline-block;
-    margin: 7.5px 0 17.5px 10px;
+    line-height: 75px;
 }
