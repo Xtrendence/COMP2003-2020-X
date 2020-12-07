@@ -8,10 +8,11 @@ import Card from '../components/Card';
 export const FallsPage = ({ navigation }) => {
 
 	const [falls, setFalls] = React.useState();
+	const [diary, setDiary] = React.useState({});
 
 	return (
 		<View>
-			<TopBar>Recording Falls</TopBar>
+			<TopBar navigation={navigation}>Recording Falls</TopBar>
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>Today's Number of Falls</Text>
@@ -22,10 +23,27 @@ export const FallsPage = ({ navigation }) => {
 						</TouchableOpacity>
 					</View>
 				</Card>
+				<Card>
+					<Text style={globalComponentStyles.cardTitle}>Diary Entry</Text>
+					<TextInput style={[globalComponentStyles.inputFieldMultiline,{height: 120}]} placeholder="..." multiline={true} onChangeText={(value) => setDiary({ ...diary, 1:value })} value={diary[1]}></TextInput>
+					<View style={styles.buttonWrapper}>
+						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(1, answers[1])}>
+							<Text style={styles.actionText}>Save</Text>
+						</TouchableOpacity>
+					</View>
+				</Card>
 			</ScrollView>
 		</View>
 	);
 }
+
+function saveAnswer(key, value) {
+	setLoading(true);
+	setTimeout(() => {
+		setLoading(false);
+	}, 100);
+}
+
 
 const styles = StyleSheet.create({
 	container: {
