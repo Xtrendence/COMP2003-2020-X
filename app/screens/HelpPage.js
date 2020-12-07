@@ -28,7 +28,7 @@ export const HelpPage = ({ navigation }) => {
 				</Card>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>How does the "Charts" page work?</Text>
-					<Text style={styles.helpText}>Allows the user to see a clear graph for trends displaying the progression of their falls</Text>
+					<Text style={styles.helpText}>Allows the user to see a clear graph for trends displaying the progression of their falls.</Text>
 				</Card>
 				<Card>
 					<Text style={globalComponentStyles.cardTitle}>What's the Calendar page for?</Text>
