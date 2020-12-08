@@ -85,11 +85,10 @@
 		}
 
 		public function delete() {
-			$query = '';
+			$query = 'DELETE FROM ' . $this->table . ' WHERE patientID=:id';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->patientID);
 			$command->execute();
-
-			return $command;
 		}
 
 		public function login() {
