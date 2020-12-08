@@ -45,10 +45,10 @@ export const LoginPage = ({ navigation }) => {
 		let password = "Iamthedefault";
 
 		setLoading(true);
-		fetch('http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php', {
-			method: 'POST',
+		fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
+			method: "POST",
 			headers: {
-				Accept: 'application/json', 'Content-Type': 'application/json'
+				Accept: "application/json", "Content-Type": "application/json"
 			},
 			body: JSON.stringify({
 				username: username,
@@ -66,7 +66,7 @@ export const LoginPage = ({ navigation }) => {
 					type: "default"
 				});
 			} else {
-				await AsyncStorage.setItem('token', json.token);
+				await AsyncStorage.setItem("token", json.token);
 				navigation.navigate("BottomBar");
 			}
 		})
