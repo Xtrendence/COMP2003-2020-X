@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Svg, Path } from 'react-native-svg';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalColors, globalStyles } from '../styles/global';
 import LoadingScreen from '../components/LoadingScreen';
 
@@ -11,7 +12,7 @@ export const LoginPage = ({ navigation }) => {
 	const [username, setUsername] = React.useState();
 	const [password, setPassword] = React.useState();
 
-	// To be deleted once the API has been made.
+	// To be removed once testing is complete.
 	useEffect(() => {
 		login();
 	}, []);
@@ -38,17 +39,45 @@ export const LoginPage = ({ navigation }) => {
 		</View>
 	);
 
-	function login() {
+	async function login() {
+		// To be removed once testing is complete.
+		let username = "maureenW38";
+		let password = "Iamthedefault";
+
 		setLoading(true);
-		setTimeout(() => {
+		fetch('http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json', 'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				username: username,
+				password: password
+			})
+		})
+		.then((response) => {
+			return response.json();
+		})
+		.then(async (json) => {
 			setLoading(false);
-			// showMessage({
-			// 	message: "Error",
-			// 	description: "Invalid login credentials.",
-			// 	type: "danger",
-			// });
-			navigation.navigate("BottomBar");
-		}, 20);
+			if (json.valid !== true) {
+				showMessage({
+					message: json.message,
+					type: "default"
+				});
+			} else {
+				await AsyncStorage.setItem('token', json.token);
+				navigation.navigate("BottomBar");
+			}
+		})
+		.catch((error) => {
+			console.log(error);
+			setLoading(false);
+			showMessage({
+				message: "Network Error",
+				type: "warning"
+			});
+		});
 	}
 }
 

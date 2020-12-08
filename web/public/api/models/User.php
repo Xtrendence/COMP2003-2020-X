@@ -92,11 +92,17 @@
 		}
 
 		public function login() {
-			$query = '';
+			$query = 'SELECT * FROM ' . $this->table . ' WHERE patient_username=:username';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':username', $this->patient_username);
 			$command->execute();
 
-			return $command;
+			$row = $command->fetch(PDO::FETCH_ASSOC);
+
+			if ($this->patient_username == $row['patient_username'] && $this->patient_password == $row['patient_password']) {
+				return true;
+			}
+			return false;
 		}
 
 		public function logout() {
