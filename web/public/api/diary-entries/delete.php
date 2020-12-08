@@ -10,6 +10,14 @@
 
 		$database = new Database();
 		$db = $database->connect($api_key);
+
+		$diaryEntry = new DiaryEntry($db);
+		
+		parse_str(file_get_contents("php://input"), $input);
+
+		$diaryEntry->entryID = !empty($input['id']) ? $input['id'] : die();
+
+		$diaryEntry->delete();
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use DELETE instead.'));
 	}

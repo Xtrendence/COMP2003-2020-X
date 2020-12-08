@@ -61,5 +61,12 @@
 
 			return $command;
 		}
+
+		public function delete() {
+			$query = 'DELETE FROM ' . $this->table . ' WHERE entryID=:id';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->entryID);
+			$command->execute();
+		}
 	}
 ?>

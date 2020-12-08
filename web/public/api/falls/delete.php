@@ -10,6 +10,14 @@
 
 		$database = new Database();
 		$db = $database->connect($api_key);
+
+		$fall = new Fall($db);
+		
+		parse_str(file_get_contents("php://input"), $input);
+
+		$fall->fallID = !empty($input['id']) ? $input['id'] : die();
+
+		$fall->delete();
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use DELETE instead.'));
 	}

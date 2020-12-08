@@ -61,11 +61,10 @@
 		}
 
 		public function delete() {
-			$query = '';
+			$query = 'DELETE FROM ' . $this->table . ' WHERE fallID=:id';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->fallID);
 			$command->execute();
-
-			return $command;
 		}
 	}
 ?>
