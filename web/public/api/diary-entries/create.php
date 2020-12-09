@@ -18,6 +18,7 @@
 
 		$diaryEntry = new DiaryEntry($db);
 		$diaryEntry->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : die();
+		$diaryEntry->entry = isset($_POST['entry']) ? $_POST['entry'] : die();
 
 		$diaryEntry->create();
 	} else {

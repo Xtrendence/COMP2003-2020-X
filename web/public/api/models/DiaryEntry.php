@@ -14,9 +14,10 @@
 
 		public function create() {
 			$date = date('Y-m-d H:i:s');
-			$query = 'INSERT INTO ' . $this->table . ' (patientID, entry_date) VALUES (:id, "' . $date . '")';
+			$query = 'INSERT INTO ' . $this->table . ' (patientID, entry_date, entry) VALUES (:id, "' . $date . '", :entry)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->patientID);
+			$command->bindParam(':entry', $this->entry);
 			$command->execute();
 		}
 
