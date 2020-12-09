@@ -11,6 +11,11 @@
 		$database = new Database();
 		$db = $database->connect($api_key);
 
+		if(empty($_POST)) {
+			$json = file_get_contents('php://input');
+			$_POST = json_decode($json, true);
+		}
+
 		$diaryEntry = new DiaryEntry($db);
 		$diaryEntry->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : die();
 
