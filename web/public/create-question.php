@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/create-question/style.css">
+    <link rel="stylesheet" href="./assets/css/create-question/style.css">
     <script src="./assets/js/create-question.js"></script>
     <meta charset="UTF-8">
     <title>Create A Question</title>
