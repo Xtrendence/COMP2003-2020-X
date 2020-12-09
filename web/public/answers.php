@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/answers/style.css"
     <meta charset="UTF-8">
-    <title>Question &amp; Answer Page</title>
+    <title>Question &amp; Answer</title>
 </head>
 
 <body>
