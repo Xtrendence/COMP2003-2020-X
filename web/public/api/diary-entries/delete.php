@@ -15,7 +15,7 @@
 		
 		parse_str(file_get_contents("php://input"), $input);
 
-		$diaryEntry->entryID = !empty($input['id']) ? $input['id'] : die();
+		$diaryEntry->entryID = !empty($input['entryID']) ? $input['entryID'] : die();
 
 		$diaryEntry->delete();
 	} else {

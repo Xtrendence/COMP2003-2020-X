@@ -15,7 +15,7 @@
 		
 		parse_str(file_get_contents("php://input"), $input);
 
-		$user->patientID = !empty($input['id']) ? $input['id'] : die();
+		$user->patientID = !empty($input['patientID']) ? $input['patientID'] : die();
 
 		$user->delete();
 	} else {

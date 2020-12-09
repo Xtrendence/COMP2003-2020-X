@@ -10,6 +10,11 @@
 
 		$database = new Database();
 		$db = $database->connect($api_key);
+
+		$fall = new Fall($db);
+		$fall->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : die();
+
+		$fall->create();
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));
 	}

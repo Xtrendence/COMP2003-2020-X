@@ -13,11 +13,11 @@
 		}
 
 		public function create() {
-			$query = '';
+			$date = date('Y-m-d H:i:s');
+			$query = 'INSERT INTO ' . $this->table . ' (patientID, entry_date) VALUES (:id, "' . $date . '")';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->patientID);
 			$command->execute();
-
-			return $command;
 		}
 
 		public function read() {

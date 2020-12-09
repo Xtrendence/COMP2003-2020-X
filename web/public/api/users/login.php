@@ -15,8 +15,8 @@
 		}
 		
 		$user = new User($db);
-		$user->patient_username = isset($_POST['username']) ? $_POST['username'] : die();
-		$user->patient_password = isset($_POST['password']) ? $_POST['password'] : die();
+		$user->patient_username = isset($_POST['patient_username']) ? $_POST['patient_username'] : die();
+		$user->patient_password = isset($_POST['patient_password']) ? $_POST['patient_password'] : die();
 
 		$loggedIn = $user->login();
 

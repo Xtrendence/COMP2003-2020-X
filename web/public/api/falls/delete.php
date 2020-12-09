@@ -15,7 +15,7 @@
 		
 		parse_str(file_get_contents("php://input"), $input);
 
-		$fall->fallID = !empty($input['id']) ? $input['id'] : die();
+		$fall->fallID = !empty($input['fallID']) ? $input['fallID'] : die();
 
 		$fall->delete();
 	} else {

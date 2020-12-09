@@ -51,8 +51,8 @@ export const LoginPage = ({ navigation }) => {
 				Accept: "application/json", "Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				username: username,
-				password: password
+				patient_username: username,
+				patient_password: password
 			})
 		})
 		.then((response) => {
@@ -63,7 +63,7 @@ export const LoginPage = ({ navigation }) => {
 			if (json.valid !== true) {
 				showMessage({
 					message: json.message,
-					type: "default"
+					type: "warning"
 				});
 			} else {
 				await AsyncStorage.setItem("token", json.token);
@@ -75,7 +75,7 @@ export const LoginPage = ({ navigation }) => {
 			setLoading(false);
 			showMessage({
 				message: "Network Error",
-				type: "warning"
+				type: "danger"
 			});
 		});
 	}
