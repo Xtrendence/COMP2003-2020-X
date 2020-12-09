@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/create-question/style.css">
     <script src="./assets/js/create-question.js"></script>
     <meta charset="UTF-8">
-    <title>Question &amp; Answer page</title>
+    <title>Question &amp; Answer Page</title>
 </head>
 
 <body>
