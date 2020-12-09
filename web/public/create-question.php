@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/create-question/style.css">
     <script src="./assets/js/create-question.js"></script>
     <meta charset="UTF-8">
-    <title>Create A Answer</title>
+    <title>Create A Question</title>
 </head>
 
 <body>
