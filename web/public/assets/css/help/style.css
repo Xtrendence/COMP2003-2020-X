@@ -11,8 +11,7 @@
     padding: 10px 10px 10px 0px;
 }
 
-
-
+/*drop down button containing Title question text for collapsible */
 .drop-down {
     background: rgba(238, 238, 238, 0.93);
     color: #444444;
@@ -23,17 +22,19 @@
     text-align: left;
     outline: none;
     font-size: 15px;
+    border-radius: 10px 10px 0 0;
 }
 
+/*drop down button hover color for when cursor is hovering over question on the web page */
 .active, .drop-down:hover {
     background-color: #cccccc;
 }
 
-
-
+/*div class containing properties that hold the caret hidden text as the answers to the questions on the web page */
 .caret-content {
     padding: 0 18px;
     display: none;
     overflow: hidden;
     background-color: #f1f1f1;
+    border-radius: 10px 10px 0 0;
 }
