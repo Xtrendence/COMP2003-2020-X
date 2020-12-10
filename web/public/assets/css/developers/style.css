@@ -1,21 +1,35 @@
 .card-title-text {
     font-size: var(--font-medium);
     font-weight:bold;
+    display: block;
+
 }
 
 .card-role-text {
     font-size: var(--font-smaller);
     font-style:italic;
+    display: block;
 }
 
 .github-text {
     font-size: var(--font-medium);
+    position: absolute;
+
 }
 
+
+.role-margin {
+    padding: 20px 10px 0px 0px;
+}
+
+
+
 .developer-svg {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
+    text-align: right;
     float: left;
-    background: transparent;
+    padding: 15px 15px 15px 10px;
+
 
 }
