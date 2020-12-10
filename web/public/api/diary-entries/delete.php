@@ -13,7 +13,7 @@
 
 		$diaryEntry = new DiaryEntry($db);
 		
-		parse_str(file_get_contents("php://input"), $input);
+		$input = json_decode(file_get_contents("php://input"), true);
 
 		$diaryEntry->entryID = !empty($input['entryID']) ? $input['entryID'] : die();
 

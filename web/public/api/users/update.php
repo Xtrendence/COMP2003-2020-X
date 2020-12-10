@@ -10,6 +10,10 @@
 
 		$database = new Database();
 		$db = $database->connect($api_key);
+
+		$user = new User($db);
+		
+		$input = json_decode(file_get_contents("php://input"), true);
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use PUT instead.'));
 	}
