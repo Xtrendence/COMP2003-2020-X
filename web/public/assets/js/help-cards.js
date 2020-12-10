@@ -1,7 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+    /** variable made from button Class "drop-down" in the help.php */
 
     let drop = document.getElementsByClassName("drop-down");
     let i;
+
+    /** Event listener included within for loop for the button to reveal the hidden text */
 
     for (i = 0; i < drop.length; i++) {
         drop[i].addEventListener("click", function() {
@@ -26,6 +31,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    /** variables made from Classes in the help.php
-     * all are in order as seen in the php file
-     */
+
+
