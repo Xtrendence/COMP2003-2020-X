@@ -1,80 +1,37 @@
-.body-text1 {
+.body-text {
     font-size: var(--font-medium);
     font-weight: bold;
 }
 
-.body-text2 {
-    font-size: var(--font-medium);
-    font-weight: bold;
-}
-
-.body-text3 {
-    font-size: var(--font-medium);
-    font-weight: bold;
-}
-
-.body-text4 {
-    font-size: var(--font-medium);
-    font-weight: bold;
-}
-
-.body-text5 {
-    font-size: var(--font-medium);
-    font-weight: bold;
-}
-
-.body-text6 {
-    font-size: var(--font-medium);
-    font-weight: bold;
-}
-
-.body-text7 {
-    font-size: var(--font-medium);
-    font-weight: bold;
-}
-
-
-
-
-.caret-text1 {
+.caret-text {
     font-size: var(--font-medium);
 }
-
-.caret-text2 {
-    font-size: var(--font-medium);
-}
-
-.caret-text3 {
-    font-size: var(--font-medium);
-}
-
-.caret-text4 {
-    font-size: var(--font-medium);
-}
-
-.caret-text5 {
-    font-size: var(--font-medium);
-}
-
-.caret-text6 {
-    font-size: var(--font-medium);
-}
-
-.caret-text7 {
-    font-size: var(--font-medium);
-}
-
-
-
-
-
-
 
 .margin-space {
     padding: 50px 10px 0px 0px;
 }
 
-.hidden {
-    display: none !important;
-    visibility: hidden;
+
+
+.drop-down {
+    background: rgba(238, 238, 238, 0.93);
+    color: #444444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .drop-down:hover {
+    background-color: #cccccc;
+}
+
+.caret-content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
 }
