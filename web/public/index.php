@@ -6,16 +6,16 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../public/assets/css/themes.css">
-    <link rel="stylesheet" href="../public/assets/css/global.css">
-    <link rel="stylesheet" href="../public/assets/css/index/style.css">
+    <link rel="stylesheet" href="./assets/css/themes.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/index/style.css">
     <meta charset="UTF-8">
     <title>BRIMS SMS Home</title>
 </head>
 
 <body>
 
-<div class="title-card">
+<div class="landing-title-card">
     <span class="title-text">BRIMS SMS</span>
 </div>
 
@@ -53,9 +53,13 @@
         <span class="subtitle-text">Learn More About MS</span>
 
             <div class="margin-space">
-        <span class="body-text">Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord, causing a wide range of potential symptoms, including problems with vision, arm or leg moment, sensation or balance.</br></br>
-        It’s a lifelong condition that can sometimes cause serious disability, although it can occasionally be mild.</br></br>
-        It’s most commonly diagnosed in people in their 20s and 30s, although it can develop at any age. It’s about 2 to 3 times more common in women than men.</span>
+                <span class="body-text">Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord, causing a wide range of potential symptoms, including problems with vision, arm or leg moment, sensation or balance.</br></br>
+                It’s a lifelong condition that can sometimes cause serious disability, although it can occasionally be mild.</br></br>
+                It’s most commonly diagnosed in people in their 20s and 30s, although it can develop at any age. It’s about 2 to 3 times more common in women than men.</span>
+            </div>
+
+            <div class="nhs-title-card">
+                <span class="subtitle-text">View NHS Website</span>
             </div>
     </div>
 

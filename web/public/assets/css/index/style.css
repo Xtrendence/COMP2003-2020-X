@@ -16,8 +16,34 @@
     position: center;
 }
 
+.landing-title-card {
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    color: var(--accent-contrast);
+    font-size: var(--font-larger);
+    text-align: center;
+    padding: 25px 25px 25px 25px;
+    width: calc(100% - 40px - 20px);
+    display: block;
+    margin-bottom: 15px;
+}
+
+.nhs-title-card {
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    padding: 10px 10px 10px 10px;
+    margin: 15px auto 0 auto;
+    width: calc(100% - 40px - 20px);
+    border-radius: 0px 0px 10px 10px;
+    display: block;
+    text-align: center;
+}
+
+
 .margin-space {
-    padding: 30px 10px 0px 0px;
+    padding: 30px 10px 0px 5px;
 }
 
 .landing-navbar {
@@ -38,8 +64,7 @@
     border-radius: 10px 10px 10px 10px;
     display: inline-block;font-size: medium;
     padding: 10px 10px 10px 10px;
-    margin: 5px;
-
+    margin: 10px;
 
 
 }
@@ -47,6 +72,7 @@
 .navbar-button :hover {
     background: var(--accent-darkest);
     transition: 0.25s;
+
 }
 
 .svg-button {
@@ -54,7 +80,6 @@
     width: 40px;
     height: 40px;
     vertical-align: bottom;
-
 }
 
 .small-card {
