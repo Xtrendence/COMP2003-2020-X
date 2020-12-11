@@ -27,9 +27,11 @@
 .developer-svg {
     width: 120px;
     height: 120px;
-    text-align: right;
+
     float: left;
+
     padding: 15px 15px 15px 10px;
+    fill: var(--accent-light);
 
 
 }
