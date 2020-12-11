@@ -1,8 +1,7 @@
-.card-title-text {
+.card-name-text {
     font-size: var(--font-medium);
     font-weight:bold;
     display: block;
-
 }
 
 .card-role-text {
@@ -13,25 +12,24 @@
 
 .github-text {
     font-size: var(--font-medium);
+    display: block;
+}
+
+.text-margin {
+    padding: 20px 5px 20px 120px;
     position: absolute;
-
 }
 
-
-.role-margin {
-    padding: 20px 10px 0px 0px;
+.github-margin {
+    padding: 20px 5px 20px 120px;
+    position:absolute;
 }
-
 
 
 .developer-svg {
     width: 120px;
     height: 120px;
-
+    text-align: right;
     float: left;
-
-    padding: 15px 15px 15px 10px;
     fill: var(--accent-light);
-
-
 }
