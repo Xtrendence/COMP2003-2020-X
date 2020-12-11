@@ -8,8 +8,6 @@
     margin-left: auto;
     margin-right: auto;
     width: 8em
-
-
 }
 
 .subtitle-text{
@@ -23,14 +21,24 @@
 }
 
 .landing-navbar {
-    height: 100%;
-    width: 225px;
+    height: 50%;
+    width: 500px;
     position: fixed;
-    z-index: 1;
     top: 0;
 
+}
 
-    background: var(--accent-gradient);
+.navbar-button {
+    fill: white;
+    color: white;
+    background-color: var(--accent-light);
+    font-weight: bold;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.navbar-button :hover {
+    background: var(--accent-darkest);
+    transition: 0.25s;
 }
 
 .small-card {
