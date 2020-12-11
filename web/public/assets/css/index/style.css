@@ -21,10 +21,12 @@
 }
 
 .landing-navbar {
-    height: 50%;
-    width: 500px;
-    position: fixed;
-    top: 0;
+    height: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 0;
+    position: relative;
+
 
 }
 
@@ -34,11 +36,25 @@
     background-color: var(--accent-light);
     font-weight: bold;
     border-radius: 10px 10px 10px 10px;
+    display: inline-block;font-size: medium;
+    padding: 10px 10px 10px 10px;
+    margin: 5px;
+
+
+
 }
 
 .navbar-button :hover {
     background: var(--accent-darkest);
     transition: 0.25s;
+}
+
+.svg-button {
+    padding: 10px 10px 10px 10px;
+    width: 40px;
+    height: 40px;
+    vertical-align: bottom;
+
 }
 
 .small-card {
