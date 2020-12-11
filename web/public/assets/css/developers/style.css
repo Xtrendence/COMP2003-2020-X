@@ -1,3 +1,5 @@
+
+/*Text span classes used in PHP file*/
 .card-name-text {
     font-size: var(--font-medium);
     font-weight:bold;
@@ -15,17 +17,19 @@
     display: block;
 }
 
+/*Used to position card-name-text & card-role-text span text classes*/
 .text-margin {
     padding: 20px 5px 20px 120px;
     position: absolute;
 }
 
+/*Used to position github-text span text class*/
 .github-margin {
     padding: 100px 0px 0px 500px;
     position:absolute;
 }
 
-
+/*Developer svg user icon styling*/
 .developer-svg {
     width: 120px;
     height: 120px;
