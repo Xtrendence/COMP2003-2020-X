@@ -8,12 +8,12 @@
 
     let caret = document.getElementsByClassName("caret-icon");
 
-
     /** Event listener included within for loop for the button to reveal the hidden text */
 
     for (i = 0; i < drop.length; i++) {
         drop[i].addEventListener("click", function() {
             this.classList.toggle("active");
+            caret[i].classList.toggle("active");
             let content = this.nextElementSibling;
             if (content.style.display === "block") {
                 content.style.display = "none";
@@ -21,18 +21,6 @@
                 content.style.display = "block";
             }
         });
-
-        caret[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            let content = this.nextElementSibling;
-            if ( === "block") {
-                content.style.display = "none";
-            } else {
-                ;
-            }
-        });
-
-
 
     }
 

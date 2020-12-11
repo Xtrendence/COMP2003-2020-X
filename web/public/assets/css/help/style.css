@@ -44,7 +44,7 @@
     height: 25px;
     position: absolute;
     float: right;
-    fill: rebeccapurple;
+    fill: var(--accent-light);
 }
 
 
