@@ -15,6 +15,11 @@
 
 <body>
 
+<div class="title-card">
+    <span class="title-text">BRIMS SMS</span>
+</div>
+
+
 <div class="landing-navbar">
 
     <a href="users.php"><button class="navbar-button">
@@ -42,9 +47,7 @@
 
 <div class="wrapper">
 
-    <div class="title-card">
-        <span class="title-text">BRIMS SMS</span>
-    </div>
+
 
     <div class="small-card">
         <span class="subtitle-text">Learn More About MS</span>
