@@ -38,3 +38,18 @@
     background-color: #f1f1f1;
     border-radius: 10px 10px 0 0;
 }
+
+.caret-icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    float: right;
+    fill: rebeccapurple;
+}
+
+
+.caret-icon.active {
+    transform: rotate(90deg);
+}
+
+

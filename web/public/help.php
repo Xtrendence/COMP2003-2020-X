@@ -44,7 +44,7 @@
     </div>
 
     <div class="wide-card">
-        <button type="button" class="drop-down"><span class="body-text">How do I change user details?</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></button>
+        <button type="button" class="drop-down"><span class="body-text">How do I change user details?</span><svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></button>
             <div class="caret-content">
                 <div class="margin-space">
                     <span class="caret-text">Select a user row from the user’s page and hit the edit button to edit their details. You will then be taken to the ‘Edit Details’ page.</span>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="wide-card">
-        <button type="button" class="drop-down"><span class="body-text">How do I ask users questions?</span></button>
+        <button type="button" class="drop-down"><span class="body-text">How do I ask users questions?</span><svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></button>
             <div class="caret-content">
                 <div class="margin-space">
                     <span class="caret-text">Select a user row from the user’s page and hit the ‘Ask Question’ button. You will then be taken to the ‘Ask a question page’ where you will have the option to either create a question that requires a written answer or a multiple-choice format from the user. When creating a question that requires a written answer you can set a character limit.</span>
@@ -62,7 +62,7 @@
     </div>
 
      <div class="wide-card">
-         <button type="button" class="drop-down"><span class="body-text">How does the notification system work?</span></button>
+         <button type="button" class="drop-down"><span class="body-text">How does the notification system work?</span><svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></button>
             <div class="caret-content">
                 <div class="margin-space">
                     <span class="caret-text">Patients are reminded every day, at a time of their choosing, to record their daily falls. Whenever a researcher asks the patients a question, the patient is alerted and notified of a new question being asked of them.</span>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="wide-card">
-        <button type="button" class="drop-down"><span class="body-text">How do I delete a user?</span></button>
+        <button type="button" class="drop-down"><span class="body-text">How do I delete a user?</span><svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></button>
             <div class="caret-content">
                 <div class="margin-space">
                     <span class="caret-text">Select a user row from the user’s page and hit the delete button to remove that user from the table. A popup message will show “are you sure?” confirming if you want to delete that user.</span>
@@ -80,7 +80,7 @@
     </div>
 
     <div class="wide-card">
-        <button type="button" class="drop-down"><span class="body-text">How can I delete a question?</span></button>
+        <button type="button" class="drop-down"><span class="body-text">How can I delete a question?</span><svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></button>
             <div class="caret-content">
                 <div class="margin-space">
                     <span class="caret-text">To delete an existing question for a user, hit the ‘View Answers’ button on a user row. On the view answers page each question will have a delete button that you can click on.</span>
@@ -89,7 +89,7 @@
     </div>
 
     <div class="wide-card">
-        <button type="button" class="drop-down"><span class="body-text">What do the charts represent?</span></button>
+        <button type="button" class="drop-down"><span class="body-text">What do the charts represent?</span><svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></button>
             <div class="caret-content">
                 <div class="margin-space">
                     <span class="caret-text">The charts show a graph for the number of falls for a specific user in the last month. There is also an option to export the current graph you are viewing of a user to a spreadsheet (CSV) file format. Click the ‘View Chart’ button within a user’s row on the users’ page to view their fall data.</span>
@@ -98,7 +98,7 @@
     </div>
 
     <div class="wide-card">
-        <button type="button" class="drop-down"><span class="body-text">Where does the data get saved?</span></button>
+        <button type="button" class="drop-down"><span class="body-text">Where does the data get saved?</span><svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></button>
             <div class="caret-content">
                 <div class="margin-space">
                     <span class="caret-text">The data will get saved to a relational MySQL database where all of the users’ details will be recorded.</span>
