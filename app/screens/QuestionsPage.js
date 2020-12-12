@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { showMessage, hideMessage } from 'react-native-flash-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
@@ -67,12 +69,12 @@ export const QuestionsPage = ({ navigation }) => {
 
 	function getCards(object) {
 		return Object.keys(object).map(questionID => {
-			let answered = empty(object[questionID]["answer"]);
+			let update = !empty(object[questionID]["answer"]);
 			return (
 				<Card key={questionID}>
 					<Text style={globalComponentStyles.cardTitle}>{ object[questionID]["question"] }</Text>
 					{ object[questionID]["question_type"] === "choice" ?
-						<RadioButton.Group onValueChange={value => saveChecked(questionID, object[questionID]["answerID"], value, answered)} value={checked[questionID]}>
+						<RadioButton.Group onValueChange={value => saveChecked(questionID, object[questionID]["answerID"], value, update)} value={checked[questionID]}>
 							{ 
 								Object.keys(object[questionID]["choices"]).map(choiceKey => {
 									return (
@@ -88,7 +90,7 @@ export const QuestionsPage = ({ navigation }) => {
 						<View>
 							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setCustom({ ...custom, [questionID]:value })} value={custom[questionID]}></TextInput>
 							<View style={styles.buttonWrapper}>
-								<TouchableOpacity style={styles.actionButton} onPress={() => saveCustom(questionID, object[questionID]["answerID"], custom[questionID], answered)}>
+								<TouchableOpacity style={styles.actionButton} onPress={() => saveCustom(questionID, object[questionID]["answerID"], custom[questionID], update)}>
 									<Text style={styles.actionText}>Save</Text>
 								</TouchableOpacity>
 							</View>
@@ -111,12 +113,13 @@ export const QuestionsPage = ({ navigation }) => {
 			return response.json();
 		})
 		.then(async (json) => {
-			let questions = json.data;
 			let recentQuestion = {};
 			let unansweredQuestions = {};
 			let answeredQuestions = {};
 			let checkedChoices = {};
 			let answeredFields = {};
+
+			let questions = json.data;
 			Object.keys(questions).map(key => {
 				let question = questions[key];
 				let questionID = question["questionID"];
@@ -131,6 +134,7 @@ export const QuestionsPage = ({ navigation }) => {
 					Object.assign(answeredQuestions, { [questionID]:question });
 				}
 			});
+
 			let max = Math.max.apply(null, Object.keys(unansweredQuestions));
 			Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
 			delete unansweredQuestions[max];
@@ -165,9 +169,11 @@ export const QuestionsPage = ({ navigation }) => {
 	async function saveAnswer(questionID, answerID, answer, update) {
 		let patientID = await AsyncStorage.getItem("patientID");
 		let key = "8c068d98-874e-46ab-b2a1-5a5eb45a40a6";
+
 		let endpoint;
 		let method;
 		let body;
+
 		if (update) {
 			endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php?key=" + key;
 			method = "PUT";
@@ -182,19 +188,16 @@ export const QuestionsPage = ({ navigation }) => {
 		fetch(endpoint, {
 			method: method,
 			headers: {
-				Accept: "application/json", "Content-Type": "application/json"
+				"Content-Type": "application/json"
 			},
 			body: JSON.stringify(body)
 		})
 		.then((response) => {
-			return response.json();
-		})
-		.then(async (json) => {
 			getData();
 		})
 		.catch((error) => {
 			console.log(error);
-			setLoading(false);
+			getData();
 			showMessage({
 				message: "Network Error",
 				type: "danger"
