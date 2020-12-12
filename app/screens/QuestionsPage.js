@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
@@ -11,95 +11,149 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export const QuestionsPage = ({ navigation }) => {
+	const [recent, setRecent] = React.useState();
+	const [unanswered, setUnanswered] = React.useState({});
+	const [answered, setAnswered] = React.useState({});
 	const [loading, setLoading] = React.useState(false);
 	const [checked, setChecked] = React.useState({});
 	const [answers, setAnswers] = React.useState({});
 
+	useEffect(() => {
+		getData();
+	}, []);
+
 	return (
 		<View style={styles.container}>
 			{ loading &&
-				<LoadingScreen>Saving...</LoadingScreen>
+				<LoadingScreen>Loading...</LoadingScreen>
 			}
 			<TopBar navigation={navigation}>Questions</TopBar>
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
-				<Card>
-					<Text style={globalComponentStyles.cardTitle}>Have you been getting more headaches?</Text>
-					<RadioButton.Group onValueChange={value => saveChecked(0, value)} value={checked[0]}>
-						<View style={styles.radioBlock}>
-							<RadioButton value="No" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-							<Text>No</Text>
-						</View>
-						<View style={styles.radioBlock}>
-							<RadioButton value="Same" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-							<Text>Same</Text>
-						</View>
-						<View style={styles.radioBlock}>
-							<RadioButton value="Yes" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-							<Text>Yes</Text>
-						</View>
-					</RadioButton.Group>
-				</Card>
-				<View style={styles.dividerWrapper}>
-					<View style={styles.divider}></View>
-				</View>
-				<Card>
-					<Text style={globalComponentStyles.cardTitle}>What did you have for lunch?</Text>
-					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 1:value })} value={answers[1]}></TextInput>
-					<View style={styles.buttonWrapper}>
-						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(1, answers[1])}>
-							<Text style={styles.actionText}>Save</Text>
-						</TouchableOpacity>
+				{ !empty(recent) &&
+					<View>
+						{
+							getCards(recent)
+						}
+						{ !empty(unanswered) &&
+							<View style={styles.dividerWrapper}>
+								<View style={styles.divider}></View>
+							</View>
+						}
 					</View>
-				</Card>
-				<View style={styles.dividerWrapper}>
-					<View style={styles.divider}></View>
-				</View>
-				<Card>
-					<Text style={globalComponentStyles.cardTitle}>You feel more balance issues at night.</Text>
-					<RadioButton.Group onValueChange={value => saveChecked(2, value)} value={checked[2]}>
-						<View style={styles.radioBlock}>
-							<RadioButton value="Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-							<Text>Disagree</Text>
-						</View>
-						<View style={styles.radioBlock}>
-							<RadioButton value="Somewhat Disagree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-							<Text>Somewhat Disagree</Text>
-						</View>
-						<View style={styles.radioBlock}>
-							<RadioButton value="Neutral" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-							<Text>Neutral</Text>
-						</View>
-						<View style={styles.radioBlock}>
-							<RadioButton value="Somewhat Agree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-							<Text>Somewhat Agree</Text>
-						</View>
-						<View style={styles.radioBlock}>
-							<RadioButton value="Agree" uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-							<Text>Agree</Text>
-						</View>
-					</RadioButton.Group>
-				</Card>
-				<Card>
-					<Text style={globalComponentStyles.cardTitle}>What did you have for dinner?</Text>
-					<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, 3:value })} value={answers[3]}></TextInput>
-					<View style={styles.buttonWrapper}>
-						<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(3, answers[3])}>
-							<Text style={styles.actionText}>Save</Text>
-						</TouchableOpacity>
+				}
+				{ !empty(unanswered) &&
+					<View>
+						{
+							getCards(unanswered)
+						}
+						{ !empty(answered) &&
+							<View style={styles.dividerWrapper}>
+								<View style={styles.divider}></View>
+							</View>
+						}
 					</View>
-				</Card>
+				}
+				{ !empty(answered) &&
+					<View>
+						{
+							getCards(answered)
+						}
+					</View>
+				}
 			</ScrollView>
 		</View>
 	);
 
+	function getCards(object) {
+		return Object.keys(object).map(questionID => {
+			return (
+				<Card key={questionID}>
+					<Text style={globalComponentStyles.cardTitle}>{ object[questionID]["question"] }</Text>
+					{ object[questionID]["question_type"] === "choice" ?
+						<RadioButton.Group onValueChange={value => saveChecked(object[questionID]["questionID"], value)} value={checked[object[questionID]["questionID"]]}>
+							{ 
+								Object.keys(object[questionID]["choices"]).map(choiceKey => {
+									return (
+										<View style={styles.radioBlock} key={choiceKey}>
+											<RadioButton value={object[questionID]["choices"][choiceKey]} uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
+											<Text>{object[questionID]["choices"][choiceKey]}</Text>
+										</View>
+									);
+								})
+							}
+						</RadioButton.Group>
+					:
+						<View>
+							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, [object[questionID]["questionID"]]:value })} value={answers[object[questionID]["questionID"]]}></TextInput>
+							<View style={styles.buttonWrapper}>
+								<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(object[questionID]["questionID"], answers[object[questionID]["questionID"]])}>
+									<Text style={styles.actionText}>Save</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+					}
+				</Card>
+			);
+		});
+	}
+		
+	function getData() {
+		setLoading(true);
+		fetch("https://www.xtrendence.com/tools/temp/data.php", {
+			method: "GET",
+			headers: {
+				Accept: "application/json", "Content-Type": "application/json"
+			}
+		})
+		.then((response) => {
+			return response.json();
+		})
+		.then(async (json) => {
+			setLoading(false);
+			let questions = json.data;
+			let recentQuestion = {};
+			let unansweredQuestions = {};
+			let answeredQuestions = {};
+			Object.keys(questions).map(key => {
+				let question = questions[key];
+				let questionID = question["questionID"];
+				if (empty(question["answer"])) {
+					Object.assign(unansweredQuestions, { [questionID]:question });
+				} else {
+					Object.assign(answeredQuestions, { [questionID]:question });
+				}
+			});
+			let max = Math.max.apply(null, Object.keys(unansweredQuestions));
+			Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
+			delete unansweredQuestions[max];
+
+			setRecent(recentQuestion);
+			setUnanswered(unansweredQuestions);
+			setAnswered(answeredQuestions);
+		})
+		.catch((error) => {
+			console.log(error);
+			setLoading(false);
+			showMessage({
+				message: "Network Error",
+				type: "danger"
+			});
+		});
+	}
+
 	function saveChecked(key, value) {
 		setChecked({ ...checked, [key]:value });
 	}
+
 	function saveAnswer(key, value) {
-		setLoading(true);
-		setTimeout(() => {
-			setLoading(false);
-		}, 100);
+		
+	}
+
+	function empty(value) {
+		if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
+			return true;
+		}
+		return false;
 	}
 }
 
