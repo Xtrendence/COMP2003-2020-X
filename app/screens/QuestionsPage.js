@@ -70,7 +70,7 @@ export const QuestionsPage = ({ navigation }) => {
 				<Card key={questionID}>
 					<Text style={globalComponentStyles.cardTitle}>{ object[questionID]["question"] }</Text>
 					{ object[questionID]["question_type"] === "choice" ?
-						<RadioButton.Group onValueChange={value => saveChecked(object[questionID]["questionID"], value)} value={checked[object[questionID]["questionID"]]}>
+						<RadioButton.Group onValueChange={value => saveChecked(questionID, value)} value={checked[questionID]}>
 							{ 
 								Object.keys(object[questionID]["choices"]).map(choiceKey => {
 									return (
@@ -84,9 +84,9 @@ export const QuestionsPage = ({ navigation }) => {
 						</RadioButton.Group>
 					:
 						<View>
-							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, [object[questionID]["questionID"]]:value })} value={answers[object[questionID]["questionID"]]}></TextInput>
+							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, [questionID]:value })} value={answers[questionID]}></TextInput>
 							<View style={styles.buttonWrapper}>
-								<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(object[questionID]["questionID"], answers[object[questionID]["questionID"]])}>
+								<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(questionID, answers[questionID])}>
 									<Text style={styles.actionText}>Save</Text>
 								</TouchableOpacity>
 							</View>
@@ -114,12 +114,19 @@ export const QuestionsPage = ({ navigation }) => {
 			let recentQuestion = {};
 			let unansweredQuestions = {};
 			let answeredQuestions = {};
+			let checkedChoices = {};
+			let answeredFields = {};
 			Object.keys(questions).map(key => {
 				let question = questions[key];
 				let questionID = question["questionID"];
 				if (empty(question["answer"])) {
 					Object.assign(unansweredQuestions, { [questionID]:question });
 				} else {
+					if (question["question_type"] === "choice") {
+						Object.assign(checkedChoices, { [questionID]:question["answer"] });
+					} else {
+						Object.assign(answeredFields, { [questionID]:question["answer"] });
+					}
 					Object.assign(answeredQuestions, { [questionID]:question });
 				}
 			});
@@ -130,6 +137,8 @@ export const QuestionsPage = ({ navigation }) => {
 			setRecent(recentQuestion);
 			setUnanswered(unansweredQuestions);
 			setAnswered(answeredQuestions);
+			setChecked(checkedChoices);
+			setAnswers(answeredFields);
 		})
 		.catch((error) => {
 			console.log(error);
@@ -143,10 +152,15 @@ export const QuestionsPage = ({ navigation }) => {
 
 	function saveChecked(key, value) {
 		setChecked({ ...checked, [key]:value });
+		getData();
+		console.log("QuestionID: " + key);
+		console.log("Answer: " + value);
 	}
 
 	function saveAnswer(key, value) {
-		
+		getData();
+		console.log("QuestionID: " + key);
+		console.log("Answer: " + value);
 	}
 
 	function empty(value) {
