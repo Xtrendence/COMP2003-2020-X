@@ -1,3 +1,8 @@
+.landing-wrapper {
+
+    font-size: 0;
+}
+
 .body-text {
     font-size: var(--font-medium);
 }

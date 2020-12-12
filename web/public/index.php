@@ -45,7 +45,7 @@
 
 
 
-<div class="wrapper">
+<div class="landing-wrapper">
 
 
 
