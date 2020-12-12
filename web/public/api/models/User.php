@@ -100,9 +100,9 @@
 			$row = $command->fetch(PDO::FETCH_ASSOC);
 
 			if ($this->patient_username == $row['patient_username'] && $this->patient_password == $row['patient_password']) {
-				return true;
+				return array('valid' => true, 'patientID' => $row['patientID']);
 			}
-			return false;
+			return array('valid' => false);
 		}
 
 		public function logout() {

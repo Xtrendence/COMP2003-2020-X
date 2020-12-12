@@ -14,9 +14,10 @@ export const QuestionsPage = ({ navigation }) => {
 	const [recent, setRecent] = React.useState();
 	const [unanswered, setUnanswered] = React.useState({});
 	const [answered, setAnswered] = React.useState({});
+
 	const [loading, setLoading] = React.useState(false);
 	const [checked, setChecked] = React.useState({});
-	const [answers, setAnswers] = React.useState({});
+	const [custom, setCustom] = React.useState({});
 
 	useEffect(() => {
 		getData();
@@ -66,11 +67,12 @@ export const QuestionsPage = ({ navigation }) => {
 
 	function getCards(object) {
 		return Object.keys(object).map(questionID => {
+			let answered = empty(object[questionID]["answer"]);
 			return (
 				<Card key={questionID}>
 					<Text style={globalComponentStyles.cardTitle}>{ object[questionID]["question"] }</Text>
 					{ object[questionID]["question_type"] === "choice" ?
-						<RadioButton.Group onValueChange={value => saveChecked(questionID, value)} value={checked[questionID]}>
+						<RadioButton.Group onValueChange={value => saveChecked(questionID, object[questionID]["answerID"], value, answered)} value={checked[questionID]}>
 							{ 
 								Object.keys(object[questionID]["choices"]).map(choiceKey => {
 									return (
@@ -84,9 +86,9 @@ export const QuestionsPage = ({ navigation }) => {
 						</RadioButton.Group>
 					:
 						<View>
-							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setAnswers({ ...answers, [questionID]:value })} value={answers[questionID]}></TextInput>
+							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setCustom({ ...custom, [questionID]:value })} value={custom[questionID]}></TextInput>
 							<View style={styles.buttonWrapper}>
-								<TouchableOpacity style={styles.actionButton} onPress={() => saveAnswer(questionID, answers[questionID])}>
+								<TouchableOpacity style={styles.actionButton} onPress={() => saveCustom(questionID, object[questionID]["answerID"], custom[questionID], answered)}>
 									<Text style={styles.actionText}>Save</Text>
 								</TouchableOpacity>
 							</View>
@@ -109,7 +111,6 @@ export const QuestionsPage = ({ navigation }) => {
 			return response.json();
 		})
 		.then(async (json) => {
-			setLoading(false);
 			let questions = json.data;
 			let recentQuestion = {};
 			let unansweredQuestions = {};
@@ -138,7 +139,9 @@ export const QuestionsPage = ({ navigation }) => {
 			setUnanswered(unansweredQuestions);
 			setAnswered(answeredQuestions);
 			setChecked(checkedChoices);
-			setAnswers(answeredFields);
+			setCustom(answeredFields);
+
+			setLoading(false);
 		})
 		.catch((error) => {
 			console.log(error);
@@ -150,17 +153,53 @@ export const QuestionsPage = ({ navigation }) => {
 		});
 	}
 
-	function saveChecked(key, value) {
+	function saveChecked(key, answerID, value, update) {
 		setChecked({ ...checked, [key]:value });
-		getData();
-		console.log("QuestionID: " + key);
-		console.log("Answer: " + value);
+		saveAnswer(key, answerID, value, update);
 	}
 
-	function saveAnswer(key, value) {
-		getData();
-		console.log("QuestionID: " + key);
-		console.log("Answer: " + value);
+	function saveCustom(key, answerID, value, update) {
+		saveAnswer(key, answerID, value, update);
+	}
+
+	async function saveAnswer(questionID, answerID, answer, update) {
+		let patientID = await AsyncStorage.getItem("patientID");
+		let key = "8c068d98-874e-46ab-b2a1-5a5eb45a40a6";
+		let endpoint;
+		let method;
+		let body;
+		if (update) {
+			endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php?key=" + key;
+			method = "PUT";
+			body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
+		} else {
+			endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/create.php?key=" + key;
+			method = "POST";
+			body = { patientID:patientID, questionID:questionID, answer:answer };
+		}
+
+		setLoading(true);
+		fetch(endpoint, {
+			method: method,
+			headers: {
+				Accept: "application/json", "Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+		.then((response) => {
+			return response.json();
+		})
+		.then(async (json) => {
+			getData();
+		})
+		.catch((error) => {
+			console.log(error);
+			setLoading(false);
+			showMessage({
+				message: "Network Error",
+				type: "danger"
+			});
+		});
 	}
 
 	function empty(value) {

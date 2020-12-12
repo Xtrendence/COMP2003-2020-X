@@ -20,8 +20,8 @@
 
 		$loggedIn = $user->login();
 
-		if ($loggedIn) {
-			echo json_encode(array('valid' => true, 'token' => $database->api_key));
+		if ($loggedIn['valid']) {
+			echo json_encode(array('valid' => true, 'token' => $database->api_key, 'patientID' => $loggedIn['patientID']));
 		} else {
 			echo json_encode(array('valid' => false));
 		}

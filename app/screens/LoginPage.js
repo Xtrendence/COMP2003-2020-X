@@ -67,6 +67,7 @@ export const LoginPage = ({ navigation }) => {
 				});
 			} else {
 				await AsyncStorage.setItem("token", json.token);
+				await AsyncStorage.setItem("patientID", json.patientID);
 				navigation.navigate("BottomBar");
 			}
 		})
