@@ -23,7 +23,6 @@ export const LoginPage = ({ navigation }) => {
 		if (!empty(token)) {
 			setTimeout(() => {
 				login(); // To be removed once testing is complete.
-				setLoading(false);
 			}, 500);
 		}
 	}, [token]);
@@ -65,6 +64,10 @@ export const LoginPage = ({ navigation }) => {
 
 		if (!empty(token)) {
 			setLoading(true);
+
+			setTimeout(() => {
+				setLoading(false);
+			}, 5000);
 
 			let body = { patient_username:username, patient_password:password, fcmToken:token };
 
