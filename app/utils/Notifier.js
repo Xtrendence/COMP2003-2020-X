@@ -54,6 +54,24 @@ export default class Notifier {
 		});
 	}
 
+	repeatNotification(title, message, date) {
+		this.lastId++;
+		PushNotification.localNotificationSchedule({
+			date: date,
+			channelId: "1",
+			autoCancel: true,
+			largeIcon: "ic_launcher",
+			smallIcon: "ic_notification",
+			color: "purple",
+			vibrate: true,
+			vibration: 300,
+			invokeApp: true,
+			title: title,
+			message: message,
+			repeatType: "minute"
+		});
+	}
+
 	checkPermission(callback) {
 		return PushNotification.checkPermissions(callback);
 	}
