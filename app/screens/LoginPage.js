@@ -10,7 +10,7 @@ import LoadingScreen from '../components/LoadingScreen';
 
 export const LoginPage = ({ navigation }) => {
 	const [token, setToken] = React.useState();
-	const [loading, setLoading] = React.useState(false);
+	const [loading, setLoading] = React.useState(true);
 	const [username, setUsername] = React.useState();
 	const [password, setPassword] = React.useState();
 
@@ -19,21 +19,25 @@ export const LoginPage = ({ navigation }) => {
 		onNotification.bind(this)
 	);
 
-	// To be removed once testing is complete.
 	useEffect(() => {
-		login();
-	}, []);
+		if (!empty(token)) {
+			setTimeout(() => {
+				login(); // To be removed once testing is complete.
+				setLoading(false);
+			}, 500);
+		}
+	}, [token]);
 
 	return (
 		<View style={styles.pageContainer}>
 			{ loading &&
-				<LoadingScreen>Logging In...</LoadingScreen>
+				<LoadingScreen>Loading...</LoadingScreen>
 			}
 			<View style={styles.bannerWrapper}>
 				<Text style={styles.banner}>Login</Text>
 			</View>
 			<View style={styles.loginForm}>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} ></TextInput>
+				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)}></TextInput>
 				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} onSubmitEditing={() => login()} secureTextEntry></TextInput>
 				<TouchableOpacity style={styles.actionButton} onPress={() => login()}>
 					<Text style={styles.actionText}>Login</Text>
@@ -59,10 +63,10 @@ export const LoginPage = ({ navigation }) => {
 		let username = "maureenW38";
 		let password = "Iamthedefault";
 
-		if (token !== null) {
+		if (!empty(token)) {
 			setLoading(true);
 
-			let body = { patient_username: username, patient_password: password, fcmToken: token };
+			let body = { patient_username:username, patient_password:password, fcmToken:token };
 
 			fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
 				method: "POST",
@@ -102,6 +106,13 @@ export const LoginPage = ({ navigation }) => {
 				type: "warning"
 			});
 		}
+	}
+
+	function empty(value) {
+		if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
+			return true;
+		}
+		return false;
 	}
 }
 

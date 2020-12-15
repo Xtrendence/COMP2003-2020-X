@@ -9,7 +9,7 @@
 		$database = new Database();
 		$db = $database->connect('bypass');
 
-		if(empty($_POST)) {
+		if (empty($_POST)) {
 			$json = file_get_contents('php://input');
 			$_POST = json_decode($json, true);
 		}
@@ -17,6 +17,7 @@
 		$user = new User($db);
 		$user->patient_username = isset($_POST['patient_username']) ? $_POST['patient_username'] : die();
 		$user->patient_password = isset($_POST['patient_password']) ? $_POST['patient_password'] : die();
+		$user->fcmToken = isset($_POST['fcmToken']) ? $_POST['fcmToken'] : die();
 
 		$loggedIn = $user->login();
 

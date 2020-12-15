@@ -100,7 +100,13 @@
 			$row = $command->fetch(PDO::FETCH_ASSOC);
 
 			if ($this->patient_username == $row['patient_username'] && $this->patient_password == $row['patient_password']) {
+				
 				return array('valid' => true, 'patientID' => $row['patientID']);
+				$query = 'UPDATE ' . $this->table . ' SET fcmToken=:token WHERE patient_username=:username';
+				$command = $this->connection->prepare($query);
+				$command->bindParam(':username', $this->patient_username);
+				$command->bindParam(':token', $this->fcmToken);
+				$command->execute();
 			}
 			return array('valid' => false);
 		}

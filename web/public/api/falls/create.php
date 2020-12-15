@@ -11,7 +11,7 @@
 		$database = new Database();
 		$db = $database->connect($api_key);
 
-		if(empty($_POST)) {
+		if (empty($_POST)) {
 			$json = file_get_contents('php://input');
 			$_POST = json_decode($json, true);
 		}
