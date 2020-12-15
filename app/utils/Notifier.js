@@ -68,7 +68,7 @@ export default class Notifier {
 			invokeApp: true,
 			title: title,
 			message: message,
-			repeatType: "minute"
+			repeatType: "day"
 		});
 	}
 
