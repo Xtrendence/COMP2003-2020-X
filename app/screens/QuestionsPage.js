@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Notifier from '../utils/Notifier';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
@@ -20,6 +21,11 @@ export const QuestionsPage = ({ navigation }) => {
 	const [loading, setLoading] = React.useState(false);
 	const [checked, setChecked] = React.useState({});
 	const [custom, setCustom] = React.useState({});
+
+	let notifier = new Notifier(
+		onRegister.bind(this),
+		onNotification.bind(this)
+	);
 
 	useEffect(() => {
 		getData();
@@ -66,6 +72,15 @@ export const QuestionsPage = ({ navigation }) => {
 			</ScrollView>
 		</View>
 	);
+
+	function onRegister(token) {
+		let fcm = token.token;
+	}
+
+	function onNotification(notification) {
+		notifier.localNotification(notification.title, notification.message);
+		getData();
+	}
 
 	function getCards(object) {
 		return Object.keys(object).map(questionID => {
@@ -166,7 +181,7 @@ export const QuestionsPage = ({ navigation }) => {
 		saveAnswer(key, answerID, value, update);
 	}
 
-	async function saveAnswer(questionID, answerID, answer, update) {
+	async function saveAnswer(questionID, answerID, answer, update) {		
 		let patientID = await AsyncStorage.getItem("patientID");
 		let key = "8c068d98-874e-46ab-b2a1-5a5eb45a40a6";
 
