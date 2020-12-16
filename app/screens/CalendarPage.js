@@ -21,7 +21,7 @@ LocaleConfig.locales['fr'] = {
 export const CalendarPage = ({ navigation }) => {
 	return (
 		<View>
-			<TopBar>Calendar</TopBar>
+			<TopBar navigation={navigation}>Calendar</TopBar>
 			<View>
 			<Calendar
 				// Initially visible month. Default = Date()
