@@ -23,16 +23,9 @@ export function TopBar(props) {
     );
 
     function logout() {
-        props.navigation.dangerouslyGetParent().navigate("LoginPage")
+        props.navigation.dangerouslyGetParent().navigate("LoginPage");
     }
-
-
-
 }
-
-
-
-
 
 const styles = StyleSheet.create({
     header: {
