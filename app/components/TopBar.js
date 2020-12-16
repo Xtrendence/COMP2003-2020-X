@@ -8,9 +8,10 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export function TopBar(props) {
+
     return (
         <View style={styles.header}>
-            <TouchableOpacity style={styles.cogView}>
+            <TouchableOpacity style={styles.cogView} onPress={() => showSettings()}>
                 <Icon name="cog" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
             </TouchableOpacity>
             <View style={styles.textView}>
@@ -21,7 +22,14 @@ export function TopBar(props) {
             </TouchableOpacity>
         </View>
     );
+
+    function showSettings() {
+        props.setState(!props.state);
+    }
+
 }
+
+
 
 const styles = StyleSheet.create({
     header: {
