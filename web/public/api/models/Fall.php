@@ -50,7 +50,7 @@
 		}
 
 		public function readDate($from, $to) {
-			$query = 'SELECT * FROM ' . $this->table . ' WHERE fall_date BETWEEN :from AND :to WHERE patientID=:id';
+			$query = 'SELECT * FROM ' . $this->table . ' WHERE fall_date BETWEEN :from AND :to AND patientID=:id';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':from', $from);
 			$command->bindParam(':to', $to);
