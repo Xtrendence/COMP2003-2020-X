@@ -20,9 +20,14 @@ export const LoginPage = ({ navigation }) => {
 	);
 
 	useEffect(() => {
+		// To be removed once testing is complete.
+		setUsername("maureenW38");
+		setPassword("Iamthedefault");
 		if (!empty(token)) {
 			setTimeout(() => {
-				login(); // To be removed once testing is complete.
+				setLoading(false);
+				// To be removed once testing is complete.
+				login();
 			}, 500);
 		}
 	}, [token]);
@@ -36,8 +41,8 @@ export const LoginPage = ({ navigation }) => {
 				<Text style={styles.banner}>Login</Text>
 			</View>
 			<View style={styles.loginForm}>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)}></TextInput>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} onSubmitEditing={() => login()} secureTextEntry></TextInput>
+				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} value={username}></TextInput>
+				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} onSubmitEditing={() => login()} secureTextEntry>{password}</TextInput>
 				<TouchableOpacity style={styles.actionButton} onPress={() => login()}>
 					<Text style={styles.actionText}>Login</Text>
 				</TouchableOpacity>
