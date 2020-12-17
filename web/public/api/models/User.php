@@ -24,12 +24,24 @@
 			$this->connection = $db;
 		}
 
-		public function create() {
-			$query = '';
+		public function create($researcher_username) {
+			$date = date('Y-m-d H:i:s');
+			$query = 'INSERT INTO ' . $this->table . ' (patient_nhsRef, patient_username, patient_password, patient_fName, patient_lName, patient_dob, patient_addressI, patient_addressII, patient_postcode, patient_tel, patient_mobile, patient_email, patient_comment, fcmToken, fcmToken_creation) VALUES (:patient_nhsRef, :patient_username, :patient_password, :patient_fName, :patient_lName, :patient_dob, :patient_addressI, :patient_addressII, :patient_postcode, :patient_tel, :patient_mobile, :patient_email, :patient_comment, "-", "' . $date . '")';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':patient_nhsRef', $this->patient_nhsRef);
+			$command->bindParam(':patient_username', $this->patient_username);
+			$command->bindParam(':patient_password', $this->patient_password);
+			$command->bindParam(':patient_fName', $this->patient_fName);
+			$command->bindParam(':patient_lName', $this->patient_lName);
+			$command->bindParam(':patient_dob', $this->patient_dob);
+			$command->bindParam(':patient_addressI', $this->patient_addressI);
+			$command->bindParam(':patient_addressII', $this->patient_addressII);
+			$command->bindParam(':patient_postcode', $this->patient_postcode);
+			$command->bindParam(':patient_tel', $this->patient_tel);
+			$command->bindParam(':patient_mobile', $this->patient_mobile);
+			$command->bindParam(':patient_email', $this->patient_email);
+			$command->bindParam(':patient_comment', $this->patient_comment);
 			$command->execute();
-
-			return $command;
 		}
 
 		public function read() {
@@ -100,7 +112,6 @@
 			$row = $command->fetch(PDO::FETCH_ASSOC);
 
 			if ($this->patient_username == $row['patient_username'] && $this->patient_password == $row['patient_password']) {
-				
 				return array('valid' => true, 'patientID' => $row['patientID']);
 				$query = 'UPDATE ' . $this->table . ' SET fcmToken=:token WHERE patient_username=:username';
 				$command = $this->connection->prepare($query);
