@@ -61,7 +61,7 @@
 
         <div class="radio-button-container">
             <div id="long-answer" class="form-radio-button"></div>
-            <span>User Input</span>
+            <span>Written Answer</span>
         </div>
 
         <div id="multiple" class="">
