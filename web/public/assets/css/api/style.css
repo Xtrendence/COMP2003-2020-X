@@ -31,14 +31,20 @@ a {
 	padding: 10px;
 	border-radius: 0 10px 10px 0;
 }
-.data-wrapper, .description-wrapper {
+.data-wrapper, .description-wrapper, .alert-wrapper {
 	background: var(--main-third);
 	padding: 10px;
 	border-radius: 10px;
 	margin-top: 10px;
 	color: var(--main-contrast);
 }
-.data-wrapper span, .description-wrapper span {
+.data-wrapper span, .description-wrapper span, .alert-wrapper span {
 	display: block;
 	line-height: 25px;
+}
+.alert-wrapper {
+	margin: 0;
+	color: var(--accent-contrast);
+	font-weight: bold;
+	background: rgb(240, 134, 34);
 }
