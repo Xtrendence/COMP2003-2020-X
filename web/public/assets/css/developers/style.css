@@ -14,7 +14,14 @@
 
 .github-text {
     font-size: var(--font-medium);
-    display: block;
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    bottom: 10px;
+    text-decoration: none;
+    color: var(--main-contrast);
+
+
 }
 
 /*Used to position card-name-text & card-role-text span text classes*/
@@ -25,8 +32,10 @@
 
 /*Used to position github-text span text class*/
 .github-margin {
-    padding: 100px 0px 0px 500px;
-    position:absolute;
+    position: relative;
+    text-align: end;
+
+
 }
 
 /*Developer svg user icon styling*/
