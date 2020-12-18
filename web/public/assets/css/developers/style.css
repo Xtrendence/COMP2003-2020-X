@@ -20,8 +20,6 @@
     bottom: 10px;
     text-decoration: none;
     color: var(--main-contrast);
-
-
 }
 
 /*Used to position card-name-text & card-role-text span text classes*/
@@ -34,8 +32,6 @@
 .github-margin {
     position: relative;
     text-align: end;
-
-
 }
 
 /*Developer svg user icon styling*/
