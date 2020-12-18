@@ -10,6 +10,30 @@
 
         public function __construct($db) {
 			$this->connection = $db;
-		}
+        }
+        
+        public function create() {
+
+        }
+
+        public function delete() {
+
+        }
+
+        public function readAll() {
+
+        }
+
+        public function readRange() {
+
+        }
+
+        public function read() {
+
+        }
+
+        public function update() {
+            
+        }
     }
 ?>
