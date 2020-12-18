@@ -1,6 +1,7 @@
 .landing-wrapper {
     font-size: 0;
 }
+
 /*text styling classes*/
 .body-text {
     font-size: var(--font-medium);
@@ -12,7 +13,6 @@
     margin-left: auto;
     margin-right: auto;
     width: 8em;
-
 }
 
 .subtitle-text{
@@ -24,7 +24,7 @@
     text-align: center;
 }
 
-
+/*title card styling*/
 .landing-title-card {
     background: var(--accent-gradient);
     box-shadow: var(--shadow-smooth);
@@ -37,6 +37,7 @@
     margin-bottom: 15px;
 }
 
+/*purple NHS tile card area: with hyperlink to NHS website about MS*/
 .nhs-title-card {
     background: var(--accent-gradient);
     box-shadow: var(--shadow-smooth);
@@ -48,9 +49,14 @@
     border-radius: 0px 0px 10px 10px;
     display: block;
     text-align: center;
+}
+
+/*used to remove purple hyperlink colouring & underline from NHS text*/
+.nhs-title-card a {
     text-decoration: none;
 }
 
+/*span text styling for NHS text*/
 .nhs-subtitle-text {
     font-size: var(--font-medium);
     font-weight: bold;
@@ -62,6 +68,7 @@
     padding: 30px 10px 0px 5px;
 }
 
+/*nav bar format/positioning*/
 .landing-navbar  {
     height: auto;
     width: 100%;
@@ -70,6 +77,7 @@
     position: relative;
 }
 
+/*nav bar buttons format/styling*/
 .navbar-button {
     fill: white;
     color: white;
@@ -89,7 +97,7 @@
     transition: 0.25s;
 }
 
-
+/*svg icon for nav buttons: styling*/
 .svg-button {
     padding: 10px 10px 10px 10px;
     width: 40px;
@@ -104,6 +112,7 @@
     vertical-align: top;
 }
 
+/*HR break line styling*/
 hr {
     border: none;
     height: 4px;

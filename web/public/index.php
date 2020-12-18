@@ -19,7 +19,6 @@
     <span class="title-text">BRIMS SMS</span>
 </div>
 
-
 <div class="landing-navbar">
 
     <a href="users.php">
@@ -52,10 +51,7 @@
         <hr>
     </div>
 
-
 <div class="landing-wrapper">
-
-
 
     <div class="small-card">
         <div class="subtitle-align">
