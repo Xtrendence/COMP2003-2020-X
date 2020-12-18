@@ -1,3 +1,4 @@
+/*span text classes for styling */
 .body-text {
     font-size: var(--font-medium);
     font-weight: bold;
@@ -28,6 +29,7 @@
 /*drop down button hover color for when cursor is hovering over question on the web page */
 .active, .drop-down:hover {
     background-color: #cccccc;
+    border-radius: 10px 10px 0 0;
 }
 
 /*div class containing properties that hold the caret hidden text as the answers to the questions on the web page */
@@ -36,7 +38,7 @@
     display: none;
     overflow: hidden;
     background-color: #f1f1f1;
-    border-radius: 10px 10px 0 0;
+    border-radius: 0 0 10px 10px;
 }
 
 .caret-icon {
@@ -45,6 +47,7 @@
     position: absolute;
     float: right;
     fill: var(--accent-light);
+    margin: -2px 0 0 5px;
 }
 
 
