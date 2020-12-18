@@ -48,6 +48,9 @@
 
 </div>
 
+    <div class="line-style">
+        <hr>
+    </div>
 
 
 <div class="landing-wrapper">
@@ -66,7 +69,7 @@
             </div>
 
             <div class="nhs-title-card">
-                <a href="https://www.nhs.uk/conditions/multiple-sclerosis/"><span class="subtitle-text">View NHS Website</span></a>
+                <a href="https://www.nhs.uk/conditions/multiple-sclerosis/"><span class="nhs-subtitle-text">View NHS Website</span></a>
             </div>
     </div>
 

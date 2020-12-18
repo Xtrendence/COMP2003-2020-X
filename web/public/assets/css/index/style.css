@@ -12,7 +12,8 @@
     font-weight: bold;
     margin-left: auto;
     margin-right: auto;
-    width: 8em
+    width: 8em;
+
 }
 
 .subtitle-text{
@@ -48,6 +49,14 @@
     border-radius: 0px 0px 10px 10px;
     display: block;
     text-align: center;
+    text-decoration: none;
+}
+
+.nhs-subtitle-text{
+    font-size: medium;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--accent-contrast);
 }
 
 
@@ -101,20 +110,8 @@
     vertical-align: top;
 }
 
-a {
-    text-decoration: none;
-    color: var(--main-contrast);
-}
-
-a:visited {
-    text-decoration: none;
-    color: var(--main-contrast);
-}
-
-a:hover {
-    color: var(--main-contrast);
-}
-
-a:active {
-    color: var(--main-contrast);
+hr {
+    border: none;
+    height: 4px;
+    background-color: var(--accent-light);
 }
