@@ -1,8 +1,7 @@
 .landing-wrapper {
-
     font-size: 0;
 }
-
+/*text styling classes*/
 .body-text {
     font-size: var(--font-medium);
 }
@@ -52,10 +51,9 @@
     text-decoration: none;
 }
 
-.nhs-subtitle-text{
-    font-size: medium;
+.nhs-subtitle-text {
+    font-size: var(--font-medium);
     font-weight: bold;
-    text-decoration: none;
     color: var(--accent-contrast);
 }
 
@@ -64,36 +62,33 @@
     padding: 30px 10px 0px 5px;
 }
 
-.landing-navbar :hover {
+.landing-navbar  {
     height: auto;
     width: 100%;
     text-align: center;
     font-size: 0;
     position: relative;
-    cursor: pointer;
-
-
 }
 
 .navbar-button {
     fill: white;
     color: white;
-    background-color: var(--accent-light);
+    background-color: var(--accent-medium);
     font-weight: bold;
     border-radius: 10px 10px 10px 10px;
     display: inline-block;font-size: medium;
     padding: 10px 10px 10px 10px;
     margin: 10px;
-
-
+    cursor: pointer;
+    height: 100px;
+    width: 140px;
 }
 
-.navbar-button {
-    background: var(--accent-darkest);
+.navbar-button:hover {
+    background-color: var(--accent-darkest);
     transition: 0.25s;
-
-
 }
+
 
 .svg-button {
     padding: 10px 10px 10px 10px;
@@ -103,7 +98,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 .small-card {
