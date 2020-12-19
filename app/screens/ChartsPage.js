@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { LineChart } from 'react-native-chart-kit';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -32,73 +32,90 @@ export const ChartsPage = ({ navigation }) => {
 				<LoadingScreen>Loading...</LoadingScreen>
 			}
 			<TopBar navigation={navigation}>Charts</TopBar>
-			{ !loading &&
-				<View>
-					<View style={styles.banner}>
-						<Text style={styles.bannerText}>Number Of Falls</Text>
-					</View>
-					<View style={styles.chartWrapper}>
-						{ segments === 1 &&
-							<Text style={styles.chartLabelFix}>1</Text>
-						}
-						<LineChart
-							data={{
-								labels: labels,
-								datasets: [
-									{
-										data: data
+			<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20}}>
+				{ !loading &&
+					<View style={styles.pageWrapper}>
+						<View style={styles.banner}>
+							<Text style={styles.bannerText}>Number Of Falls</Text>
+						</View>
+						<View style={styles.chartWrapper}>
+							{ segments === 1 &&
+								<Text style={styles.chartLabelFix}>1</Text>
+							}
+							<LineChart
+								data={{
+									labels: labels,
+									datasets: [
+										{
+											data: data
+										}
+									]
+								}}
+								width={screenWidth - 40 - 40}
+								height={250}
+								segments={segments}
+								withHorizontalLines={true}
+								withVerticalLines={false}
+								chartConfig={{
+									backgroundColor: globalColors.mainFirst,
+									backgroundGradientFrom: globalColors.mainFirst,
+									backgroundGradientTo: globalColors.mainFirst,
+									decimalPlaces: 0,
+									color: () => "rgba(95,103,129,0.8)",
+									labelColor: () => "rgba(95,103,129,1)",
+									style: {
+										borderRadius: 0
+									},
+									propsForDots: {
+										r: "4",
+										strokeWidth: "2",
+										stroke: globalColors.mainFifth
+									},
+									propsForVerticalLabels: {
+										fontSize: 10,
+										rotation: -45,
+									},
+									propsForBackgroundLines: {
+										strokeWidth: 2,
+										stroke: "rgba(95,103,129,0.4)"
 									}
-								]
-							}}
-							width={screenWidth - 40 - 40}
-							height={250}
-							segments={segments}
-							withHorizontalLines={true}
-							withVerticalLines={false}
-							chartConfig={{
-								backgroundColor: globalColors.mainFirst,
-								backgroundGradientFrom: globalColors.mainFirst,
-								backgroundGradientTo: globalColors.mainFirst,
-								decimalPlaces: 0,
-								color: () => "rgba(95,103,129,0.8)",
-								labelColor: () => "rgba(95,103,129,1)",
-								style: {
-									borderRadius: 0
-								},
-								propsForDots: {
-									r: "4",
-									strokeWidth: "2",
-									stroke: globalColors.mainFifth
-								},
-								propsForVerticalLabels: {
-									fontSize: 10,
-									rotation: -45,
-								},
-								propsForBackgroundLines: {
-									strokeWidth: 2,
-									stroke: "rgba(95,103,129,0.4)"
-								}
-							}}
-							bezier
-							style={{
-								backgroundColor: "rgba(255,255,255,0)",
-								borderRadius: globalStyles.borderRadius,
-							}}
-						/>
+								}}
+								bezier
+								style={{
+									backgroundColor: "rgba(255,255,255,0)",
+									borderRadius: globalStyles.borderRadius,
+								}}
+							/>
+						</View>
+						<View style={styles.navigationWrapper}>
+							<TouchableOpacity style={styles.actionButton} onPress={() => navigatePrevious()}>
+								<Icon name="chevron-left" color={globalColors.accentContrast} size={40}/>
+							</TouchableOpacity>
+							<Text style={styles.actionInfo}>{timespan}</Text>
+							<TouchableOpacity style={styles.actionButton} onPress={() => navigateNext()}>
+								<Icon name="chevron-right" color={globalColors.accentContrast} size={40}/>
+							</TouchableOpacity>
+						</View>
+						{ nextWeek(timeTo) <= new Date() &&
+							<View style={styles.todayWrapper}>
+								<TouchableOpacity style={styles.todayButton} onPress={() => navigateToday()}>
+									<Text style={styles.actionText}>This Week</Text>
+								</TouchableOpacity>
+							</View>
+						}
 					</View>
-					<View style={styles.navigationWrapper}>
-						<TouchableOpacity style={styles.actionButton} onPress={() => navigatePrevious()}>
-							<Icon name="chevron-left" color={globalColors.accentContrast} size={40}/>
-						</TouchableOpacity>
-						<Text style={styles.actionInfo}>{timespan}</Text>
-						<TouchableOpacity style={styles.actionButton} onPress={() => navigateNext()}>
-							<Icon name="chevron-right" color={globalColors.accentContrast} size={40}/>
-						</TouchableOpacity>
-					</View>
-				</View>
-			}
+				}
+			</ScrollView>
 		</View>
 	);
+
+	function navigateToday() {
+		let from = previousWeek(new Date());
+		let to = new Date();
+		setTimeFrom(from);
+		setTimeTo(to);
+		getData(from, to);
+	}
 
 	function navigatePrevious() {
 		let from = previousWeek(timeFrom);
@@ -281,6 +298,14 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start",
 		backgroundColor: globalColors.mainSecond,
 	},
+	scrollView: {
+		width: "100%",
+		height: "100%",
+		paddingLeft: 20
+	},
+	pageWrapper: {
+		width: screenWidth - 40
+	},
 	banner: {
 		backgroundColor: globalColors.accentLight,
 		borderRadius: globalStyles.borderRadius,
@@ -327,9 +352,10 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "flex-start",
 		flexWrap: "wrap",
+		maxHeight: 40,
 	},
 	actionButton: {
-		backgroundColor: globalColors.accentLight,
+		backgroundColor: globalColors.accentDark,
 		width: 40,
 		height: 40,
 		justifyContent: "center",
@@ -363,4 +389,22 @@ const styles = StyleSheet.create({
 		color: globalColors.accentContrast,
 		textAlign: "center"
 	},
+	todayWrapper: {
+		flex: 1,
+		justifyContent: "flex-start",
+		alignItems: "center",
+		marginTop: 20
+	},
+	todayButton: {
+		backgroundColor: globalColors.accentDark,
+		width: screenWidth - 40,
+		height: 40,
+		justifyContent: "center",
+		borderRadius: globalStyles.borderRadius,
+		shadowColor: globalStyles.shadowColor,
+		shadowOffset: globalStyles.shadowOffset,
+		shadowOpacity: globalStyles.shadowOpacity,
+		shadowRadius: globalStyles.shadowRadius,
+		elevation: globalStyles.shadowElevation,
+	}
 });

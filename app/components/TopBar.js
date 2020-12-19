@@ -17,7 +17,7 @@ export function TopBar(props) {
             <View style={styles.textView}>
                 <Text style={styles.headerText}>{ props.children }</Text>
             </View>
-            <TouchableOpacity style={styles.logoutView}>
+            <TouchableOpacity style={styles.logoutView} onPress={() => logout()}>
                 <Icon name="log-out" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
             </TouchableOpacity>
         </View>
@@ -27,6 +27,9 @@ export function TopBar(props) {
         props.setState(!props.state);
     }
 
+    function logout() {
+        props.navigation.dangerouslyGetParent().navigate("LoginPage");
+    }
 }
 
 
