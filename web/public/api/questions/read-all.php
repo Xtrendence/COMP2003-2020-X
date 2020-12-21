@@ -12,7 +12,6 @@
 		$db = $database->connect($api_key);
 
 		$question = new Question($db);
-
 		$result = $question->readAll();
 
 		$rows = $result->rowCount();
@@ -26,7 +25,7 @@
 				$item = array(
 					'questionID' => $questionID,
 					'question' => $question,
-					'question_charlim' => $question_charlim,
+					'question_charlim' => $question_charLim,
 					'question_type' => $question_type
 				);
 

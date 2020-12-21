@@ -5,7 +5,7 @@
 
         public $questionID;
         public $question;
-        public $question_charlim;
+        public $question_charLim;
         public $question_type;
 
         public function __construct($db) {
