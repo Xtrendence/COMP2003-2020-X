@@ -13,7 +13,12 @@
         }
         
         public function create() {
-
+            $query = 'INSERT INTO ' . $this->table . ' (question, question_type, question_charLim) VALUES (:question, :question_type, :question_carLim)';
+            $command = $this->connection->prepare($query);
+			$command->bindParam(':question', $this->question);
+			$command->bindParam(':question_type', $this->question_type;
+            $command->bindParam(':question_charLim', $this->question_charLim);
+            $command->execute();
         }
 
         public function delete() {

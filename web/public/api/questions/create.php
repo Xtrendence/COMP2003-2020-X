@@ -21,7 +21,9 @@
         $question->question_type = isset($_POST['question_type']) ? $_POST['question_type'] : die();
         if ($question->question_type == "custom") {
             $question->question_charLim = isset($_POST['question_charLim']) ? $_POST['question_charLim'] : die();
-            
+            $question->create();
+        } else {
+            $question->question_charLim = "null";
             $question->create();
         }
       
