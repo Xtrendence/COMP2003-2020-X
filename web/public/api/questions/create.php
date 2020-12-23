@@ -2,7 +2,7 @@
 	header('Access-Control-Allow-Origin: *');
 	header('Content-Type: application/json');
 
-	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		include_once '../config/Database.php';
 		include_once '../models/Question.php';
 
@@ -19,15 +19,15 @@
         $question = new Question($db);
         $question->question = isset($_POST['question']) ? $_POST['question'] : die();
         $question->question_type = isset($_POST['question_type']) ? $_POST['question_type'] : die();
+        
         if ($question->question_type == "custom") {
             $question->question_charLim = isset($_POST['question_charLim']) ? $_POST['question_charLim'] : die();
-            $question->create();
         } else {
-            $question->question_charLim = null;
-            $question->create();
+            $question->choices = isset($_POST['choice']) ? $_POST['choice'] : die();
         }
-      
 
+        $question->create();
+      
     } else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
 	}
