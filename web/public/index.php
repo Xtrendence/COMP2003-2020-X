@@ -43,9 +43,9 @@
 
 </div>
 
-    <div class="line-style">
-        <hr>
-    </div>
+<div class="line-style">
+    <hr>
+</div>
 
 <div class="landing-wrapper">
 
