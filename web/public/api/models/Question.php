@@ -30,7 +30,7 @@
                     $command->bindParam(':choice', $this->choices[$i]);
                     $command->execute();
                 }
-            } 
+            }
         }
 
         public function delete() {
@@ -50,7 +50,18 @@
         }
 
         public function read() {
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE questionID=:id';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->questionID);
+			$command->execute();
 
+			$row = $command->fetch(PDO::FETCH_ASSOC);
+
+			$this->questionID = $row['questionID'];
+			$this->question = $row['question'];
+			$this->question_charLim = $row['question_charLim'];
+            $this->question_type = $row['question_type'];
+            $this->choices = $row['choices']
         }
 
         public function update() {
