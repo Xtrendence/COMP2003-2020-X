@@ -23,16 +23,14 @@
                 $command->execute();
 
             }else {
-                for($i = 0; $i <= count($choices); $i++ ) {
+                for($i = 0; $i <= count($this->choices); $i++ ) {
                     $query = 'INSERT INTO choice (questionID, choice) VALUES (:questionID, :choice)';
                     $command = $this->connection->prepare($query);
                     $command->bindParam(':questionID', $this->questionID);
-                    $command->bindParam(':choice', $choices[$i]);
+                    $command->bindParam(':choice', $this->choices[$i]);
                     $command->execute();
                 }
-
-            }
-            
+            } 
         }
 
         public function delete() {
