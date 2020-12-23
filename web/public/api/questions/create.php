@@ -23,7 +23,7 @@
             $question->question_charLim = isset($_POST['question_charLim']) ? $_POST['question_charLim'] : die();
             $question->create();
         } else {
-            $question->question_charLim = "null";
+            $question->question_charLim = null;
             $question->create();
         }
       

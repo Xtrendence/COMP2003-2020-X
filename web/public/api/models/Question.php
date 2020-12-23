@@ -18,7 +18,7 @@
 			$command->bindParam(':question', $this->question);
 			$command->bindParam(':question_type', $this->question_type;
             $command->bindParam(':question_charLim', $this->question_charLim);
-            $command->execute();
+            $command->execute(); 
         }
 
         public function delete() {
