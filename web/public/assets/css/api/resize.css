@@ -1,0 +1,9 @@
+@media screen and (max-width:750px) {
+	.method-wrapper, .endpoint-wrapper {
+		display: block;
+		border-radius: 10px;
+	}
+	.method-wrapper {
+		margin-bottom: 10px;
+	}
+}

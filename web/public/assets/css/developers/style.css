@@ -1,0 +1,44 @@
+
+/*Text span classes used in PHP file*/
+.card-name-text {
+    font-size: var(--font-medium);
+    font-weight:bold;
+    display: block;
+}
+
+.card-role-text {
+    font-size: var(--font-smaller);
+    font-style:italic;
+    display: block;
+}
+
+.github-text {
+    font-size: var(--font-medium);
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    bottom: 10px;
+    text-decoration: none;
+    color: var(--main-contrast);
+}
+
+/*Used to position card-name-text & card-role-text span text classes*/
+.text-margin {
+    padding: 20px 5px 20px 120px;
+    position: absolute;
+}
+
+/*Used to position github-text span text class*/
+.github-margin {
+    position: relative;
+    text-align: end;
+}
+
+/*Developer svg user icon styling*/
+.developer-svg {
+    width: 120px;
+    height: 120px;
+    text-align: right;
+    float: left;
+    fill: var(--accent-light);
+}
