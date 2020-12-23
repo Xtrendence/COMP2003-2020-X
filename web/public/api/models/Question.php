@@ -45,8 +45,14 @@
             return $command;
         }
 
-        public function readRange() {
+        public function readRange($from, $to) {
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE questionID BETWEEN :from AND :to';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':from', $from);
+			$command->bindParam(':to', $to);
+			$command->execute();
 
+			return $command;
         }
 
         public function read() {
