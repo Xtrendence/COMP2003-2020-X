@@ -30,6 +30,7 @@ a {
 	color: var(--accent-contrast);
 	padding: 10px;
 	border-radius: 0 10px 10px 0;
+	height: auto;
 }
 .data-wrapper, .description-wrapper, .alert-wrapper {
 	background: var(--main-third);
