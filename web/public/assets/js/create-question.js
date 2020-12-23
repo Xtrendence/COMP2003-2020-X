@@ -174,9 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 numberOfChoices.value = "";
                 optionContainer.innerHTML = "";
 
-                xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
-                xhr.send(JSON.stringify(body));
-
             } else {
                 let body = {
                     question: enquiry.value,
@@ -187,10 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 submitText.classList.add("submission");
                 enquiry.value = "";
                 characterLimit.value = null;
-
-                xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
-                xhr.send(JSON.stringify(body));
             }
+            
+            xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.send(JSON.stringify(body));
+
             xhr.addEventListener("readystatechange", function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     let responseJSON = xhr.responseText;
