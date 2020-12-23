@@ -32,7 +32,7 @@
     font-size: var(--font-larger);
     text-align: center;
     padding: 25px 25px 25px 25px;
-    width: calc(100% - 40px - 20px);
+    width: auto;
     display: block;
     margin-bottom: 15px;
 }
@@ -45,8 +45,8 @@
     font-size: var(--font-medium);
     padding: 10px 10px 10px 10px;
     margin: 15px auto 0 auto;
-    width: calc(100% - 40px - 20px);
-    border-radius: 0px 0px 10px 10px;
+    width: auto;
+    border-radius: 10px;
     display: block;
     text-align: center;
 }
@@ -73,14 +73,15 @@
     height: auto;
     width: 100%;
     text-align: center;
-    font-size: 0;
     position: relative;
+
+    font-size: 0;
 }
 
 /*nav bar buttons format/styling*/
 .navbar-button {
-    fill: white;
-    color: white;
+    fill: var(--accent-contrast);
+    color: var(--accent-contrast);
     background-color: var(--accent-medium);
     font-weight: bold;
     border-radius: 10px 10px 10px 10px;
@@ -90,11 +91,13 @@
     cursor: pointer;
     height: 100px;
     width: 140px;
+    border: none;
+    outline: none;
+    transition: 0.25s;
 }
 
 .navbar-button:hover {
     background-color: var(--accent-darkest);
-    transition: 0.25s;
 }
 
 /*svg icon for nav buttons: styling*/
