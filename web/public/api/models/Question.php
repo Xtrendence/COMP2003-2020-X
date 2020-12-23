@@ -61,7 +61,7 @@
 			$this->question = $row['question'];
 			$this->question_charLim = $row['question_charLim'];
             $this->question_type = $row['question_type'];
-            $this->choices = $row['choices']
+            $this->choices = $row['choices'];
         }
 
         public function update() {
