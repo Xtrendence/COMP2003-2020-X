@@ -28,7 +28,10 @@
 
 /*drop down button hover color for when cursor is hovering over question on the web page */
 .active, .drop-down:hover {
-    background-color: #cccccc;
+    background: var(--main-fifth);
+}
+
+.active {
     border-radius: 10px 10px 0 0;
 }
 
