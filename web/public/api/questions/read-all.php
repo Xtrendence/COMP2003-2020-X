@@ -19,17 +19,31 @@
 		if ($rows > 0) {
 			$array = array();
 			$array['data'] = array();
+			
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				extract($row);
 
-				$item = array(
-					'questionID' => $questionID,
-					'question' => $question,
-					'question_charlim' => $question_charLim,
-					'question_type' => $question_type
-				);
-
+				if ($question->question_type == "custom") {
+					$item = array(
+						'questionID' => $questionID,
+						'question' => $question,
+						'question_charLim' => $question_charLim,
+						'question_type' => $question_type						
+					);
+				
+				}else {
+					$item = array(
+						'questionID' => $questionID,
+						'question' => $question,
+						'question_type' => $question_type,
+						'choices' => array()							
+					);
+					for($i = 0; $i <= count($choices); $i++) {
+						$item['data']['choices'][$i + 1] = $choice;
+					}
+					
 				array_push($array['data'], $item);
+				}
 			}
 
 			echo json_encode($array, JSON_PRETTY_PRINT);
