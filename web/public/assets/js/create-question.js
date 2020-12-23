@@ -153,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     submitButton.addEventListener("click", function() {
         if (checkForm()) {
+            let xhr = new XMLHttpRequest();
             if (multipleChoiceRadioButton.classList.contains("active")) {
                 let choiceOptions = [];
                 let choiceFields = document.getElementsByClassName("choice-field");
@@ -161,36 +162,48 @@ document.addEventListener("DOMContentLoaded", () => {
                     choiceFields[i].value = "";
                 }
 
-                let questionInformation = {
-                    "Question": enquiry.value,
-                    "Type": "Multiple Choice",
-                    "Choices": choiceOptions
+                let body = {
+                    question: enquiry.value,
+                    question_type: "choice",
+                    choice: choiceOptions
                 };
-
-                Object.keys(questionInformation).forEach(key => {
-                    console.table(key, questionInformation[key]);
-                });
 
                 submitText.classList.remove("hidden");
                 submitText.classList.add("submission");
                 enquiry.value = "";
                 numberOfChoices.value = "";
                 optionContainer.innerHTML = "";
+
+                xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+                xhr.send(JSON.stringify(body));
+
             } else {
-                let questionInformation = {
-                    "Question": enquiry.value,
-                    "Type": "Long Answer",
-                    "Length": characterLimit.value
+                let body = {
+                    question: enquiry.value,
+                    question_type: "custom",
+                    question_charLim: characterLimit.value
                 };
                 submitText.classList.remove("hidden");
                 submitText.classList.add("submission");
                 enquiry.value = "";
                 characterLimit.value = null;
 
-                Object.keys(questionInformation).forEach(key => {
-                    console.table(key, questionInformation[key]);
-                });
+                xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+                xhr.send(JSON.stringify(body));
             }
+            xhr.addEventListener("readystatechange", function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    let responseJSON = xhr.responseText;
+
+                    try {
+                        let response = JSON.parse(responseJSON);
+
+                        let questionID = response["questionID"];
+                    } catch(e) {
+                        console.log(e);
+                    }
+                }
+            });
         }
     });
 });
