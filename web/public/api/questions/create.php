@@ -10,7 +10,7 @@
 
 		$database = new Database();
         $db = $database->connect($api_key);
-     
+
         if (empty($_POST)) {
 			$json = file_get_contents('php://input');
 			$_POST = json_decode($json, true);
@@ -20,14 +20,13 @@
         $question->question = isset($_POST['question']) ? $_POST['question'] : die();
         $question->question_type = isset($_POST['question_type']) ? $_POST['question_type'] : die();
         
-        if ($question->question_type == "custom") {
+        if ($question->question_type == 'custom') {
             $question->question_charLim = isset($_POST['question_charLim']) ? $_POST['question_charLim'] : die();
         } else {
             $question->choices = isset($_POST['choice']) ? $_POST['choice'] : die();
         }
 
         $question->create();
-      
     } else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
 	}

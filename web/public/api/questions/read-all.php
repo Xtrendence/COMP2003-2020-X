@@ -31,15 +31,15 @@
 						'question_type' => $question_type						
 					);
 				
-				}else {
+				} else {
 					$item = array(
 						'questionID' => $questionID,
 						'question' => $question,
 						'question_type' => $question_type,
 						'choices' => array()							
 					);
-					for($i = 0; $i <= count($choices); $i++) {
-						$item['data']['choices'][$i + 1] = $choice;
+					for ($i = 0; $i <= count($choices); $i++) {
+						$item['choices'][$i + 1] = $choice;
 					}
 					
 				array_push($array['data'], $item);

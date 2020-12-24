@@ -14,16 +14,15 @@
         }
         
         public function create() {
-            if($this->question_type == 'custom') {
+            if ($this->question_type == 'custom') {
                 $query = 'INSERT INTO ' . $this->table . ' (question, question_type, question_charLim) VALUES (:question, :question_type, :question_carLim)';
                 $command = $this->connection->prepare($query);
                 $command->bindParam(':question', $this->question);
                 $command->bindParam(':question_type', $this->question_type);
                 $command->bindParam(':question_charLim', $this->question_charLim);
                 $command->execute();
-
-            }else {
-                for($i = 0; $i <= count($this->choices); $i++ ) {
+            } else {
+                for ($i = 0; $i <= count($this->choices); $i++) {
                     $query = 'INSERT INTO choice (questionID, choice) VALUES (:questionID, :choice)';
                     $command = $this->connection->prepare($query);
                     $command->bindParam(':questionID', $this->questionID);
@@ -38,20 +37,18 @@
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
-            if($this->question_type == 'choice') {
+            if ($this->question_type == 'choice') {
                 $query = 'DELETE FROM ' . $this->table . ' WHERE questionID=:id';
                 $command = $this->connection->prepare($query);
                 $command->bindParam(':id', $this->questionID);
                 $command->execute();
             }
-
         }
 
         public function readAll() {
             $query = 'SELECT * FROM ' . $this->table;
 			$command = $this->connection->prepare($query);
             $command->execute();
-            
             return $command;
         }
 
@@ -61,7 +58,6 @@
 			$command->bindParam(':from', $from);
 			$command->bindParam(':to', $to);
 			$command->execute();
-
 			return $command;
         }
 

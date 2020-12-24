@@ -18,7 +18,7 @@
 		$questions->questionID = !empty($input['questionID']) ? $input['questionID'] : die();
 
 		$questions->delete();
-	}else {
+	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use DELETE instead.'));
 	}
 ?>

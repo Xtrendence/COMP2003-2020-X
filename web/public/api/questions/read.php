@@ -25,7 +25,7 @@ header('Access-Control-Allow-Origin: *');
 					'question_type' => $question_type
 				);
 
-			}else {
+			} else {
 				$item = array(
 					'questionID' => $questionID,
 					'question' => $question,
@@ -33,8 +33,8 @@ header('Access-Control-Allow-Origin: *');
 					'choices' => array()							
 				);
 				
-				for($i = 0; $i <= count($choices); $i++) {
-					$item['data']['choices'][$i + 1] = $choice;
+				for ($i = 0; $i <= count($choices); $i++) {
+					$item['choices'][$i + 1] = $choice;
 				}
 			}
 
