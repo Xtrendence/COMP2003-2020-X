@@ -9,6 +9,7 @@ import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
 import { TopBar } from '../components/TopBar';
 import LoadingScreen from '../components/LoadingScreen';
+import { SettingsPopup} from '../components/SettingsPopup';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -21,6 +22,8 @@ export const QuestionsPage = ({ navigation }) => {
 	const [loading, setLoading] = React.useState(false);
 	const [checked, setChecked] = React.useState({});
 	const [custom, setCustom] = React.useState({});
+
+	const [settings, setSettings] = React.useState(false);
 
 	let notifier = new Notifier(
 		onRegister.bind(this),
@@ -36,7 +39,10 @@ export const QuestionsPage = ({ navigation }) => {
 			{ loading &&
 				<LoadingScreen>Loading...</LoadingScreen>
 			}
-			<TopBar navigation={navigation}>Questions</TopBar>
+			<TopBar navigation={navigation} state={settings} setState={setSettings}>Questions</TopBar>
+			{ settings &&
+                    <SettingsPopup></SettingsPopup>
+            }
 			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
 				{ !empty(recent) &&
 					<View>

@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TopBar } from '../components/TopBar';
 import Card from '../components/Card';
 import LoadingScreen from '../components/LoadingScreen';
+import { SettingsPopup} from '../components/SettingsPopup';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -21,6 +22,7 @@ export const ChartsPage = ({ navigation }) => {
 	const [labels, setLabels] = React.useState([""]);
 	const [data, setData] = React.useState([0]);
 	const [segments, setSegments] = React.useState(4);
+	const [settings, setSettings] = React.useState(false);
 
 	useEffect(() => {
 		getData(previousWeek(new Date()), new Date());
@@ -31,7 +33,10 @@ export const ChartsPage = ({ navigation }) => {
 			{ loading &&
 				<LoadingScreen>Loading...</LoadingScreen>
 			}
-			<TopBar navigation={navigation}>Charts</TopBar>
+			<TopBar navigation={navigation} state={settings} setState={setSettings}>Charts</TopBar>
+			{ settings &&
+                    <SettingsPopup></SettingsPopup>
+            }
 			<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20}}>
 				{ !loading &&
 					<View style={styles.pageWrapper}>
