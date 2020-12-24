@@ -11,27 +11,24 @@
 		$database = new Database();
 		$db = $database->connect($api_key);
 
-		if (empty($_POST)) {
-			$json = file_get_contents('php://input');
-			$_POST = json_decode($json, true);
-		}
+		$input = json_decode(file_get_contents('php://input'), true);
 
 		$user = new User($db);
-		$user->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : die();
-		$researcher_username = isset($_POST['researcher_username']) ? $_POST['researcher_username'] : die();
-		$user->patient_nhsRef = isset($_POST['patient_nhsRef']) ? $_POST['patient_nhsRef'] : die();
-		$user->patient_username = isset($_POST['patient_username']) ? $_POST['patient_username'] : die();
-		$user->patient_password = isset($_POST['patient_password']) ? $_POST['patient_password'] : die();
-		$user->patient_fName = isset($_POST['patient_fName']) ? $_POST['patient_fName'] : die();
-		$user->patient_lName = isset($_POST['patient_lName']) ? $_POST['patient_lName'] : die();
-		$user->patient_dob = isset($_POST['patient_dob']) ? $_POST['patient_dob'] : die();
-		$user->patient_addressI = isset($_POST['patient_addressI']) ? $_POST['patient_addressI'] : die();
-		$user->patient_addressII = isset($_POST['patient_addressII']) ? $_POST['patient_addressII'] : die();
-		$user->patient_postcode = isset($_POST['patient_postcode']) ? $_POST['patient_postcode'] : die();
-		$user->patient_tel = isset($_POST['patient_tel']) ? $_POST['patient_tel'] : die();
-		$user->patient_mobile = isset($_POST['patient_mobile']) ? $_POST['patient_mobile'] : die();
-		$user->patient_email = isset($_POST['patient_email']) ? $_POST['patient_email'] : die();
-		$user->patient_comment = isset($_POST['patient_comment']) ? $_POST['patient_comment'] : die();
+		$user->patientID = isset($input['patientID']) ? $input['patientID'] : die();
+		$researcher_username = isset($input['researcher_username']) ? $input['researcher_username'] : die();
+		$user->patient_nhsRef = isset($input['patient_nhsRef']) ? $input['patient_nhsRef'] : die();
+		$user->patient_username = isset($input['patient_username']) ? $input['patient_username'] : die();
+		$user->patient_password = isset($input['patient_password']) ? $input['patient_password'] : die();
+		$user->patient_fName = isset($input['patient_fName']) ? $input['patient_fName'] : die();
+		$user->patient_lName = isset($input['patient_lName']) ? $input['patient_lName'] : die();
+		$user->patient_dob = isset($input['patient_dob']) ? $input['patient_dob'] : die();
+		$user->patient_addressI = isset($input['patient_addressI']) ? $input['patient_addressI'] : die();
+		$user->patient_addressII = isset($input['patient_addressII']) ? $input['patient_addressII'] : die();
+		$user->patient_postcode = isset($input['patient_postcode']) ? $input['patient_postcode'] : die();
+		$user->patient_tel = isset($input['patient_tel']) ? $input['patient_tel'] : die();
+		$user->patient_mobile = isset($input['patient_mobile']) ? $input['patient_mobile'] : die();
+		$user->patient_email = isset($input['patient_email']) ? $input['patient_email'] : die();
+		$user->patient_comment = isset($input['patient_comment']) ? $input['patient_comment'] : die();
 
 		$user->update($researcher_username);
 	} else {
