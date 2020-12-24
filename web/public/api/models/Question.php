@@ -49,6 +49,7 @@
             $query = 'SELECT * FROM ' . $this->table;
 			$command = $this->connection->prepare($query);
             $command->execute();
+
             return $command;
         }
 
@@ -57,7 +58,8 @@
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':from', $from);
 			$command->bindParam(':to', $to);
-			$command->execute();
+            $command->execute();
+
 			return $command;
         }
 
