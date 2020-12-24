@@ -17,7 +17,7 @@ header('Access-Control-Allow-Origin: *');
 		$question->read();
 
 		if (!empty($question->questionID)) {
-			if ($question->question_type == "custom") {
+			if ($question->question_type == 'custom') {
 				$item = array(
 					'questionID' => $questionID,
 					'question' => $question,

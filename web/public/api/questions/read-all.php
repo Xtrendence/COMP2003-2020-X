@@ -23,7 +23,7 @@
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				extract($row);
 
-				if ($question->question_type == "custom") {
+				if ($question->question_type == 'custom') {
 					$item = array(
 						'questionID' => $questionID,
 						'question' => $question,
