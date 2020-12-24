@@ -7,7 +7,7 @@ import { TopBar } from '../components/TopBar';
 export const FallsPage = ({ navigation }) => {
 	return (
 		<View>
-			<TopBar>Recording Falls</TopBar>
+			<TopBar navigation={navigation}>Recording Falls</TopBar>
 		</View>
 	);
 }

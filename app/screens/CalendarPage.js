@@ -7,7 +7,7 @@ import { TopBar } from '../components/TopBar';
 export const CalendarPage = ({ navigation }) => {
 	return (
 		<View>
-			<TopBar>Calendar</TopBar>
+			<TopBar navigation={navigation}>Calendar</TopBar>
 		</View>
 	);
 }
