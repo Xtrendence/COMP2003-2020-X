@@ -34,6 +34,16 @@
         }
 
         public function delete() {
+            $query = 'DELETE FROM choice (questionID) WHERE (questionID=:id)';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->questionID);
+            $command->execute();
+            if($this->question_type == 'choice') {
+                $query = 'DELETE FROM ' . $this->table . ' WHERE questionID=:id';
+                $command = $this->connection->prepare($query);
+                $command->bindParam(':id', $this->questionID);
+                $command->execute();
+            }
 
         }
 
