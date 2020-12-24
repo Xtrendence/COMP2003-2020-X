@@ -13,7 +13,7 @@
 
 		$questions = new Question($db);
 		
-		$input = json_decode(file_get_contents("php://input"), true);
+		$input = json_decode(file_get_contents('php://input'), true);
 
 		$questions->questionID = !empty($input['questionID']) ? $input['questionID'] : die();
 
