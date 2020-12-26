@@ -21,6 +21,7 @@
     alignment: center;
     width: 7%;
     margin-left: 20px;
+    margin-top: 20px;
 }
 
 .button-next {
@@ -32,18 +33,12 @@
     cursor: pointer;
     height: 40px;
     alignment: center;
-    margin-top: 20px;
     width: 7%;
     margin-left: 20px;
+    margin-top: 20px;
 }
 
-.button-wrapper{
-
-}
-
-.small-card {
-    margin-left: 13%;
-    width: 84.5%;
+.wide-card{
     height: 100%;
 }
 
@@ -60,4 +55,8 @@
 
 .div-button {
     padding-top: 10px;
+}
+
+.patient-table{
+
 }
