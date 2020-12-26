@@ -1,0 +1,63 @@
+.button {
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 40px;
+    alignment: center;
+    margin: 5px 5px 5px 5px;
+}
+
+.button-prev {
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 40px;
+    alignment: center;
+    width: 7%;
+    margin-left: 20px;
+}
+
+.button-next {
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 40px;
+    alignment: center;
+    margin-top: 20px;
+    width: 7%;
+    margin-left: 20px;
+}
+
+.button-wrapper{
+
+}
+
+.small-card {
+    margin-left: 13%;
+    width: 84.5%;
+    height: 100%;
+}
+
+.patient-table {
+    border-width: 10px;
+    border-color: black;
+}
+
+.text-names {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px auto 0 auto
+}
+
+.div-button {
+    padding-top: 10px;
+}
