@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import Notifier from '../utils/Notifier';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { globalColors, globalStyles } from '../styles/global';
@@ -32,6 +33,11 @@ export function StackNavigator() {
 const BottomTab = createMaterialBottomTabNavigator();
 
 export function BottomBar() {
+	let notifier = new Notifier(
+		onRegister.bind(this),
+		onNotification.bind(this)
+	);
+
 	return (
 		<NavigationContainer independent={true}>
 			<BottomTab.Navigator 
@@ -94,6 +100,14 @@ export function BottomBar() {
 			</BottomTab.Navigator>
 		</NavigationContainer>
 	);
+
+	function onRegister(token) {
+		let fcm = token.token;
+	}
+
+	function onNotification(notification) {
+		notifier.localNotification(notification.title, notification.message);
+	}
 }
 
 const styles = StyleSheet.create({

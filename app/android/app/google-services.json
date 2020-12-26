@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "255359826636",
+    "project_id": "brims-sms",
+    "storage_bucket": "brims-sms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255359826636:android:1cd53493ec1592005d2069",
+        "android_client_info": {
+          "package_name": "com.xtrendence.brims"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255359826636-kl64t11f7r2e7je855l97rhimrci2ulv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT0CRqWgtHkrvpfqsgv-6sd_yxtvDnhe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255359826636-kl64t11f7r2e7je855l97rhimrci2ulv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,7 +13,7 @@
 
 		$fall = new Fall($db);
 		
-		parse_str(file_get_contents("php://input"), $input);
+		$input = json_decode(file_get_contents('php://input'), true);
 
 		$fall->fallID = !empty($input['fallID']) ? $input['fallID'] : die();
 
