@@ -14,21 +14,20 @@
         }
         
         public function create() {
-            if ($this->question_type == 'custom') {
-                $query = 'INSERT INTO ' . $this->table . ' (question, question_type, question_charLim) VALUES (:question, :question_type, :question_carLim)';
-                $command = $this->connection->prepare($query);
-                $command->bindParam(':question', $this->question);
-                $command->bindParam(':question_type', $this->question_type);
-                $command->bindParam(':question_charLim', $this->question_charLim);
-                $command->execute();
-            } else {
+            $query = 'INSERT INTO ' . $this->table . ' (question, question_type, question_charLim) VALUES (:question, :question_type, :question_carLim)';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':question', $this->question);
+            $command->bindParam(':question_type', $this->question_type);
+            $command->bindParam(':question_charLim', $this->question_charLim);
+            $command->execute();
+            if ($this->question_type != 'custom') {
                 for ($i = 0; $i <= count($this->choices); $i++) {
                     $query = 'INSERT INTO choice (questionID, choice) VALUES (:questionID, :choice)';
                     $command = $this->connection->prepare($query);
                     $command->bindParam(':questionID', $this->questionID);
                     $command->bindParam(':choice', $this->choices[$i]);
                     $command->execute();
-                }
+                } 
             }
         }
 

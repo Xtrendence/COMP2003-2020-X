@@ -23,7 +23,7 @@
         if ($question->question_type == 'custom') {
             $question->question_charLim = isset($_POST['question_charLim']) ? $_POST['question_charLim'] : die();
         } else {
-            $question->choices = isset($_POST['choice']) ? $_POST['choice'] : die();
+            $question->choices = isset($_POST['choices']) ? $_POST['choices'] : die();
         }
 
         $question->create();
