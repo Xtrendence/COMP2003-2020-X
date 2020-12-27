@@ -25,7 +25,7 @@
             $row = $command->fetch(PDO::FETCH_ASSOC);
             $this->questionID = $row['questionID'];
             if ($this->question_type != 'custom') {
-                for ($i = 0; $i <= count($this->choices); $i++) {
+                for ($i = 0; $i < count($this->choices); $i++) {
                     $query = 'INSERT INTO choice (questionID, patientID, choice) VALUES (:questionID, :patientID, :choice)';
                     $command = $this->connection->prepare($query);
                     $command->bindParam(':questionID', $this->questionID);
