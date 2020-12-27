@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
      * @desc variables made from id's in the create-question.php
      * all are in order as seen in the php file
      */
-    let enquiry = document.getElementById("question");
-
     let multipleChoiceRadioButton = document.getElementById("multiple-choice-op");
     let longAnswerRadioButton = document.getElementById("long-answer");
 
@@ -24,6 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let url = new URL(window.location.href);
     let patID = url.searchParams.get("id");
 
+    let titleCard = document.getElementById("userQuestion");
+    let title = "Ask a Question - User ";
+    let addID = title.concat(patID);
+    titleCard.innerText = addID;
 
     /**
      * @desc checks to see is all input boxes have been inputted into

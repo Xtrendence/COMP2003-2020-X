@@ -41,7 +41,7 @@
 
 <div class="wrapper">
     <div class="title-card">
-        <span>Ask a Question - User</span>
+        <span id="userQuestion"></span>
     </div>
 
     <div class="thick-card">
