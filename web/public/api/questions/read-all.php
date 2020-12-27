@@ -42,7 +42,7 @@
 						$item['choices'][$i + 1] = $choice;
 					}
 					
-				array_push($array['data'], $item);
+					array_push($array['data'], $item);
 				}
 			}
 

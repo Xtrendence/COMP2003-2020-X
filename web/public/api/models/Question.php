@@ -8,7 +8,8 @@
         public $question_charLim;
         public $question_type;
         public $choices;
-        public $patientID
+        public $choicesArr = [];
+        public $patientID;
 
         public function __construct($db) {
 			$this->connection = $db;
@@ -79,18 +80,24 @@
 			$command->bindParam(':id', $this->questionID);
 			$command->execute();
 
-			$row = $command->fetch(PDO::FETCH_ASSOC);
+			$result = $command->fetch(PDO::FETCH_ASSOC);
 
-			$this->questionID = $row['questionID'];
-			$this->question = $row['question'];
-			$this->question_charLim = $row['question_charLim'];
-            $this->question_type = $row['question_type'];
+			$this->questionID = $result['questionID'];
+			$this->question = $result['question'];
+			$this->question_charLim = $result['question_charLim'];
+            $this->question_type = $result['question_type'];
 
             $query = 'SELECT * FROM choice WHERE questionID=:id';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
-			$command->execute();
-            $this->choices = $row['choice'];
+            $command->execute();
+            if (rowCount($result) != 0) {
+                for ($i = 0; $i <= count($this->choices); $i++) {
+                    extract($result);
+                    $this->choices = $result['choice'][$i];
+                    array_push($choicesArr[], $this->choices)
+                }
+            }
         }
 
         public function update() {

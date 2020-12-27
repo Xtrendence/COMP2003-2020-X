@@ -41,11 +41,12 @@
 						'question_type' => $question_type,
 						'choices' => array()							
 					);
+					
 					for ($i = 0; $i <= count($choices); $i++) {
 						$item['choices'][$i + 1] = $choice;
 					}
 					
-				array_push($array['data'], $item);
+					array_push($array['data'], $item);
 				}
 			}
 
