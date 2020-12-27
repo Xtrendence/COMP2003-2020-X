@@ -8,6 +8,7 @@
         public $question_charLim;
         public $question_type;
         public $choices;
+        public $patientID
 
         public function __construct($db) {
 			$this->connection = $db;
@@ -20,15 +21,25 @@
             $command->bindParam(':question_type', $this->question_type);
             $command->bindParam(':question_charLim', $this->question_charLim);
             $command->execute();
+            $query = 'SELECT MAX(questionID) AS questionID FROM question';
+            $command = $this->connection->prepare($query);
+            $row = $command->fetch(PDO::FETCH_ASSOC);
+            $this->questionID = $row['questionID'];
             if ($this->question_type != 'custom') {
                 for ($i = 0; $i <= count($this->choices); $i++) {
-                    $query = 'INSERT INTO choice (questionID, choice) VALUES (:questionID, :choice)';
+                    $query = 'INSERT INTO choice (questionID, patientID, choice) VALUES (:questionID, :patientID, :choice)';
                     $command = $this->connection->prepare($query);
                     $command->bindParam(':questionID', $this->questionID);
+                    $command->bindParam(':patientID', $this->patientID);
                     $command->bindParam(':choice', $this->choices[$i]);
                     $command->execute();
                 } 
             }
+            $query = 'INSERT INTO answer (questionID, patientID, answer) VALUES (:questionID, :patientID, "")';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':questionID', $this->questionID);
+            $command->bindParam(':patientID', $this->patientID);
+            $command->execute();
         }
 
         public function delete() {
