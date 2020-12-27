@@ -55,11 +55,12 @@
     </button>
 </div>
 
+<div class="button-div">
+    <button type="button" class="nav-button" id="prev-button"> Previous</button>
+    <button type="button" class="nav-button" id="next-button"> Next</button>
+</div>
+
 <div class="wrapper">
-    <div>
-        <button type="button" class="button-prev" id="prev-button"> Previous</button>
-        <button type="button" class="button-next" id="next-button"> Next</button>
-    </div>
     <div class="wide-card">
         <table class="patient-table" id="patientTable"> </table>
     </div>
@@ -68,26 +69,15 @@
 </html>
 
 
-<!--<thead>-->
-<!--<tr class="table-header">-->
-<!--    <th id="id-user"> User ID</th>-->
-<!--    <th id="first-name"> First Name</th>-->
-<!--    <th id="last-name"> Last Name</th>-->
-<!--    <th id="actions"> Actions</th>-->
+<!--<tr>-->
+<!--    <th class="table-header">User ID</th>-->
+<!--    <th class="table-header">First Name</th>-->
+<!--    <th class="table-header">Last Name</th>-->
+<!--    <th class="actions-header">Actions</th>-->
 <!--</tr>-->
-<!--</thead>-->
 
-<!--        <tbody>-->
-<!--        <tr class="table-row">-->
-<!--            <td class="table-header"> id123</td>-->
-<!--            <td class="table-header"> blah</td>-->
-<!--            <td class="table-header"> bluh</td>-->
-<!--            <td class="actions-col">-->
-<!--                <button type="button" class="button"> Delete</button>-->
-<!--                <button type="button" class="button"> Edit</button>-->
-<!--                <button type="button" class="button"> View Chart</button>-->
-<!--                <button type="button" class="button"> View Answers</button>-->
-<!--                <button type="button" class="button"> Ask Questions</button>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
+<!--<button type="button" class="button"> Delete</button>-->
+<!--<button type="button" class="button"> Edit</button>-->
+<!--<button type="button" class="button"> View Chart</button>-->
+<!--<button type="button" class="button"> View Answers</button>-->
+<!--<button type="button" class="button"> Ask Questions</button>-->

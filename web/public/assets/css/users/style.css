@@ -1,30 +1,26 @@
-.button {
+button {
     background: var(--accent-gradient);
-    box-shadow: var(--shadow-smooth);
+    /*box-shadow: var(--shadow-smooth);*/
     color: var(--accent-contrast);
     font-size: var(--font-medium);
     border-radius: 10px;
     cursor: pointer;
-    height: 40px;
-    alignment: center;
-    margin: 5px 5px 5px 5px;
+    height: 30px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    text-align: center;
+    -webkit-transition: all .1s ease;
+    -moz-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
 }
 
-.button-prev {
-    background: var(--accent-gradient);
-    box-shadow: var(--shadow-smooth);
-    color: var(--accent-contrast);
-    font-size: var(--font-medium);
-    border-radius: 10px;
-    cursor: pointer;
-    height: 40px;
-    alignment: center;
-    width: 7%;
-    margin-left: 20px;
-    margin-top: 20px;
+.action-button {
+
 }
 
-.button-next {
+.nav-button {
     background: var(--accent-gradient);
     box-shadow: var(--shadow-smooth);
     color: var(--accent-contrast);
@@ -32,19 +28,20 @@
     border-radius: 10px;
     cursor: pointer;
     height: 40px;
-    alignment: center;
-    width: 7%;
-    margin-left: 20px;
-    margin-top: 20px;
+    width: 90px;
+}
+
+.button-div{
+    position: absolute;
+    margin-top: -40px;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .wide-card{
     height: 100%;
-}
-
-.patient-table {
-    border-width: 10px;
-    border-color: black;
+    margin-top: 80px;
 }
 
 .text-names {
@@ -57,6 +54,19 @@
     padding-top: 10px;
 }
 
-.patient-table{
+.patient-table {
+    text-align: center
+}
 
+td {
+    border-bottom: lightslategray 1px solid;
+
+}
+
+.table-header {
+    width: 150px;
+}
+
+.actions-header {
+    width: 600px;
 }
