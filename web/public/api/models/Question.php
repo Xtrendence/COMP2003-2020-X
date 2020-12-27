@@ -85,7 +85,12 @@
 			$this->question = $row['question'];
 			$this->question_charLim = $row['question_charLim'];
             $this->question_type = $row['question_type'];
-            $this->choices = $row['choices'];
+
+            $query = 'SELECT * FROM choice WHERE questionID=:id';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->questionID);
+			$command->execute();
+            $this->choices = $row['choice'];
         }
 
         public function update() {
