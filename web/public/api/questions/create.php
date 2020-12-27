@@ -27,7 +27,7 @@
             $question->choices = isset($_POST['choices']) ? $_POST['choices'] : die();
         }
 
-        $question->create();
+        $question->create($patientID);
     } else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));
 	}

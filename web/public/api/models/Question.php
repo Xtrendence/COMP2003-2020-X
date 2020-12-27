@@ -8,14 +8,12 @@
         public $question_charLim;
         public $question_type;
         public $choices;
-        public $choicesArr = [];
-        public $patientID;
 
         public function __construct($db) {
 			$this->connection = $db;
         }
         
-        public function create() {
+        public function create($patientID) {
             $query = 'INSERT INTO ' . $this->table . ' (question, question_type, question_charLim) VALUES (:question, :question_type, :question_carLim)';
             $command = $this->connection->prepare($query);
             $command->bindParam(':question', $this->question);
@@ -61,6 +59,17 @@
 			$command = $this->connection->prepare($query);
             $command->execute();
 
+
+            $query = 'SELECT * FROM choice';
+            $command = $this->connection->prepare($query);
+            $command->execute();
+
+            if ($command > 0) {
+                while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
+                    array_push($this->choices, $row['choice'])
+                }
+            }
+
             return $command;
         }
 
@@ -70,6 +79,18 @@
 			$command->bindParam(':from', $from);
 			$command->bindParam(':to', $to);
             $command->execute();
+
+            $query = 'SELECT * FROM choice WHERE questionID BETWEEN :from AND :to';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':from', $from);
+			$command->bindParam(':to', $to);
+            $command->execute();
+
+            if ($command > 0) {
+                while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
+                    array_push($this->choices, $row['choice'])
+                }
+            }
 
 			return $command;
         }
@@ -91,11 +112,10 @@
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
-            if (rowCount($result) != 0) {
-                for ($i = 0; $i <= count($this->choices); $i++) {
-                    extract($result);
-                    $this->choices = $result['choice'][$i];
-                    array_push($choicesArr[], $this->choices)
+
+            if ($command > 0) {
+                while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
+                    array_push($this->choices, $row['choice'])
                 }
             }
         }
