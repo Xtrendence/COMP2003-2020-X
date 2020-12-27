@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let submitButton = document.getElementById("submit");
     let submitText = document.getElementById("sub");
 
+    let url = new URL(window.location.href);
+    let patID = url.searchParams.get("id");
+
+
     /**
      * @desc checks to see is all input boxes have been inputted into
      * @returns {boolean}
@@ -163,6 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 let body = {
+                    patientID: patID,
                     question: enquiry.value,
                     question_type: "choice",
                     choice: choiceOptions
@@ -176,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             } else {
                 let body = {
+                    patientID: patID,
                     question: enquiry.value,
                     question_type: "custom",
                     question_charLim: characterLimit.value
