@@ -55,26 +55,34 @@
     </button>
 </div>
 
-<div class="button-div">
-    <button type="button" class="nav-button" id="prev-button"> Previous</button>
-    <button type="button" class="nav-button" id="next-button"> Next</button>
-</div>
+
 
 <div class="wrapper">
+    <div class="button-div">
+        <button type="button" class="nav-button" id="prev-button"> Previous</button>
+        <button type="button" class="nav-button" id="next-button"> Next</button>
+    </div>
     <div class="wide-card">
-        <table class="patient-table" id="patientTable"> </table>
+        <table class="patient-table">
+            <thead id="table-header">
+                <tr>
+                    <th class="table-header">User ID</th>
+                    <th class="table-header">First Name</th>
+                    <th class="table-header">Last Name</th>
+                    <th class="actions-header">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
 </html>
 
 
-<!--<tr>-->
-<!--    <th class="table-header">User ID</th>-->
-<!--    <th class="table-header">First Name</th>-->
-<!--    <th class="table-header">Last Name</th>-->
-<!--    <th class="actions-header">Actions</th>-->
-<!--</tr>-->
+
 
 <!--<button type="button" class="button"> Delete</button>-->
 <!--<button type="button" class="button"> Edit</button>-->

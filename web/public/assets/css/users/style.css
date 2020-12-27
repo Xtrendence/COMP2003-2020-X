@@ -1,4 +1,4 @@
-button {
+.action-button {
     background: var(--accent-gradient);
     /*box-shadow: var(--shadow-smooth);*/
     color: var(--accent-contrast);
@@ -6,7 +6,7 @@ button {
     border-radius: 10px;
     cursor: pointer;
     height: 30px;
-    margin-right: 5px;
+    margin-right: 10px;
     margin-bottom: 3px;
     text-align: center;
     -webkit-transition: all .1s ease;
@@ -14,10 +14,6 @@ button {
     -ms-transition: all .1s ease;
     -o-transition: all .1s ease;
     transition: all .1s ease;
-}
-
-.action-button {
-
 }
 
 .nav-button {
@@ -29,19 +25,18 @@ button {
     cursor: pointer;
     height: 40px;
     width: 90px;
+    margin-right: 10px;
 }
 
 .button-div{
-    position: absolute;
-    margin-top: -40px;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    margin-left: 40%;
+    margin-top: 10px;
+    position: relative;
 }
 
 .wide-card{
     height: 100%;
-    margin-top: 80px;
+    margin-top: 30px;
 }
 
 .text-names {
@@ -60,7 +55,6 @@ button {
 
 td {
     border-bottom: lightslategray 1px solid;
-
 }
 
 .table-header {
@@ -68,5 +62,5 @@ td {
 }
 
 .actions-header {
-    width: 600px;
+    width: 800px;
 }
