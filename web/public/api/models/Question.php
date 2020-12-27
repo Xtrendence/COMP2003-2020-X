@@ -29,7 +29,7 @@
                     $query = 'INSERT INTO choice (questionID, patientID, choice) VALUES (:questionID, :patientID, :choice)';
                     $command = $this->connection->prepare($query);
                     $command->bindParam(':questionID', $this->questionID);
-                    $command->bindParam(':patientID', $this->patientID);
+                    $command->bindParam(':patientID', $patientID);
                     $command->bindParam(':choice', $this->choices[$i]);
                     $command->execute();
                 } 
@@ -37,7 +37,7 @@
             $query = 'INSERT INTO answer (questionID, patientID, answer) VALUES (:questionID, :patientID, "")';
             $command = $this->connection->prepare($query);
             $command->bindParam(':questionID', $this->questionID);
-            $command->bindParam(':patientID', $this->patientID);
+            $command->bindParam(':patientID', $patientID);
             $command->execute();
         }
 
