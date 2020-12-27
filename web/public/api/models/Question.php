@@ -59,14 +59,13 @@
 			$command = $this->connection->prepare($query);
             $command->execute();
 
-
             $query = 'SELECT * FROM choice';
             $command = $this->connection->prepare($query);
             $command->execute();
 
             if ($command > 0) {
                 while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
-                    array_push($this->choices, $row['choice'])
+                    array_push($this->choices, $row['choice']);
                 }
             }
 
@@ -88,7 +87,7 @@
 
             if ($command > 0) {
                 while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
-                    array_push($this->choices, $row['choice'])
+                    array_push($this->choices, $row['choice']);
                 }
             }
 
@@ -115,7 +114,7 @@
 
             if ($command > 0) {
                 while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
-                    array_push($this->choices, $row['choice'])
+                    array_push($this->choices, $row['choice']);
                 }
             }
         }
