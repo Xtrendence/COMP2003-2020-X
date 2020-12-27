@@ -17,7 +17,7 @@
         }
         
         $question = new Question($db);
-        $question->question = isset($_POST['patientID']) ? $_POST['patientID'] : die();
+        $patientID= isset($_POST['patientID']) ? $_POST['patientID'] : die();
         $question->question = isset($_POST['question']) ? $_POST['question'] : die();
         $question->question_type = isset($_POST['question_type']) ? $_POST['question_type'] : die();
         

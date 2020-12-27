@@ -14,12 +14,16 @@
         }
         
         public function create($patientID) {
-            $query = 'INSERT INTO ' . $this->table . ' (question, question_type, question_charLim) VALUES (:question, :question_type, :question_carLim)';
+            $this->question_type == 'custom' ? $query = 'INSERT INTO ' . $this->table . ' (question, question_type, question_charLim) VALUES (:question, :question_type, :question_charLim)' : $query = 'INSERT INTO ' . $this->table . ' (question, question_type) VALUES (:question, :question_type)'; 
             $command = $this->connection->prepare($query);
             $command->bindParam(':question', $this->question);
             $command->bindParam(':question_type', $this->question_type);
-            $command->bindParam(':question_charLim', $this->question_charLim);
+
+            if ($this->question_type == 'custom') {
+                $command->bindParam(':question_charLim', $this->question_charLim);
+            }
             $command->execute();
+            
             $query = 'SELECT MAX(questionID) AS questionID FROM question';
             $command = $this->connection->prepare($query);
             $row = $command->fetch(PDO::FETCH_ASSOC);
