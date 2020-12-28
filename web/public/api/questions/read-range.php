@@ -41,13 +41,25 @@
 						'question_type' => $question_type,
 						'choices' => array()							
 					);
+
+					choices = [];
+
+					$query = 'SELECT * FROM choices WHERE questionID=:id';
+					$command = $db->prepare($query);
+					$command->execite();
+
 					
-					for ($i = 0; $i <= count($choices); $i++) {
-						$item['choices'][$i + 1] = $choice;
+					if ($command > 0) {
+						while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
+							array_push($this->choices, $row['choice']);
+						}
 					}
-					
-					array_push($array['data'], $item);
+
+					for ($i = 0; $i < count($choices); $i++) {
+						$item['choices'][$i + 1] = $choices[$i];
+					}					
 				}
+				array_push($array['data'], $item);
 			}
 
 			echo json_encode($array, JSON_PRETTY_PRINT);

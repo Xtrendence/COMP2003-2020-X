@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Origin: *');
 	header('Content-Type: application/json');
 
 	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -19,22 +19,22 @@ header('Access-Control-Allow-Origin: *');
 		if (!empty($question->questionID)) {
 			if ($question->question_type == 'custom') {
 				$item = array(
-					'questionID' => $questionID,
-					'question' => $question,
-					'question_charlim' => $question_charLim,
-					'question_type' => $question_type
+					'questionID' => $question->questionID,
+					'question' => $question->question,
+					'question_charlim' => $question->question_charLim,
+					'question_type' => $question->question_type
 				);
 
 			} else {
 				$item = array(
-					'questionID' => $questionID,
-					'question' => $question,
-					'question_type' => $question_type,
+					'questionID' => $question->questionID,
+					'question' => $question->question,
+					'question_type' => $question->question_type
 					'choices' => array()							
 				);
 				
-				for ($i = 0; $i <= count($choices); $i++) {
-					$item['choices'][$i + 1] = $choice;
+				for ($i = 0; $i < count($question->choices); $i++) {
+					$item['choices'][$i + 1] = $question->choices[$i];
 				}
 			}
 

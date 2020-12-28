@@ -23,7 +23,7 @@
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				extract($row);
 
-				if ($question->question_type == 'custom') {
+				if ($question_type == 'custom') {
 					$item = array(
 						'questionID' => $questionID,
 						'question' => $question,
@@ -38,12 +38,27 @@
 						'question_type' => $question_type,
 						'choices' => array()							
 					);
-					for ($i = 0; $i <= count($choices); $i++) {
-						$item['choices'][$i + 1] = $choice;
+
+					$choices = []
+
+					$query = 'SELECT * FROM choice WHERE questionID=:id';
+					$command = $db->prepare($query);
+					$command->bindParam(':id', $questionID);
+					$command->execute();
+
+					if ($command->rowCount() > 0) {
+						while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
+							array_push($choices, $row['choice']);
+						}
+					}
+
+					for ($i = 0; $i < count($choices); $i++) {
+						$item['choices'][$i + 1] = $choices[$i];
 					}
 					
-					array_push($array['data'], $item);
+					
 				}
+				array_push($array['data'], $item);
 			}
 
 			echo json_encode($array, JSON_PRETTY_PRINT);
