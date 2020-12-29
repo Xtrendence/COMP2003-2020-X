@@ -59,26 +59,14 @@
         }
 
         public function readAll() {
-            $query = 'SELECT * FROM ' . $this->table;
-            $command = $this->connection->prepare($query);
+			$query = 'SELECT * FROM ' . $this->table;
+			$command = $this->connection->prepare($query);
             $command->execute();
 
             return $command;
         }
 
         public function readRange($from, $to) {
-            $query = 'SELECT * FROM choice WHERE questionID BETWEEN :from AND :to';
-			$command = $this->connection->prepare($query);
-			$command->bindParam(':from', $from);
-			$command->bindParam(':to', $to);
-            $command->execute();
-
-            if ($command > 0) {
-                while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
-                    array_push($this->choices, $row['choice']);
-                }
-			}
-			
 			$query = 'SELECT * FROM ' . $this->table . ' WHERE questionID BETWEEN :from AND :to';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':from', $from);
