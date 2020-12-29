@@ -42,11 +42,11 @@
 						'choices' => array()							
 					);
 
-					choices = [];
+					$choices = [];
 
 					$query = 'SELECT * FROM choices WHERE questionID=:id';
 					$command = $db->prepare($query);
-					$command->execite();
+					$command->execute();
 
 					
 					if ($command > 0) {

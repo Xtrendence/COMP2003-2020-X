@@ -39,7 +39,7 @@
 						'choices' => array()							
 					);
 
-					$choices = []
+					$choices = [];
 
 					$query = 'SELECT * FROM choice WHERE questionID=:id';
 					$command = $db->prepare($query);

@@ -29,8 +29,8 @@
 				$item = array(
 					'questionID' => $question->questionID,
 					'question' => $question->question,
-					'question_type' => $question->question_type
-					'choices' => array()							
+					'question_type' => $question->question_type,
+					'choices' => array()
 				);
 				
 				for ($i = 0; $i < count($question->choices); $i++) {
