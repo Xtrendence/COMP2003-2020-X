@@ -59,8 +59,8 @@
         }
 
         public function readAll() {
-            $query = 'SELECT * FROM ' . $this->table;
-            $command = $this->connection->prepare($query);
+			$query = 'SELECT * FROM ' . $this->table;
+		    $command = $this->connection->prepare($query);
             $command->execute();
 
             return $command;
