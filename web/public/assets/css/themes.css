@@ -4,7 +4,7 @@
     --accent-medium: rgb(78,84,106);
     --accent-dark: rgb(61,65,82);
     --accent-darkest: rgb(43,47,59);
-    --accent-contrast: rgb(255,255,255);
+    --accent-contrast: rgb(255, 255, 255);
     --accent-gradient: linear-gradient(120deg, var(--accent-lightest) 25%, var(--accent-medium) 50%, var(--accent-dark) 100%);
     --main-first: rgb(255,255,255);
     --main-second: rgb(245,245,245);
@@ -13,6 +13,7 @@
     --main-fifth: rgb(210,210,210);
     --main-sixth: rgb(190,190,190);
     --main-contrast: rgb(75,75,75);
+    --error-shadow: 0 1px 1px rgba(125, 103, 129, 0.2), 0 2px 2px rgba(108,84,106,0.3), 0 4px 4px rgba(100,65,82,0.4), 0 8px 8px rgba(100, 47, 59, 0.5);
 }
 
 [data-theme="dark"] {
@@ -30,4 +31,6 @@
     --main-fifth: rgb(65,65,65);
     --main-sixth: rgb(85,85,85);
     --main-contrast: rgb(200,200,200);
+    --error-shadow: 0 1px 1px rgba(100, 8, 8, 0.08), 0 2px 2px rgba(90, 000, 000,0.12), 0 4px 4px rgba(80, 000, 000,0.16), 0 8px 8px rgba(70, 000, 000, 0.20);
+
 }

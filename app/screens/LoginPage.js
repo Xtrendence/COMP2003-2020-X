@@ -3,30 +3,46 @@ import React, { useEffect } from 'react';
 import { Svg, Path } from 'react-native-svg';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
+import Notifier from '../utils/Notifier';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalColors, globalStyles } from '../styles/global';
 import LoadingScreen from '../components/LoadingScreen';
 
 export const LoginPage = ({ navigation }) => {
-	const [loading, setLoading] = React.useState(false);
+	const [token, setToken] = React.useState();
+	const [loading, setLoading] = React.useState(true);
 	const [username, setUsername] = React.useState();
 	const [password, setPassword] = React.useState();
 
-	// To be deleted once the API has been made.
+	let notifier = new Notifier(
+		onRegister.bind(this),
+		onNotification.bind(this)
+	);
+
 	useEffect(() => {
-		login();
-	}, []);
+		// To be removed once testing is complete.
+		setUsername("maureenW38");
+		setPassword("Iamthedefault");
+		if (!empty(token)) {
+			setTimeout(() => {
+				setLoading(false);
+				// To be removed once testing is complete.
+				login();
+			}, 500);
+		}
+	}, [token]);
 
 	return (
 		<View style={styles.pageContainer}>
 			{ loading &&
-				<LoadingScreen>Logging In...</LoadingScreen>
+				<LoadingScreen>Loading...</LoadingScreen>
 			}
 			<View style={styles.bannerWrapper}>
 				<Text style={styles.banner}>Login</Text>
 			</View>
 			<View style={styles.loginForm}>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} ></TextInput>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} onSubmitEditing={() => login()} secureTextEntry></TextInput>
+				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} value={username}></TextInput>
+				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} onSubmitEditing={() => login()} secureTextEntry>{password}</TextInput>
 				<TouchableOpacity style={styles.actionButton} onPress={() => login()}>
 					<Text style={styles.actionText}>Login</Text>
 				</TouchableOpacity>
@@ -38,17 +54,73 @@ export const LoginPage = ({ navigation }) => {
 		</View>
 	);
 
-	function login() {
-		setLoading(true);
-		setTimeout(() => {
-			setLoading(false);
-			// showMessage({
-			// 	message: "Error",
-			// 	description: "Invalid login credentials.",
-			// 	type: "danger",
-			// });
-			navigation.navigate("BottomBar");
-		}, 20);
+	function onRegister(token) {
+		setToken(token.token);
+	}
+
+	function onNotification(notification) {
+		notifier.localNotification(notification.title, notification.message);
+	}
+
+	async function login() {
+		// To be removed once testing is complete.
+		let username = "maureenW38";
+		let password = "Iamthedefault";
+
+		if (!empty(token)) {
+			setLoading(true);
+
+			setTimeout(() => {
+				setLoading(false);
+			}, 5000);
+
+			let body = { patient_username:username, patient_password:password, fcmToken:token };
+
+			fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
+				method: "POST",
+				headers: {
+					Accept: "application/json", "Content-Type": "application/json"
+				},
+				body: JSON.stringify(body)
+			})
+			.then((response) => {
+				return response.json();
+			})
+			.then(async (json) => {
+				setLoading(false);
+				if (json.valid !== true) {
+					showMessage({
+						message: json.message,
+						type: "warning"
+					});
+				} else {
+					await AsyncStorage.setItem("token", json.token);
+					await AsyncStorage.setItem("patientID", json.patientID);
+					navigation.navigate("BottomBar");
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+				setLoading(false);
+				showMessage({
+					message: "Network Error",
+					type: "danger"
+				});
+			});
+		} else {
+			showMessage({
+				message: "App Error",
+				description: "Please wait until your device is registered.",
+				type: "warning"
+			});
+		}
+	}
+
+	function empty(value) {
+		if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
+			return true;
+		}
+		return false;
 	}
 }
 
