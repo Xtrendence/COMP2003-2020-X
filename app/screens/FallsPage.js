@@ -44,12 +44,6 @@ export const FallsPage = ({ navigation }) => {
 	);
 
 	async function saveFalls() {
-		
-		setLoading(true);
-
-		setTimeout(() => {
-			setLoading(false);
-		}, 5000);
 
 		let token = await AsyncStorage.getItem("token");
 
@@ -67,11 +61,13 @@ export const FallsPage = ({ navigation }) => {
 			body: JSON.stringify(body)
 		})
 		.then(() => {
-			setLoading(false);
+			showMessage({
+				message: "Falls Confirmed",
+				type: "success"
+			})
 		})
 		.catch((error) => {
 			console.log(error);
-			setLoading(false);
 			showMessage({
 				message: "Network Error",
 				type: "danger"
