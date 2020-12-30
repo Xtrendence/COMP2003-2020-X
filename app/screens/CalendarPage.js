@@ -10,7 +10,7 @@ LocaleConfig.locales['en'] = {
 	monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul.','Aug','Sept.','Oct.','Nov','Dec'],
 	dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
 	dayNamesShort: ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'],
-	today: 'today'
+	today: 'Today'
   };
   LocaleConfig.defaultLocale = 'en';
 
