@@ -2,16 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
     let from = 1;
     let to = 50;
     const xhr = new XMLHttpRequest();
-    let layer = document.getElementById("patientTable");
-    // let actionButtons = document.getElementById("action-buttons");
+    let header = document.getElementById("table-header");
+    let layer = document.getElementById("table-body");
+    let deleteButton;
+    let editButton;
+    let profileButton;
+    let answerButton;
+    let questButton;
 
-    function createButtons(){
-        console.log("blah");
-    }
 
 
 
-    function getUsers(from, to) {
+    function getUsers(from, to, userID, firstName, lastName) {
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 let json = xhr.responseText;
@@ -20,30 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     let keys = Object.keys(users["data"]);
                     console.log(users);
                         try {
-                            layer.innerHTML = "<tr><th>User ID</th><th>First Name</th><th>Last Name</th><th>Actions</th></tr>";
+                            // layer.innerHTML = "<tr><th>User ID</th><th>First Name</th><th>Last Name</th><th>Actions</th></tr>";
                             let patient = users["data"];
                             for (let i = 0; i < keys.length; i++){
-                                let createDeleteButton;
-                                let createEditButton;
-                                let createChartButton;
-                                let createAnswerButton;
-                                let createQuestButton;
-                                createDeleteButton = document.createElement("button");
-                                createDeleteButton.classList.add("action-button");
-                                createDeleteButton.textContent = 'Delete';
-                                createEditButton = document.createElement("button");
-                                createEditButton.classList.add("action-button");
-                                createEditButton.textContent = 'Edit';
-                                createChartButton = document.createElement("button");
-                                createChartButton.classList.add("action-button");
-                                createChartButton.textContent = 'View Chart';
-                                createAnswerButton = document.createElement("button");
-                                createAnswerButton.classList.add("action-button");
-                                createAnswerButton.textContent = 'View Answers';
-                                createQuestButton = document.createElement("button");
-                                createQuestButton.classList.add("action-button");
-                                createQuestButton.textContent = 'Ask Question';
-
+                                console.log("123");
                                 let userID = patient[i]["patientID"];
                                 let firstName = patient[i]["patient_fName"];
                                 let lastName = patient[i]["patient_lName"];
@@ -56,18 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
                                 cell1.innerHTML = (userID);
                                 cell2.innerHTML = (firstName);
                                 cell3.innerHTML = (lastName);
-                                cellAct.appendChild(createDeleteButton);
-                                cellAct.appendChild(createEditButton);
-                                cellAct.appendChild(createChartButton);
-                                cellAct.appendChild(createAnswerButton);
-                                cellAct.appendChild(createQuestButton);
-                                // cellAct.innerHTML = "<button>Delete</button><button>Edit</button><button>View Chart</button><button>View Answers</button><button>Ask Question</button>"
-
                                 layer.appendChild(row);
                                 layer.appendChild(cell1);
                                 layer.appendChild(cell2);
                                 layer.appendChild(cell3);
-                                layer.appendChild(cellAct);
+
+                                createButtons(deleteButton, editButton, profileButton, answerButton, questButton, userID, cellAct, row);
                             }
                     } catch {
                         console.error("error123123");
@@ -88,8 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         from = to + 1;
         to = to + 50;
         getUsers(from, to);
-
-        console.log(from, to);
     });
 
     document.getElementById("prev-button").addEventListener("click", function () {
@@ -98,9 +72,54 @@ document.addEventListener("DOMContentLoaded", () => {
         from = to - 99;
         to = to - 50;
         getUsers(from, to);
-
-        console.log(from, to);
     });
+    function createButtons(deleteButton, editButton, profileButton, answerButton, questButton, userID, cellAct, row){
+        let editAnchor = document.createElement("a");
+        let profileAnchor = document.createElement("a");
+        let answerAnchor = document.createElement("a");
+        let questionAnchor = document.createElement("a");
+
+        deleteButton = document.createElement("button");
+        deleteButton.classList.add("action-button");
+        deleteButton.id = "deleteButton";
+        deleteButton.textContent = 'Delete';
+
+        editButton = document.createElement("button");
+        editButton.classList.add("action-button");
+        editButton.id = "editButton";
+        editButton.textContent = 'Edit';
+        editAnchor.href = "./edit-user.php?id=" + userID + "";
+        editAnchor.appendChild(editButton);
+
+        profileButton = document.createElement("button");
+        profileButton.classList.add("action-button");
+        profileButton.id = "profileButton";
+        profileButton.textContent = 'View Profile';
+        profileAnchor.href = "./charts.php?id=" + userID + "";
+        profileAnchor.appendChild(profileButton);
+
+        answerButton = document.createElement("button");
+        answerButton.classList.add("action-button");
+        answerButton.id = "answerButton";
+        answerButton.textContent = 'View Answers';
+        answerAnchor.href = "./answers.php?id=" + userID + "";
+        answerAnchor.appendChild(answerButton);
+
+        questButton = document.createElement("button");
+        questButton.classList.add("action-button");
+        questButton.textContent = 'Ask Question';
+        questButton.id = "questButton";
+        questionAnchor.href = "./create-question.php?id=" + userID + "";
+        questionAnchor.appendChild(questButton);
+
+        cellAct.appendChild(deleteButton);
+        cellAct.appendChild(editAnchor);
+        cellAct.appendChild(profileAnchor);
+        cellAct.appendChild(answerAnchor);
+        cellAct.appendChild(questionAnchor);
+        layer.appendChild(cellAct);
+        // questButton = "<a href=\"./create-question?id=\" + userID + \"></a>";
+    }
 
     getUsers(from, to);
 });
