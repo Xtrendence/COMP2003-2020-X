@@ -38,10 +38,6 @@
 			header('Expires: 0');
 			header('Content-Disposition: attachment; filename=Patient-' . $fall->patientID . '-Falls.csv');
 
-			for ($i = 0; $i < 5; $i++) {
-				array_push($array['data'], array('fallID' => $i, 'patientID' => 1, 'fall_date' => '2020-05-02'));
-			}
-
 			$output = fopen('php://output', 'w');
 			fputcsv($output, array('fallID', 'patientID', 'fall_date'));
 			foreach ($array['data'] as $row) {
