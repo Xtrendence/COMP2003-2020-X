@@ -60,7 +60,7 @@ export const CalendarPage = ({ navigation }) => {
 				disableAllTouchEventsForDisabledDays={false}
 				// Replace default month and year title with custom one. the function receive a date as parameter.
 				renderHeader={(date) => {
-					return <Text>{LocaleConfig.locales["en"]["monthNames"][date.getMonth()]}</Text>
+					return <Text>{LocaleConfig.locales["en"]["monthNames"][date.getMonth()] + " " + date.getFullYear()}</Text>
 				}}
 				// Enable the option to swipe between months. Default = false
 				enableSwipeMonths={false}
