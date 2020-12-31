@@ -17,8 +17,6 @@
         $result = $answer->readUser($patientID);
         $rows = $result->rowCount();
 
-        echo $rows;
-
         if ($rows > 0) {
             $array = array();
             $array['data'] = array();
