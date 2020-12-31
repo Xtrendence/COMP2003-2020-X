@@ -21,7 +21,7 @@
 
         if ($rows > 0) {
             $array = array();
-            $aray['data'] = array();
+            $array['data'] = array();
 
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
@@ -33,16 +33,9 @@
                 );
 
                 if ($question_type == 'custom') {
-					$charLim = array(
-                        'question_charLim' => $question_charLim
-                    );				
-					array_push($item, $charLim);
-				
-				} else {
-					$choiceArr = array(
-						'choices' => array()							
-					);
+                    array_push($item['question_charLim'], $question_charLim);
 
+				} else {
 					$choices = [];
 
 					$query = 'SELECT * FROM choice WHERE questionID=:id';
@@ -57,15 +50,10 @@
 					}
 
 					for ($i = 0; $i < count($choices); $i++) {
-						$choiceArr['choices'][$i + 1] = $choices[$i];
-					}
-					array_push($item, $choiceArr);
-					
+						$item['choices'][$i + 1] = $choices[$i];
+					}					
                 }
-                $answerArr = array(
-                    'answer' => $answer
-                );
-                array_push($item, $answerArr);
+                array_push($item['answer'], $answer->answer);
 				array_push($array['data'], $item);
             }
             
