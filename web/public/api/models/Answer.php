@@ -30,13 +30,13 @@
             return $command;
         }
 
-        public function readUser() {
-            $query = 'SELECT answer.patientID, answer.questionID, question.question, question.question_type 
+        public function readUser($patientID) {
+            $query = 'SELECT answer.answerID, answer.patientID, answer.questionID, question.question, question.question_type, question.question_charLim
             FROM ' . $this->table . ' 
             INNER JOIN question ON answer.questionID = question.questionID
             WHERE patientID=:id ';
             $command = $this->connection->prepare($query);
-            $command->bindParam(':id', $this->patientID);
+            $command->bindParam(':id', $patientID);
             $command->execute();
 
             return $command;
@@ -46,9 +46,7 @@
         }
 
         public function update() {
-            $query = 'UPDATE' . $this->table . 'SET answer=:answer WHERE patientID=:id';
-            $command = $this->connection->prepare($query);
-            $command -> bindParam(':id', $this->patientID);
+            
         }
     }
 ?>

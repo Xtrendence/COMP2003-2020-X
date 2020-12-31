@@ -33,7 +33,7 @@
                 );
 
                 if ($question_type == 'custom') {
-                    array_push($item['question_charLim'], $question_charLim);
+                    $item['question_charLim'] = $question_charLim;
 
 				} else {
 					$choices = [];
@@ -53,7 +53,8 @@
 						$item['choices'][$i + 1] = $choices[$i];
 					}					
                 }
-                array_push($item['answer'], $answer->answer);
+                $item['answerID'] = $answerID;
+                $item['answer'] = $answer->answer;
 				array_push($array['data'], $item);
             }
             
