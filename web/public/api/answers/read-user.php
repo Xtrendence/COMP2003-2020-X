@@ -14,8 +14,10 @@
         $answer = new Answer($db);
         $patientID = isset($_GET['id']) ? $_GET['id'] : die();
         
-        $answer->readUser($patientID);
-        $rows = $answer->rowCount();
+        $result = $answer->readUser($patientID);
+        $rows = $result->rowCount();
+
+        echo $rows;
 
         if ($rows > 0) {
             $array = array();

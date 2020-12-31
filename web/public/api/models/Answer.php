@@ -21,20 +21,22 @@
         }
 
         public function readAll() {
-            $query = 'SELECT answer.patientID, answer.questionID, question.question, question.question_type, question.charLim, choice.choice, answer.answer
-                      FROM ' . $this->table . ', question, choice
-                      INNER JOIN answer ON answer.questionID = question.questionID
-                      INNER JOIN answer ON answer.questionID = choice.questionID';
-			$command = $this->connection->prepare($query);
+            $query = 'SELECT answer.patientID, answer.questionID, question.question, question.question_type 
+            FROM ' . $this->table . ' 
+            INNER JOIN question ON answer.questionID = question.questionID';
+            $command = $this->connection->prepare($query);
             $command->execute();
 
             return $command;
         }
 
         public function readUser($patientID) {
-            $query = 'SELECT answer.patientID, answer.questionID, question.question, question.question_type, question.charLim, choice.choice, answer.answer FROM ' . $this->table . ', question, choice WHERE patientID=:id INNER JOIN answer ON answer.questionID = question.questionID INNER JOIN answer ON answer.questionID = choice.questionID';
+            $query = 'SELECT answer.patientID, answer.questionID, question.question, question.question_type 
+            FROM ' . $this->table . ' 
+            INNER JOIN question ON answer.questionID = question.questionID
+            WHERE patientID=:id ';
             $command = $this->connection->prepare($query);
-            $command->bindParam('anspatientID', $patientID);
+            $command->bindParam(':id', $patientID);
             $command->execute();
 
             return $command;
