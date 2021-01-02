@@ -46,7 +46,13 @@
         }
 
         public function update() {
-            
+            $query = 'UPDATE ' . $this->table . ' SET answerID=:answerID, questionID=:questionID, patientID=:patientID, answer=:answer WHERE patientID=:patientID';
+            $command = $this->connection->prepare($query);
+            $command->bindParam('answerID', $this->answerID);
+            $command->bindParam('questionID', $this->questionID);
+            $command->bindParam('patientID', $this->patientID);
+            $command->bindParam('answer', $this->answer);
+            $command->excute();
         }
     }
 ?>

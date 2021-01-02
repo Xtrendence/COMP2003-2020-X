@@ -14,6 +14,9 @@
         $input = json_decode(file_get_contents('php://input'), true);
         
         $answer = new Answer($db);
+        $answer->answerID = isset($input['answerID']) ? $input['answerID'] : die();
+        $answer->questionID = isset($input['questionID']) ? $input['questionID'] : die();
+        $answer->patientID = isset($input['patientID']) ? $input['patientID'] : die();
         $answer->answer = isset($input['answer']) ? $input['answer'] : die();
 
         $answer->update();
