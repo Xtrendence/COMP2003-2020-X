@@ -52,7 +52,7 @@
             $command->bindParam(':questionID', $this->questionID);
             $command->bindParam(':patientID', $this->patientID);
             $command->bindParam(':answer', $this->answer);
-            $command->excute();
+            $command->execute();
         }
     }
 ?>
