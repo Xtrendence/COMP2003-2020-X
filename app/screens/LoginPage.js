@@ -94,7 +94,10 @@ export const LoginPage = ({ navigation }) => {
 				} else {
 					await AsyncStorage.setItem("token", json.token);
 					await AsyncStorage.setItem("patientID", json.patientID);
-					navigation.navigate("BottomBar");
+
+					if (!empty(json.token) && !empty(json.patientID) && !empty(await AsyncStorage.getItem("token")) && !empty(await AsyncStorage.getItem("patientID"))) {
+						navigation.navigate("BottomBar");
+					}
 				}
 			})
 			.catch((error) => {
