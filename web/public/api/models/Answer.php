@@ -31,7 +31,7 @@
         }
 
         public function readUser($patientID) {
-            $query = 'SELECT answer.answerID, answer.patientID, answer.questionID, answer.answer question.question, question.question_type, question.question_charLim
+            $query = 'SELECT answer.answerID, answer.patientID, answer.questionID, answer.answer, question.question, question.question_type, question.question_charLim
             FROM ' . $this->table . ' 
             INNER JOIN question ON answer.questionID = question.questionID
             WHERE patientID=:id ';
@@ -48,10 +48,10 @@
         public function update() {
             $query = 'UPDATE ' . $this->table . ' SET questionID=:questionID, patientID=:patientID, answer=:answer WHERE answerID=:answerID';
             $command = $this->connection->prepare($query);
-            $command->bindParam('answerID', $this->answerID);
-            $command->bindParam('questionID', $this->questionID);
-            $command->bindParam('patientID', $this->patientID);
-            $command->bindParam('answer', $this->answer);
+            $command->bindParam(':answerID', $this->answerID);
+            $command->bindParam(':questionID', $this->questionID);
+            $command->bindParam(':patientID', $this->patientID);
+            $command->bindParam(':answer', $this->answer);
             $command->excute();
         }
     }
