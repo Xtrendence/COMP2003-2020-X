@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { Svg, Path } from 'react-native-svg';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import Notifier from '../utils/Notifier';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,8 +26,6 @@ export const LoginPage = ({ navigation }) => {
 		if (!empty(token)) {
 			setTimeout(() => {
 				setLoading(false);
-				// To be removed once testing is complete.
-				login();
 			}, 500);
 		}
 	}, [token]);
@@ -37,8 +35,8 @@ export const LoginPage = ({ navigation }) => {
 			{ loading &&
 				<LoadingScreen>Loading...</LoadingScreen>
 			}
-			<View style={styles.bannerWrapper}>
-				<Text style={styles.banner}>Login</Text>
+			<View style={styles.imageWrapper}>
+				<Image style={styles.image} source={require("../assets/Logo.png")}/>
 			</View>
 			<View style={styles.loginForm}>
 				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} value={username}></TextInput>
@@ -48,7 +46,7 @@ export const LoginPage = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.bottomContainer}>
-				<Svg style={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><Path fill={globalColors.accentLight} fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,74.7C384,64,480,96,576,122.7C672,149,768,171,864,165.3C960,160,1056,128,1152,101.3C1248,75,1344,53,1392,42.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></Path></Svg>
+				<Svg style={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><Path fill={globalColors.accentLightest} fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,74.7C384,64,480,96,576,122.7C672,149,768,171,864,165.3C960,160,1056,128,1152,101.3C1248,75,1344,53,1392,42.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></Path></Svg>
 				<View style={styles.bottomFill}></View>
 			</View>
 		</View>
@@ -132,21 +130,18 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%"
 	},
-	bannerWrapper: {
-		height: 100,
-		justifyContent: "flex-end",
-		alignItems: "center"
+	imageWrapper: {
+		alignItems: "center",
+		justifyContent: "center",
+		position: "absolute",
+		width: "100%",
+		top: "10%",
+		height: 140,
 	},
-	banner: {
-		fontSize: globalStyles.bigFont,
-		fontWeight: "bold",
-		color: globalColors.accentContrast,
-		backgroundColor: globalColors.accentLight,
-		padding: 10,
+	image: {
 		width: 120,
-		textAlign: "center",
-		borderRadius: globalStyles.borderRadius
-	},	
+		height: 120
+	},
 	loginForm: {
 		position: "absolute",
 		left: 0,
@@ -208,11 +203,11 @@ const styles = StyleSheet.create({
 		height: "60%",
 		position: "absolute",
 		left: 0,
-		bottom: "50%"
+		bottom: "35%"
 	},
 	bottomFill: {
-		backgroundColor: globalColors.accentLight,
-		height: "75%",
+		backgroundColor: globalColors.accentLightest,
+		height: "60%",
 		width: "100%",
 		position: "absolute",
 		left: 0,

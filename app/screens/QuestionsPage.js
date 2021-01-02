@@ -29,6 +29,10 @@ export const QuestionsPage = ({ navigation }) => {
 
 	useEffect(() => {
 		getData();
+		setLoading(true);
+		navigation.addListener("focus", () => {
+			getData();
+		});
 	}, []);
 
 	return (
@@ -84,12 +88,11 @@ export const QuestionsPage = ({ navigation }) => {
 
 	function getCards(object) {
 		return Object.keys(object).map(questionID => {
-			let update = !empty(object[questionID]["answer"]);
 			return (
 				<Card key={questionID}>
 					<Text style={globalComponentStyles.cardTitle}>{ object[questionID]["question"] }</Text>
 					{ object[questionID]["question_type"] === "choice" ?
-						<RadioButton.Group onValueChange={value => saveChecked(questionID, object[questionID]["answerID"], value, update)} value={checked[questionID]}>
+						<RadioButton.Group onValueChange={value => saveChecked(questionID, object[questionID]["answerID"], value)} value={checked[questionID]}>
 							{ 
 								Object.keys(object[questionID]["choices"]).map(choiceKey => {
 									return (
@@ -105,7 +108,7 @@ export const QuestionsPage = ({ navigation }) => {
 						<View>
 							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setCustom({ ...custom, [questionID]:value })} value={custom[questionID]}></TextInput>
 							<View style={styles.buttonWrapper}>
-								<TouchableOpacity style={styles.actionButton} onPress={() => saveCustom(questionID, object[questionID]["answerID"], custom[questionID], update)}>
+								<TouchableOpacity style={styles.actionButton} onPress={() => saveCustom(questionID, object[questionID]["answerID"], custom[questionID])}>
 									<Text style={styles.actionText}>Save</Text>
 								</TouchableOpacity>
 							</View>
@@ -116,9 +119,16 @@ export const QuestionsPage = ({ navigation }) => {
 		});
 	}
 		
-	function getData() {
+	async function getData() {
+		let token = await AsyncStorage.getItem("token");
+
+		let patientID = await AsyncStorage.getItem("patientID");
+
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id=" + patientID + "&key=" + token;
+
 		setLoading(true);
-		fetch("https://www.xtrendence.com/tools/temp/data.php", {
+
+		fetch(endpoint, {
 			method: "GET",
 			headers: {
 				Accept: "application/json", "Content-Type": "application/json"
@@ -134,31 +144,33 @@ export const QuestionsPage = ({ navigation }) => {
 			let checkedChoices = {};
 			let answeredFields = {};
 
-			let questions = json.data;
-			Object.keys(questions).map(key => {
-				let question = questions[key];
-				let questionID = question["questionID"];
-				if (empty(question["answer"])) {
-					Object.assign(unansweredQuestions, { [questionID]:question });
-				} else {
-					if (question["question_type"] === "choice") {
-						Object.assign(checkedChoices, { [questionID]:question["answer"] });
+			if("data" in json) {
+				let questions = json.data;
+				Object.keys(questions).map(key => {
+					let question = questions[key];
+					let questionID = question["questionID"];
+					if (empty(question["answer"])) {
+						Object.assign(unansweredQuestions, { [questionID]:question });
 					} else {
-						Object.assign(answeredFields, { [questionID]:question["answer"] });
+						if (question["question_type"] === "choice") {
+							Object.assign(checkedChoices, { [questionID]:question["answer"] });
+						} else {
+							Object.assign(answeredFields, { [questionID]:question["answer"] });
+						}
+						Object.assign(answeredQuestions, { [questionID]:question });
 					}
-					Object.assign(answeredQuestions, { [questionID]:question });
-				}
-			});
+				});
 
-			let max = Math.max.apply(null, Object.keys(unansweredQuestions));
-			Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
-			delete unansweredQuestions[max];
+				let max = Math.max.apply(null, Object.keys(unansweredQuestions));
+				Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
+				delete unansweredQuestions[max];
 
-			setRecent(recentQuestion);
-			setUnanswered(unansweredQuestions);
-			setAnswered(answeredQuestions);
-			setChecked(checkedChoices);
-			setCustom(answeredFields);
+				setRecent(recentQuestion);
+				setUnanswered(unansweredQuestions);
+				setAnswered(answeredQuestions);
+				setChecked(checkedChoices);
+				setCustom(answeredFields);
+			}
 
 			setLoading(false);
 		})
@@ -172,16 +184,16 @@ export const QuestionsPage = ({ navigation }) => {
 		});
 	}
 
-	function saveChecked(key, answerID, value, update) {
+	function saveChecked(key, answerID, value) {
 		setChecked({ ...checked, [key]:value });
-		saveAnswer(key, answerID, value, update);
+		saveAnswer(key, answerID, value);
 	}
 
-	function saveCustom(key, answerID, value, update) {
-		saveAnswer(key, answerID, value, update);
+	function saveCustom(key, answerID, value) {
+		saveAnswer(key, answerID, value);
 	}
 
-	async function saveAnswer(questionID, answerID, answer, update) {		
+	async function saveAnswer(questionID, answerID, answer) {		
 		let patientID = await AsyncStorage.getItem("patientID");
 		let key = "8c068d98-874e-46ab-b2a1-5a5eb45a40a6";
 
@@ -189,15 +201,9 @@ export const QuestionsPage = ({ navigation }) => {
 		let method;
 		let body;
 
-		if (update) {
-			endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php?key=" + key;
-			method = "PUT";
-			body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
-		} else {
-			endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/create.php?key=" + key;
-			method = "POST";
-			body = { patientID:patientID, questionID:questionID, answer:answer };
-		}
+		endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php?key=" + key;
+		method = "PUT";
+		body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
 
 		setLoading(true);
 		fetch(endpoint, {
@@ -221,6 +227,9 @@ export const QuestionsPage = ({ navigation }) => {
 	}
 
 	function empty(value) {
+		if (typeof value === "object" && Object.keys(value).length === 0) {
+			return true;
+		}
 		if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
 			return true;
 		}
