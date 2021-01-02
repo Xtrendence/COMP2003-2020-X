@@ -52,7 +52,7 @@
 					}					
                 }
                 $item['answerID'] = $answerID;
-                $item['answer'] = $answer->answer;
+                $item['answer'] = $answer;
 				array_push($array['data'], $item);
             }
             
