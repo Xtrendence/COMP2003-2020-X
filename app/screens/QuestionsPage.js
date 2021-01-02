@@ -213,8 +213,10 @@ export const QuestionsPage = ({ navigation }) => {
 			},
 			body: JSON.stringify(body)
 		})
-		.then((response) => {
-			getData();
+		.then(() => {
+			setTimeout(() => {
+				getData();
+			}, 1000);
 		})
 		.catch((error) => {
 			console.log(error);
