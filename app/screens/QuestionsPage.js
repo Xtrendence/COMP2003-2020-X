@@ -144,7 +144,7 @@ export const QuestionsPage = ({ navigation }) => {
 			let checkedChoices = {};
 			let answeredFields = {};
 
-			if("data" in json) {
+			if ("data" in json) {
 				let questions = json.data;
 				Object.keys(questions).map(key => {
 					let question = questions[key];
