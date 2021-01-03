@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { useEffect, componentDidMount } from 'react';
 import { LineChart } from 'react-native-chart-kit';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
@@ -24,6 +24,10 @@ export const ChartsPage = ({ navigation }) => {
 
 	useEffect(() => {
 		getData(previousWeek(new Date()), new Date());
+		setLoading(true);
+		navigation.addListener("focus", () => {
+			getData(previousWeek(new Date()), new Date());
+		});
 	}, []);
 
 	return (
