@@ -22,7 +22,7 @@
 		}
 
 		public function read() {
-			$query = 'SELECT * FROM ' . $this->table . ' WHERE patientID=:id';
+			$query = 'SELECT * FROM ' . $this->table . ' WHERE fallID=:id';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->fallID);
 			$command->execute();
