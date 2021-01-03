@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let multipleChoiceRadioButton = document.getElementById("multiple-choice-op");
     let longAnswerRadioButton = document.getElementById("long-answer");
 
-    let enquiry = document.getElementById("question")
+    let enquiry = document.getElementById("question");
     let multipleOption = document.getElementById("multiple");
     let numberOfChoices = document.getElementById("number-of-choices");
     let choiceFields = document.getElementsByClassName("choice-field");
