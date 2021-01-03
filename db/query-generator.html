@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			:root {
+				--font-family: "Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif;
+			}
+			html {
+				font-family: var(--font-family);
+			}
+			body {
+				background: rgb(20,20,20);
+				color: rgb(255,255,255);
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+				overflow-x: hidden;
+				overflow-y: visible;
+			}
+			textarea {
+				width: calc(100% - 60px);
+				padding: 10px;
+				display: block;
+				margin: 20px auto 0 auto;
+				border-radius: 10px;
+				height: 400px;
+				background: rgb(40,40,40);
+				outline: none;
+				border: none;
+				color: rgb(255,255,255);
+				font-size: 16px;
+				resize: none;
+				font-family: var(--font-family);
+			}
+			textarea:last-of-type {
+				margin-bottom: 20px;
+			}
+		</style>
+		<title>SQL Mock Data Query Generator</title>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				let patient = document.getElementById("patient");
+				let patientLogin = document.getElementById("patient-login");
+				let diaryEntry = document.getElementById("diary-entry");
+				let fall = document.getElementById("fall");
+				let researcher = document.getElementById("researcher");
+				let researcherLogin = document.getElementById("researcher-login");
+				let admission = document.getElementById("admission");
+				let question = document.getElementById("question");
+				let answer = document.getElementById("answer");
+				let choice = document.getElementById("choice");
+
+				let usernames = ["irate", "rambunctious", "drip", "crooked", "form", "crazy", "scientific", "acoustics", "suit", "weary", "tan", "torpid", "cycle", "like", "spark", "jellyfish", "incredible", "steep", "degree", "duck", "deserted", "bell", "fragile", "school", "classy", "grateful", "soak", "hose", "fry", "lopsided", "superb", "bake", "first", "bounce", "incompetent", "multiply", "tie", "adorable", "pipe", "carriage", "ill", "boiling", "rebel", "aunt", "acceptable", "psychotic", "inject", "mysterious", "hill", "nauseating", "terrible", "amount", "selective", "tiger", "rake", "frightening", "stir", "proud", "skillful", "lackadaisical", "divergent", "group", "perpetual", "heady", "reward", "dinosaurs", "way", "suffer", "dirt", "sweater", "lung", "sleep", "crow", "slow", "wasteful", "rainy", "tough", "stare", "bury", "beautiful", "jaded", "fixed", "person", "pollution", "curly", "raspy", "stormy", "birthday", "suggest", "actually", "mix", "bruise", "launch", "sick", "needy", "volatile", "calculator", "beds", "maddening", "tendency", "snake", "brave", "remind", "powder", "annoying", "lazy", "vein", "existence", "glow", "political", "hilarious", "poke", "fluttering", "paddle", "uppity", "hand", "long-term", "stem", "room", "material", "ordinary", "robust", "mom", "kick", "current", "kind", "obtain", "sponge", "scribble", "solid", "coordinated", "sparkle", "murder", "fade", "married", "chin", "behavior", "discover", "cart", "notebook", "addition", "verdant", "woman", "vivacious", "strap", "squash", "muddle", "tree", "flesh", "credit", "juvenile", "explain", "rustic", "desert", "handsomely", "water", "buzz", "momentous", "overt", "ball", "miscreant", "son", "own", "trees", "promise", "defiant", "creator", "develop", "include", "sack", "wacky", "choke", "overwrought", "copper", "measly", "obedient", "transport", "obsolete", "pack", "complete", "memorize", "damage", "pail", "sticks", "boorish", "passenger", "tug", "shivering", "society", "back", "juicy", "strengthen", "zesty", "general", "seal", "lumpy", "aromatic", "agree", "scattered", "sloppy"];
+
+				let names = ["Mckenzie Cap", "Larue Simeon", "Nicholle Gossard", "Jeannie Bucker", "Christinia Unrein", "Odelia Brooks", "Suellen Gehling", "Maris Vandermolen", "Wyatt Brawner", "Terese Pina", "Andrea Collinson", "Armanda Rogowski", "Hilton Hearns", "Tyesha Dicus", "Tuyet Weary", "Nikki Giel", "Magen Gerling", "Ayana Labonte", "Marhta Masi", "Luanne Litton", "Amal Torgeson", "Jacques Hendryx", "Lorinda Hoerr", "Alexandra Hendrixson", "Lashaun Buice", "Shondra Eells", "Russell Haro", "Merry Chmielewski", "Anastasia Prado", "Shirlee Rossiter", "Sunny Vanbuskirk", "Natisha Leonardi", "Juliana Bacchus", "Alissa Landi", "Amina Gaona", "Leonila Ransdell", "Bernarda Sandefur", "Gretchen Jorge", "Dudley Pratts", "Caleb Prejean", "Mia Drown", "Sheron Segundo", "Pauletta Weckerly", "Alfreda Felton", "Lexie Janicki", "Ferne Woodward", "Grisel Garibay", "Tonie Cheatam", "Gordon Valadez", "Cira Poling", "Terrilyn Mom", "Livia Westman", "Chana Wendling", "Shyla Altamirano", "Branden Dobbins", "Warren Lizaola", "Octavio Masden", "Nancee Litz", "Clarinda Marcinko", "Robbin Sturm", "Clementina Buffum", "Kamilah Lembo", "Donna Almquist", "Alfredia Guerrier", "Keturah Lashbrook", "Shawanda Dechant", "Katina Tijerina", "Linwood Sanon", "Evita Derry", "Aida Landon", "Jamison Lampe", "Marry Wroblewski", "Jerrod Parmer", "Abe Ellington", "Brandy Wynter", "Lyn Domingo", "Lilly Grijalva", "Eldon Frias", "Dolly Finkle", "Foster Dales", "Nam Gascon", "Arletta Ficklin", "Beau Wayt", "Versie Maugeri", "Vannesa Garnett", "Johnny Ellefson", "Kathie Stines", "Derek Mardis", "Mistie Dew", "Kaitlin Fravel", "Peggie Heras", "Maggie Brownlow", "Dennis Maier", "Lenard Janicki", "Alana Nealy", "Bernice Yarborough", "Margert Schlottmann", "Joyce Vivanco", "Colette Brueggeman", "Kami Jim", "Jeremiah Baynes", "Magali Scranton", "Sparkle Bernat", "Romana Gallien", "Maya Keesler", "Carli Mchale", "Kia Douglas", "Alene Mclamb", "Barney Aiken", "Octavio Greenough", "Quinton Favero", "Fay Tackitt", "Evie Blocker", "Casey Hammersley", "Elnora Ottesen", "Lynsey Strub", "Ghislaine Stauffer", "Abel Sterba", "Niesha Marrufo", "Elane Hopp", "Noella Santo", "Corrinne Jordahl", "Noreen Loken", "Georgiana Hoerr", "Maryland Rieger", "Earnestine Ruck", "Josephina Wetzler", "Joann Bragdon", "Shemeka Renzi", "Dolly Tousignant", "Lorena Corwin", "Kourtney Claflin", "Andy Canterbury", "Collette Sancho", "Polly Watts", "Stanton Stjean", "Jerald Sund", "Robert Mescher", "Ewa Ison", "Carlie Crumb", "Nilda Mahood", "Brande Thrall", "Lauran Edinger", "Annetta Crase", "Leatha Yerger", "Phylicia Ivester", "Guy Serafino", "Rosann Lieser", "Ethel Rizo", "Tamala Jacko", "Magda Dang", "Fermina Fremont", "Anabel Mean", "Isabella Carpenter", "Shu Grieves", "Desmond Westmoreland", "Victorina Dodson", "Sage Arbeiter", "Lynette Pepper", "Darryl Moats", "Hildegard Luedke", "Ariana Claborn", "Margorie Ebersole", "Maye Wakeman", "Monroe Soliday", "Reena Braz", "Jeremy Rayborn", "Tamiko Blanc", "Dorsey Huling", "Cori Seekins", "Rosette Schill", "Tyler Kilbourne", "Lora Resendez", "Tyron Moscoso", "Queen Stroupe", "Leland Pitt", "Rozella Mcglamery", "Sharron Bran", "Delores Ferrill", "Lucinda Shutts", "Willy Melanson", "Erik Stanback", "Jarod Roebuck", "Hanna Shontz", "Romona Barrie", "Lazaro Silverio", "Donna Neagle", "Marylynn Capuano", "Elise Leyva", "Marcie Brafford", "Virgen Locascio", "Barabara Bently", "Marcell Negron", "Debby Gattison", "Herb Anchondo", "Alana Guerin", "Deloras Lueras", "Barbara Blank", "Akilah Commons", "Virgilio Louis"];
+
+				for (let i = 0; i < usernames.length; i++) {
+					let nhs = 1111111113 + i;
+					let username = usernames[i] + randomFromRange(1, 999);
+					let password = username.shuffle();
+					let name = names[i];
+					let firstName = name.split(" ")[0];
+					let lastName = name.split(" ")[1];
+					let year = randomFromRange(1940, 2002);
+					let month = randomFromRange(1, 12);
+					if (month < 10) {
+						month = "0" + month;
+					}
+					let day = randomFromRange(1, 28);
+					let birth = year + "/" + month + "/" + day + " ";
+					let hour = randomFromRange(0, 23);
+					if (hour < 10) {
+						hour = "0" + hour;
+					}
+
+					let query = 'INSERT INTO PATIENT (patient_nhsRef, patient_username, patient_password, patient_fName, patient_lName, patient_dob, patient_addressI, patient_addressII, patient_postcode, patient_tel, patient_mobile, patient_email, patient_comment, fcmToken, fcmToken_creation) VALUES (' + nhs + ', \'' + username + '\', \'' + password + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + birth + hour + ':00:00\', \'' + i + ' Some Road\', \'Some Flat\', \'PL3XQC\', \'01752123999\', \'+447849198656\', \'' + username + '@gmail.com\', \'No comment.\', \'cA0p7foP6Rw:APA91bEe4AHewzKxy9Fy2v5UIZ-twKkIU2A_8WOxQjsZMCHCS9roUATLaOs3_E5KcvB3TQDTZvymM-gBkY0KG3-ffTZh45J0vtRfAnPJ6wis4u7rePAUkeMwPZW1DwqLhuqC96y6Mqp\', NOW());';
+
+					patient.textContent += query + "\n";
+				}
+
+				for (let i = 0; i < 100; i++) {
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, NOW(), \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+
+					diaryEntry.textContent += query + "\n";
+				}
+
+				for (let i = 100; i < 150; i++) {
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, NOW(), \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+
+					diaryEntry.textContent += query + "\n";
+				}
+
+				for (let i = 150; i < 200; i++) {
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, NOW(), \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+
+					diaryEntry.textContent += query + "\n";
+				}
+
+				for (let i = 0; i < 200; i++) {
+					// 2020-12-09 19:24:28
+					let year = "2020";
+					let month = randomFromRange(1, 12);
+					if (month < 10) {
+						month = "0" + month;
+					}
+					monthsWith31 = [1, 3, 5, 7, 8, 10, 12];
+					monthsWith30 = [4, 6, 9, 11];
+					let day;
+					if (monthsWith31.includes(month)) {
+						day = randomFromRange(1, 31);
+					} else if (monthsWith30.includes(month)) {
+						day = randomFromRange(1, 30);
+					} else {
+						day = randomFromRange(1, 28);
+					}
+					let hour = randomFromRange(0, 23);
+					if (hour < 10) {
+						hour = "0" + hour;
+					}
+					let date = year + "/" + month + "/" + day + " " + hour + ":00:00";
+					let query = 'INSERT INTO FALL (patientID, fall_date) VALUES (1, \'' + date + '\');';
+
+					fall.textContent += query + "\n";
+				}
+
+				for (let i = 0; i < 100; i++) {
+					// 2020-12-09 19:24:28
+					let year = "2020";
+					let month = randomFromRange(1, 12);
+					if (month < 10) {
+						month = "0" + month;
+					}
+					monthsWith31 = [1, 3, 5, 7, 8, 10, 12];
+					monthsWith30 = [4, 6, 9, 11];
+					let day;
+					if (monthsWith31.includes(month)) {
+						day = randomFromRange(1, 31);
+					} else if (monthsWith30.includes(month)) {
+						day = randomFromRange(1, 30);
+					} else {
+						day = randomFromRange(1, 28);
+					}
+					let hour = randomFromRange(0, 23);
+					if (hour < 10) {
+						hour = "0" + hour;
+					}
+					let date = year + "/" + month + "/" + day + " " + hour + ":00:00";
+					let query = 'INSERT INTO FALL (patientID, fall_date) VALUES (2, \'' + date + '\');';
+
+					fall.textContent += query + "\n";
+				}
+			});
+
+			String.prototype.shuffle = function() {
+				let a = this.split(""), n = a.length;
+				for (let i = n - 1; i > 0; i--) {
+					let j = Math.floor(Math.random() * (i + 1));
+					let tmp = a[i];
+					a[i] = a[j];
+					a[j] = tmp;
+				}
+				return a.join("");
+			}
+
+			function randomFromRange(min, max) {
+				return Math.floor(Math.random() * (max - min + 1) + min);
+			}
+		</script>
+	</head>
+	<body>
+		<textarea id="patient"></textarea>
+		<textarea id="diary-entry"></textarea>
+		<textarea id="fall"></textarea>
+		<textarea id="question"></textarea>
+		<textarea id="answer"></textarea>
+		<textarea id="choice"></textarea>
+	</body>
+</html>

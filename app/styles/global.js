@@ -30,4 +30,28 @@ export const globalStyles = {
 	mediumFont: 18,
 	bigFont: 20,
 	bottomBarIconSize: 22,
+	topBarIconSize: 20,
 };
+
+export const globalComponentStyles = {
+	inputField: {
+		backgroundColor: globalColors.mainThird,
+		borderRadius: globalStyles.borderRadius,
+		height: 40,
+		padding: 10,
+		textAlignVertical: "center",
+	},
+	inputFieldMultiline: {
+		backgroundColor: globalColors.mainThird,
+		borderRadius: globalStyles.borderRadius,
+		height: 60,
+		padding: 10,
+		textAlignVertical: "top",
+	},
+	cardTitle: {
+		fontSize: globalStyles.smallFont,
+		fontWeight: "bold",
+		color: globalColors.mainContrast,
+		marginBottom: 10,
+	},
+}
