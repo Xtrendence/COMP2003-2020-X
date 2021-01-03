@@ -61,6 +61,7 @@ export const FallsPage = ({ navigation }) => {
 			body: JSON.stringify(body)
 		})
 		.then(() => {
+			setFalls(0);
 			showMessage({
 				message: "Falls Confirmed",
 				type: "success"
