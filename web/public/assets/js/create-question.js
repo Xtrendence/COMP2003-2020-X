@@ -159,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     submitButton.addEventListener("click", function() {
         if (checkForm()) {
+			let body;
             let xhr = new XMLHttpRequest();
             if (multipleChoiceRadioButton.classList.contains("active")) {
                 let choiceOptions = [];
@@ -168,11 +169,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     choiceFields[i].value = "";
                 }
 
-                let body = {
+                body = {
                     patientID: patID,
                     question: enquiry.value,
                     question_type: "choice",
-                    choice: choiceOptions
+                    choices: choiceOptions
                 };
 
                 submitText.classList.remove("hidden");
@@ -182,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 optionContainer.innerHTML = "";
 
             } else {
-                let body = {
+                body = {
                     patientID: patID,
                     question: enquiry.value,
                     question_type: "custom",
