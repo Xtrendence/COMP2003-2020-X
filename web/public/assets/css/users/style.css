@@ -1,4 +1,6 @@
 .action-button {
+    outline: none;
+    border: none;
     background: var(--accent-gradient);
     /*box-shadow: var(--shadow-smooth);*/
     color: var(--accent-contrast);
@@ -17,6 +19,8 @@
 }
 
 .nav-button {
+    outline: none;
+    border: none;
     background: var(--accent-gradient);
     box-shadow: var(--shadow-smooth);
     color: var(--accent-contrast);
