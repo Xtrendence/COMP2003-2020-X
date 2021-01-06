@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./assets/css/users/resize.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <script src="../public/assets/js/users.js"></script>
+    <script src="./assets/js/users.js"></script>
     <title>User Table Page</title>
 </head>
 
