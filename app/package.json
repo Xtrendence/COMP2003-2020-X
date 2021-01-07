@@ -50,6 +50,6 @@
     "preset": "react-native"
   },
   "private": true,
-  "name": "app",
+  "name": "brims-sms",
   "version": "1.0.0"
 }
