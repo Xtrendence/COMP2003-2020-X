@@ -13,7 +13,7 @@ export class LoginPage extends Component {
 		super(props);
 		this.state = {
 			token: null,
-			loading: true,
+			loading: false,
 			username: null,
 			password: null
 		};
@@ -84,14 +84,6 @@ export class LoginPage extends Component {
 		this.setState({password:"Iamthedefault"});
 	}
 
-	componentDidUpdate() {
-		if (!empty(this.state.token)) {
-			setTimeout(() => {
-				this.setState({loading:false});
-			}, 500);
-		}
-	}
-
 	render() {
 		let notifier = new Notifier(
 			onRegister.bind(this),
@@ -122,6 +114,9 @@ export class LoginPage extends Component {
 
 		function onRegister(token) {
 			this.setState({token:token.token});
+			if (!empty(token.token)) {
+				this.setState({loading:false});
+			}
 		}
 
 		function onNotification(notification) {
