@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import { Svg, Path } from 'react-native-svg';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
@@ -8,71 +8,32 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalColors, globalStyles } from '../styles/global';
 import LoadingScreen from '../components/LoadingScreen';
 
-export const LoginPage = ({ navigation }) => {
-	const [token, setToken] = React.useState();
-	const [loading, setLoading] = React.useState(true);
-	const [username, setUsername] = React.useState();
-	const [password, setPassword] = React.useState();
-
-	let notifier = new Notifier(
-		onRegister.bind(this),
-		onNotification.bind(this)
-	);
-
-	useEffect(() => {
-		// To be removed once testing is complete.
-		setUsername("maureenW38");
-		setPassword("Iamthedefault");
-		if (!empty(token)) {
-			setTimeout(() => {
-				setLoading(false);
-			}, 500);
-		}
-	}, [token]);
-
-	return (
-		<View style={styles.pageContainer}>
-			{ loading &&
-				<LoadingScreen>Loading...</LoadingScreen>
-			}
-			<View style={styles.imageWrapper}>
-				<Image style={styles.image} source={require("../assets/Logo.png")}/>
-			</View>
-			<View style={styles.loginForm}>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} value={username}></TextInput>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} onSubmitEditing={() => login()} secureTextEntry>{password}</TextInput>
-				<TouchableOpacity style={styles.actionButton} onPress={() => login()}>
-					<Text style={styles.actionText}>Login</Text>
-				</TouchableOpacity>
-			</View>
-			<View style={styles.bottomContainer}>
-				<Svg style={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><Path fill={globalColors.accentLightest} fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,74.7C384,64,480,96,576,122.7C672,149,768,171,864,165.3C960,160,1056,128,1152,101.3C1248,75,1344,53,1392,42.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></Path></Svg>
-				<View style={styles.bottomFill}></View>
-			</View>
-		</View>
-	);
-
-	function onRegister(token) {
-		setToken(token.token);
+export class LoginPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			token: null,
+			loading: true,
+			username: null,
+			password: null
+		};
+		this.navigation = props.navigation;
 	}
 
-	function onNotification(notification) {
-		notifier.localNotification(notification.title, notification.message);
-	}
-
-	async function login() {
+	login() {
 		// To be removed once testing is complete.
 		let username = "maureenW38";
 		let password = "Iamthedefault";
 
-		if (!empty(token)) {
-			setLoading(true);
+		if (!empty(this.state.token)) {
+			this.setState({loading:true});
 
 			setTimeout(() => {
-				setLoading(false);
+				this.setState({loading:false});
 			}, 5000);
 
-			let body = { patient_username:username, patient_password:password, fcmToken:token };
+			// To be changed to use the username and password stored in state.
+			let body = { patient_username:username, patient_password:password, fcmToken:this.state.token };
 
 			fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
 				method: "POST",
@@ -85,7 +46,7 @@ export const LoginPage = ({ navigation }) => {
 				return response.json();
 			})
 			.then(async (json) => {
-				setLoading(false);
+				this.setState({loading:false});
 				if (json.valid !== true) {
 					showMessage({
 						message: json.message,
@@ -96,13 +57,13 @@ export const LoginPage = ({ navigation }) => {
 					await AsyncStorage.setItem("patientID", json.patientID);
 
 					if (!empty(json.token) && !empty(json.patientID) && !empty(await AsyncStorage.getItem("token")) && !empty(await AsyncStorage.getItem("patientID"))) {
-						navigation.navigate("BottomBar");
+						this.navigation.navigate("BottomBar");
 					}
 				}
 			})
 			.catch((error) => {
 				console.log(error);
-				setLoading(false);
+				this.setState({loading:false});
 				showMessage({
 					message: "Network Error",
 					type: "danger"
@@ -117,12 +78,63 @@ export const LoginPage = ({ navigation }) => {
 		}
 	}
 
-	function empty(value) {
-		if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
-			return true;
-		}
-		return false;
+	componentDidMount() {
+		// To be removed once testing is complete.
+		this.setState({username:"maureenW38"});
+		this.setState({password:"Iamthedefault"});
 	}
+
+	componentDidUpdate() {
+		if (!empty(this.state.token)) {
+			setTimeout(() => {
+				this.setState({loading:false});
+			}, 500);
+		}
+	}
+
+	render() {
+		let notifier = new Notifier(
+			onRegister.bind(this),
+			onNotification.bind(this)
+		);
+
+		return (
+			<View style={styles.pageContainer}>
+				{ this.state.loading &&
+					<LoadingScreen>Loading...</LoadingScreen>
+				}
+				<View style={styles.imageWrapper}>
+					<Image style={styles.image} source={require("../assets/Logo.png")}/>
+				</View>
+				<View style={styles.loginForm}>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username}></TextInput>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry>{this.state.password}</TextInput>
+					<TouchableOpacity style={styles.actionButton} onPress={() => this.login()}>
+						<Text style={styles.actionText}>Login</Text>
+					</TouchableOpacity>
+				</View>
+				<View style={styles.bottomContainer}>
+					<Svg style={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><Path fill={globalColors.accentLightest} fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,74.7C384,64,480,96,576,122.7C672,149,768,171,864,165.3C960,160,1056,128,1152,101.3C1248,75,1344,53,1392,42.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></Path></Svg>
+					<View style={styles.bottomFill}></View>
+				</View>
+			</View>
+		);
+
+		function onRegister(token) {
+			this.setState({token:token.token});
+		}
+
+		function onNotification(notification) {
+			notifier.localNotification(notification.title, notification.message);
+		}
+	}
+}
+
+function empty(value) {
+	if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
+		return true;
+	}
+	return false;
 }
 
 const styles = StyleSheet.create({

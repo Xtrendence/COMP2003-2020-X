@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { StackNavigator } from '../components/Navigators';
+import { StackNavigator } from '../components/StackNavigator';
 import Notifier from '../utils/Notifier';
 
 export default class App extends Component {
