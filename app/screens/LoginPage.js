@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { Svg, Path } from 'react-native-svg';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, DevSettings } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import Notifier from '../utils/Notifier';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -75,6 +75,7 @@ export class LoginPage extends Component {
 				description: "Please wait until your device is registered.",
 				type: "warning"
 			});
+			DevSettings.reload();
 		}
 	}
 
