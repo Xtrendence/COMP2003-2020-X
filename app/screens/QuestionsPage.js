@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity, BackHandler } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Notifier from '../utils/Notifier';
@@ -17,6 +17,7 @@ export class QuestionsPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			firstNavigator: true,
 			recent: null,
 			unanswered: {},
 			answered: {},
@@ -172,8 +173,23 @@ export class QuestionsPage extends Component {
 	componentDidMount() {
 		this.getData();
 		this.setState({loading:true});
+
+		const goBack = () => {
+			if (this.state.firstNavigator) {
+				this.navigation.dangerouslyGetParent().navigate("LoginPage");
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		this.navigation.addListener("focus", () => {
 			this.getData();
+			BackHandler.addEventListener("hardwareBackPress", goBack);
+		});
+		
+		this.navigation.addListener("blur", () => {
+			BackHandler.removeEventListener("hardwareBackPress", goBack);
 		});
 	}
 
