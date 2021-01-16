@@ -12,28 +12,34 @@ export class LoginPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			token: null,
 			loading: false,
 			username: null,
 			password: null
 		};
 		this.navigation = props.navigation;
+		this._mounted;
 	}
 
-	login() {
+	async login() {
 		// To be removed once testing is complete.
 		let username = "maureenW38";
 		let password = "Iamthedefault";
 
-		if (!empty(this.state.token)) {
-			this.setState({loading:true});
+		let fcm = await AsyncStorage.getItem("fcm");
+
+		if (!empty(fcm)) {
+			if (this._mounted) {
+				this.setState({loading:true});
+			}
 
 			setTimeout(() => {
-				this.setState({loading:false});
+				if (this._mounted) {
+					this.setState({loading:false});
+				}
 			}, 5000);
 
 			// To be changed to use the username and password stored in state.
-			let body = { patient_username:username, patient_password:password, fcmToken:this.state.token };
+			let body = { patient_username:username, patient_password:password, fcmToken:fcm };
 
 			fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
 				method: "POST",
@@ -46,7 +52,9 @@ export class LoginPage extends Component {
 				return response.json();
 			})
 			.then(async (json) => {
-				this.setState({loading:false});
+				if (this._mounted) {
+					this.setState({loading:false});
+				}
 				if (json.valid !== true) {
 					showMessage({
 						message: json.message,
@@ -63,7 +71,9 @@ export class LoginPage extends Component {
 			})
 			.catch((error) => {
 				console.log(error);
-				this.setState({loading:false});
+				if (this._mounted) {
+					this.setState({loading:false});
+				}
 				showMessage({
 					message: "Network Error",
 					type: "danger"
@@ -80,9 +90,15 @@ export class LoginPage extends Component {
 	}
 
 	componentDidMount() {
+		this._mounted = true;
+
 		// To be removed once testing is complete.
 		this.setState({username:"maureenW38"});
 		this.setState({password:"Iamthedefault"});
+	}
+
+	componentWillUnmount() {
+		this._mounted = false;
 	}
 
 	render() {
@@ -113,10 +129,9 @@ export class LoginPage extends Component {
 			</View>
 		);
 
-		function onRegister(token) {
-			this.setState({token:token.token});
+		async function onRegister(token) {
 			if (!empty(token.token)) {
-				this.setState({loading:false});
+				await AsyncStorage.setItem("fcm", token.token);
 			}
 		}
 

@@ -26,10 +26,13 @@ export class QuestionsPage extends Component {
 			custom: {}
 		};
 		this.navigation = props.navigation;
+		this._mounted;
 	}
 
 	saveChecked(key, answerID, value) {
-		this.setState({checked:{ ...this.state.checked, [key]:value }});
+		if (this._mounted) {
+			this.setState({checked:{ ...this.state.checked, [key]:value }});
+		}
 		this.saveAnswer(key, answerID, value);
 	}
 
@@ -39,7 +42,7 @@ export class QuestionsPage extends Component {
 
 	async saveAnswer(questionID, answerID, answer) {		
 		let patientID = await AsyncStorage.getItem("patientID");
-		let key = "8c068d98-874e-46ab-b2a1-5a5eb45a40a6";
+		let key = await AsyncStorage.getItem("token");
 
 		let endpoint;
 		let method;
@@ -49,7 +52,10 @@ export class QuestionsPage extends Component {
 		method = "PUT";
 		body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
 
-		this.setState({loading:true});
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
+		
 		fetch(endpoint, {
 			method: method,
 			headers: {
@@ -112,7 +118,9 @@ export class QuestionsPage extends Component {
 
 		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id=" + patientID + "&key=" + token;
 
-		this.setState({loading:true});
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
 
 		fetch(endpoint, {
 			method: "GET",
@@ -151,18 +159,24 @@ export class QuestionsPage extends Component {
 				Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
 				delete unansweredQuestions[max];
 
-				this.setState({recent:recentQuestion});
-				this.setState({unanswered:unansweredQuestions});
-				this.setState({answered:answeredQuestions});
-				this.setState({checked:checkedChoices});
-				this.setState({custom:answeredFields});
+				if (this._mounted) {
+					this.setState({recent:recentQuestion});
+					this.setState({unanswered:unansweredQuestions});
+					this.setState({answered:answeredQuestions});
+					this.setState({checked:checkedChoices});
+					this.setState({custom:answeredFields});
+				}
 			}
 
-			this.setState({loading:false});
+			if (this._mounted) {
+				this.setState({loading:false});
+			}
 		})
 		.catch((error) => {
 			console.log(error);
-			this.setState({loading:false});
+			if (this._mounted) {
+				this.setState({loading:false});
+			}
 			showMessage({
 				message: "Network Error",
 				type: "danger"
@@ -171,8 +185,13 @@ export class QuestionsPage extends Component {
 	}
 
 	componentDidMount() {
+		this._mounted = true;
+
 		this.getData();
-		this.setState({loading:true});
+
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
 
 		const goBack = () => {
 			if (this.state.firstNavigator) {
@@ -191,6 +210,10 @@ export class QuestionsPage extends Component {
 		this.navigation.addListener("blur", () => {
 			BackHandler.removeEventListener("hardwareBackPress", goBack);
 		});
+	}
+
+	componentWillUnmount() {
+		this._mounted = false;
 	}
 
 	render() {
