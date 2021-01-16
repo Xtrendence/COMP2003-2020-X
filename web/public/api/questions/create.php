@@ -28,6 +28,8 @@
         }
 
         $question->create($patientID);
+        
+        echo json_encode(array("questionID" => $question->questionID));
     } else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));
 	}
