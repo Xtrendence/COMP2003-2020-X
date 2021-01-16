@@ -81,6 +81,7 @@ export default class BottomBar extends Component {
 						}}
 					/>
 				</BottomTab.Navigator>
+				<StatusBar translucent={false} backgroundColor={globalColors.accentMedium} style="light"></StatusBar>
 			</NavigationContainer>
 		);
 

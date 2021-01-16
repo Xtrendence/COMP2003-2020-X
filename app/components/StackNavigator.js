@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import FlashMessage from 'react-native-flash-message';
 import { NavigationContainer } from '@react-navigation/native';
@@ -16,6 +17,7 @@ export class StackNavigator extends Component {
 					<Stack.Screen name="LoginPage" component={LoginPage} options={{headerShown:false}}/>
 					<Stack.Screen name="BottomBar" component={BottomBar} options={{headerShown:false}}/>
 				</Stack.Navigator>
+				<StatusBar translucent={true}></StatusBar>
 				<FlashMessage position="top" />
 			</NavigationContainer>
 		);
