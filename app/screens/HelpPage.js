@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
 		paddingTop: 20,
 	},
 	imageText: {
+		fontFamily: globalStyles.fontFamily,
 		fontWeight: "bold",
 		fontSize: globalStyles.bigFont, 
 		color: globalColors.mainContrast,

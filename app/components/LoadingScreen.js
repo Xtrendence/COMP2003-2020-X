@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "rgba(18,18,18,0.85)",
 	},
 	loadingText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.bigFont,
 		fontWeight: "bold",
 		color: globalColors.accentContrast,

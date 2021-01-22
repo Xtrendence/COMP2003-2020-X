@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
 		borderRadius: globalStyles.borderRadius,
 	},
 	actionText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.mediumFont,
 		fontWeight: "bold",
 		color: globalColors.accentContrast,

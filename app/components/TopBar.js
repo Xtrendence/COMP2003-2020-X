@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: "bold",
-        fontSize: globalStyles.bigFont,
+		fontSize: globalStyles.bigFont,
+		fontFamily: globalStyles.fontFamily,
         color: globalColors.accentContrast,
         letterSpacing: 1,
     },

@@ -254,6 +254,7 @@ export class ChartsPage extends Component {
 											stroke: globalColors.mainFifth
 										},
 										propsForVerticalLabels: {
+											fontFamily: globalStyles.fontFamily,
 											fontSize: 10,
 											rotation: -45,
 										},
@@ -332,6 +333,7 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		fontSize: globalStyles.smallFont,
 		color: globalColors.accentContrast,
+		fontFamily: globalStyles.fontFamily,
 		fontWeight: "bold",
 		paddingTop: 10,
 		paddingBottom: 10,
@@ -352,6 +354,7 @@ const styles = StyleSheet.create({
 	},
 	chartLabelFix: {
 		fontSize: 12,
+		fontFamily: globalStyles.fontFamily,
 		position: "absolute",
 		top: 24,
 		left: 45,
@@ -386,6 +389,7 @@ const styles = StyleSheet.create({
 		lineHeight: 40,
 		textAlign: "center",
 		color: globalColors.accentContrast,
+		fontFamily: globalStyles.fontFamily,
 		fontWeight: "bold",
 		fontSize: globalStyles.smallFont,
 		borderRadius: globalStyles.borderRadius,
@@ -396,6 +400,7 @@ const styles = StyleSheet.create({
 		elevation: globalStyles.shadowElevation,
 	},
 	actionText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.mediumFont,
 		fontWeight: "bold",
 		color: globalColors.accentContrast,

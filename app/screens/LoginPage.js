@@ -207,12 +207,14 @@ const styles = StyleSheet.create({
 		borderRadius: globalStyles.borderRadius,
 	},
 	actionText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.bigFont,
 		fontWeight: "bold",
 		color: globalColors.accentContrast,
 		textAlign: "center"
 	},
 	switcherText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.smallFont,
 		color: globalColors.accentContrast,
 		textAlign: "center",
