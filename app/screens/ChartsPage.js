@@ -214,7 +214,7 @@ export class ChartsPage extends Component {
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
 				<TopBar navigation={this.navigation}>Charts</TopBar>
-				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20}}>
+				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					{ !this.state.loading &&
 						<View style={styles.pageWrapper}>
 							<View style={styles.banner}>
@@ -313,8 +313,7 @@ const styles = StyleSheet.create({
 	},
 	scrollView: {
 		width: "100%",
-		height: "100%",
-		paddingLeft: 20
+		height: "100%"
 	},
 	pageWrapper: {
 		width: screenWidth - 40

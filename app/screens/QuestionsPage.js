@@ -228,7 +228,7 @@ export class QuestionsPage extends Component {
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
 				<TopBar navigation={this.navigation}>Questions</TopBar>
-				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
+				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					{ !empty(this.state.recent) &&
 						<View>
 							{
@@ -300,8 +300,7 @@ const styles = StyleSheet.create({
 	},
 	cardContainer: {
 		width: "100%",
-		height: "100%",
-		paddingLeft: 20,
+		height: "100%"
 	},
 	dividerWrapper: {
 		flex: 1,

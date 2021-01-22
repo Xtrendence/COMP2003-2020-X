@@ -15,7 +15,7 @@ export class HelpPage extends Component {
 		return (
 			<View>
 				<TopBar navigation={this.navigation}>Help</TopBar>
-				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 70}}>
+				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 70, paddingLeft: 20}}>
 					<View style={styles.imageWrapper}>
 						<Image style={styles.image} source={require("../assets/Logo.png")}/>
 						<Text style={styles.imageText}>BRIMS SMS</Text>
@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
 	},
 	cardContainer: {
 		width: "100%",
-		height: "100%",
-		paddingLeft: 20,
+		height: "100%"
 	},
 	helpText: {
 		lineHeight: 25,

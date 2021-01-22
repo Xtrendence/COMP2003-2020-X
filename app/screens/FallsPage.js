@@ -62,7 +62,7 @@ export class FallsPage extends Component {
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
 				<TopBar navigation={this.navigation}>Recording Falls</TopBar>
-				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
+				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<Card>
 						<Text style={globalComponentStyles.cardTitle}>Today's Number of Falls</Text>
 						<TextInput style={globalComponentStyles.inputField} placeholder="Number..." multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({falls:value})} value={this.state.falls.toString()}></TextInput>
@@ -97,8 +97,7 @@ const styles = StyleSheet.create({
 	},
 	cardContainer: {
 		width: "100%",
-		height: "100%",
-		paddingLeft: 20,
+		height: "100%"
 	},
 	buttonWrapper: {
 		width: "100%",
