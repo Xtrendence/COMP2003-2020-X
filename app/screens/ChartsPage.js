@@ -203,7 +203,20 @@ export class ChartsPage extends Component {
 		this.getData(this.previousWeek(new Date()), new Date());
 		this.setState({loading:true});
 		this.navigation.addListener("focus", () => {
-			this.getData(this.previousWeek(new Date()), new Date());
+			let history = this.navigation.dangerouslyGetState().history;
+			if(history.length > 0) {
+				let previous = history[history.length - 2];
+				if(!empty(previous) && "key" in previous && previous.key.includes("Falls-")) {
+					this.setState({loading:true});
+					setTimeout(() => {
+						this.getData(this.previousWeek(new Date()), new Date());
+					}, 2500);
+				} else {
+					this.getData(this.previousWeek(new Date()), new Date());
+				}
+			} else {
+				this.getData(this.previousWeek(new Date()), new Date());
+			}
 		});
 	}
 	
