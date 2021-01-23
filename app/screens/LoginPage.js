@@ -1,17 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { Svg, Path } from 'react-native-svg';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, DevSettings } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
+import LinearGradient from 'react-native-linear-gradient';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, DevSettings, Dimensions } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import Notifier from '../utils/Notifier';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Wave from 'react-native-waveview';
 import { globalColors, globalStyles } from '../styles/global';
 import LoadingScreen from '../components/LoadingScreen';
+import { rgbToHex } from '../utils/Utils';
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 export class LoginPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			wave: false,
 			loading: false,
 			username: null,
 			password: null
@@ -98,6 +105,8 @@ export class LoginPage extends Component {
 	}
 
 	componentWillUnmount() {
+		changeNavigationBarColor(rgbToHex(globalColors.accentDark), false);
+
 		this._mounted = false;
 	}
 
@@ -122,10 +131,26 @@ export class LoginPage extends Component {
 						<Text style={styles.actionText}>Login</Text>
 					</TouchableOpacity>
 				</View>
-				<View style={styles.bottomContainer}>
-					<Svg style={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><Path fill={globalColors.accentLightest} fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,74.7C384,64,480,96,576,122.7C672,149,768,171,864,165.3C960,160,1056,128,1152,101.3C1248,75,1344,53,1392,42.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></Path></Svg>
-					<View style={styles.bottomFill}></View>
-				</View>
+				{ this.state.wave &&
+					<Wave
+						style={{width:"100%", height:"100%"}}
+						H={screenHeight - 300}
+						waveParams={[
+							{A: 20, T: screenWidth, fill: globalColors.accentMedium},
+							{A: 15, T: screenWidth + 20, fill: globalColors.accentLight},
+							{A: 30, T: screenWidth + 30, fill: globalColors.accentLightest},
+						]}
+						animated={true}
+					/>
+				}
+				{ !this.state.wave &&
+					<View style={styles.bottomContainer}>
+						<Svg style={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+							<Path fill={globalColors.accentLightest} fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,74.7C384,64,480,96,576,122.7C672,149,768,171,864,165.3C960,160,1056,128,1152,101.3C1248,75,1344,53,1392,42.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></Path>
+						</Svg>
+						<LinearGradient start={{x: 0, y: 0}} end={{x: 0, y: 0.9}} colors={[globalColors.accentLightest, globalColors.accentDark]} style={styles.bottomFill}></LinearGradient>
+					</View>
+				}				
 			</View>
 		);
 

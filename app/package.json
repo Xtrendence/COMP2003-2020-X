@@ -28,6 +28,7 @@
     "react-native-chart-kit": "^6.7.0",
     "react-native-flash-message": "^0.1.17",
     "react-native-gesture-handler": "~1.7.0",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-navigation-bar-color": "^2.0.1",
     "react-native-paper": "^4.4.0",
     "react-native-push-notification": "^6.1.3",
