@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LoginPage } from '../screens/LoginPage';
 import BottomBar from '../components/BottomBar';
 
+// The StackNavigator's NavigationContainer contains 2 screens: LoginPage and BottomBar. The BottomBar is another NavigationContainer that contains the app's 5 main screens.
 let Stack = createStackNavigator();
 
 export class StackNavigator extends Component {

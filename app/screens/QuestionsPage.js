@@ -29,6 +29,7 @@ export class QuestionsPage extends Component {
 		this._mounted;
 	}
 
+	// Save radio input answers.
 	saveChecked(key, answerID, value) {
 		if (this._mounted) {
 			this.setState({checked:{ ...this.state.checked, [key]:value }});
@@ -36,10 +37,12 @@ export class QuestionsPage extends Component {
 		this.saveAnswer(key, answerID, value);
 	}
 
+	// Save text field answers.
 	saveCustom(key, answerID, value) {
 		this.saveAnswer(key, answerID, value);
 	}
 
+	// Send a request to the /answers/ endpoint of the API to update an answer.
 	async saveAnswer(questionID, answerID, answer) {		
 		let patientID = await AsyncStorage.getItem("patientID");
 		let key = await AsyncStorage.getItem("token");
@@ -78,6 +81,7 @@ export class QuestionsPage extends Component {
 		});
 	}
 
+	// Generate the appropriate Card components given an object containing the questions asked by researchers, and the user's answers.
 	getCards(object) {
 		return Object.keys(object).map(questionID => {
 			return (
@@ -110,7 +114,8 @@ export class QuestionsPage extends Component {
 			);
 		});
 	}
-		
+
+	// Fetch the user's questions and answers from the API.
 	async getData() {
 		let token = await AsyncStorage.getItem("token");
 
@@ -155,6 +160,7 @@ export class QuestionsPage extends Component {
 					}
 				});
 
+				// Since the keys of the unansweredQuestions object would be the questionIDs, and since questionIDs are incremented automatically, the highest one would always be the most recent question.
 				let max = Math.max.apply(null, Object.keys(unansweredQuestions));
 				Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
 				delete unansweredQuestions[max];
@@ -193,6 +199,7 @@ export class QuestionsPage extends Component {
 			this.setState({loading:true});
 		}
 
+		// By default, since the BottomBar NavigationContainer is a child of the StackNavigator, going back isn't possible unless the app's back action is overridden.
 		const goBack = () => {
 			if (this.state.firstNavigator) {
 				this.navigation.dangerouslyGetParent().navigate("LoginPage");

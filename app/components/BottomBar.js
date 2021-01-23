@@ -12,6 +12,7 @@ import { QuestionsPage } from '../screens/QuestionsPage';
 import { CalendarPage } from '../screens/CalendarPage';
 import { HelpPage } from '../screens/HelpPage';
 
+// The BottomBar NavigationContainer contains 5 screens: Falls, Charts, Questions, Calendar, and Help. Its parent is the StackNavigator.
 let BottomTab = createMaterialBottomTabNavigator();
 
 export default class BottomBar extends Component {

@@ -28,6 +28,7 @@ export class ChartsPage extends Component {
 		this.navigation = props.navigation;
 	}
 
+	// Navigates to today's date on the chart.
 	navigateToday() {
 		let from = this.previousWeek(new Date());
 		let to = new Date();
@@ -36,6 +37,7 @@ export class ChartsPage extends Component {
 		this.getData(from, to);
 	}
 
+	// Navigates to the previous week.
 	navigatePrevious() {
 		let from = this.previousWeek(this.state.timeFrom);
 		let to = this.state.timeFrom;
@@ -44,6 +46,7 @@ export class ChartsPage extends Component {
 		this.getData(from, to);
 	}
 
+	// Navigates to the next week.
 	navigateNext() {
 		let from = this.state.timeTo;
 		let to = this.nextWeek(this.state.timeTo);
@@ -60,6 +63,7 @@ export class ChartsPage extends Component {
 		}
 	}
 
+	// Format a date to YYYY-MM-DD where the hyphen can be any character.
 	formatDate(date, separator) {
 		let d = new Date(date), month = "" + (d.getMonth() + 1), day = "" + d.getDate(), year = d.getFullYear();
 
@@ -72,6 +76,7 @@ export class ChartsPage extends Component {
 		return [year, month, day].join(separator);
 	}
 
+	// Format a date to YYYY-MM-DD HH:MM:SS.
 	formatDateTime(date) {
 		return date.getFullYear() + "-" +
 			("00" + (date.getMonth() + 1)).slice(-2) + "-" +
@@ -81,14 +86,17 @@ export class ChartsPage extends Component {
 			("00" + date.getSeconds()).slice(-2);
 	}
 
+	// Get the previous week's date.
 	previousWeek(date) {
 		return new Date(date.getTime() - (60 * 60 * 24 * 6 * 1000));
 	}
 
+	// Get next week's date.
 	nextWeek(date) {
 		return new Date(date.getTime() + (60 * 60 * 24 * 6 * 1000));
 	}
 
+	// Determines if a number is prime.
 	isPrime(num) {
 		for (let i = 2; i < num; i++) {
 			if (num % i === 0) {
@@ -98,6 +106,7 @@ export class ChartsPage extends Component {
 		}
 	}
 
+	// Finds the lowest number divisble by a given number.
 	findLowestDivisible(num) {
 		for (let i = 2; i <= num; i++) {
 			if (num % i === 0) {
@@ -106,6 +115,7 @@ export class ChartsPage extends Component {
 		}
 	}
 
+	// Finds the highest number divisible by a given number.
 	findHighestDivisible(num) {
 		for (let i = num - 1; i >= 2; i--) {
 			if (num % i === 0) {
@@ -114,6 +124,7 @@ export class ChartsPage extends Component {
 		}
 	}
 
+	// Fetch the user's fall data from the API.
 	async getData(from, to) {
 		let token = await AsyncStorage.getItem("token");
 		let patientID = await AsyncStorage.getItem("patientID");

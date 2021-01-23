@@ -105,8 +105,6 @@ export class LoginPage extends Component {
 	}
 
 	componentWillUnmount() {
-		changeNavigationBarColor(rgbToHex(globalColors.accentDark), false);
-
 		this._mounted = false;
 	}
 
