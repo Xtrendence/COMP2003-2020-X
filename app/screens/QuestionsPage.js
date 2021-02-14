@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity, BackHandler } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Notifier from '../utils/Notifier';
@@ -13,86 +13,82 @@ import LoadingScreen from '../components/LoadingScreen';
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-export const QuestionsPage = ({ navigation }) => {
-	const [recent, setRecent] = React.useState();
-	const [unanswered, setUnanswered] = React.useState({});
-	const [answered, setAnswered] = React.useState({});
+export class QuestionsPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			firstNavigator: true,
+			recent: null,
+			unanswered: {},
+			answered: {},
+			loading: false,
+			checked: {},
+			custom: {}
+		};
+		this.navigation = props.navigation;
+		this._mounted;
+	}
 
-	const [loading, setLoading] = React.useState(false);
-	const [checked, setChecked] = React.useState({});
-	const [custom, setCustom] = React.useState({});
+	// Save radio input answers.
+	saveChecked(key, answerID, value) {
+		if (this._mounted) {
+			this.setState({checked:{ ...this.state.checked, [key]:value }});
+		}
+		this.saveAnswer(key, answerID, value);
+	}
 
-	let notifier = new Notifier(
-		onRegister.bind(this),
-		onNotification.bind(this)
-	);
+	// Save text field answers.
+	saveCustom(key, answerID, value) {
+		this.saveAnswer(key, answerID, value);
+	}
 
-	useEffect(() => {
-		getData();
-		setLoading(true);
-		navigation.addListener("focus", () => {
-			getData();
+	// Send a request to the /answers/ endpoint of the API to update an answer.
+	async saveAnswer(questionID, answerID, answer) {		
+		let patientID = await AsyncStorage.getItem("patientID");
+		let key = await AsyncStorage.getItem("token");
+
+		let endpoint;
+		let method;
+		let body;
+
+		endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php?key=" + key;
+		method = "PUT";
+		body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
+
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
+		
+		fetch(endpoint, {
+			method: method,
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+		.then(() => {
+			setTimeout(() => {
+				this.getData();
+			}, 1000);
+		})
+		.catch((error) => {
+			console.log(error);
+			this.getData();
+			showMessage({
+				message: "Network Error",
+				type: "danger"
+			});
 		});
-	}, []);
-
-	return (
-		<View style={styles.container}>
-			{ loading &&
-				<LoadingScreen>Loading...</LoadingScreen>
-			}
-			<TopBar navigation={navigation}>Questions</TopBar>
-			<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20}}>
-				{ !empty(recent) &&
-					<View>
-						{
-							getCards(recent)
-						}
-						{ !empty(unanswered) &&
-							<View style={styles.dividerWrapper}>
-								<View style={styles.divider}></View>
-							</View>
-						}
-					</View>
-				}
-				{ !empty(unanswered) &&
-					<View>
-						{
-							getCards(unanswered)
-						}
-						{ !empty(answered) &&
-							<View style={styles.dividerWrapper}>
-								<View style={styles.divider}></View>
-							</View>
-						}
-					</View>
-				}
-				{ !empty(answered) &&
-					<View>
-						{
-							getCards(answered)
-						}
-					</View>
-				}
-			</ScrollView>
-		</View>
-	);
-
-	function onRegister(token) {
-		let fcm = token.token;
 	}
 
-	function onNotification(notification) {
-		notifier.localNotification(notification.title, notification.message);
-		getData();
-	}
-
-	function getCards(object) {
+	// Generate the appropriate Card components given an object containing the questions asked by researchers, and the user's answers.
+	getCards(object) {
 		return Object.keys(object).map(questionID => {
 			return (
 				<Card key={questionID}>
 					<Text style={globalComponentStyles.cardTitle}>{ object[questionID]["question"] }</Text>
 					{ object[questionID]["question_type"] === "choice" ?
-						<RadioButton.Group onValueChange={value => saveChecked(questionID, object[questionID]["answerID"], value)} value={checked[questionID]}>
+						<RadioButton.Group onValueChange={value => this.saveChecked(questionID, object[questionID]["answerID"], value)} value={this.state.checked[questionID]}>
 							{ 
 								Object.keys(object[questionID]["choices"]).map(choiceKey => {
 									return (
@@ -106,9 +102,9 @@ export const QuestionsPage = ({ navigation }) => {
 						</RadioButton.Group>
 					:
 						<View>
-							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => setCustom({ ...custom, [questionID]:value })} value={custom[questionID]}></TextInput>
+							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => this.setState({custom:{ ...this.state.custom, [questionID]:value }})} value={this.state.custom[questionID]}></TextInput>
 							<View style={styles.buttonWrapper}>
-								<TouchableOpacity style={styles.actionButton} onPress={() => saveCustom(questionID, object[questionID]["answerID"], custom[questionID])}>
+								<TouchableOpacity style={styles.actionButton} onPress={() => this.saveCustom(questionID, object[questionID]["answerID"], this.state.custom[questionID])}>
 									<Text style={styles.actionText}>Save</Text>
 								</TouchableOpacity>
 							</View>
@@ -118,15 +114,18 @@ export const QuestionsPage = ({ navigation }) => {
 			);
 		});
 	}
-		
-	async function getData() {
+
+	// Fetch the user's questions and answers from the API.
+	async getData() {
 		let token = await AsyncStorage.getItem("token");
 
 		let patientID = await AsyncStorage.getItem("patientID");
 
 		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id=" + patientID + "&key=" + token;
 
-		setLoading(true);
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
 
 		fetch(endpoint, {
 			method: "GET",
@@ -161,22 +160,29 @@ export const QuestionsPage = ({ navigation }) => {
 					}
 				});
 
+				// Since the keys of the unansweredQuestions object would be the questionIDs, and since questionIDs are incremented automatically, the highest one would always be the most recent question.
 				let max = Math.max.apply(null, Object.keys(unansweredQuestions));
 				Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
 				delete unansweredQuestions[max];
 
-				setRecent(recentQuestion);
-				setUnanswered(unansweredQuestions);
-				setAnswered(answeredQuestions);
-				setChecked(checkedChoices);
-				setCustom(answeredFields);
+				if (this._mounted) {
+					this.setState({recent:recentQuestion});
+					this.setState({unanswered:unansweredQuestions});
+					this.setState({answered:answeredQuestions});
+					this.setState({checked:checkedChoices});
+					this.setState({custom:answeredFields});
+				}
 			}
 
-			setLoading(false);
+			if (this._mounted) {
+				this.setState({loading:false});
+			}
 		})
 		.catch((error) => {
 			console.log(error);
-			setLoading(false);
+			if (this._mounted) {
+				this.setState({loading:false});
+			}
 			showMessage({
 				message: "Network Error",
 				type: "danger"
@@ -184,59 +190,106 @@ export const QuestionsPage = ({ navigation }) => {
 		});
 	}
 
-	function saveChecked(key, answerID, value) {
-		setChecked({ ...checked, [key]:value });
-		saveAnswer(key, answerID, value);
+	componentDidMount() {
+		this._mounted = true;
+
+		this.getData();
+
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
+
+		// By default, since the BottomBar NavigationContainer is a child of the StackNavigator, going back isn't possible unless the app's back action is overridden.
+		const goBack = () => {
+			if (this.state.firstNavigator) {
+				this.navigation.dangerouslyGetParent().navigate("LoginPage");
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		this.navigation.addListener("focus", () => {
+			this.getData();
+			BackHandler.addEventListener("hardwareBackPress", goBack);
+		});
+		
+		this.navigation.addListener("blur", () => {
+			BackHandler.removeEventListener("hardwareBackPress", goBack);
+		});
 	}
 
-	function saveCustom(key, answerID, value) {
-		saveAnswer(key, answerID, value);
+	componentWillUnmount() {
+		this._mounted = false;
 	}
 
-	async function saveAnswer(questionID, answerID, answer) {		
-		let patientID = await AsyncStorage.getItem("patientID");
-		let key = "8c068d98-874e-46ab-b2a1-5a5eb45a40a6";
+	render() {
+		let notifier = new Notifier(
+			onRegister.bind(this),
+			onNotification.bind(this)
+		);
 
-		let endpoint;
-		let method;
-		let body;
+		return (
+			<View style={styles.container}>
+				{ this.state.loading &&
+					<LoadingScreen>Loading...</LoadingScreen>
+				}
+				<TopBar navigation={this.navigation}>Questions</TopBar>
+				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
+					{ !empty(this.state.recent) &&
+						<View>
+							{
+								this.getCards(this.state.recent)
+							}
+							{ !empty(this.state.unanswered) &&
+								<View style={styles.dividerWrapper}>
+									<View style={styles.divider}></View>
+								</View>
+							}
+						</View>
+					}
+					{ !empty(this.state.unanswered) &&
+						<View>
+							{
+								this.getCards(this.state.unanswered)
+							}
+							{ !empty(this.state.answered) &&
+								<View style={styles.dividerWrapper}>
+									<View style={styles.divider}></View>
+								</View>
+							}
+						</View>
+					}
+					{ !empty(this.state.answered) &&
+						<View>
+							{
+								this.getCards(this.state.answered)
+							}
+						</View>
+					}
+				</ScrollView>
+			</View>
+		);
 
-		endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php?key=" + key;
-		method = "PUT";
-		body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
+		function onRegister(token) {
+			let fcm = token.token;
+		}
 
-		setLoading(true);
-		fetch(endpoint, {
-			method: method,
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(body)
-		})
-		.then(() => {
-			setTimeout(() => {
-				getData();
-			}, 1000);
-		})
-		.catch((error) => {
-			console.log(error);
+		function onNotification(notification) {
+			notifier.localNotification(notification.title, notification.message);
 			getData();
-			showMessage({
-				message: "Network Error",
-				type: "danger"
-			});
-		});
+		}
 	}
+}
 
-	function empty(value) {
-		if (typeof value === "object" && Object.keys(value).length === 0) {
-			return true;
-		}
-		if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
-			return true;
-		}
-		return false;
+function empty(value) {
+	if (typeof value === "object" && value !== null && Object.keys(value).length === 0) {
+		return true;
 	}
+	if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
+		return true;
+	}
+	return false;
 }
 
 const styles = StyleSheet.create({
@@ -254,8 +307,7 @@ const styles = StyleSheet.create({
 	},
 	cardContainer: {
 		width: "100%",
-		height: "100%",
-		paddingLeft: 20,
+		height: "100%"
 	},
 	dividerWrapper: {
 		flex: 1,
@@ -290,6 +342,7 @@ const styles = StyleSheet.create({
 		borderRadius: globalStyles.borderRadius,
 	},
 	actionText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.mediumFont,
 		fontWeight: "bold",
 		color: globalColors.accentContrast,
