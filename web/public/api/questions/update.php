@@ -4,7 +4,7 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 		include_once '../config/Database.php';
-		include_once '../models/Answer.php';
+		include_once '../models/Question.php';
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
