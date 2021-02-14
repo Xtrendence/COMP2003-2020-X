@@ -102,7 +102,25 @@
         }
 
         public function update() {
+            $this->question_type == 'custom' ? $query = ' UPDATE ' . $this->table . 'SET question=:question, question_charLim=:question_charLim, question_type=:question_type WHERE questionID=:questionID': $query = ' UPDATE ' . $this->table . 'SET question=:question, question_type=:question_type WHERE questionID=:questionID';
+            $command = $this->connection->prepare($query);
+            $command->biindParam(':question', $this->question);
+            $command->biindParam(':question_type', $this->question_type);
 
+            if ($this->question_type == 'custom') {
+                $command->bindParam(':question_charLim', $this->question_charLim);
+            }
+            $command->execute();
+
+            if ($this->question_type != 'custom') {
+                for ($i = 0; $i < count($this->choices); $i++) {
+                    $query = 'UPDATE choice SET choice=:choice WHERE questionID=:questionID';
+                    $command = $this->connection->prepare($query);
+                    $command->bindParam(':questionID', $this->questionID);
+                    $command->bindParam(':choice', $this->choices[$i]);
+                    $command->execute();
+                } 
         }
     }
+}
 ?>
