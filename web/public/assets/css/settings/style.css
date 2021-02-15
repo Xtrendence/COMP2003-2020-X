@@ -1,0 +1,19 @@
+.logout{
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    margin: auto auto;
+    display: block;
+}
+
+.sepertatorText span{
+    padding-top: 20px;
+    margin-left: 25px;
+}

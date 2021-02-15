@@ -57,6 +57,17 @@
     <div class="title-card">
         <span>Settings</span>
     </div>
+
+    <div class="wide-card">
+        <span>Theme</span>   
+    </div>      
+    <div class="seperator"></div>
+    <div class="wide-card">
+        <span>other setting</span>
+    </div> 
+    <button class="logout">Logout</button>
+
+    </div>
 </div>
 
 </body>
