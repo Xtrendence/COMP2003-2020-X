@@ -13,7 +13,20 @@
     display: block;
 }
 
-.sepertatorText span{
-    padding-top: 20px;
-    margin-left: 25px;
+.toggle-container {
+    float: right;
+    border-radius: 18px;
+    width: 35px;
+    height: 18px;
+    background-color: var(--main-sixth);
+    margin: 0 20px 0 0;
+}
+
+.toggle-button {
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    height: 18px;
+    width: 18px;
+    border-radius: 18px;
+    display: inline-block;
 }
