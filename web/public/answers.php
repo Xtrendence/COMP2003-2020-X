@@ -53,10 +53,7 @@
         <span id="question-answer"></span>
     </div>
 
-    <div class="hidden">
-        <div class="wide-card">
-            <div class="delete-button" id="del">Delete</div>
-        </div>
+    <div id="content">
     </div>
 </div>
 

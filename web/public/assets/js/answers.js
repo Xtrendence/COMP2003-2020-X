@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    let del =  document.getElementById("del");
-
     let url = new URL(window.location.href);
     let patID = url.searchParams.get("id");
 
@@ -10,24 +8,69 @@ document.addEventListener("DOMContentLoaded", () => {
     let addID = title.concat(patID);
     titleCard.innerText = addID;
 
-    
     const xhr = new XMLHttpRequest();
+
+    let content = document.getElementById("content");
+    let del =  document.getElementById("del");
 
     xhr.addEventListener("readystatechange", function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             let json = xhr.responseText;
-                let answers= JSON.parse(json);
-                console.log(answers);
+                let ans = JSON.parse(json);
+                console.log(ans);
+                let keys = Object.keys(ans["data"]);
+
+                try {
+                    content.innerHTML = "";
+                    let quest = ans["data"];
+                    for (let i = 0; i < keys.length; i++){
+                        let question = quest[i]["question"];
+                        let questionType = quest[i]["question_type"];
+                        let answer = quest[i]["answer"];
+                        let choices = quest[i]["choices"];
+
+                        let cardDiv = document.createElement("div");
+                        cardDiv.classList.add("wide-card");
+                        cardDiv.id = i;
+                        let usingCard = document.getElementById(i);
+
+                        let titleSpan = document.createElement("span");
+                        titleSpan.classList.add("titleSpan")
+                        let span = document.createElement("span");
+
+                        if (questionType == "choice") {
+                            let choiceStr = "";
+                            let choiceKeys = Object.keys(choices);
+
+                            for (let j = 0; j < choiceKeys.length; j++){
+                                if (j == 0) {
+                                    choiceStr = choiceStr.concat(choices[j]);
+                                } else {
+                                    choiceStr = choiceStr.concat(", ");
+                                    choiceStr = choiceStr.concat(choices[j]);
+                                }
+                            }
+                            titleSpan.innerHTML = (question);
+                            span.innerHTML = ("<br />" + "Question Type: " + questionType + "<br />" + "Choices: " + choiceStr + "<br />" + "Answer: " + answer);
+                        } else {
+                            let charLim = quest[i]["question_charLim"];
+                            titleSpan.innerHTML = (question);
+                            span.innerHTML = ("<br />" + "Question Type: " + questionType + "<br />" + "Character Limit: " + charLim + "<br />" + "Answer: " + answer);
+                        }
+                        
+                        cardDiv.appendChild(titleSpan);
+                        cardDiv.appendChild(span);
+                        content.appendChild(cardDiv);
+                    }
+                } catch {
+                    console.error("error");
+                }
         }
     });
     xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id="+ patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
     xhr.send();
 
-    del.addEventListener("click", function() {
-        /*delete question from data base
-        * refresh page
-        */
-    });
+    
 
     /**
      * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.

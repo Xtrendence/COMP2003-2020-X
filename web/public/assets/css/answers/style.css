@@ -28,3 +28,8 @@
     display: inline-block;
     line-height: 75px;
 }
+
+.titleSpan {
+    font-size: var(--font-medium) !important;
+    font-weight: bolder !important;
+}
