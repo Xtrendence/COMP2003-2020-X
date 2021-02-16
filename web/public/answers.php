@@ -53,7 +53,15 @@
         <span id="question-answer"></span>
     </div>
 
-    <div id="content">
+    <div id="content-not-answered-recent">
+    </div>
+
+    <div id="content-not-answered">
+    </div>
+
+    <div class="seperator"></div>
+
+    <div id="content-answered">
     </div>
 </div>
 

@@ -13,14 +13,15 @@
     margin: auto auto;
     display: inline-block;
     vertical-align: center;
-}
-
-.block {
-    display: block;
+    
 }
 
 .text-wrapper {
     display: inline-block;
+}
+
+.question-wrapper {
+    display: block;
 }
 
 .button-wrapper {
