@@ -7,15 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (document.body.hasAttribute('data-theme','dark')){
             document.body.removeAttribute('data-theme', 'dark');
             togglePosition.classList.remove("toggle-button-active")
-            localStorage.removeItem('toggleContainer', 'dark')
+            localStorage.removeItem('theme', 'dark')
         } else {
             document.body.setAttribute('data-theme', 'dark');
             togglePosition.classList.add("toggle-button-active")
-            localStorage.setItem('toggleContainer', 'dark')
+            localStorage.setItem('theme', 'dark')
         }
     });
 
-    if(localStorage.getItem('toggleContainer') === 'dark'){
+    if(localStorage.getItem('theme') === 'dark'){
         document.body.setAttribute('data-theme', 'dark');
         togglePosition.classList.add("toggle-button-active")
     } else {
