@@ -10,6 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let addID = title.concat(patID);
     titleCard.innerText = addID;
 
+    
+    const xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("readystatechange", function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            let json = xhr.responseText;
+                let answers= JSON.parse(json);
+                console.log(answers);
+        }
+    });
+    xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id="+ patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+    xhr.send();
+
     del.addEventListener("click", function() {
         /*delete question from data base
         * refresh page
