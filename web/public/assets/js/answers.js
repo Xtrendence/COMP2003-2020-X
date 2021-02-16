@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let contentAns = document.getElementById("content-answered");
     let del =  document.getElementById("del");
 
+    let recentQuestion = contentNoAns.lastChild.nodeValue;
+    console.log(recentQuestion);
+
     xhr.addEventListener("readystatechange", function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             let json = xhr.responseText;
@@ -39,22 +42,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         let span = document.createElement("span");
                         titleSpan.innerHTML = (question);
                         if (questionType == "choice") {
-                            let choiceStr = "";
+                            let choice = [];
                             let choiceKeys = Object.keys(choices);
 
                             for (let j = 0; j < choiceKeys.length; j++){
-                                if (j == 0) {
-                                    choiceStr = choiceStr.concat(choices[j]);
-                                } else {
-                                    choiceStr = choiceStr.concat(", ");
-                                    choiceStr = choiceStr.concat(choices[j]);
-                                }
+                                choice.push(choices[j+1]);
                             }
                             
-                            span.innerHTML = ("<br />" + "Question Type: " + questionType + "<br />" + "Choices: " + choiceStr + "<br />" + "Answer: " + answer);
+                            
+                            let choiceStr = choice.join(",");
+                            span.innerHTML = ("<br />Question Type: " + questionType + "<br />Choices: " + choiceStr + "<br />Answer: " + answer);
                         } else {
                             let charLim = quest[i]["question_charLim"];
-                            span.innerHTML = ("<br />" + "Question Type: " + questionType + "<br />" + "Character Limit: " + charLim + "<br />" + "Answer: " + answer);
+                            span.innerHTML = ("<br />Question Type: " + questionType + "<br />Character Limit: " + charLim + "<br />Answer: " + answer);
                         }
 
                         let spanContainer = document.createElement("div");
@@ -76,12 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
                             delBut.textContent = 'Delete';
                             delAnchor.appendChild(delBut);
                             delContainer.appendChild(delAnchor);
+
                             cardDiv.appendChild(delContainer);
                             contentNoAns.appendChild(cardDiv);
                         } else {
                             contentAns.appendChild(cardDiv);
                         }
                     }
+
+                    recentQuestion
                 } catch {
                     console.error("error");
                 }
