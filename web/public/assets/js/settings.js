@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    if(localStorage.getItem('toggleContainer') !== null && localStorage.getItem('toggleContainer') === 'dark'){
+    if(localStorage.getItem('toggleContainer') === 'dark'){
         document.body.setAttribute('data-theme', 'dark');
         togglePosition.classList.add("toggle-button-active")
     } else {
