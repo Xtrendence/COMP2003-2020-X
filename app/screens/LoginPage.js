@@ -1,78 +1,52 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
-import { Svg, Path } from 'react-native-svg';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import React, { Component } from 'react';
+import Svg, { Path } from 'react-native-svg';
+import LinearGradient from 'react-native-linear-gradient';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, DevSettings, Dimensions } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import Notifier from '../utils/Notifier';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Wave from 'react-native-waveview';
 import { globalColors, globalStyles } from '../styles/global';
 import LoadingScreen from '../components/LoadingScreen';
+import { rgbToHex } from '../utils/Utils';
 
-export const LoginPage = ({ navigation }) => {
-	const [token, setToken] = React.useState();
-	const [loading, setLoading] = React.useState(true);
-	const [username, setUsername] = React.useState();
-	const [password, setPassword] = React.useState();
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
-	let notifier = new Notifier(
-		onRegister.bind(this),
-		onNotification.bind(this)
-	);
-
-	useEffect(() => {
-		// To be removed once testing is complete.
-		setUsername("maureenW38");
-		setPassword("Iamthedefault");
-		if (!empty(token)) {
-			setTimeout(() => {
-				setLoading(false);
-			}, 500);
-		}
-	}, [token]);
-
-	return (
-		<View style={styles.pageContainer}>
-			{ loading &&
-				<LoadingScreen>Loading...</LoadingScreen>
-			}
-			<View style={styles.imageWrapper}>
-				<Image style={styles.image} source={require("../assets/Logo.png")}/>
-			</View>
-			<View style={styles.loginForm}>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => setUsername(value)} value={username}></TextInput>
-				<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => setPassword(value)} onSubmitEditing={() => login()} secureTextEntry>{password}</TextInput>
-				<TouchableOpacity style={styles.actionButton} onPress={() => login()}>
-					<Text style={styles.actionText}>Login</Text>
-				</TouchableOpacity>
-			</View>
-			<View style={styles.bottomContainer}>
-				<Svg style={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><Path fill={globalColors.accentLightest} fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,74.7C384,64,480,96,576,122.7C672,149,768,171,864,165.3C960,160,1056,128,1152,101.3C1248,75,1344,53,1392,42.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></Path></Svg>
-				<View style={styles.bottomFill}></View>
-			</View>
-		</View>
-	);
-
-	function onRegister(token) {
-		setToken(token.token);
+export class LoginPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			wave: false,
+			loading: false,
+			username: null,
+			password: null
+		};
+		this.navigation = props.navigation;
+		this._mounted;
 	}
 
-	function onNotification(notification) {
-		notifier.localNotification(notification.title, notification.message);
-	}
-
-	async function login() {
+	async login() {
 		// To be removed once testing is complete.
 		let username = "maureenW38";
 		let password = "Iamthedefault";
 
-		if (!empty(token)) {
-			setLoading(true);
+		let fcm = await AsyncStorage.getItem("fcm");
+
+		if (!empty(fcm)) {
+			if (this._mounted) {
+				this.setState({loading:true});
+			}
 
 			setTimeout(() => {
-				setLoading(false);
+				if (this._mounted) {
+					this.setState({loading:false});
+				}
 			}, 5000);
 
-			let body = { patient_username:username, patient_password:password, fcmToken:token };
+			// To be changed to use the username and password stored in state.
+			let body = { patient_username:username, patient_password:password, fcmToken:fcm };
 
 			fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
 				method: "POST",
@@ -85,7 +59,9 @@ export const LoginPage = ({ navigation }) => {
 				return response.json();
 			})
 			.then(async (json) => {
-				setLoading(false);
+				if (this._mounted) {
+					this.setState({loading:false});
+				}
 				if (json.valid !== true) {
 					showMessage({
 						message: json.message,
@@ -96,13 +72,15 @@ export const LoginPage = ({ navigation }) => {
 					await AsyncStorage.setItem("patientID", json.patientID);
 
 					if (!empty(json.token) && !empty(json.patientID) && !empty(await AsyncStorage.getItem("token")) && !empty(await AsyncStorage.getItem("patientID"))) {
-						navigation.navigate("BottomBar");
+						this.navigation.navigate("BottomBar");
 					}
 				}
 			})
 			.catch((error) => {
 				console.log(error);
-				setLoading(false);
+				if (this._mounted) {
+					this.setState({loading:false});
+				}
 				showMessage({
 					message: "Network Error",
 					type: "danger"
@@ -114,15 +92,83 @@ export const LoginPage = ({ navigation }) => {
 				description: "Please wait until your device is registered.",
 				type: "warning"
 			});
+			DevSettings.reload();
 		}
 	}
 
-	function empty(value) {
-		if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
-			return true;
-		}
-		return false;
+	componentDidMount() {
+		this._mounted = true;
+
+		// To be removed once testing is complete.
+		this.setState({username:"maureenW38"});
+		this.setState({password:"Iamthedefault"});
 	}
+
+	componentWillUnmount() {
+		this._mounted = false;
+	}
+
+	render() {
+		let notifier = new Notifier(
+			onRegister.bind(this),
+			onNotification.bind(this)
+		);
+
+		return (
+			<View style={styles.pageContainer}>
+				{ this.state.loading &&
+					<LoadingScreen>Loading...</LoadingScreen>
+				}
+				<View style={styles.imageWrapper}>
+					<Image style={styles.image} source={require("../assets/Logo.png")}/>
+				</View>
+				<View style={styles.loginForm}>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username}></TextInput>
+					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry>{this.state.password}</TextInput>
+					<TouchableOpacity style={styles.actionButton} onPress={() => this.login()}>
+						<Text style={styles.actionText}>Login</Text>
+					</TouchableOpacity>
+				</View>
+				{ this.state.wave &&
+					<Wave
+						style={{width:"100%", height:"100%"}}
+						H={screenHeight - 300}
+						waveParams={[
+							{A: 20, T: screenWidth, fill: globalColors.accentMedium},
+							{A: 15, T: screenWidth + 20, fill: globalColors.accentLight},
+							{A: 30, T: screenWidth + 30, fill: globalColors.accentLightest},
+						]}
+						animated={true}
+					/>
+				}
+				{ !this.state.wave &&
+					<View style={styles.bottomContainer}>
+						<Svg style={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+							<Path fill={globalColors.accentLightest} fill-opacity="1" d="M0,192L48,165.3C96,139,192,85,288,74.7C384,64,480,96,576,122.7C672,149,768,171,864,165.3C960,160,1056,128,1152,101.3C1248,75,1344,53,1392,42.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></Path>
+						</Svg>
+						<LinearGradient start={{x: 0, y: 0}} end={{x: 0, y: 0.9}} colors={[globalColors.accentLightest, globalColors.accentDark]} style={styles.bottomFill}></LinearGradient>
+					</View>
+				}				
+			</View>
+		);
+
+		async function onRegister(token) {
+			if (!empty(token.token)) {
+				await AsyncStorage.setItem("fcm", token.token);
+			}
+		}
+
+		function onNotification(notification) {
+			notifier.localNotification(notification.title, notification.message);
+		}
+	}
+}
+
+function empty(value) {
+	if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
+		return true;
+	}
+	return false;
 }
 
 const styles = StyleSheet.create({
@@ -184,12 +230,14 @@ const styles = StyleSheet.create({
 		borderRadius: globalStyles.borderRadius,
 	},
 	actionText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.bigFont,
 		fontWeight: "bold",
 		color: globalColors.accentContrast,
 		textAlign: "center"
 	},
 	switcherText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.smallFont,
 		color: globalColors.accentContrast,
 		textAlign: "center",
