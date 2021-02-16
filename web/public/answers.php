@@ -49,8 +49,8 @@
 </div>
 
 <div class="wrapper">
-    <div class="title-card">
-        Questions &amp; Answers - User
+<div class="title-card">
+        <span id="question-answer"></span>
     </div>
 
     <div class="hidden">

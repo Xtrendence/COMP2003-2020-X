@@ -2,6 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let del =  document.getElementById("del");
 
+    let url = new URL(window.location.href);
+    let patID = url.searchParams.get("id");
+
+    let titleCard = document.getElementById("question-answer");
+    let title = "Questions & Answers - User ";
+    let addID = title.concat(patID);
+    titleCard.innerText = addID;
+
     del.addEventListener("click", function() {
         /*delete question from data base
         * refresh page
