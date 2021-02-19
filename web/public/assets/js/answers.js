@@ -14,78 +14,81 @@ document.addEventListener("DOMContentLoaded", () => {
     let contentAns = document.getElementById("content-answered");
     let del =  document.getElementById("del");
 
-    let recentQuestion = contentNoAns.lastChild.nodeValue;
-    console.log(recentQuestion);
+    let seperator = document.getElementById("sep")
+    let seperator2 = document.getElementById("sep2")
+
+    //let recentQuestion = contentNoAns.lastChild.nodeValue;
+    //console.log(recentQuestion);
 
     xhr.addEventListener("readystatechange", function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            let json = xhr.responseText;
+            try{
+                let json = xhr.responseText;
                 let ans = JSON.parse(json);
                 let keys = Object.keys(ans["data"]);
 
-                try {
-                    contentNoAns.innerHTML = "";
-                    contentAns.innerHTML = "";
-                    let quest = ans["data"];
-                    for (let i = 0; i < keys.length; i++){
-                        let question = quest[i]["question"];
-                        let questionType = quest[i]["question_type"];
-                        let answer = quest[i]["answer"];
-                        let choices = quest[i]["choices"];
+                contentNoAns.innerHTML = "";
+                contentAns.innerHTML = "";
+                let quest = ans["data"];
+                for (let i = 0; i < keys.length; i++){
+                    let question = quest[i]["question"];
+                    let questionType = quest[i]["question_type"];
+                    let answer = quest[i]["answer"];
+                    let choices = quest[i]["choices"];
 
-                        let cardDiv = document.createElement("div");
-                        cardDiv.classList.add("wide-card");
-                        cardDiv.id = i;
+                    let cardDiv = document.createElement("div");
+                    cardDiv.classList.add("wide-card");
+                    cardDiv.id = i;
 
-                        let titleSpan = document.createElement("span");
-                        titleSpan.classList.add("titleSpan")
-                        let span = document.createElement("span");
-                        titleSpan.innerHTML = (question);
-                        if (questionType == "choice") {
-                            let choice = [];
-                            let choiceKeys = Object.keys(choices);
+                    let titleSpan = document.createElement("span");
+                    titleSpan.classList.add("titleSpan")
+                    let span = document.createElement("span");
+                    titleSpan.innerHTML = (question);
+                    if (questionType == "choice") {
+                        let choice = [];
+                        let choiceKeys = Object.keys(choices);
 
-                            for (let j = 0; j < choiceKeys.length; j++){
-                                choice.push(choices[j+1]);
-                            }
-                            
-                            
-                            let choiceStr = choice.join(",");
-                            span.innerHTML = ("<br />Question Type: " + questionType + "<br />Choices: " + choiceStr + "<br />Answer: " + answer);
-                        } else {
-                            let charLim = quest[i]["question_charLim"];
-                            span.innerHTML = ("<br />Question Type: " + questionType + "<br />Character Limit: " + charLim + "<br />Answer: " + answer);
+                        for (let j = 0; j < choiceKeys.length; j++){
+                            choice.push(choices[j+1]);
                         }
-
-                        let spanContainer = document.createElement("div");
-                        spanContainer.classList.add("text-wrapper");
-
-                        let titleContainer = document.createElement("div");
-                        titleContainer.classList.add("question-wrapper");
-
-                        spanContainer.appendChild(span)
-                        titleContainer.appendChild(titleSpan);
-                        cardDiv.appendChild(titleContainer);
-                        cardDiv.appendChild(spanContainer);
-                        if (answer == "") {
-                            let delContainer = document.createElement("div");
-                            delContainer.classList.add("button-wrapper");
-                            let delAnchor = document.createElement("a");
-                            let delBut = document.createElement("button");
-                            delBut.classList.add("delete-button");
-                            delBut.textContent = 'Delete';
-                            delAnchor.appendChild(delBut);
-                            delContainer.appendChild(delAnchor);
-
-                            cardDiv.appendChild(delContainer);
-                            contentNoAns.appendChild(cardDiv);
-                        } else {
-                            contentAns.appendChild(cardDiv);
-                        }
+                        let choiceStr = choice.join(",");
+                        span.innerHTML = ("<br />Question Type: " + questionType + "<br />Choices: " + choiceStr + "<br />Answer: " + answer);
+                    } else {
+                        let charLim = quest[i]["question_charLim"];
+                        span.innerHTML = ("<br />Question Type: " + questionType + "<br />Character Limit: " + charLim + "<br />Answer: " + answer);
                     }
+
+                    let spanContainer = document.createElement("div");
+                    spanContainer.classList.add("text-wrapper");
+
+                    let titleContainer = document.createElement("div");
+                    titleContainer.classList.add("question-wrapper");
+
+                    spanContainer.appendChild(span)
+                    titleContainer.appendChild(titleSpan);
+                    cardDiv.appendChild(titleContainer);
+                    cardDiv.appendChild(spanContainer);
+                    if (answer == "") {
+                        let delContainer = document.createElement("div");
+                        delContainer.classList.add("button-wrapper");
+                        let delAnchor = document.createElement("a");
+                        let delBut = document.createElement("button");
+                        delBut.classList.add("delete-button");
+                        delBut.textContent = 'Delete';
+                        delAnchor.appendChild(delBut);
+                        delContainer.appendChild(delAnchor);
+
+                        cardDiv.appendChild(delContainer);
+                        contentNoAns.appendChild(cardDiv);
+                    } else {
+                        contentAns.appendChild(cardDiv);
+                    }
+                }
 
                     recentQuestion
                 } catch {
+                    seperator.classList.add("hidden");
+                    seperator2.classList.add("hidden");
                     console.error("error");
                 }
         }

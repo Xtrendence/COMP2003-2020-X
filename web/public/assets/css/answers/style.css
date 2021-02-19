@@ -34,3 +34,9 @@
     font-size: var(--font-medium) !important;
     font-weight: bolder !important;
 }
+
+.select {
+    border: none;
+    outline: none;
+    background: var(--accent-gradient);
+}

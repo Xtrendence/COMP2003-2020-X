@@ -49,17 +49,28 @@
 </div>
 
 <div class="wrapper">
-<div class="title-card">
+    <div class="title-card">
         <span id="question-answer"></span>
+    </div>
+
+    <div id="ddContainer" class="ddContainer">
+        <select>
+            <option value="0">All Questions</option>
+            <option value="1">Answered Questions</option>
+            <option value="2">Most Recent Question</option>
+            <option value="3">Unanswered Questions</option>
+        </select>
     </div>
 
     <div id="content-not-answered-recent">
     </div>
 
+    <div id="sep" class="seperator"></div>
+
     <div id="content-not-answered">
     </div>
 
-    <div class="seperator"></div>
+    <div id="sep2" class="seperator"></div>
 
     <div id="content-answered">
     </div>
