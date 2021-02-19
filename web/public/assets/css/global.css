@@ -89,6 +89,7 @@ body {
     cursor: pointer;
     color: var(--accent-contrast);
     font-size: var(--font-larger);
+    transition: 0.25s;
 }
 
 .navbar a {
