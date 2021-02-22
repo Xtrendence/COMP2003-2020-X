@@ -90,11 +90,52 @@
 
 .dropdown-button:hover .left-caret {
     transform: rotate(-45deg);
-    width: 10px;
+    width: 12px;
     transition: 1s;
+}
+
+.dropdown-button-radius {
+    border-radius: 10px 10px 0 0;
 }
 
 .dropdown-button:hover .right-caret {
     transform: rotate(45deg);
-    width: 10px;
+    width: 12px;
+}
+
+.dropdown-content {
+    border: none;
+    outline: none;
+    appearance: none;
+    box-shadow: var(--shadow-smooth);
+    background: var(--accent-gradient);
+    text-align: left;
+    border-radius: 0 0 10px 10px;
+    color: var(--accent-contrast);
+    font-size: var(--font-smaller);
+    width: 210px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.dropdown-content a {
+    display: block;
+    padding-left: 10px;
+}
+
+.dropdown-content a:nth-child(1) {
+    padding-top: 10px;
+}
+
+.dropdown-content a:nth-child(4) {
+    padding-bottom: 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--accent-darkest);
+}
+
+.dropdown-content a:hover:nth-child(4) {
+    background-color: var(--accent-darkest);
+    border-radius: 0 0 10px 10px;
 }

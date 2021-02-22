@@ -54,14 +54,14 @@
     </div>
 
     <div id="ddContainer" class="dd-Container">
-        <button class="dropdown-button">
+        <button id="dropdown-button" class="dropdown-button">
             Select Items 
                 <div class="caret-container">
                     <span class="right-caret"></span>
                     <span class="left-caret"></span>
                 </div>
         </button>
-        <div class="dropdown-content">
+        <div id="dropdown-content" class="hidden">
             <a id="1">All Questions</a>
             <a id="2">Most Recent Question</a>
             <a id="3">Answered Questions</a>

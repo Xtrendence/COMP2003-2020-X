@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let addID = title.concat(patID);
     titleCard.innerText = addID;
 
+    let dropdownButton = document.getElementById("dropdown-button")
+    let dropdownContent = document.getElementById("dropdown-content");
+
     const xhr = new XMLHttpRequest();
 
     let contentNoAns = document.getElementById("content-not-answered");
@@ -96,7 +99,17 @@ document.addEventListener("DOMContentLoaded", () => {
     xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id="+ patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
     xhr.send();
 
-    
+    dropdownButton.addEventListener('click', function() {
+        if (dropdownContent.classList.contains("hidden")) {
+            dropdownContent.classList.remove("hidden");
+            dropdownContent.classList.add("dropdown-content");
+            dropdownButton.classList.add("dropdown-button-radius");
+        }
+        else {
+            dropdownContent.classList.add("hidden");
+            dropdownButton.classList.remove("dropdown-button-radius");
+        }
+    })
 
     /**
      * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
