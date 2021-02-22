@@ -53,8 +53,8 @@
         <span id="question-answer"></span>
     </div>
 
-    <div id="ddContainer" class="ddContainer">
-        <select>
+    <div id="ddContainer" class="dd-Container">
+        <select class="custom-caret">
             <option value="0">All Questions</option>
             <option value="1">Answered Questions</option>
             <option value="2">Most Recent Question</option>

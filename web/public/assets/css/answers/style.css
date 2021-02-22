@@ -35,8 +35,32 @@
     font-weight: bolder !important;
 }
 
-.select {
+.dd-Container {
+    float: right;
+    margin: 20px 20px auto auto;
+    width: 210px;
+}
+
+.dd-Container select {
     border: none;
     outline: none;
+    padding: 10px 10px 10px 10px;
     background: var(--accent-gradient);
+    border-radius: 10px;
+    color: var(--accent-contrast);
+    font-size: var(--font-smaller);
+    width: 210px;
+    appearance: none;
+    transition: 0.25s;
+}
+
+.dd-Container .select option {
+    background-color: var(--accent-gradient);
+}
+
+.custom-caret {
+    padding: 1px 1px 1px 1px;
+    background: var(--accent-contrast);
+    float: right;
+    width: 10px;
 }
