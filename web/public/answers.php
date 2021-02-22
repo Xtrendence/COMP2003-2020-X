@@ -54,12 +54,19 @@
     </div>
 
     <div id="ddContainer" class="dd-Container">
-        <select class="custom-caret">
-            <option value="0">All Questions</option>
-            <option value="1">Answered Questions</option>
-            <option value="2">Most Recent Question</option>
-            <option value="3">Unanswered Questions</option>
-        </select>
+        <button class="dropdown-button">
+            Select Items 
+                <div class="caret-container">
+                    <span class="right-caret"></span>
+                    <span class="left-caret"></span>
+                </div>
+        </button>
+        <div class="dropdown-content">
+            <a id="1">All Questions</a>
+            <a id="2">Most Recent Question</a>
+            <a id="3">Answered Questions</a>
+            <a id="4">Unanswered Questions</a>
+        </div>
     </div>
 
     <div id="content-not-answered-recent">
