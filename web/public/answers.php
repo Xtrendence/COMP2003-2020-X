@@ -55,7 +55,7 @@
 
     <div id="ddContainer" class="dd-Container">
         <button id="dropdown-button" class="dropdown-button">
-            Select Items 
+            Please Select 
                 <div class="caret-container">
                     <span class="right-caret"></span>
                     <span class="left-caret"></span>
