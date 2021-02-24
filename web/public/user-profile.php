@@ -48,9 +48,17 @@
 </div>
 
 <div class="wrapper">
+
     <div class="title-card">
+        <span>User Profile:</span>
+    </div>
+
+    <div class="wide-card">
 
     </div>
+
+
+
 </div>
 
 </body>
