@@ -38,7 +38,7 @@
 .dd-Container {
     float: right;
     margin: 20px 20px auto auto;
-    width: 210px;
+    width: 220px;
 }
 
 .dropdown-button {
@@ -51,7 +51,7 @@
     border-radius: 10px;
     color: var(--accent-contrast);
     font-size: var(--font-smaller);
-    width: 210px;
+    width: 220px;
     appearance: none;
     transition: 0.25s;
     cursor: pointer;
@@ -68,6 +68,18 @@
     background: var(--accent-contrast);
     float: right;
     width: 12px;
+    transform: rotate(-45deg);
+    transition: 1s;
+    border-radius: 10px;
+    position: relative;
+    top: 10px;
+}
+
+.right-caret {
+    padding: 1px 1px 1px 1px;
+    background: var(--accent-contrast);
+    float: right;
+    width: 12px;
     transform: rotate(45deg);
     transition: 1s;
     border-radius: 10px;
@@ -76,20 +88,8 @@
     left: 5px;
 }
 
-.right-caret {
-    padding: 1px 1px 1px 1px;
-    background: var(--accent-contrast);
-    float: right;
-    width: 12px;
-    transform: rotate(-45deg);
-    transition: 1s;
-    border-radius: 10px;
-    position: relative;
-    top: 10px;
-}
-
 .dropdown-button:hover .left-caret {
-    transform: rotate(-45deg);
+    transform: rotate(45deg);
     width: 12px;
     transition: 1s;
 }
@@ -99,7 +99,7 @@
 }
 
 .dropdown-button:hover .right-caret {
-    transform: rotate(45deg);
+    transform: rotate(-45deg);
     width: 12px;
 }
 
@@ -113,7 +113,7 @@
     border-radius: 0 0 10px 10px;
     color: var(--accent-contrast);
     font-size: var(--font-smaller);
-    width: 210px;
+    width: 220px;
     transition: 0.25s;
     cursor: pointer;
 }

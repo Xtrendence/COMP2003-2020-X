@@ -8,8 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let addID = title.concat(patID);
     titleCard.innerText = addID;
 
-    let dropdownButton = document.getElementById("dropdown-button")
+    let dropdownButton = document.getElementById("dropdown-button");
     let dropdownContent = document.getElementById("dropdown-content");
+    
+    let qAll = document.getElementById("dd-1");
+    let qMost = document.getElementById("dd-2");
+    let qAnswered = document.getElementById("dd-3");
+    let qUnanswered = document.getElementById("dd-4");
+
 
     const xhr = new XMLHttpRequest();
 
@@ -22,6 +28,92 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //let recentQuestion = contentNoAns.lastChild.nodeValue;
     //console.log(recentQuestion);
+
+    dropdownButton.addEventListener('click', function() {
+        if (dropdownContent.classList.contains("hidden")) {
+            dropdownContent.classList.remove("hidden");
+            dropdownContent.classList.add("dropdown-content");
+            dropdownButton.classList.add("dropdown-button-radius");
+        }
+        else {
+            dropdownContent.classList.add("hidden");
+            dropdownButton.classList.remove("dropdown-button-radius");
+        }
+    });
+
+    qAll.addEventListener('click', function() {
+        dropdownButton.innerHTML = "All Questions";
+        dropdownContent.classList.add("hidden");
+        dropdownButton.classList.remove("dropdown-button-radius");
+
+        let caretContainer = document.createElement("div");
+        caretContainer.classList.add("caret-container");
+        let rightCaret = document.createElement("span");
+        rightCaret.classList.add("right-caret");
+        
+        let leftCaret = document.createElement("span");
+        leftCaret.classList.add("left-caret");
+
+        caretContainer.appendChild(leftCaret);
+        caretContainer.appendChild(rightCaret);
+        dropdownButton.appendChild(caretContainer);
+    });
+
+    qMost.addEventListener('click', function() {
+        dropdownButton.innerHTML = "Most Recent Question";
+        dropdownContent.classList.add("hidden");
+        dropdownButton.classList.remove("dropdown-button-radius");
+
+        let caretContainer = document.createElement("div");
+        caretContainer.classList.add("caret-container");
+        let rightCaret = document.createElement("span");
+        rightCaret.classList.add("right-caret");
+        
+        let leftCaret = document.createElement("span");
+        leftCaret.classList.add("left-caret");
+
+        caretContainer.appendChild(leftCaret);
+        caretContainer.appendChild(rightCaret);
+        dropdownButton.appendChild(caretContainer);
+    });
+
+    qAnswered.addEventListener('click', function() {
+        dropdownButton.innerHTML = "Answered Questions";
+        dropdownContent.classList.add("hidden");
+        dropdownButton.classList.remove("dropdown-button-radius");
+
+        let caretContainer = document.createElement("div");
+        caretContainer.classList.add("caret-container");
+        
+        let rightCaret = document.createElement("span");
+        rightCaret.classList.add("right-caret");
+
+        let leftCaret = document.createElement("span");
+        leftCaret.classList.add("left-caret");
+
+        caretContainer.appendChild(leftCaret);
+        caretContainer.appendChild(rightCaret);
+        dropdownButton.appendChild(caretContainer);
+    });
+
+    qUnanswered.addEventListener('click', function() {
+        dropdownButton.innerHTML = "Unanswered Questions";
+        dropdownContent.classList.add("hidden");
+        dropdownButton.classList.remove("dropdown-button-radius");
+
+        let caretContainer = document.createElement("div");
+        caretContainer.classList.add("caret-container");
+        
+        let rightCaret = document.createElement("span");
+        rightCaret.classList.add("right-caret");
+
+        let leftCaret = document.createElement("span");
+        leftCaret.classList.add("left-caret");
+
+        caretContainer.appendChild(leftCaret);
+        caretContainer.appendChild(rightCaret);
+        dropdownButton.appendChild(caretContainer);
+    });
 
     xhr.addEventListener("readystatechange", function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -98,18 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id="+ patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
     xhr.send();
-
-    dropdownButton.addEventListener('click', function() {
-        if (dropdownContent.classList.contains("hidden")) {
-            dropdownContent.classList.remove("hidden");
-            dropdownContent.classList.add("dropdown-content");
-            dropdownButton.classList.add("dropdown-button-radius");
-        }
-        else {
-            dropdownContent.classList.add("hidden");
-            dropdownButton.classList.remove("dropdown-button-radius");
-        }
-    })
 
     /**
      * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.

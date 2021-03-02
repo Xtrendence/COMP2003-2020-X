@@ -55,17 +55,17 @@
 
     <div id="ddContainer" class="dd-Container">
         <button id="dropdown-button" class="dropdown-button">
-            Please Select 
-                <div class="caret-container">
-                    <span class="right-caret"></span>
-                    <span class="left-caret"></span>
-                </div>
+            All Questions 
+            <div class="caret-container">
+                <span class="left-caret"></span>
+                <span class="right-caret"></span>
+            </div>
         </button>
         <div id="dropdown-content" class="hidden">
-            <a id="1">All Questions</a>
-            <a id="2">Most Recent Question</a>
-            <a id="3">Answered Questions</a>
-            <a id="4">Unanswered Questions</a>
+            <a id="dd-1">All Questions</a>
+            <a id="dd-2">Most Recent Question</a>
+            <a id="dd-3">Answered Questions</a>
+            <a id="dd-4">Unanswered Questions</a>
         </div>
     </div>
 
