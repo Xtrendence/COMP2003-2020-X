@@ -78,6 +78,7 @@
     <div class="view-small-card">
     </div>
 
+    <button class="page-button">View User Charts</button>
 
 
 
