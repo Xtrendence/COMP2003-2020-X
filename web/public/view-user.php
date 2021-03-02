@@ -7,6 +7,7 @@
 <head>
     <link rel="stylesheet" href="../public/assets/css/themes.css">
     <link rel="stylesheet" href="../public/assets/css/global.css">
+    <link rel="stylesheet" href="../public/assets/css/view-user/style.css">
 
     <meta charset="UTF-8">
     <title></title>
@@ -50,12 +51,36 @@
 <div class="wrapper">
 
     <div class="title-card">
-        <span>User Profile:</span>
+        <span>View Profile - </span>
     </div>
 
-    <div class="wide-card">
-
+    <div class="view-small-card">
     </div>
+
+    <div class="view-small-card">
+    </div>
+
+    <div class="view-small-card">
+    </div>
+
+    <div class="view-small-card">
+    </div>
+
+    <div class="view-small-card">
+    </div>
+
+    <div class="view-small-card">
+    </div>
+
+    <div class="view-small-card">
+    </div>
+
+    <div class="view-small-card">
+    </div>
+
+
+
+
 
 
 
