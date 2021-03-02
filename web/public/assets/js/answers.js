@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const xhr = new XMLHttpRequest();
 
+    let recentNoAns = document.getElementById("content-not-answered-recent");
     let contentNoAns = document.getElementById("content-not-answered");
     let contentAns = document.getElementById("content-answered");
     let del =  document.getElementById("del");
@@ -57,6 +58,22 @@ document.addEventListener("DOMContentLoaded", () => {
         caretContainer.appendChild(leftCaret);
         caretContainer.appendChild(rightCaret);
         dropdownButton.appendChild(caretContainer);
+
+        if (contentAns.classList("hidden")) {
+            contentAns.classList.remove("hidden");
+        }
+        if (contentNoAns.classList("hidden")) {
+            contentNoAns.classList.remove("hidden");
+        }
+        if (recentNoAns.classList("hidden")) {
+            recentNoAns.classList.remove("hidden")
+        }
+        if (seperator.classList("hidden")) {
+            seperator.classList.remove("hidden")
+        }
+        if (seperator2.classList("hidden")) {
+            seperator2.classList.remove("hidden")
+        }
     });
 
     qMost.addEventListener('click', function() {
@@ -75,6 +92,16 @@ document.addEventListener("DOMContentLoaded", () => {
         caretContainer.appendChild(leftCaret);
         caretContainer.appendChild(rightCaret);
         dropdownButton.appendChild(caretContainer);
+
+        if (recentNoAns.classList("hidden")) {
+            recentNoAns.classList.remove("hidden");
+        }
+        if (!contentAns.classList("hidden")) {
+            contentAns.classList.add("hidden");
+        }
+        if (!contentNoAns.classList("hidden")) {
+            contentNoAns.classList.add("hidden");
+        }
     });
 
     qAnswered.addEventListener('click', function() {
@@ -94,6 +121,16 @@ document.addEventListener("DOMContentLoaded", () => {
         caretContainer.appendChild(leftCaret);
         caretContainer.appendChild(rightCaret);
         dropdownButton.appendChild(caretContainer);
+
+        if (contentAns.classList("hidden")) {
+            contentAns.classList.remove("hidden");
+        }
+        if (!contentNoAns.classList("hidden")) {
+            contentNoAns.classList.add("hidden");
+        }
+        if (!recentNoAns.classList("hidden")) {
+            recentNoAns.classList.add("hidden");
+        }
     });
 
     qUnanswered.addEventListener('click', function() {
@@ -113,6 +150,19 @@ document.addEventListener("DOMContentLoaded", () => {
         caretContainer.appendChild(leftCaret);
         caretContainer.appendChild(rightCaret);
         dropdownButton.appendChild(caretContainer);
+
+        if (contentNoAns.classList("hidden")) {
+            contentNoAns.classList.remove("hidden");
+        }
+        if (recentNoAns.classList("hidden")) {
+            recentNoAns.classList.remove("hidden")
+        }
+        if (!contentAns.classList("hidden")) {
+            contentAns.classList.add("hidden");
+        }
+        if (seperator.classList("hidden")) {
+            seperator.classList.remove("hidden")
+        }
     });
 
     xhr.addEventListener("readystatechange", function() {
