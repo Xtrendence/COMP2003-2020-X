@@ -10,6 +10,7 @@
     font-size: var(--font-smaller);
 }
 
+
 .page-button {
     outline: none;
     border: none;
@@ -24,4 +25,10 @@
     margin-bottom: 3px;
     text-align: center;
     -webkit-transition: all .1s ease;
+
+}
+
+.button-wrapper {
+    text-align: center;
+    margin-top: 20px;
 }
