@@ -15,8 +15,14 @@
     -webkit-transition: all .1s ease;
 }
 
-.button-wrapper {
-    text-align: center;
+.left-button-wrapper {
+    text-align: left;
     margin-top: 20px;
+    margin-left: 20px;
 }
 
+.right-button-wrapper {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}

@@ -58,14 +58,17 @@
         <span>Questions</span>
     </div>
 
-    <div class="button-wrapper">
+    <div class="left-button-wrapper">
 
         <button class="page-button">Previous</button>
-
         <button class="page-button">Next</button>
+    </div>
+
+    <div class="right-button-wrapper">
 
         <button class="page-button">Ask All Users</button>
     </div>
+
 
     <div class="wide-card">
 
