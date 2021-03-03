@@ -1,0 +1,22 @@
+
+.page-button {
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    /* box-shadow: var(--shadow-smooth); */
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 30px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    text-align: center;
+    -webkit-transition: all .1s ease;
+}
+
+.button-wrapper {
+    text-align: center;
+    margin-top: 20px;
+}
+

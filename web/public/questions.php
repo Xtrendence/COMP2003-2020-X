@@ -7,6 +7,7 @@
 <head>
     <link rel="stylesheet" href="../public/assets/css/themes.css">
     <link rel="stylesheet" href="../public/assets/css/global.css">
+    <link rel="stylesheet" href="../public/assets/css/questions/style.css">
 
     <meta charset="UTF-8">
     <title>User Questions</title>
@@ -47,18 +48,23 @@
 
 </div>
 
-<div class="left-button-wrapper">
 
-</div>
 
-<div class="right-button-wrapper">
 
-</div>
 
 <div class="wrapper">
 
     <div class="title-card">
         <span>Questions</span>
+    </div>
+
+    <div class="button-wrapper">
+
+        <button class="page-button">Previous</button>
+
+        <button class="page-button">Next</button>
+
+        <button class="page-button">Ask All Users</button>
     </div>
 
     <div class="wide-card">
