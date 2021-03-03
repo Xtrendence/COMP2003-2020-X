@@ -1,3 +1,5 @@
+
+/* Small card style: for holding a field of data for viewing user */
 .view-small-card {
     background: var(--main-first);
     box-shadow: var(--shadow-smooth);
@@ -10,7 +12,7 @@
     font-size: var(--font-smaller);
 }
 
-
+/* Styling for HTML buttons */
 .page-button {
     outline: none;
     border: none;
@@ -25,9 +27,9 @@
     margin-bottom: 3px;
     text-align: center;
     -webkit-transition: all .1s ease;
-
 }
 
+/* Button wrapper */
 .button-wrapper {
     text-align: center;
     margin-top: 20px;
