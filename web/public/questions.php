@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../public/assets/css/global.css">
 
     <meta charset="UTF-8">
-    <title></title>
+    <title>User Questions</title>
 </head>
 
 <body>
