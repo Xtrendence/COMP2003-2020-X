@@ -47,10 +47,28 @@
 
 </div>
 
+<div class="left-button-wrapper">
+
+</div>
+
+<div class="right-button-wrapper">
+
+</div>
+
 <div class="wrapper">
+
     <div class="title-card">
+        <span>Questions</span>
+    </div>
+
+    <div class="wide-card">
 
     </div>
+
+    <div class="wide-card">
+
+    </div>
+
 </div>
 
 </body>
