@@ -12,6 +12,11 @@
     font-size: var(--font-smaller);
 }
 
+.field-title {
+    font-weight: bolder;
+    display: block;
+}
+
 /* Styling for HTML buttons */
 .page-button {
     outline: none;
