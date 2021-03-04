@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
@@ -13,8 +14,33 @@ export class TopBar extends Component {
 		this.navigation = props.navigation;
 	}
 
-	logout() {
-		this.navigation.dangerouslyGetParent().navigate("LoginPage");
+	async logout() {
+        let patientID = await AsyncStorage.getItem("patientID");
+
+        let token = await AsyncStorage.getItem("token");
+
+        let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/logout.php";
+
+        let body = { patientID:patientID, token:token };
+
+        fetch(endpoint, {
+			method: "POST",
+			headers: {
+				Accept: "application/json", "Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+		.then(async () => {
+            await AsyncStorage.removeItem("token");
+            this.navigation.dangerouslyGetParent().navigate("LoginPage");
+		})
+		.catch((error) => {
+			console.log(error);
+			showMessage({
+				message: "Error",
+				type: "danger"
+			});
+		});
 	}
 
 	render() {
