@@ -18,8 +18,9 @@
 
 		$fall = new Fall($db);
 		$fall->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : die();
+		$falls = isset($_POST['falls']) ? $_POST['falls'] : die();
 
-		$fall->create();
+		$fall->create($falls);
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));
 	}

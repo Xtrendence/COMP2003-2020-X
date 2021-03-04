@@ -1,13 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '../styles/global';
 import { TopBar } from '../components/TopBar';
 
-export const CalendarPage = ({ navigation }) => {
-	return (
-		<View>
-			<TopBar navigation={navigation}>Calendar</TopBar>
-		</View>
-	);
+export class CalendarPage extends Component {
+	constructor(props) {
+		super(props);
+		this.navigation = props.navigation;
+	}
+
+	render() {
+		return (
+			<View>
+				<TopBar navigation={this.navigation}>Calendar</TopBar>
+			</View>
+		);
+	}
 }
