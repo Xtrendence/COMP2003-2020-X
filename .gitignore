@@ -4,3 +4,4 @@ app/node_modules
 app/android/*.hprof
 app/.idea
 web/.idea
+web/public/assets/js/users.js
