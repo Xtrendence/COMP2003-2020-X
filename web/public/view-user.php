@@ -51,34 +51,75 @@
 
     <div class="wrapper">
 
+
         <div class="title-card">
             <span id="user-title"></span>
         </div>
 
-        <div class="view-small-card">
-        </div>
+        <div id="content">
 
-        <div class="view-small-card">
-        </div>
+            <div class="view-small-card">
+                <span class="field-title">NHS Reference Number</span>
+                <span id="NHS-RN"></span>
+            </div>
 
-        <div class="view-small-card">
-        </div>
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="username"></span>
+            </div>
 
-        <div class="view-small-card">
-        </div>
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="firstname"></span>
+            </div>
 
-        <div class="view-small-card">
-        </div>
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="lastname"></span>
+            </div>
 
-        <div class="view-small-card">
-        </div>
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="DOB"></span>
+            </div>
 
-        <div class="view-small-card">
-        </div>
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="AL1"></span>
+            </div>
 
-        <div class="view-small-card">
-        </div>
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="AL2"></span>
+            </div>
 
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="postcode"></span>
+            </div>
+
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="TN"></span>
+            </div>
+
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="MN"></span>
+            </div>
+
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="email"></span>
+            </div>
+
+            <div class="view-small-card">
+                <span class="field-title"></span>
+                <span id="comments"></span>
+            </div>
+
+
+        </div>
 
     <div class="button-wrapper">
         <button class="page-button">View User Charts</button>
