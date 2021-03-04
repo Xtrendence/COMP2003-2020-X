@@ -52,7 +52,7 @@
     <div class="wrapper">
 
         <div class="title-card">
-            <span>View Profile - </span>
+            <span id="user-title"></span>
         </div>
 
         <div class="view-small-card">
