@@ -64,57 +64,57 @@
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Username</span>
                 <span id="username"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">First Name</span>
                 <span id="firstname"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Last Name</span>
                 <span id="lastname"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Date of Birth</span>
                 <span id="DOB"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Address Line 1</span>
                 <span id="AL1"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Address Line 2</span>
                 <span id="AL2"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Postcode</span>
                 <span id="postcode"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Telephone Number</span>
                 <span id="TN"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Mobile Number</span>
                 <span id="MN"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Email Address</span>
                 <span id="email"></span>
             </div>
 
             <div class="view-small-card">
-                <span class="field-title"></span>
+                <span class="field-title">Comments</span>
                 <span id="comments"></span>
             </div>
 
