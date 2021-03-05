@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="../assets/img/favicon/favicon-16x16.png">
+		<link rel="manifest" href="../assets/img/favicon/site.webmanifest">
+		<link rel="mask-icon" href="../assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico">
+		<meta name="msapplication-TileColor" content="#2b5797">
+		<meta name="msapplication-config" content="../assets/img/favicon/browserconfig.xml">
+		<meta name="theme-color" content="#a3acd1">
 		<link rel="stylesheet" href="../assets/css/themes.css">
 		<link rel="stylesheet" href="../assets/css/global.css">
 		<link rel="stylesheet" href="../assets/css/api/style.css">
@@ -10,23 +19,6 @@
 		<title>BRIMS SMS API Documentation</title>
 	</head>
 	<body>
-		<div class="title-card">
-			<span>Extra Information</span>
-		</div>
-		<div class="wide-card">
-			<div class="alert-wrapper">
-				<span>Please note that all requests made to the API require an API key as part of the URL. For example:</span>
-			</div>
-			<div class="description-wrapper">
-				<span>POST /api/users/create.php?key={apiKey}</span>
-				<span>GET /api/users/read-all.php?key={apiKey}</span>
-				<span>GET /api/users/read-range.php?from={patientID}&to={patientID}&key={apiKey}</span>
-				<span>GET /api/falls/read-date.php?id={patientID}&from={fall_date}&to={fall_date}&key={apiKey}</span>
-			</div>
-			<div class="description-wrapper">
-				<span>The API key can be found in a post on Teams.</span>
-			</div>
-		</div>
 		<!-- Users -->
 		<div class="title-card">
 			<span>Users</span>
@@ -182,6 +174,9 @@
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
+			</div>
+			<div class="data-wrapper">
+				<span>falls</span>
 			</div>
 			<div class="description-wrapper">
 				<span>Record a user's fall.</span>

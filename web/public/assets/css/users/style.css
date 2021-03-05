@@ -2,20 +2,24 @@
     outline: none;
     border: none;
     background: var(--accent-gradient);
-    /*box-shadow: var(--shadow-smooth);*/
     color: var(--accent-contrast);
     font-size: var(--font-medium);
     border-radius: 10px;
     cursor: pointer;
-    height: 30px;
+    height: 40px;
+    width: 40px;
     margin-right: 10px;
-    margin-bottom: 3px;
     text-align: center;
     -webkit-transition: all .1s ease;
     -moz-transition: all .1s ease;
     -ms-transition: all .1s ease;
     -o-transition: all .1s ease;
     transition: all .1s ease;
+}
+
+.svg-div {
+    margin-top: 3px;
+    position: center;
 }
 
 .nav-button {
@@ -54,7 +58,9 @@
 }
 
 .patient-table {
-    text-align: center
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
 
 td {

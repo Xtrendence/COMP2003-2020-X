@@ -5,11 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
      * @desc variables made from id's in the create-question.php
      * all are in order as seen in the php file
      */
-    let enquiry = document.getElementById("question");
-
     let multipleChoiceRadioButton = document.getElementById("multiple-choice-op");
     let longAnswerRadioButton = document.getElementById("long-answer");
 
+    let enquiry = document.getElementById("question");
     let multipleOption = document.getElementById("multiple");
     let numberOfChoices = document.getElementById("number-of-choices");
     let choiceFields = document.getElementsByClassName("choice-field");
@@ -20,6 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let submitButton = document.getElementById("submit");
     let submitText = document.getElementById("sub");
+
+    let url = new URL(window.location.href);
+    let patID = url.searchParams.get("id");
+
+    let titleCard = document.getElementById("user-question");
+    let title = "Ask a Question - User ";
+    let addID = title.concat(patID);
+    titleCard.innerText = addID;
 
     /**
      * @desc checks to see is all input boxes have been inputted into
@@ -153,6 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     submitButton.addEventListener("click", function() {
         if (checkForm()) {
+			let body;
+            let xhr = new XMLHttpRequest();
             if (multipleChoiceRadioButton.classList.contains("active")) {
                 let choiceOptions = [];
                 let choiceFields = document.getElementsByClassName("choice-field");
@@ -161,36 +170,48 @@ document.addEventListener("DOMContentLoaded", () => {
                     choiceFields[i].value = "";
                 }
 
-                let questionInformation = {
-                    "Question": enquiry.value,
-                    "Type": "Multiple Choice",
-                    "Choices": choiceOptions
+                body = {
+                    patientID: patID,
+                    question: enquiry.value,
+                    question_type: "choice",
+                    choices: choiceOptions
                 };
-
-                Object.keys(questionInformation).forEach(key => {
-                    console.table(key, questionInformation[key]);
-                });
 
                 submitText.classList.remove("hidden");
                 submitText.classList.add("submission");
                 enquiry.value = "";
                 numberOfChoices.value = "";
                 optionContainer.innerHTML = "";
+
             } else {
-                let questionInformation = {
-                    "Question": enquiry.value,
-                    "Type": "Long Answer",
-                    "Length": characterLimit.value
+                body = {
+                    patientID: patID,
+                    question: enquiry.value,
+                    question_type: "custom",
+                    question_charLim: characterLimit.value
                 };
                 submitText.classList.remove("hidden");
                 submitText.classList.add("submission");
                 enquiry.value = "";
                 characterLimit.value = null;
-
-                Object.keys(questionInformation).forEach(key => {
-                    console.table(key, questionInformation[key]);
-                });
             }
+            
+            xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.send(JSON.stringify(body));
+
+            xhr.addEventListener("readystatechange", function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    let responseJSON = xhr.responseText;
+
+                    try {
+                        let response = JSON.parse(responseJSON);
+
+                        let questionID = response["questionID"];
+                    } catch(e) {
+                        console.log(e);
+                    }
+                }
+            });
         }
     });
 });
