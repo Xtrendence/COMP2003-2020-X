@@ -15,7 +15,13 @@
 .field-title {
     font-weight: bolder;
     display: block;
+
 }
+
+.text-margin {
+    padding: 20px 10px 0px 5px;
+}
+
 
 /* Styling for HTML buttons */
 .page-button {
