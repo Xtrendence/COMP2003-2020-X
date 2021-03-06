@@ -8,6 +8,9 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
+		$expected = [];
+		$missing = [];
+
 		$database = new Database();
 		$db = $database->connect($api_key);
 
@@ -17,10 +20,14 @@
 		}
 
 		$fall = new Fall($db);
-		$fall->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : die();
-		$falls = isset($_POST['falls']) ? $_POST['falls'] : die();
+		$fall->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : array_push($missing, 'patientID');
+		$falls = isset($_POST['falls']) ? $_POST['falls'] : array_push($missing, 'falls');
 
-		$fall->create($falls);
+		if(empty($missing)) {
+			$fall->create($falls);
+		} else {
+			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));
 	}
