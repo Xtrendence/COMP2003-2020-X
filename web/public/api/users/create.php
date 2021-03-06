@@ -20,7 +20,7 @@
 		$researcher_username = isset($_POST['researcher_username']) ? $_POST['researcher_username'] : die();
 		$user->patient_nhsRef = isset($_POST['patient_nhsRef']) ? $_POST['patient_nhsRef'] : die();
 		$user->patient_username = isset($_POST['patient_username']) ? $_POST['patient_username'] : die();
-		$user->patient_password = isset($_POST['patient_password']) ? $_POST['patient_password'] : die();
+		$user->patient_password = isset($_POST['patient_password']) ? password_hash($_POST['patient_password'], PASSWORD_DEFAULT) : die();
 		$user->patient_fName = isset($_POST['patient_fName']) ? $_POST['patient_fName'] : die();
 		$user->patient_lName = isset($_POST['patient_lName']) ? $_POST['patient_lName'] : die();
 		$user->patient_dob = isset($_POST['patient_dob']) ? $_POST['patient_dob'] : die();

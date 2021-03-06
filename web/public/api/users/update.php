@@ -18,7 +18,7 @@
 		$researcher_username = isset($input['researcher_username']) ? $input['researcher_username'] : die();
 		$user->patient_nhsRef = isset($input['patient_nhsRef']) ? $input['patient_nhsRef'] : die();
 		$user->patient_username = isset($input['patient_username']) ? $input['patient_username'] : die();
-		$user->patient_password = isset($input['patient_password']) ? $input['patient_password'] : die();
+		$user->patient_password = isset($input['patient_password']) ? password_hash($input['patient_password'], PASSWORD_DEFAULT) : die();
 		$user->patient_fName = isset($input['patient_fName']) ? $input['patient_fName'] : die();
 		$user->patient_lName = isset($input['patient_lName']) ? $input['patient_lName'] : die();
 		$user->patient_dob = isset($input['patient_dob']) ? $input['patient_dob'] : die();
