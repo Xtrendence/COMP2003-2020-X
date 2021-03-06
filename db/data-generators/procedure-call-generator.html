@@ -57,7 +57,7 @@
 					let nhs = 1111111113 + i;
 					let username = usernames[i] + randomFromRange(1, 999);
 					let password = username.shuffle();
-					if(usernames[i] === "maureenW38") {
+					if (usernames[i] === "maureenW38") {
 						username = "maureenW38";
 						password = "Iamthedefault";
 					}
@@ -77,7 +77,7 @@
 						hour = "0" + hour;
 					}
 
-					let query = 'INSERT INTO PATIENT (patient_nhsRef, patient_username, patient_password, patient_fName, patient_lName, patient_dob, patient_addressI, patient_addressII, patient_postcode, patient_tel, patient_mobile, patient_email, patient_comment, fcmToken, fcmToken_creation) VALUES (' + nhs + ', \'' + username + '\', \'' + hashed[i] + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + birth + hour + ':00:00\', \'' + i + ' Some Road\', \'Some Flat\', \'PL3XQC\', \'01752123999\', \'+447849198656\', \'' + username + '@gmail.com\', \'No comment.\', \'-\', NOW());';
+					let query = 'CALL createPatient(1, ' + nhs + ', \'' + username + '\', \'' + hashed[i] + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + birth + hour + ':00:00\', \'' + i + ' Some Road\', \'Some Flat\', \'PL3XQC\', \'01752123999\', \'+447849198656\', \'' + username + '@gmail.com\', \'No comment.\', \'-\', NOW());';
 
 					patient.textContent += query + "\n\n";
 				}
@@ -90,25 +90,25 @@
 					let firstName = name.split(" ")[0];
 					let lastName = name.split(" ")[1];
 
-					let query = 'INSERT INTO RESEARCHER (researcher_nhsRef, researcher_username, researcher_password, researcher_fName, researcher_lName, researcher_tel, researcher_mobile, researcher_email) VALUES (' + nhs + ', \'' + username + '\', \'' + hashed[i] + '\', \'' + firstName + '\', \'' + lastName + '\', \'01752123999\', \'+447849198656\', \'' + username + '@gmail.com\');';
+					let query = 'CALL createResearcher(' + nhs + ', \'' + username + '\', \'' + hashed[i] + '\', \'' + firstName + '\', \'' + lastName + '\', \'01752123999\', \'+447849198656\', \'' + username + '@gmail.com\');';
 
 					researcher.textContent += query + "\n\n";
 				}
 
 				for (let i = 0; i < 90; i++) {
-					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, NOW(), \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+					let query = 'CALL createDiaryEntry(1, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
 
 					diaryEntry.textContent += query + "\n\n";
 				}
 
 				for (let i = 90; i < 140; i++) {
-					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, NOW(), \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+					let query = 'CALL createDiaryEntry(2, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
 
 					diaryEntry.textContent += query + "\n\n";
 				}
 
 				for (let i = 140; i < 190; i++) {
-					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, NOW(), \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+					let query = 'CALL createDiaryEntry(3, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
 
 					diaryEntry.textContent += query + "\n\n";
 				}
@@ -135,34 +135,13 @@
 						hour = "0" + hour;
 					}
 					let date = year + "/" + month + "/" + day + " " + hour + ":00:00";
-					let query = 'INSERT INTO FALL (patientID, fall_date) VALUES (1, \'' + date + '\');';
+					let query = 'INSERT INTO FALL (patientID, fall_date) VALUES (1, \'' + generateDate() + '\');';
 
 					fall.textContent += query + "\n\n";
 				}
 
 				for (let i = 0; i < 100; i++) {
-					// 2020-12-09 19:24:28
-					let year = "2020";
-					let month = randomFromRange(1, 12);
-					if (month < 10) {
-						month = "0" + month;
-					}
-					monthsWith31 = [1, 3, 5, 7, 8, 10, 12];
-					monthsWith30 = [4, 6, 9, 11];
-					let day;
-					if (monthsWith31.includes(month)) {
-						day = randomFromRange(1, 31);
-					} else if (monthsWith30.includes(month)) {
-						day = randomFromRange(1, 30);
-					} else {
-						day = randomFromRange(1, 28);
-					}
-					let hour = randomFromRange(0, 23);
-					if (hour < 10) {
-						hour = "0" + hour;
-					}
-					let date = year + "/" + month + "/" + day + " " + hour + ":00:00";
-					let query = 'INSERT INTO FALL (patientID, fall_date) VALUES (2, \'' + date + '\');';
+					let query = 'INSERT INTO FALL (patientID, fall_date) VALUES (2, \'' + generateDate() + '\');';
 
 					fall.textContent += query + "\n\n";
 				}
@@ -177,6 +156,43 @@
 					a[j] = tmp;
 				}
 				return a.join("");
+			}
+
+			function generateDate(year) {
+				// 2020-12-09 19:24:28
+				let current = new Date();
+				if (year === null || typeof year === "undefined") {
+					year = current.getFullYear();
+				}
+				let month = randomFromRange(1, 12);
+				if (year === current.getFullYear()) {
+					month = randomFromRange(1, current.getMonth() + 1);
+				}
+				if (month < 10) {
+					month = "0" + month;
+				}
+				monthsWith31 = [1, 3, 5, 7, 8, 10, 12];
+				monthsWith30 = [4, 6, 9, 11];
+				let day;
+				if (monthsWith31.includes(month)) {
+					day = randomFromRange(1, 31);
+				} else if (monthsWith30.includes(month)) {
+					day = randomFromRange(1, 30);
+				} else {
+					day = randomFromRange(1, 28);
+				}
+				let currentMonth = current.getMonth() + 1;
+				if (currentMonth < 10) {
+					currentMonth = "0" + currentMonth;
+				}
+				if (year === current.getFullYear() && month === currentMonth.toString()) {
+					day = randomFromRange(1, current.getDate() - 1);
+				}
+				let hour = randomFromRange(0, 23);
+				if (hour < 10) {
+					hour = "0" + hour;
+				}
+				return year + "/" + month + "/" + day + " " + hour + ":00:00";
 			}
 
 			function randomFromRange(min, max) {

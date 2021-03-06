@@ -215,9 +215,9 @@ export class ChartsPage extends Component {
 		this.setState({loading:true});
 		this.navigation.addListener("focus", () => {
 			let history = this.navigation.dangerouslyGetState().history;
-			if(history.length > 0) {
+			if (history.length > 0) {
 				let previous = history[history.length - 2];
-				if(!empty(previous) && "key" in previous && previous.key.includes("Falls-")) {
+				if (!empty(previous) && "key" in previous && previous.key.includes("Falls-")) {
 					this.setState({loading:true});
 					setTimeout(() => {
 						this.getData(this.previousWeek(new Date()), new Date());
