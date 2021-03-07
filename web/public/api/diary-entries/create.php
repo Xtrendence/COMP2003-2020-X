@@ -11,7 +11,7 @@
 		$expected = ['patientID', 'entry'];
 		$missing = [];
 
-		$database = new Database();
+		$database = new Database(false);
 		$db = $database->connect($api_key);
 
 		if (empty($_POST)) {

@@ -11,7 +11,7 @@
 		$expected = ['id'];
 		$missing = [];
 
-		$database = new Database();
+		$database = new Database(false);
 		$db = $database->connect($api_key);
 
 		$diaryEntry = new DiaryEntry($db);

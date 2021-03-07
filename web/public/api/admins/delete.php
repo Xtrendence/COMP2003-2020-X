@@ -11,7 +11,7 @@
 		$expected = [];
 		$missing = [];
 
-		$database = new Database();
+		$database = new Database(false);
 		$db = $database->connect($api_key);
 
 		$admin = new Admin($db);

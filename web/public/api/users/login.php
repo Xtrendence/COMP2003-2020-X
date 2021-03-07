@@ -9,7 +9,7 @@
 		$expected = [];
 		$missing = [];
 
-		$database = new Database();
+		$database = new Database(true);
 		$db = $database->connect('bypass');
 
 		if (empty($_POST)) {
