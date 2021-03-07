@@ -17,7 +17,6 @@
 		$input = json_decode(file_get_contents('php://input'), true);
 
 		$admin = new Admin($db);
-		$admin->researcherID = isset($input['researcherID']) ? $input['researcherID'] : array_push($missing, 'researcherID');
 		$admin->researcher_nhsRef = isset($_POST['researcher_nhsRef']) ? $_POST['researcher_nhsRef'] : array_push($missing, 'researcher_nhsRef');
 		$admin->researcher_username = isset($_POST['researcher_username']) ? $_POST['researcher_username'] : array_push($missing, 'researcher_username');
 		$admin->researcher_password = isset($_POST['researcher_password']) ? password_hash($_POST['researcher_password'], PASSWORD_DEFAULT) : array_push($missing, 'researcher_password');

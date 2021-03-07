@@ -20,7 +20,7 @@
 		}
 
 		$user = new User($db);
-		$researcher_username = isset($_POST['researcher_username']) ? $_POST['researcher_username'] : array_push($missing, 'researcher_username');
+		$researcherID = isset($_POST['researcherID']) ? $_POST['researcherID'] : array_push($missing, 'researcherID');
 		$user->patient_nhsRef = isset($_POST['patient_nhsRef']) ? $_POST['patient_nhsRef'] : array_push($missing, 'patient_nhsRef');
 		$user->patient_username = isset($_POST['patient_username']) ? $_POST['patient_username'] : array_push($missing, 'patient_username');
 		$user->patient_password = isset($_POST['patient_password']) ? password_hash($_POST['patient_password'], PASSWORD_DEFAULT) : array_push($missing, 'patient_password');
@@ -36,7 +36,7 @@
 		$user->patient_comment = isset($_POST['patient_comment']) ? $_POST['patient_comment'] : array_push($missing, 'patient_comment');
 
 		if(empty($missing)) {
-			$user->create($researcher_username);
+			$user->create($researcherID);
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 		}

@@ -18,8 +18,7 @@
 		}
 
 		public function create() {
-			$date = date('Y-m-d H:i:s');
-			$query = 'INSERT INTO ' . $this->table . ' (researcher_nhsRef, researcher_username, researcher_password, researcher_fName, researcher_lName, researcher_tel, researcher_mobile, researcher_email) VALUES (:researcher_nhsRef, :researcher_username, :researcher_password, :researcher_fName, :researcher_lName, :researcher_tel, :researcher_mobile, :researcher_email)';
+			$query = 'CALL createResearcher(:researcher_nhsRef, :researcher_username, :researcher_password, :researcher_fName, :researcher_lName, :researcher_tel, :researcher_mobile, :researcher_email)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':researcher_nhsRef', $this->researcher_nhsRef);
 			$command->bindParam(':researcher_username', $this->researcher_username);
@@ -70,7 +69,7 @@
 		}
 
 		public function update() {
-			$query = 'UPDATE ' . $this->table . ' SET researcher_nhsRef=:researcher_nhsRef, researcher_username=:researcher_username, researcher_password=:researcher_password, researcher_fName=:researcher_fName, researcher_lName=:researcher_lName, researcher_tel=:researcher_tel, researcher_mobile=:researcher_mobile, researcher_email=:researcher_email WHERE researcherID=:researcherID';
+			$query = 'CALL updateResearcher(:researcher_nhsRef, :researcher_username, :researcher_password, :researcher_fName, :researcher_lName, :researcher_tel, :researcher_mobile, :researcher_email)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':researcher_nhsRef', $this->researcher_nhsRef);
 			$command->bindParam(':researcher_username', $this->researcher_username);
@@ -80,12 +79,11 @@
 			$command->bindParam(':researcher_tel', $this->researcher_tel);
 			$command->bindParam(':researcher_mobile', $this->researcher_mobile);
 			$command->bindParam(':researcher_email', $this->researcher_email);
-			$command->bindParam(':researcherID', $this->researcherID);
 			$command->execute();
 		}
 
 		public function delete() {
-			$query = 'DELETE FROM ' . $this->table . ' WHERE researcherID=:id';
+			$query = 'CALL deleteResearcher(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->researcherID);
 			$command->execute();
