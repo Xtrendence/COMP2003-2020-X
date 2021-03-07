@@ -17,7 +17,6 @@
 		$input = json_decode(file_get_contents('php://input'), true);
 
 		$user = new User($db);
-		$user->patientID = isset($input['patientID']) ? $input['patientID'] : array_push($missing, 'patientID');
 		$researcherID = isset($input['researcherID']) ? $input['researcherID'] : array_push($missing, 'researcherID');
 		$user->patient_nhsRef = isset($input['patient_nhsRef']) ? $input['patient_nhsRef'] : array_push($missing, 'patient_nhsRef');
 		$user->patient_username = isset($input['patient_username']) ? $input['patient_username'] : array_push($missing, 'patient_username');
