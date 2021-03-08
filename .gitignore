@@ -5,3 +5,4 @@ app/android/*.hprof
 app/.idea
 web/.idea
 web/public/assets/js/users.js
+web/public/assets/js/users.js

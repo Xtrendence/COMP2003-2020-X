@@ -65,9 +65,8 @@
         <div id="content">
 
             <div class="view-small-card">
-                <div class="text-margin">
-                    <span class="field-title">NHS Reference Number</span>
-                </div>
+
+                <span class="field-title">NHS Reference Number</span>
 
                 <div class="text-margin">
                     <span id="NHS-RN"></span>
@@ -77,57 +76,89 @@
 
             <div class="view-small-card">
                 <span class="field-title">Username</span>
-                <span id="username"></span>
+
+                <div class="text-margin">
+                    <span id="username"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">First Name</span>
-                <span id="firstname"></span>
+
+                <div class="text-margin">
+                    <span id="firstname"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Last Name</span>
-                <span id="lastname"></span>
+
+                <div class="text-margin">
+                    <span id="lastname"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Date of Birth</span>
-                <span id="DOB"></span>
+                <div class="text-margin">
+                    <span id="DOB"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Address Line 1</span>
-                <span id="AL1"></span>
+
+                <div class="text-margin">
+                    <span id="AL1"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Address Line 2</span>
-                <span id="AL2"></span>
+
+                <div class="text-margin">
+                    <span id="AL2"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Postcode</span>
-                <span id="postcode"></span>
+
+                <div class="text-margin">
+                    <span id="postcode"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Telephone Number</span>
-                <span id="TN"></span>
+
+                <div class="text-margin">
+                    <span id="TN"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Mobile Number</span>
-                <span id="MN"></span>
+
+                <div class="text-margin">
+                    <span id="MN"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Email Address</span>
-                <span id="email"></span>
+
+                <div class="text-margin">
+                    <span id="email"></span>
+                </div>
             </div>
 
             <div class="view-small-card">
                 <span class="field-title">Comments</span>
-                <span id="comments"></span>
+
+                <div class="text-margin">
+                    <span id="comments"></span>
+                </div>
             </div>
 
 
