@@ -1,5 +1,6 @@
 <?php
 	class Database {
+		private $bypass;
 		private $host = 'proj-mysql.uopnet.plymouth.ac.uk';
 		private $name = 'COMP2003_X';
 		private $username = 'COMP2003_X';
@@ -7,8 +8,12 @@
 		public $api_key = '8c068d98-874e-46ab-b2a1-5a5eb45a40a6';
 		private $connection;
 
+		public function __construct($bypass) {
+			$this->bypass = $bypass;
+		}
+
 		public function connect($key) {
-			if ($key == $this->api_key || $key == 'bypass') {
+			if ($key == $this->api_key || $this->bypass) {
 				$this->connection = null;
 
 				try {

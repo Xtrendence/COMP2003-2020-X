@@ -8,7 +8,10 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$database = new Database();
+		$expected = ['patientID', 'entry'];
+		$missing = [];
+
+		$database = new Database(false);
 		$db = $database->connect($api_key);
 
 		if (empty($_POST)) {
@@ -17,10 +20,14 @@
 		}
 
 		$diaryEntry = new DiaryEntry($db);
-		$diaryEntry->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : die();
-		$diaryEntry->entry = isset($_POST['entry']) ? $_POST['entry'] : die();
+		$diaryEntry->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : array_push($actual, 'patientID');
+		$diaryEntry->entry = isset($_POST['entry']) ? $_POST['entry'] : array_push($actual, 'entry');
 
-		$diaryEntry->create();
+		if(empty($missing)) {
+			$diaryEntry->create();
+		} else {
+			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));
 	}

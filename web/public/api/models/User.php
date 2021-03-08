@@ -24,10 +24,10 @@
 			$this->connection = $db;
 		}
 
-		public function create($researcher_username) {
-			$date = date('Y-m-d H:i:s');
-			$query = 'INSERT INTO ' . $this->table . ' (patient_nhsRef, patient_username, patient_password, patient_fName, patient_lName, patient_dob, patient_addressI, patient_addressII, patient_postcode, patient_tel, patient_mobile, patient_email, patient_comment, fcmToken, fcmToken_creation) VALUES (:patient_nhsRef, :patient_username, :patient_password, :patient_fName, :patient_lName, :patient_dob, :patient_addressI, :patient_addressII, :patient_postcode, :patient_tel, :patient_mobile, :patient_email, :patient_comment, "-", "' . $date . '")';
+		public function create($researcherID) {
+			$query = 'CALL createPatient(:researcherID, :patient_nhsRef, :patient_username, :patient_password, :patient_fName, :patient_lName, :patient_dob, :patient_addressI, :patient_addressII, :patient_postcode, :patient_tel, :patient_mobile, :patient_email, :patient_comment, "-", NOW())';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':researcherID', $researcherID);
 			$command->bindParam(':patient_nhsRef', $this->patient_nhsRef);
 			$command->bindParam(':patient_username', $this->patient_username);
 			$command->bindParam(':patient_password', $this->patient_password);
@@ -88,15 +88,14 @@
 			return $command;
 		}
 
-		public function update($researcher_username) {
-			$query = 'UPDATE ' . $this->table . ' SET patient_nhsRef=:patient_nhsRef, patient_username=:patient_username, patient_password=:patient_password, patient_fName=:patient_fName, patient_lName=:patient_lName, patient_dob=:patient_dob, patient_addressI=:patient_addressI, patient_addressII=:patient_addressII, patient_postcode=:patient_postcode, patient_tel=:patient_tel, patient_mobile=:patient_mobile, patient_email=:patient_email, patient_comment=:patient_comment WHERE patientID=:patientID';
+		public function update() {
+			$query = 'CALL updatePatient(:patient_nhsRef, :patient_username, :patient_password, :patient_fName, :patient_lName, :patient_addressI, :patient_addressII, :patient_postcode, :patient_tel, :patient_mobile, :patient_email, :patient_comment, "-", NOW())';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':patient_nhsRef', $this->patient_nhsRef);
 			$command->bindParam(':patient_username', $this->patient_username);
 			$command->bindParam(':patient_password', $this->patient_password);
 			$command->bindParam(':patient_fName', $this->patient_fName);
 			$command->bindParam(':patient_lName', $this->patient_lName);
-			$command->bindParam(':patient_dob', $this->patient_dob);
 			$command->bindParam(':patient_addressI', $this->patient_addressI);
 			$command->bindParam(':patient_addressII', $this->patient_addressII);
 			$command->bindParam(':patient_postcode', $this->patient_postcode);
@@ -104,12 +103,11 @@
 			$command->bindParam(':patient_mobile', $this->patient_mobile);
 			$command->bindParam(':patient_email', $this->patient_email);
 			$command->bindParam(':patient_comment', $this->patient_comment);
-			$command->bindParam(':patientID', $this->patientID);
 			$command->execute();
 		}
 
 		public function delete() {
-			$query = 'DELETE FROM ' . $this->table . ' WHERE patientID=:id';
+			$query = 'CALL deletePatient(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->patientID);
 			$command->execute();
@@ -123,7 +121,7 @@
 
 			$row = $command->fetch(PDO::FETCH_ASSOC);
 
-			if ($this->patient_username == $row['patient_username'] && $this->patient_password == $row['patient_password']) {
+			if ($this->patient_username == $row['patient_username'] && password_verify($this->patient_password, $row['patient_password'])) {
 				return array('valid' => true, 'patientID' => $row['patientID']);
 				$query = 'UPDATE ' . $this->table . ' SET fcmToken=:token WHERE patient_username=:username';
 				$command = $this->connection->prepare($query);
