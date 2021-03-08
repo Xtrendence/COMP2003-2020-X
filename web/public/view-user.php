@@ -167,7 +167,6 @@
     <div class="button-wrapper">
         <button class="page-button">View User Charts</button>
 
-        <button class="page-button">Export Data</button>
     </div>
 
 </body>
