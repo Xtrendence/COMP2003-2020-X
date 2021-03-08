@@ -46,7 +46,7 @@
         }
 
         public function delete() {
-            $query = 'DELETE FROM ' . $this->table . ' WHERE questionID=:id';
+            $query = 'CALL deleteQuestion (:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
