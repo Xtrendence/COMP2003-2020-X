@@ -4,7 +4,7 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 		include_once '../config/Database.php';
-		include_once '../models/Fall.php';
+		include_once '../models/Admin.php';
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
@@ -14,14 +14,14 @@
 		$database = new Database(false);
 		$db = $database->connect($api_key);
 
-		$fall = new Fall($db);
+		$admin = new Admin($db);
 		
 		$input = json_decode(file_get_contents('php://input'), true);
 
-		$fall->fallID = !empty($input['fallID']) ? $input['fallID'] : array_push($missing, 'fallID');
+		$admin->researcherID = !empty($input['researcherID']) ? $input['researcherID'] : array_push($missing, 'researcherID');
 
 		if(empty($missing)) {
-			$fall->delete();
+			$admin->delete();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 		}

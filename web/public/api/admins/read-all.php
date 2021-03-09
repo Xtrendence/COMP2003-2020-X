@@ -4,16 +4,16 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		include_once '../config/Database.php';
-		include_once '../models/Fall.php';
+		include_once '../models/Admin.php';
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
 		$database = new Database(false);
 		$db = $database->connect($api_key);
 
-		$fall = new Fall($db);
+		$admin = new Admin($db);
 
-		$result = $fall->readAll();
+		$result = $admin->readAll();
 
 		$rows = $result->rowCount();
 
@@ -24,9 +24,15 @@
 				extract($row);
 
 				$item = array(
-					'fallID' => $fallID,
-					'patientID' => $patientID,
-					'fall_date' => $fall_date
+					'researcherID' => $researcherID,
+					'researcher_nhsRef' => $researcher_nhsRef,
+					'researcher_username' => $researcher_username,
+					'researcher_password' => $researcher_password,
+					'researcher_fName' => $researcher_fName,
+					'researcher_lName' => $researcher_lName,
+					'researcher_tel' => $researcher_tel,
+					'researcher_mobile' => $researcher_mobile,
+					'researcher_email' => $researcher_email
 				);
 
 				array_push($array['data'], $item);
@@ -34,7 +40,7 @@
 
 			echo json_encode($array, JSON_PRETTY_PRINT);
 		} else {
-			echo json_encode(array('message' => 'No falls found.'));
+			echo json_encode(array('message' => 'No admins found.'));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
