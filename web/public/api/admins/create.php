@@ -29,7 +29,7 @@
 		$admin->researcher_mobile = isset($_POST['researcher_mobile']) ? $_POST['researcher_mobile'] : array_push($missing, 'researcher_mobile');
 		$admin->researcher_email = isset($_POST['researcher_email']) ? $_POST['researcher_email'] : array_push($missing, 'researcher_email');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$admin->create();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

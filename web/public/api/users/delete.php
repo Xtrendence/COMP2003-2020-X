@@ -20,7 +20,7 @@
 
 		$user->patientID = !empty($input['patientID']) ? $input['patientID'] : array_push($missing, 'patientID');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$user->delete();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

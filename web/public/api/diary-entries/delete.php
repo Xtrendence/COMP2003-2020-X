@@ -20,7 +20,7 @@
 
 		$diaryEntry->entryID = !empty($input['entryID']) ? $input['entryID'] : array_push($missing, 'entryID');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$diaryEntry->delete();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

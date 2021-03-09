@@ -20,7 +20,7 @@
 
 		$admin->researcherID = !empty($input['researcherID']) ? $input['researcherID'] : array_push($missing, 'researcherID');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$admin->delete();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

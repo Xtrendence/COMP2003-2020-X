@@ -17,7 +17,7 @@
 		$admin = new Admin($db);
 		$admin->researcherID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$admin->read();
 
 			if (!empty($admin->researcherID)) {

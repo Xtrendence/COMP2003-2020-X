@@ -35,7 +35,7 @@
 		$user->patient_email = isset($_POST['patient_email']) ? $_POST['patient_email'] : array_push($missing, 'patient_email');
 		$user->patient_comment = isset($_POST['patient_comment']) ? $_POST['patient_comment'] : array_push($missing, 'patient_comment');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$user->create($researcherID);
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

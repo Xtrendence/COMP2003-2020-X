@@ -19,7 +19,7 @@
 		$from = isset($_GET['from']) ? $_GET['from'] : array_push($missing, 'from');
 		$to = isset($_GET['to']) ? $_GET['to'] : array_push($missing, 'to');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$result = $user->readRange($from, $to);
 
 			$rows = $result->rowCount();

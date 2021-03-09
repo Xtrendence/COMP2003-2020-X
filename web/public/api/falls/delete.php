@@ -20,7 +20,7 @@
 
 		$fall->fallID = !empty($input['fallID']) ? $input['fallID'] : array_push($missing, 'fallID');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$fall->delete();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

@@ -21,7 +21,7 @@
 		$admin->researcher_username = isset($_POST['researcher_username']) ? $_POST['researcher_username'] : array_push($missing, 'researcher_username');
 		$admin->researcher_password = isset($_POST['researcher_password']) ? $_POST['researcher_password'] : array_push($missing, 'researcher_password');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$loggedIn = $admin->login();
 
 			if ($loggedIn['valid']) {

@@ -17,7 +17,7 @@
 		$diaryEntry = new DiaryEntry($db);
 		$diaryEntry->patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$result = $diaryEntry->readUser();
 
 			$rows = $result->rowCount();

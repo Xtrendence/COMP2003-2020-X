@@ -32,7 +32,7 @@
 		$user->patient_email = isset($input['patient_email']) ? $input['patient_email'] : array_push($missing, 'patient_email');
 		$user->patient_comment = isset($input['patient_comment']) ? $input['patient_comment'] : array_push($missing, 'patient_comment');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$user->update();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

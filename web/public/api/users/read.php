@@ -17,7 +17,7 @@
 		$user = new User($db);
 		$user->patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$user->read();
 
 			if (!empty($user->patientID)) {
