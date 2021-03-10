@@ -17,7 +17,10 @@
         }
     
         public function delete() {
-
+            $query = 'CALL deleteAnswer(:id)';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':id', $this->answerID);
+            $command->execute();
         }
 
         public function readAll() {
@@ -46,11 +49,9 @@
         }
 
         public function update() {
-            $query = 'UPDATE ' . $this->table . ' SET questionID=:questionID, patientID=:patientID, answer=:answer WHERE answerID=:answerID';
+            $query = 'CALL updateAnswer (:answerID, :answer';
             $command = $this->connection->prepare($query);
             $command->bindParam(':answerID', $this->answerID);
-            $command->bindParam(':questionID', $this->questionID);
-            $command->bindParam(':patientID', $this->patientID);
             $command->bindParam(':answer', $this->answer);
             $command->execute();
         }
