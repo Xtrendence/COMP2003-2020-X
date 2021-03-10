@@ -13,7 +13,12 @@
         }
     
         public function create() {
-
+            $query = 'CALL createAnswer(:questionID, :patientID, :answer)';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':questionID', $this->questionID);
+            $command->bindParam(':patientID', $this->patientID);
+            $command->bindParam(':answer', $this->answer);
+            $command->execute();
         }
     
         public function delete() {
