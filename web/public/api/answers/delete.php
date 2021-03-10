@@ -2,7 +2,7 @@
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
 
-    if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+    if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         include_once '../config/Database.php';
         include_once '../models/Answer.php';
 
@@ -16,9 +16,9 @@
 
         $answer = new Answer($db);
 
-        $input = json_encode(file_get_contents('php://input'), true);
+        $input = json_decode(file_get_contents('php://input'), true);
 
-        $answer->answerID = isset($input['answerID']) ? $input['answerID'] : array_push($missing, 'answerID');
+        $answer->answerID = !empty($input['answerID']) ? $input['answerID'] : array_push($missing, 'answerID');
 
         if (empty($missing)) {
             $answer->delete();
