@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-/* variables for getting api URL data */
+/* Variables for getting api URI data */
 
     let url = new URL(window.location.href);
     let patID = url.searchParams.get("id");
@@ -10,9 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let addID = title.concat(patID);
     titleCard.innerText = addID;
 
+/* Variables used for "content" div class that wraps each data field small card: XML request initiated for HTML content  */
     let content = document.getElementById("content")
     let xhr = new XMLHttpRequest();
-/* */
+
+/* Variables used for small card api field values that transform the ID of each span into the field characters */
     let refCard = document.getElementById("NHS-RN");
     let usernameCard = document.getElementById("username");
     let fnCard = document.getElementById("firstname");
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let commentsCard = document.getElementById("comments");
 
 
+    /* Event listener for xhr containing if statement for try catch for retrieving data  */
     xhr.addEventListener("readystatechange", function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             let json = xhr.responseText;
@@ -36,8 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 let patient = users;
                 for (let i = 0; i < keys.length; i++){
-                    let ref = patient["patient_nhsRef"];
 
+                    /* Variables used for "read" api endpoint field values */
+                    let ref = patient["patient_nhsRef"];
                     let userName = patient["patient_username"];
                     let firstName = patient["patient_fName"];
                     let lastName = patient["patient_lName"];
@@ -50,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     let emailAddress = patient["patient_email"];
                     let comments = patient["patient_comment"];
 
+                    /* Small card field variables being assigned to their corresponding api field variable values  */
                     refCard.innerText = ref;
                     usernameCard.innerText = userName;
                     fnCard.innerText = firstName
