@@ -1,5 +1,5 @@
 
-.delete-button {
+.action-button {
     text-align: center;
     padding: 10px 10px 10px 10px;
     background: var(--accent-gradient);
@@ -10,7 +10,7 @@
     border-radius: 10px;
     font-size: var(--font-medium);
     cursor: pointer;
-    margin: auto auto;
+    margin: auto 10px auto auto;
     display: inline-block;
     vertical-align: center;
     
@@ -30,9 +30,16 @@
     line-height: 75px;
 }
 
+.button-wrapper svg {
+    fill: var(--accent-contrast);
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
 .titleSpan {
-    font-size: var(--font-medium) !important;
-    font-weight: bolder !important;
+    font-size: var(--font-medium);
+    font-weight: bolder;
 }
 
 .dd-Container {
@@ -130,4 +137,8 @@
 .dropdown-content a:hover:nth-child(4) {
     background-color: var(--accent-darkest);
     border-radius: 0 0 10px 10px;
+}
+
+.wide-card:first-of-type {
+    margin-top: 80px;
 }

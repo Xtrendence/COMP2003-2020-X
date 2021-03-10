@@ -52,7 +52,6 @@
     <div class="title-card">
         <span id="question-answer"></span>
     </div>
-
     <div id="ddContainer" class="dd-Container">
         <button id="dropdown-button" class="dropdown-button">
             All Questions 
@@ -61,6 +60,7 @@
                 <span class="right-caret"></span>
             </div>
         </button>
+    
         <div id="dropdown-content" class="hidden">
             <a id="dd-1">All Questions</a>
             <a id="dd-2">Most Recent Question</a>
