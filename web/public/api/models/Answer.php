@@ -49,7 +49,7 @@
         }
 
         public function update() {
-            $query = 'CALL updateAnswer (:answerID, :answer';
+            $query = 'CALL updateAnswer (:answerID, :answer)';
             $command = $this->connection->prepare($query);
             $command->bindParam(':answerID', $this->answerID);
             $command->bindParam(':answer', $this->answer);
