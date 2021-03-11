@@ -17,7 +17,7 @@
 		$diaryEntry = new DiaryEntry($db);
 		$diaryEntry->entryID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$diaryEntry->read();
 
 			if (!empty($diaryEntry->entryID)) {

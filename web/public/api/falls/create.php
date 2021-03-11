@@ -23,7 +23,7 @@
 		$fall->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : array_push($missing, 'patientID');
 		$falls = isset($_POST['falls']) ? $_POST['falls'] : array_push($missing, 'falls');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$fall->create($falls);
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

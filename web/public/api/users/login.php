@@ -22,7 +22,7 @@
 		$user->patient_password = isset($_POST['patient_password']) ? $_POST['patient_password'] : array_push($missing, 'patient_password');
 		$user->fcmToken = isset($_POST['fcmToken']) ? $_POST['fcmToken'] : array_push($missing, 'fcmToken');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$loggedIn = $user->login();
 
 			if ($loggedIn['valid']) {

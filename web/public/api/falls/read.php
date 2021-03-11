@@ -17,7 +17,7 @@
 		$fall = new Fall($db);
 		$fall->fallID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$fall->read();
 
 			if (!empty($fall->fallID)) {

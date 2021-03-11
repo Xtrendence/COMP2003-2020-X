@@ -161,9 +161,11 @@ export class QuestionsPage extends Component {
 				});
 
 				// Since the keys of the unansweredQuestions object would be the questionIDs, and since questionIDs are incremented automatically, the highest one would always be the most recent question.
-				let max = Math.max.apply(null, Object.keys(unansweredQuestions));
-				Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
-				delete unansweredQuestions[max];
+				if (Object.keys(unansweredQuestions).length > 0) {
+					let max = Math.max.apply(null, Object.keys(unansweredQuestions));
+					Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
+					delete unansweredQuestions[max];
+				}
 
 				if (this._mounted) {
 					this.setState({recent:recentQuestion});

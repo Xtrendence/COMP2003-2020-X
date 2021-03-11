@@ -23,7 +23,7 @@
 		$diaryEntry->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : array_push($actual, 'patientID');
 		$diaryEntry->entry = isset($_POST['entry']) ? $_POST['entry'] : array_push($actual, 'entry');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$diaryEntry->create();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
