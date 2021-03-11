@@ -1,5 +1,5 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deleteResearcher`(
-	IN researcherId INTEGER
+	IN researcherIdNo INTEGER
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -8,7 +8,7 @@ BEGIN
         SELECT 'SQLException occurred. Please try again.';
 	END;
     
-    DELETE FROM RESEARCHER WHERE researcherID = researcherId;
+    DELETE FROM RESEARCHER WHERE researcherID = researcherIdNo;
     COMMIT;
     SELECT 'Researcher deleted successfully.';
 END

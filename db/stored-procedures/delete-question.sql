@@ -1,5 +1,5 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deleteQuestion`(
-	IN questionId INTEGER
+	IN questionIdNo INTEGER
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -8,7 +8,7 @@ BEGIN
         SELECT 'SQLException occurred. Please try again.';
 	END;
     
-    DELETE FROM QUESTION WHERE questionID = questionId;
+    DELETE FROM QUESTION WHERE questionID = questionIdNo;
     COMMIT;
     SELECT 'Question deleted successfully.';
 END

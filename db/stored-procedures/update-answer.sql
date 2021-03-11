@@ -1,6 +1,6 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `updateAnswer`(
-	IN answerId INTEGER,
-    IN answer VARCHAR(1000)
+	IN answerIdNo INTEGER,
+	IN answerText VARCHAR(1000)
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -9,6 +9,6 @@ BEGIN
         SELECT 'Exception occurred. Please try again.';
     END;
     
-    UPDATE ANSWER SET answer = answer WHERE answerID = answerId;
+    UPDATE ANSWER SET answer = answerText WHERE answerID = answerIdNo;
     SELECT 'Answer updated successfully.';
 END

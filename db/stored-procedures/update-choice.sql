@@ -1,6 +1,6 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `updateChoice`(
-	IN choiceId INTEGER,
-    IN choice VARCHAR(25)
+	IN choiceIdNo INTEGER,
+    IN choiceText VARCHAR(25)
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -9,6 +9,6 @@ BEGIN
         SELECT 'Exception occurred. Please try again.';
     END;
     
-    UPDATE CHOICE SET choice = choice WHERE choiceID = choiceId;
+    UPDATE CHOICE SET choice = choiceText WHERE choiceID = choiceIdNo;
     SELECT 'Choice updated successfully.';
 END

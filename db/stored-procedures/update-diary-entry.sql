@@ -1,6 +1,6 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `updateDiaryEntry`(
-	IN entryId DECIMAL(10),
-    IN entry DECIMAL(10)
+	IN entryIdNo DECIMAL(10),
+    IN entryText DECIMAL(10)
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -9,7 +9,7 @@ BEGIN
         SELECT 'Exception occurred. Please try again.';
     END;
     
-    UPDATE DIARYENTRY SET entry = entry
-    WHERE entryID = entryId;
+    UPDATE DIARYENTRY SET entry = entryText
+    WHERE entryID = entryIdNo;
     SELECT 'Diary entry updated successfully.';
 END

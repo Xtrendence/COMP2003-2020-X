@@ -1,5 +1,5 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `updateFall`(
-	IN fallId INTEGER,
+	IN fallIdNo INTEGER,
     IN fallDate DATETIME
 )
 BEGIN
@@ -10,6 +10,6 @@ BEGIN
     END;
     
     UPDATE FALL SET fall_date = fallDate
-    WHERE fallID = fallId;
+    WHERE fallID = fallIdNo;
     SELECT 'Fall updated successfully.';
 END

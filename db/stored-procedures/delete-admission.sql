@@ -1,5 +1,5 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deleteAdmission`(
-	IN admissionId INTEGER
+	IN admissionIdNo INTEGER
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -8,7 +8,7 @@ BEGIN
         SELECT 'SQLException occurred. Please try again.';
 	END;
     
-    DELETE FROM ADMISSION WHERE admissionID = admissionId;
+    DELETE FROM ADMISSION WHERE admissionID = admissionIdNo;
     COMMIT;
     SELECT 'Admission deleted successfully.';
 END
