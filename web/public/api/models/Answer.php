@@ -50,7 +50,16 @@
             return $command;
         }
 
-        public function read() {
+        public function read($answerID) {
+            $query = 'SELECT answer.patientID, answer.questionID, answer.answer, question.question, question.question_type 
+            FROM ' . $this->table . ' 
+            INNER JOIN question ON answer.questionID = question.questionID
+            WHERE answerID=:id';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':id', $answerID);
+            $command->execute();
+
+            return $command;
         }
 
         public function update() {
