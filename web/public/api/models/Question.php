@@ -14,14 +14,11 @@
         }
         
         public function create($patientID) {
-            $this->question_type == 'custom' ? $query = 'INSERT INTO ' . $this->table . ' (question, question_type, question_charLim) VALUES (:question, :question_type, :question_charLim)' : $query = 'INSERT INTO ' . $this->table . ' (question, question_type) VALUES (:question, :question_type)'; 
+            $query = 'CALL createQuestion(:question, :question_charLim, :question_type)'; 
             $command = $this->connection->prepare($query);
             $command->bindParam(':question', $this->question);
             $command->bindParam(':question_type', $this->question_type);
-
-            if ($this->question_type == 'custom') {
-                $command->bindParam(':question_charLim', $this->question_charLim);
-            }
+            $command->bindParam(':question_charLim', $this->question_charLim);
             $command->execute();
             
             $query = 'SELECT MAX(questionID) AS questionID FROM question';
@@ -31,7 +28,7 @@
             $this->questionID = $row['questionID'];
             if ($this->question_type != 'custom') {
                 for ($i = 0; $i < count($this->choices); $i++) {
-                    $query = 'INSERT INTO choice (questionID, choice) VALUES (:questionID, :choice)';
+                    $query = 'CALL createChoice(:questionID, :choice)';
                     $command = $this->connection->prepare($query);
                     $command->bindParam(':questionID', $this->questionID);
                     $command->bindParam(':choice', $this->choices[$i]);
