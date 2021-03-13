@@ -8,14 +8,14 @@
 
         $api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-        $expected = ['patientID'];
+        $expected = ['id'];
         $missing = [];
 
         $database = new Database(false);
         $db = $database->connect($api_key);
 
         $answer = new Answer($db);
-        $patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'patientID');
+        $patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
         if (empty($missing)) {
             $result = $answer->readUser($patientID);
