@@ -16,11 +16,11 @@
 
         $answer = new Answer($db);
         $patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'patientID');
-        
-        $result = $answer->readUser($patientID);
-        $rows = $result->rowCount();
 
         if (empty($missing)) {
+            $result = $answer->readUser($patientID);
+            $rows = $result->rowCount();
+
             if ($rows > 0) {
                 $array = array();
                 $array['data'] = array();
