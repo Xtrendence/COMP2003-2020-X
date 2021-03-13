@@ -6,7 +6,7 @@
 		include_once '../config/Database.php';
 		include_once '../models/Admin.php';
 
-		$expected = [];
+		$expected = ['researcher_username', 'researcher_password'];
 		$missing = [];
 
 		$database = new Database(true);

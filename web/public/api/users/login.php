@@ -6,7 +6,7 @@
 		include_once '../config/Database.php';
 		include_once '../models/User.php';
 
-		$expected = [];
+		$expected = ['patient_username', 'patient_password', 'fcmToken'];
 		$missing = [];
 
 		$database = new Database(true);

@@ -8,7 +8,7 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$expected = [];
+		$expected = ['id'];
 		$missing = [];
 
 		$database = new Database(false);
