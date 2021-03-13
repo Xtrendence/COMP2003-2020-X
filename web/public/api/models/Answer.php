@@ -29,7 +29,7 @@
         }
 
         public function readAll() {
-            $query = 'SELECT answer.patientID, answer.questionID, answer.answer, question.question, question.question_type 
+            $query = 'SELECT answer.answerID, answer.patientID, answer.questionID, answer.answer, question.question, question.question_type, question.question_charLim
             FROM ' . $this->table . ' 
             INNER JOIN question ON answer.questionID = question.questionID';
             $command = $this->connection->prepare($query);
