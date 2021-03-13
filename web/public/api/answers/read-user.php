@@ -8,58 +8,65 @@
 
         $api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-        $database = new Database();
+        $expected = ['patientID'];
+        $missing = [];
+
+        $database = new Database(false);
         $db = $database->connect($api_key);
 
         $answer = new Answer($db);
-        $patientID = isset($_GET['id']) ? $_GET['id'] : die();
+        $patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'patientID');
         
         $result = $answer->readUser($patientID);
         $rows = $result->rowCount();
 
-        if ($rows > 0) {
-            $array = array();
-            $array['data'] = array();
+        if (empty($missing)) {
+            if ($rows > 0) {
+                $array = array();
+                $array['data'] = array();
 
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                extract($row);
-                $item = array(
-                    'patientID' => $patientID,
-                    'questionID' => $questionID,
-                    'question' => $question,
-                    'question_type' => $question_type
-                );
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    extract($row);
+                    $item = array(
+                        'patientID' => $patientID,
+                        'questionID' => $questionID,
+                        'question' => $question,
+                        'question_type' => $question_type
+                    );
 
-                if ($question_type == 'custom') {
-                    $item['question_charLim'] = $question_charLim;
+                    if ($question_type == 'custom') {
+                        $item['question_charLim'] = $question_charLim;
 
-				} else {
-					$choices = [];
+                    } else {
+                        $choices = [];
 
-					$query = 'SELECT * FROM choice WHERE questionID=:id';
-					$command = $db->prepare($query);
-					$command->bindParam(':id', $questionID);
-					$command->execute();
+                        $query = 'SELECT * FROM choice WHERE questionID=:id';
+                        $command = $db->prepare($query);
+                        $command->bindParam(':id', $questionID);
+                        $command->execute();
 
-					if ($command->rowCount() > 0) {
-						while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
-							array_push($choices, $row['choice']);
-						}
-					}
+                        if ($command->rowCount() > 0) {
+                            while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
+                                array_push($choices, $row['choice']);
+                            }
+                        }
 
-					for ($i = 0; $i < count($choices); $i++) {
-						$item['choices'][$i + 1] = $choices[$i];
-					}					
+                        for ($i = 0; $i < count($choices); $i++) {
+                            $item['choices'][$i + 1] = $choices[$i];
+                        }					
+                    }
+                    $item['answerID'] = $answerID;
+                    $item['answer'] = $answer;
+                    array_push($array['data'], $item);
                 }
-                $item['answerID'] = $answerID;
-                $item['answer'] = $answer;
-				array_push($array['data'], $item);
+                
+                echo json_encode($array, JSON_PRETTY_PRINT);
+            } else {
+                echo json_encode(array('message' => 'No questions found.'));
             }
-            
-			echo json_encode($array, JSON_PRETTY_PRINT);
-		} else {
-			echo json_encode(array('message' => 'No questions found.'));
-		}
+        } else {
+            die(json_encode(array('expected' => $expected, 'missing' => $missing)));
+        }
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
 	}  
