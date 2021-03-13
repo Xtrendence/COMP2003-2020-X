@@ -69,7 +69,7 @@
 				echo json_encode(array('message' => 'No questions found.'));
 			}
 		} else {
-			die(json_encode(array('expected' => $expected, 'missinf' =>$missing), JSON_PRETTY_PRINT));
+			die(json_encode(array('expected' => $expected, 'missing' =>$missing), JSON_PRETTY_PRINT));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
