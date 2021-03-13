@@ -8,7 +8,7 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$database = new Database();
+		$database = new Database(false);
 		$db = $database->connect($api_key);
 
 		$question = new Question($db);
@@ -55,8 +55,6 @@
 					for ($i = 0; $i < count($choices); $i++) {
 						$item['choices'][$i + 1] = $choices[$i];
 					}
-					
-					
 				}
 				array_push($array['data'], $item);
 			}
