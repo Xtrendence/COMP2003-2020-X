@@ -1,0 +1,70 @@
+.action-button {
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    /*box-shadow: var(--shadow-smooth);*/
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 30px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    text-align: center;
+    -webkit-transition: all .1s ease;
+    -moz-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+}
+
+.nav-button {
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 40px;
+    width: 90px;
+    margin-right: 10px;
+}
+
+.button-div{
+    margin-left: 40%;
+    margin-top: 10px;
+    position: relative;
+}
+
+.wide-card{
+    height: 100%;
+    margin-top: 30px;
+}
+
+.text-names {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px auto 0 auto
+}
+
+.div-button {
+    padding-top: 10px;
+}
+
+.patient-table {
+    text-align: center
+}
+
+td {
+    border-bottom: lightslategray 1px solid;
+}
+
+.table-header {
+    width: 150px;
+}
+
+.actions-header {
+    width: 800px;
+}

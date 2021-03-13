@@ -8,32 +8,35 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$database = new Database();
+		$expected = ['researcherID', 'patient_nhsRef', 'patient_username', 'patient_password', 'patient_fName', 'patient_lName', 'patient_dob', 'patient_addressI', 'patient_addressII', 'patient_postcode', 'patient_tel', 'patient_mobile', 'patient_email', 'patient_comment'];
+		$missing = [];
+
+		$database = new Database(false);
 		$db = $database->connect($api_key);
 
-		if (empty($_POST)) {
-			$json = file_get_contents('php://input');
-			$_POST = json_decode($json, true);
-		}
+		$input = json_decode(file_get_contents('php://input'), true);
 
 		$user = new User($db);
-		$user->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : die();
-		$researcher_username = isset($_POST['researcher_username']) ? $_POST['researcher_username'] : die();
-		$user->patient_nhsRef = isset($_POST['patient_nhsRef']) ? $_POST['patient_nhsRef'] : die();
-		$user->patient_username = isset($_POST['patient_username']) ? $_POST['patient_username'] : die();
-		$user->patient_password = isset($_POST['patient_password']) ? $_POST['patient_password'] : die();
-		$user->patient_fName = isset($_POST['patient_fName']) ? $_POST['patient_fName'] : die();
-		$user->patient_lName = isset($_POST['patient_lName']) ? $_POST['patient_lName'] : die();
-		$user->patient_dob = isset($_POST['patient_dob']) ? $_POST['patient_dob'] : die();
-		$user->patient_addressI = isset($_POST['patient_addressI']) ? $_POST['patient_addressI'] : die();
-		$user->patient_addressII = isset($_POST['patient_addressII']) ? $_POST['patient_addressII'] : die();
-		$user->patient_postcode = isset($_POST['patient_postcode']) ? $_POST['patient_postcode'] : die();
-		$user->patient_tel = isset($_POST['patient_tel']) ? $_POST['patient_tel'] : die();
-		$user->patient_mobile = isset($_POST['patient_mobile']) ? $_POST['patient_mobile'] : die();
-		$user->patient_email = isset($_POST['patient_email']) ? $_POST['patient_email'] : die();
-		$user->patient_comment = isset($_POST['patient_comment']) ? $_POST['patient_comment'] : die();
+		$researcherID = isset($input['researcherID']) ? $input['researcherID'] : array_push($missing, 'researcherID');
+		$user->patient_nhsRef = isset($input['patient_nhsRef']) ? $input['patient_nhsRef'] : array_push($missing, 'patient_nhsRef');
+		$user->patient_username = isset($input['patient_username']) ? $input['patient_username'] : array_push($missing, 'patient_username');
+		$user->patient_password = isset($input['patient_password']) ? password_hash($input['patient_password'], PASSWORD_DEFAULT) : array_push($missing, 'patient_password');
+		$user->patient_fName = isset($input['patient_fName']) ? $input['patient_fName'] : array_push($missing, 'patient_fName');
+		$user->patient_lName = isset($input['patient_lName']) ? $input['patient_lName'] : array_push($missing, 'patient_lName');
+		$user->patient_dob = isset($input['patient_dob']) ? $input['patient_dob'] : array_push($missing, 'patient_dob');
+		$user->patient_addressI = isset($input['patient_addressI']) ? $input['patient_addressI'] : array_push($missing, 'patient_addressI');
+		$user->patient_addressII = isset($input['patient_addressII']) ? $input['patient_addressII'] : array_push($missing, 'patient_addressII');
+		$user->patient_postcode = isset($input['patient_postcode']) ? $input['patient_postcode'] : array_push($missing, 'patient_postcode');
+		$user->patient_tel = isset($input['patient_tel']) ? $input['patient_tel'] : array_push($missing, 'patient_tel');
+		$user->patient_mobile = isset($input['patient_mobile']) ? $input['patient_mobile'] : array_push($missing, 'patient_mobile');
+		$user->patient_email = isset($input['patient_email']) ? $input['patient_email'] : array_push($missing, 'patient_email');
+		$user->patient_comment = isset($input['patient_comment']) ? $input['patient_comment'] : array_push($missing, 'patient_comment');
 
-		$user->update($researcher_username);
+		if (empty($missing)) {
+			$user->update();
+		} else {
+			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use PUT instead.'));
 	}

@@ -139,6 +139,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
+		multiDexEnabled true
     }
     splits {
         abi {
@@ -155,15 +156,21 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+		release {
+			if (project.hasProperty('KEY_STORE')) {
+				storeFile file(KEY_STORE)
+				storePassword STORE_PASSWORD
+				keyAlias KEY_ALIAS
+				keyPassword KEY_PASSWORD
+			}
+		}
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }

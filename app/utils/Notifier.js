@@ -22,6 +22,7 @@ export default class Notifier {
 		PushNotification.popInitialNotification();
 	}
 
+	// Shows a notification as soon as the function is called.
 	localNotification(title, message) {
 		PushNotification.localNotification({
 			channelId: "1",
@@ -37,6 +38,7 @@ export default class Notifier {
 		});
 	}
 
+	// Schedules a notification for a later date.
 	scheduleNotification(title, message, date) {
 		this.lastId++;
 		PushNotification.localNotificationSchedule({
@@ -54,6 +56,7 @@ export default class Notifier {
 		});
 	}
 
+	// Repeats a notification at a given interval. The interval is determined by the initial date, and the repeatType. Since it's set to "day", the first notification is shown on the specified date, and then repeated every day at the same time every 24 hours.
 	repeatNotification(title, message, date) {
 		this.lastId++;
 		PushNotification.localNotificationSchedule({

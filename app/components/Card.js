@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { globalStyles, globalColors } from '../styles/global';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-export default function Card(props) {
-	return (
-		<View style={styles.card}>
-			<View style={styles.content}>
-				{ props.children }
+export default class Card extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<View style={styles.card}>
+				<View style={styles.content}>
+					{ this.props.children }
+				</View>
 			</View>
-		</View>
-	);
+		);
+	}
 }
 
 const styles = StyleSheet.create({
