@@ -15,6 +15,24 @@
     -webkit-transition: all .1s ease;
 }
 
+.page-button-right {
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    /* box-shadow: var(--shadow-smooth); */
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 30px;
+    margin-left: 550px;
+    margin-bottom: 3px;
+    text-align: right;
+    -webkit-transition: all .1s ease;
+    position: relative;
+
+}
+
 .left-button-wrapper {
     text-align: left;
     margin-top: 20px;

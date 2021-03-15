@@ -62,12 +62,14 @@
 
         <button class="page-button">Previous</button>
         <button class="page-button">Next</button>
+        <button class="page-button-right">Ask All Users</button>
     </div>
 
     <div class="right-button-wrapper">
 
-        <button class="page-button">Ask All Users</button>
+
     </div>
+    
 
 
     <div class="wide-card">
