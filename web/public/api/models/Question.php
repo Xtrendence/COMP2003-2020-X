@@ -12,7 +12,7 @@
 			$this->connection = $db;
         }
         
-        public function create($patientID) {
+        public function create($patientID, $choices) {
             $query = 'CALL createQuestion(:question, :question_charLim, :question_type)'; 
             $command = $this->connection->prepare($query);
             $command->bindParam(':question', $this->question);
@@ -26,11 +26,11 @@
             $row = $command->fetch(PDO::FETCH_ASSOC);
             $this->questionID = $row['questionID'];
             if ($this->question_type != 'custom') {
-                for ($i = 0; $i < count($this->choices); $i++) {
+                for ($i = 0; $i < count($choices); $i++) {
                     $query = 'CALL createChoice(:questionID, :choice)';
                     $command = $this->connection->prepare($query);
                     $command->bindParam(':questionID', $this->questionID);
-                    $command->bindParam(':choice', $this->choices[$i]);
+                    $command->bindParam(':choice', $choices[$i]);
                     $command->execute();
                 } 
             }
@@ -66,7 +66,7 @@
 			return $command;
         }
 
-        public function read() {
+        public function read($choices) {
             $query = 'SELECT * FROM ' . $this->table . ' WHERE questionID=:id';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
@@ -86,7 +86,7 @@
 
             if ($command->rowCount() > 0) {
                 while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
-                    array_push($this->choices, $row['choice']);
+                    array_push($choices, $row['choice']);
                 }
             }
         }

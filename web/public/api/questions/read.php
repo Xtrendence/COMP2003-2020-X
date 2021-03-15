@@ -13,12 +13,13 @@
 
 		$expected = ['questionID'];
 		$missing = [];
+		$choices = [];
 
 		$question = new Question($db);
 		$question->questionID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'questionID');
 
 		if (empty($missing)){
-			$question->read();
+			$question->read($choices);
 
 			if (!empty($question->questionID)) {
 				if ($question->question_type == 'custom') {
@@ -37,8 +38,8 @@
 						'choices' => array()
 					);
 					
-					for ($i = 0; $i < count($question->choices); $i++) {
-						$item['choices'][$i + 1] = $question->choices[$i];
+					for ($i = 0; $i < count($choices); $i++) {
+						$item['choices'][$i + 1] = $choices[$i];
 					}
 				}
 
