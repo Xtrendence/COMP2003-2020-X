@@ -8,39 +8,47 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$database = new Database();
+		$database = new Database(false);
 		$db = $database->connect($api_key);
-		
+
+		$expected = ['id'];
+		$missing = [];
+		$choices = [];
+
 		$question = new Question($db);
-		$question->questionID = isset($_GET['id']) ? $_GET['id'] : die();
-		
-		$question->read();
+		$question->questionID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-		if (!empty($question->questionID)) {
-			if ($question->question_type == 'custom') {
-				$item = array(
-					'questionID' => $question->questionID,
-					'question' => $question->question,
-					'question_charlim' => $question->question_charLim,
-					'question_type' => $question->question_type
-				);
+		if (empty($missing)){
+			$question->read($choices);
 
-			} else {
-				$item = array(
-					'questionID' => $question->questionID,
-					'question' => $question->question,
-					'question_type' => $question->question_type,
-					'choices' => array()
-				);
-				
-				for ($i = 0; $i < count($question->choices); $i++) {
-					$item['choices'][$i + 1] = $question->choices[$i];
+			if (!empty($question->questionID)) {
+				if ($question->question_type == 'custom') {
+					$item = array(
+						'questionID' => $question->questionID,
+						'question' => $question->question,
+						'question_charlim' => $question->question_charLim,
+						'question_type' => $question->question_type
+					);
+
+				} else {
+					$item = array(
+						'questionID' => $question->questionID,
+						'question' => $question->question,
+						'question_type' => $question->question_type,
+						'choices' => array()
+					);
+					
+					for ($i = 0; $i < count($choices); $i++) {
+						$item['choices'][$i + 1] = $choices[$i];
+					}
 				}
-			}
 
-			echo json_encode($item, JSON_PRETTY_PRINT);
+				echo json_encode($item, JSON_PRETTY_PRINT);
+			} else {
+				echo json_encode(array('message' => 'No questions found.'));
+			}
 		} else {
-			echo json_encode(array('message' => 'No questions found.'));
+			die(json_encode(array('expected' => $expected, 'missing' =>$missing), JSON_PRETTY_PRINT));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
