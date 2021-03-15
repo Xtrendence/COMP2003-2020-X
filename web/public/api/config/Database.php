@@ -12,7 +12,7 @@
 
 			$query = 'SELECT * FROM researcherlogin WHERE login_status=TRUE AND login_token=:key';
 
-			if (explode('$', $key)[0] == 'user') {
+			if (!$this->isAdmin($key)) {
 				$query = 'SELECT * FROM patientlogin WHERE login_status=TRUE AND login_token=:key';
 			}
 
@@ -25,6 +25,18 @@
 			}
 
 			return false;
+		}
+
+		public function isAdmin($key) {
+			return (explode('$', $key)[0] == "admin");
+		}
+
+		public function hasPermission($key, $id) {
+			if ($this->isAdmin($key)) {
+				return true;
+			}
+
+			return (explode('$', $key)[2] == $id);
 		}
 
 		public function connect() {

@@ -99,7 +99,7 @@
 
 			if ($this->researcher_username == $row['researcher_username'] && password_verify($this->researcher_password, $row['researcher_password'])) {
 				$id = $row['researcherID'];
-				$token = 'admin$' . bin2hex(openssl_random_pseudo_bytes(32));
+				$token = 'admin$' . bin2hex(openssl_random_pseudo_bytes(32)) . '$' . $id;
 
 				$query = 'INSERT INTO researcherlogin (researcherID, login_date, login_status, login_token) 
 				VALUES (:researcherID, CURRENT_TIMESTAMP(), TRUE, :login_token)';

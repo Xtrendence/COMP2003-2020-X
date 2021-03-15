@@ -122,12 +122,23 @@
 			$row = $command->fetch(PDO::FETCH_ASSOC);
 
 			if ($this->patient_username == $row['patient_username'] && password_verify($this->patient_password, $row['patient_password'])) {
-				return array('valid' => true, 'patientID' => $row['patientID']);
 				$query = 'UPDATE ' . $this->table . ' SET fcmToken=:token WHERE patient_username=:username';
 				$command = $this->connection->prepare($query);
 				$command->bindParam(':username', $this->patient_username);
 				$command->bindParam(':token', $this->fcmToken);
 				$command->execute();
+
+				$id = $row['patientID'];
+				$token = 'user$' . bin2hex(openssl_random_pseudo_bytes(32)) . '$' . $id;
+
+				$query = 'INSERT INTO patientlogin (patientID, login_date, login_status, login_token) 
+				VALUES (:patientID, CURRENT_TIMESTAMP(), TRUE, :login_token)';
+				$command = $this->connection->prepare($query);
+				$command->bindParam(':patientID', $id);
+				$command->bindParam(':login_token', $token);
+				$command->execute();
+
+				return array('valid' => true, 'patientID' => $id, 'token' => $token);
 			}
 			return array('valid' => false);
 		}
