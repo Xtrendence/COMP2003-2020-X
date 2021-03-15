@@ -10,6 +10,7 @@
 
 		$expected = ['from', 'to'];
 		$missing = [];
+
 		$database = new Database(false);
 		$db = $database->connect($api_key);
 

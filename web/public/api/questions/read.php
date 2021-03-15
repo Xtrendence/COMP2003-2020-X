@@ -11,12 +11,12 @@
 		$database = new Database(false);
 		$db = $database->connect($api_key);
 
-		$expected = ['questionID'];
+		$expected = ['id'];
 		$missing = [];
 		$choices = [];
 
 		$question = new Question($db);
-		$question->questionID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'questionID');
+		$question->questionID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
 		if (empty($missing)){
 			$question->read($choices);

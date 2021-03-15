@@ -34,7 +34,7 @@
                     $command->execute();
                 } 
             }
-            $query = 'INSERT INTO answer (questionID, patientID, answer) VALUES (:questionID, :patientID, "")';
+            $query = 'CALL createAnswer(:questionID, :patientID, "")';
             $command = $this->connection->prepare($query);
             $command->bindParam(':questionID', $this->questionID);
             $command->bindParam(':patientID', $patientID);
@@ -42,7 +42,7 @@
         }
 
         public function delete() {
-            $query = 'CALL deleteQuestion (:id)';
+            $query = 'CALL deleteQuestion(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
@@ -100,7 +100,7 @@
             $patientID = $command->fetch(PDO::FETCH_ASSOC);
             json_encode($patientID);
 
-            $query = 'CALL deleteQuestion (:id)';
+            $query = 'CALL deleteQuestion(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
@@ -126,7 +126,7 @@
                     $command->execute();
                 } 
             }
-            $query = 'INSERT INTO answer (questionID, patientID, answer) VALUES (:questionID, :patientID, "")';
+            $query = 'CALL createAnswer(:questionID, :patientID, "")';
             $command = $this->connection->prepare($query);
             $command->bindParam(':questionID', $this->questionID);
             $command->bindParam(':patientID', $patientID);

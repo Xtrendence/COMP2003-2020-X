@@ -20,7 +20,7 @@
 
 		$questions->questionID = !empty($input['questionID']) ? $input['questionID'] : array_push($missing, 'questionID');
 
-		if(empty($missing)) {
+		if (empty($missing)) {
 			$questions->delete();
 		} else {
 			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));

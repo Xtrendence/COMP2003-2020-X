@@ -32,7 +32,7 @@
             $choices = isset($_POST['choices']) ? $_POST['choices'] : array_push($missing, 'choices');
         }
 
-        if(empty($missing)) {
+        if (empty($missing)) {
             $question->create($patientID, $choices);
         } else {
             die(json_encode(array("expected" => $expected, "missing" => $missing), JSON_PRETTY_PRINT));
