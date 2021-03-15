@@ -9,6 +9,7 @@
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
         $missing = [];
+        $choices = [];
 
 		$database = new Database(false);
 		$db = $database->connect($api_key);
@@ -25,11 +26,11 @@
             $question->question_charLim = isset($input['question_charLim']) ? $input['question_charLim'] : array_push($missing, 'question_charLim');
         } else {
             $expected = ['questionID', 'question', 'question_type', 'choices'];
-            $question->choices = isset($input['choices']) ? $input['choices'] : array_push($missing, 'choices');
+            $choices = isset($input['choices']) ? $input['choices'] : array_push($missing, 'choices');
         }
 
         if (empty($missing)){
-            $answer->update();
+            $question->update($choices);
         } else {
             die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
         }
