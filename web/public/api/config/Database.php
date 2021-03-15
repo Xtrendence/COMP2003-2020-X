@@ -1,31 +1,42 @@
 <?php
 	class Database {
-		private $bypass;
 		private $host = 'proj-mysql.uopnet.plymouth.ac.uk';
 		private $name = 'COMP2003_X';
 		private $username = 'COMP2003_X';
 		private $password = 'TdhU553+';
-		public $api_key = '8c068d98-874e-46ab-b2a1-5a5eb45a40a6';
 		private $connection;
 
-		public function __construct($bypass) {
-			$this->bypass = $bypass;
+		public function verify($key) {
+			$database = new Database();
+			$db = $database->connect();
+
+			$query = 'SELECT * FROM researcherlogin WHERE login_status=TRUE AND login_token=:key';
+
+			if (explode('$', $key)[0] == 'user') {
+				$query = 'SELECT * FROM patientlogin WHERE login_status=TRUE AND login_token=:key';
+			}
+
+			$command = $db->prepare($query);
+			$command->bindParam(':key', $key);
+			$command->execute();
+
+			if ($command->rowCount() > 0) {
+				return true;
+			}
+
+			return false;
 		}
 
-		public function connect($key) {
-			if ($key == $this->api_key || $this->bypass) {
-				$this->connection = null;
+		public function connect() {
+			$this->connection = null;
 
-				try {
-					$this->connection = new PDO('mysql:host=' . $this->host . '; dbname=' . $this->name, $this->username, $this->password);
-				} catch(PDOException $e) {
-					echo 'Connection Error: ' . $e->getMessage();
-				}
-
-				return $this->connection;
-			} else {
-				return "Error: Wrong API key.";
+			try {
+				$this->connection = new PDO('mysql:host=' . $this->host . '; dbname=' . $this->name, $this->username, $this->password);
+			} catch(PDOException $e) {
+				echo 'Connection Error: ' . $e->getMessage();
 			}
+
+			return $this->connection;
 		}
 	}
 ?>

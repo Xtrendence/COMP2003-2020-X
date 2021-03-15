@@ -98,7 +98,17 @@
 			$row = $command->fetch(PDO::FETCH_ASSOC);
 
 			if ($this->researcher_username == $row['researcher_username'] && password_verify($this->researcher_password, $row['researcher_password'])) {
-				return array('valid' => true, 'researcherID' => $row['researcherID']);
+				$id = $row['researcherID'];
+				$token = 'admin$' . bin2hex(openssl_random_pseudo_bytes(32));
+
+				$query = 'INSERT INTO researcherlogin (researcherID, login_date, login_status, login_token) 
+				VALUES (:researcherID, CURRENT_TIMESTAMP(), TRUE, :login_token)';
+				$command = $this->connection->prepare($query);
+				$command->bindParam(':researcherID', $id);
+				$command->bindParam(':login_token', $token);
+				$command->execute();
+
+				return array('valid' => true, 'researcherID' => $id, 'token' => $token);
 			}
 			return array('valid' => false);
 		}
