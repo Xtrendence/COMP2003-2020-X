@@ -36,13 +36,13 @@
 
             if (empty($missing)) {
                 $question->create($patientID, $choices);
+                echo json_encode(array("questionID" => $question->questionID));
             } else {
                 die(json_encode(array("expected" => $expected, "missing" => $missing), JSON_PRETTY_PRINT));
             }
         } else {
             echo json_encode(array('message' => 'Invalid API key.'));
         }
-        echo json_encode(array("questionID" => $question->questionID));
     } else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));
 	}
