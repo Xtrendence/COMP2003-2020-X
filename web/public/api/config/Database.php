@@ -6,24 +6,53 @@
 		private $password = 'TdhU553+';
 		private $connection;
 
-		public function verify($key) {
+		public function verify($credentials) {
 			$database = new Database();
 			$db = $database->connect();
 
-			$query = 'SELECT * FROM researcherlogin WHERE login_status=TRUE AND login_token=:key';
+			$table = 'researcherlogin';
 
-			if (!$this->isAdmin($key)) {
-				$query = 'SELECT * FROM patientlogin WHERE login_status=TRUE AND login_token=:key';
+			if (!$this->isAdmin($credentials['key'])) {
+				$table = 'patientlogin';
 			}
+			
+			$query = 'SELECT * FROM ' . $table . ' WHERE login_status=TRUE AND login_token=:key';
 
 			$command = $db->prepare($query);
-			$command->bindParam(':key', $key);
+			$command->bindParam(':key', $credentials['key']);
 			$command->execute();
 
 			if ($command->rowCount() > 0) {
+				if (!$this->isExpired($credentials['key'])) {
+					if (!$this->isAdmin($credentials['key'])) {
+						if (array_key_exists('id', $credentials)) {
+							if ($this->hasPermission($credentials['key'], $credentials['id'])) {
+								return true;
+							}
+						}
+						return false;
+					}
+					return true;
+				} else {
+					$query = 'UPDATE ' . $table . ' SET login_status = FALSE WHERE login_status=TRUE AND login_token=:key';
+					
+					$command = $db->prepare($query);
+					$command->bindParam(':key', $credentials['key']);
+					$command->execute();
+
+					return false;
+				}
+			}
+			return false;
+		}
+
+		public function isExpired($key) {
+			$generated = intval(explode('$', $key)[3]);
+			// 15780000 = 6 months.
+			$expiry = $generated + 15780000;
+			if (time() >= $expiry) {
 				return true;
 			}
-
 			return false;
 		}
 

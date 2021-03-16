@@ -129,7 +129,7 @@
 				$command->execute();
 
 				$id = $row['patientID'];
-				$token = 'user$' . bin2hex(openssl_random_pseudo_bytes(32)) . '$' . $id;
+				$token = 'user$' . bin2hex(openssl_random_pseudo_bytes(32)) . '$' . $id . '$' . time();
 
 				$query = 'INSERT INTO patientlogin (patientID, login_date, login_status, login_token) 
 				VALUES (:patientID, CURRENT_TIMESTAMP(), TRUE, :login_token)';
