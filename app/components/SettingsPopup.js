@@ -3,6 +3,8 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import Card from './Card';
+import Notifier from '../utils/Notifier';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function SettingsPopup(props) {
 
@@ -26,6 +28,11 @@ export function SettingsPopup(props) {
 	);
 }
 
+function onPress(){
+	notifier.cancellAll();
+	nnotifier.repeatNotification("Record Fall", "Please remember to record the number of falls you had today.", new Date(Date.parse(SomeDate)));
+}
+
 function saveAnswer(key, value) {
 	setLoading(true);
 	setTimeout(() => {
@@ -33,6 +40,14 @@ function saveAnswer(key, value) {
 	}, 100);
 }
 
+function onRegister(token) {
+	let fcm = token.token;
+}
+
+function onNotification(notification) {
+	notifier.localNotification(notification.title, notification.message);
+	getData();
+}
 
 const styles = StyleSheet.create({
 
