@@ -8,47 +8,52 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$database = new Database(false);
-		$db = $database->connect($api_key);
+		$database = new Database();
 
-		$expected = ['id'];
-		$missing = [];
-		$choices = [];
+		if ($database->verify(array('key' => $api_key))) {
+			$db = $database->connect();
 
-		$question = new Question($db);
-		$question->questionID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
+			$expected = ['id'];
+			$missing = [];
+			$choices = [];
 
-		if (empty($missing)){
-			$question->read($choices);
+			$question = new Question($db);
+			$question->questionID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-			if (!empty($question->questionID)) {
-				if ($question->question_type == 'custom') {
-					$item = array(
-						'questionID' => $question->questionID,
-						'question' => $question->question,
-						'question_charlim' => $question->question_charLim,
-						'question_type' => $question->question_type
-					);
+			if (empty($missing)){
+				$question->read($choices);
 
-				} else {
-					$item = array(
-						'questionID' => $question->questionID,
-						'question' => $question->question,
-						'question_type' => $question->question_type,
-						'choices' => array()
-					);
-					
-					for ($i = 0; $i < count($choices); $i++) {
-						$item['choices'][$i + 1] = $choices[$i];
+				if (!empty($question->questionID)) {
+					if ($question->question_type == 'custom') {
+						$item = array(
+							'questionID' => $question->questionID,
+							'question' => $question->question,
+							'question_charlim' => $question->question_charLim,
+							'question_type' => $question->question_type
+						);
+
+					} else {
+						$item = array(
+							'questionID' => $question->questionID,
+							'question' => $question->question,
+							'question_type' => $question->question_type,
+							'choices' => array()
+						);
+						
+						for ($i = 0; $i < count($choices); $i++) {
+							$item['choices'][$i + 1] = $choices[$i];
+						}
 					}
-				}
 
-				echo json_encode($item, JSON_PRETTY_PRINT);
+					echo json_encode($item, JSON_PRETTY_PRINT);
+				} else {
+					echo json_encode(array('message' => 'No questions found.'));
+				}
 			} else {
-				echo json_encode(array('message' => 'No questions found.'));
+				die(json_encode(array('expected' => $expected, 'missing' =>$missing), JSON_PRETTY_PRINT));
 			}
 		} else {
-			die(json_encode(array('expected' => $expected, 'missing' =>$missing), JSON_PRETTY_PRINT));
+			echo json_encode(array('message' => 'Invalid API key.'));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
