@@ -101,8 +101,7 @@
 				$id = $row['researcherID'];
 				$token = 'admin$' . bin2hex(openssl_random_pseudo_bytes(32)) . '$' . $id . '$' . time();
 
-				$query = 'INSERT INTO researcherlogin (researcherID, login_date, login_status, login_token) 
-				VALUES (:researcherID, CURRENT_TIMESTAMP(), TRUE, :login_token)';
+				$query = 'CALL createResearcherLogin(:researcherID, :login_token)';
 				$command = $this->connection->prepare($query);
 				$command->bindParam(':researcherID', $id);
 				$command->bindParam(':login_token', $token);
