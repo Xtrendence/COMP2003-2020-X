@@ -16,7 +16,6 @@
 		if ($database->verify(array('key' => $api_key))) {
 			$db = $database->connect();
 
-			
 			$choices = [];
 
 			$question = new Question($db);
