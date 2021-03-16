@@ -11,19 +11,26 @@
 		$expected = ['answerID', 'answer'];
 		$missing = [];
 
-		$database = new Database(false);
-		$db = $database->connect($api_key);
+		$patientID = !empty($input['patientID']) ? $input['patientID'] : array_push($missing, 'patientID');
 
-        $input = json_decode(file_get_contents('php://input'), true);
-        
-        $answer = new Answer($db);
-        $answer->answerID = isset($input['answerID']) ? $input['answerID'] : array_push($missing, 'answerID');
-        $answer->answer = isset($input['answer']) ? $input['answer'] : array_push($missing, 'answer');
+		$database = new Database();
 
-		if(empty($missing)) {
-			$answer->update();
+		if ($database->verify(array('key' => $api_key, 'id' => $patientID))) {
+			$db = $database->connect();
+
+			$input = json_decode(file_get_contents('php://input'), true);
+			
+			$answer = new Answer($db);
+			$answer->answerID = isset($input['answerID']) ? $input['answerID'] : array_push($missing, 'answerID');
+			$answer->answer = isset($input['answer']) ? $input['answer'] : array_push($missing, 'answer');
+
+			if(empty($missing)) {
+				$answer->update();
+			} else {
+				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+			}
 		} else {
-			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+			echo json_encode(array('message' => 'Invalid API key.'));
 		}
     } else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use PUT instead.'));
