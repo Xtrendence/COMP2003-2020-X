@@ -66,19 +66,21 @@
 
     <div class="button-wrapper">
 
-        <button class="page-button">Previous</button>
-        <button class="page-button">Next</button>
-        <button class="page-button-right">Ask All Users</button>
+        <button type="button" class="page-button" id="prev-button">Previous</button>
+        <button type="button" class="page-button" id="next-button">Next</button>
+        <button type="button" class="page-button-right">Ask All Users</button>
     </div>
 
 
 
     <div class="wide-card">
-        <span>Patient ID:</span>
-        <span>Question ID:</span>
-        <span>Question:</span>
-        <span>Character Limit:</span>
-        <span>Type:</span>
+        <div class="text-margin">
+            <span class="card-heading">Patient ID:</span>
+            <span class="card-heading">Question ID:</span>
+            <span class="card-heading">Question:</span>
+            <span class="card-heading">Character Limit:</span>
+            <span class="card-heading">Type:</span>
+        </div>
 
     </div>
 

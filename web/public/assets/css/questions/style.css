@@ -39,3 +39,11 @@
     margin-left: 20px;
 }
 
+.card-heading {
+    font-weight: bold;
+}
+
+.text-margin {
+    padding: 20px 5px 20px 120px;
+    position: absolute;
+}
