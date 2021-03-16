@@ -73,6 +73,11 @@
 
 
     <div class="wide-card">
+        <span>Patient ID:</span>
+        <span>Question ID:</span>
+        <span>Question:</span>
+        <span>Character Limit:</span>
+        <span>Type:</span>
 
     </div>
 
