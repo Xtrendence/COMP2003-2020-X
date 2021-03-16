@@ -2,6 +2,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     /**
+     * @desc used for noticication creation
+     */
+    const Notify = new XNotify("BottomRight");
+
+    /**
      * @desc variables made from id's in the create-question.php
      * all are in order as seen in the php file
      */
@@ -18,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let characterLimit = document.getElementById("characters");
 
     let submitButton = document.getElementById("submit");
-    let submitText = document.getElementById("sub");
 
     let url = new URL(window.location.href);
     let patID = url.searchParams.get("id");
@@ -176,9 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     question_type: "choice",
                     choices: choiceOptions
                 };
-
-                submitText.classList.remove("hidden");
-                submitText.classList.add("submission");
                 enquiry.value = "";
                 numberOfChoices.value = "";
                 optionContainer.innerHTML = "";
@@ -190,12 +191,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     question_type: "custom",
                     question_charLim: characterLimit.value
                 };
-                submitText.classList.remove("hidden");
-                submitText.classList.add("submission");
+                
                 enquiry.value = "";
                 characterLimit.value = null;
             }
-            
+            Notify.success({
+                title: "Success", 
+	            description: "Your question has been submitted.", 
+	            duration: 4000,
+                background: "var(--accent-gradient)",
+	            color: "var(--accent-contrast)",
+            });
+
             xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
             xhr.send(JSON.stringify(body));
 
@@ -212,6 +219,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
+        } else {
+            Notify.error({
+                title: "Error", 
+	            description: "Your question is missing elements.", 
+	            duration: 4000,
+                background: "linear-gradient(120deg, rgb(130,30,30) 25%, rgb(100,30,30) 50%, rgb(70,30,30) 100%)",
+	            color: "var(--accent-contrast)",
+            });
         }
     });
+
+    /**
+     * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
+     *      when that is true, it sets the body with an attribute to turn the theme dark.
+     */
+    if(localStorage.getItem('theme') === 'dark') { 
+        document.body.setAttribute('data-theme', 'dark'); 
+    } else { 
+        document.body.removeAttribute('data-theme', 'dark');
+    } 
 });
