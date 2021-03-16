@@ -8,13 +8,15 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
+		$expected = ['id'];
+		$missing = [];
+
 		$database = new Database();
 
 		if ($database->verify(array('key' => $api_key))) {
 			$db = $database->connect();
 
-			$expected = ['id'];
-			$missing = [];
+			
 			$choices = [];
 
 			$question = new Question($db);
