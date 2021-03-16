@@ -63,6 +63,14 @@
 			return $command;
 		}
 
+		public function update() {
+			$query = 'CALL updateDiaryEntry(:id, :entry)';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->entryID);
+			$command->bindParam(':entry', $this->entry);
+			$command->execute();
+		}
+
 		public function delete() {
 			$query = 'CALL deleteDiaryEntry(:id)';
 			$command = $this->connection->prepare($query);
