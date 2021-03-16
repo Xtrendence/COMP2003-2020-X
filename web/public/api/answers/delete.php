@@ -11,19 +11,24 @@
         $expected = ['answerID'];
         $missing = [];
 
-        $database = new Database(false);
-        $db = $database->connect($api_key);
+        $database = new Database();
 
-        $answer = new Answer($db);
+        if ($database->verify(array('key' => $api_key))) {
+            $db = $database->connect();
 
-        $input = json_decode(file_get_contents('php://input'), true);
+            $answer = new Answer($db);
 
-        $answer->answerID = !empty($input['answerID']) ? $input['answerID'] : array_push($missing, 'answerID');
+            $input = json_decode(file_get_contents('php://input'), true);
 
-        if (empty($missing)) {
-            $answer->delete();
+            $answer->answerID = !empty($input['answerID']) ? $input['answerID'] : array_push($missing, 'answerID');
+
+            if (empty($missing)) {
+                $answer->delete();
+            } else {
+                die(json_encode(array('expected' => $expected, 'missing' => $missing)));
+            }
         } else {
-            die(json_encode(array('expected' => $expected, 'missing' => $missing)));
+            echo json_encode(array('message' => 'Invalid API key.'));
         }
     } else {
         echo json_encode(array('message' => 'Wrong HTTP request method. Use DELETE instead'));
