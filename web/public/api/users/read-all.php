@@ -9,6 +9,7 @@
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
 		$database = new Database();
+		
 		if ($database->verify(array('key' => $api_key))) {
 			$db = $database->connect();
 

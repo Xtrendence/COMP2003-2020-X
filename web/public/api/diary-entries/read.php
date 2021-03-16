@@ -8,32 +8,39 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$expected = ['id'];
+		$expected = ['patientID', 'entryID'];
 		$missing = [];
 
-		$database = new Database(false);
-		$db = $database->connect($api_key);
+		$patientID = isset($_GET['patientID']) ? $_GET['patientID'] : array_push($missing, 'patientID');
 
-		$diaryEntry = new DiaryEntry($db);
-		$diaryEntry->entryID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
+		$database = new Database();
+		
+		if ($database->verify(array('key' => $api_key, 'id' => $patientID))) {
+			$db = $database->connect();
 
-		if (empty($missing)) {
-			$diaryEntry->read();
+			$diaryEntry = new DiaryEntry($db);
+			$diaryEntry->entryID = isset($_GET['entryID']) ? $_GET['entryID'] : array_push($missing, 'entryID');
 
-			if (!empty($diaryEntry->entryID)) {
-				$item = array(
-					'entryID' => $diaryEntry->entryID,
-					'patientID' => $diaryEntry->patientID,
-					'entry_date' => $diaryEntry->entry_date,
-					'entry' => $diaryEntry->entry
-				);
+			if (empty($missing)) {
+				$diaryEntry->read();
 
-				echo json_encode($item, JSON_PRETTY_PRINT);
+				if (!empty($diaryEntry->entryID)) {
+					$item = array(
+						'entryID' => $diaryEntry->entryID,
+						'patientID' => $diaryEntry->patientID,
+						'entry_date' => $diaryEntry->entry_date,
+						'entry' => $diaryEntry->entry
+					);
+
+					echo json_encode($item, JSON_PRETTY_PRINT);
+				} else {
+					echo json_encode(array('message' => 'No diary entry found.'));
+				}
 			} else {
-				echo json_encode(array('message' => 'No diary entry found.'));
+				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 			}
 		} else {
-			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+			echo json_encode(array('message' => 'Invalid API key.'));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
