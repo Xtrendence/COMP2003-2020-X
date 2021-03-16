@@ -33,14 +33,9 @@
 
 }
 
-.left-button-wrapper {
+.button-wrapper {
     text-align: left;
     margin-top: 20px;
     margin-left: 20px;
 }
 
-.right-button-wrapper {
-    text-align: right;
-    margin-top: 20px;
-    margin-right: 20px;
-}
