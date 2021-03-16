@@ -26,7 +26,7 @@
 			$user->patientID = $patientID;
 
 			if (empty($missing)) {
-				$user->logout();
+				$user->logout($api_key);
 			} else {
 				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 			}

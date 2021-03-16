@@ -27,7 +27,7 @@
 			$admin->researcherID = $researcherID;
 
 			if (empty($missing)) {
-				$admin->logout();
+				$admin->logout($api_key);
 			} else {
 				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 			}

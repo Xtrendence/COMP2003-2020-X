@@ -143,12 +143,12 @@
 			return array('valid' => false);
 		}
 
-		public function logout() {
-			$query = '';
+		public function logout($token) {
+			$query = 'UPDATE patientlogin SET login_status=FALSE WHERE login_token=:login_token AND patientID=:patientID';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':patientID', $this->patientID);
+			$command->bindParam(':login_token', $token);
 			$command->execute();
-
-			return $command;
 		}
 	}
 ?>

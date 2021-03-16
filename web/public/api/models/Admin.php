@@ -113,12 +113,12 @@
 			return array('valid' => false);
 		}
 
-		public function logout() {
-			$query = '';
+		public function logout($token) {
+			$query = 'UPDATE researcherlogin SET login_status=FALSE WHERE login_token=:login_token AND patientID=:patientID';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':researcherID', $this->researcherID);
+			$command->bindParam(':login_token', $token);
 			$command->execute();
-
-			return $command;
 		}
 	}
 ?>
