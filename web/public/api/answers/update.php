@@ -10,7 +10,7 @@
 
 		$input = json_decode(file_get_contents('php://input'), true);
 
-		$expected = ['answerID', 'answer'];
+		$expected = ['patientID', 'answerID', 'answer'];
 		$missing = [];
 
 		$patientID = !empty($input['patientID']) ? $input['patientID'] : array_push($missing, 'patientID');
