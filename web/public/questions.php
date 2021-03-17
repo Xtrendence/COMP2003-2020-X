@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../public/assets/css/global.css">
     <link rel="stylesheet" href="../public/assets/css/questions/style.css">
 
+    <script src="./assets/js/questions.js"></script>
+
     <meta charset="UTF-8">
     <title>User Questions</title>
 </head>
@@ -72,53 +74,12 @@
     </div>
 
 
-
-    <div class="wide-card">
-        <div class="text-margin">
-            <span class="card-heading">Patient ID:</span>
-        </div>
-
-        <div class="text-margin">
-            <span class="card-heading">Question ID:</span>
-        </div>
-
-        <div class="text-margin">
-            <span class="card-heading">Question:</span>
-        </div>
-
-        <div class="text-margin">
-            <span class="card-heading">Character Limit:</span>
-        </div>
-
-        <div class="text-margin">
-            <span class="card-heading">Type:</span>
-        </div>
-
-    </div>
+<div class="card-wrapper" id="cards">
 
 
-    <div class="wide-card">
-        <div class="text-margin">
-            <span class="card-heading">Patient ID:</span>
-        </div>
 
-        <div class="text-margin">
-            <span class="card-heading">Question ID:</span>
-        </div>
+</div>
 
-        <div class="text-margin">
-            <span class="card-heading">Question:</span>
-        </div>
-
-        <div class="text-margin">
-            <span class="card-heading">Type:</span>
-        </div>
-
-        <div class="text-margin">
-            <span class="card-heading">Choices:</span>
-        </div>
-
-    </div>
 
 
 
