@@ -2,7 +2,7 @@
 	header('Access-Control-Allow-Origin: *');
 	header('Content-Type: application/json');
 
-	if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+	if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 		include_once '../config/Database.php';
 		include_once '../models/DiaryEntry.php';
 
@@ -10,7 +10,7 @@
 		
 		$input = json_decode(file_get_contents('php://input'), true);
 
-		$expected = ['patientID', 'entryID'];
+		$expected = ['patientID', 'entryID', 'entry'];
 		$missing = [];
 
 		$patientID = !empty($input['patientID']) ? $input['patientID'] : array_push($missing, 'patientID');
@@ -23,9 +23,10 @@
 			$diaryEntry = new DiaryEntry($db);
 
 			$diaryEntry->entryID = !empty($input['entryID']) ? $input['entryID'] : array_push($missing, 'entryID');
+			$diaryEntry->entry = !empty($input['entry']) ? $input['entry'] : array_push($missing, 'entry');
 
 			if (empty($missing)) {
-				$diaryEntry->delete();
+				$diaryEntry->update();
 			} else {
 				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 			}
@@ -33,6 +34,6 @@
 			echo json_encode(array('message' => 'Invalid API key.'));
 		}
 	} else {
-		echo json_encode(array('message' => 'Wrong HTTP request method. Use DELETE instead.'));
+		echo json_encode(array('message' => 'Wrong HTTP request method. Use PUT instead.'));
 	}
 ?>
