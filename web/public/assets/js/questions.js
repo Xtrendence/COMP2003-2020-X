@@ -18,19 +18,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 try {
 
                     let question = users["data"];
+                    console.log(keys.length + "look");
                     for (let i = 0; i < keys.length; i++) {
 
 
                         /* Variables used for "read" api endpoint field values */
                         let questionID = question[i]["questionID"];
-                        console.log(i);
+                        console.log(questionID + "hello");
                         let q = question[i]["question"];
                         let questionLim = question[i]["question_charLim"];
                         let questionType = question[i]["question_type"];
                         let choices = question[i]["choices"];
 
                         console.log("debug");
-                        questionCard(wideCard, questionID, q, questionLim, questionType, choices);
+                        questionCard(wideCard, questionID, q, questionLim, questionType);
+                        choiceCard(wideCard, questionID, q, questionLim, questionType, choices);
                     }
 
                 } catch {
@@ -51,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    function questionCard(wideCard, questionID, q, questionLim, questionType, choices){
+    function questionCard(wideCard, questionID, q, questionLim, questionType){
 
         let cardAnchor = document.createElement("a");
 
@@ -60,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         wideCard.id = "wideCard";
         wideCard.innerHTML = '\n' +
             '        <div class="text-margin">\n' +
-            '            <span class="card-heading">Question ID: '+ questionID +' </span>\n' +
+            '            <span class="card-heading">Question ID:'+ questionID +' </span>\n' +
             '        </div>\n' +
             '\n' +
             '        <div class="text-margin">\n' +
@@ -84,5 +86,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     getQuestions();
+
+
+    function choiceCard(wideCard, questionID, q, questionLim, questionType, choices) {
+
+        let cardAnchor = document.createElement("a");
+
+        wideCard = document.createElement("div");
+        wideCard.classList.add("wide-card");
+        wideCard.id = "wideCard";
+        wideCard.innerHTML = '\n' +
+            '        <div class="text-margin">\n' +
+            '            <span class="card-heading">Question ID:'+ questionID +' </span>\n' +
+            '        </div>\n' +
+            '\n' +
+            '        <div class="text-margin">\n' +
+            '            <span class="card-heading">Question: '+ q +'</span>\n' +
+            '        </div>\n' +
+            '\n' +
+            '        <div class="text-margin">\n' +
+            '            <span class="card-heading">Type: '+ questionType +'</span>\n' +
+            '        </div>\n' +
+            '\n' +
+            '        <div class="text-margin">\n' +
+            '            <span class="card-heading">Choices: '+ choices +' </span>\n' +
+            '        </div>\n' +
+            '\n' +
+            '    </div>'
+
+
+        cardAnchor.appendChild(wideCard);
+        cardWrap.appendChild(cardAnchor);
+
+
+    }
+
+
+
+
+
 
 });
