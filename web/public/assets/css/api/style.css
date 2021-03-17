@@ -133,6 +133,9 @@ a {
 .bottom span.info {
 	background: var(--accent-lightest);
 }
+.bottom span.alert {
+	background: rgb(240,134,34);
+}
 .bottom span.success {
 	background: rgb(40,200,80);
 }

@@ -6,6 +6,112 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	let timeoutLimit = 2000;
 
+	let researcherLoginToken;
+	let patientLoginToken;
+
+	let researcherID1;
+	let researcherID2;
+
+	let researcher1 = {
+		researcher_nhsRef: "9991111111",
+		researcher_username: "testAdmin1",
+		researcher_password: "testAdmin1",
+		researcher_fName: "TestOne",
+		researcher_lName: "AdminOne",
+		researcher_tel: "01752766645",
+		researcher_mobile: "07723619852",
+		researcher_email: "testadmin1@gmail.com"
+	};
+	let researcher2 = {
+		researcher_nhsRef: "9991111112",
+		researcher_username: "testAdmin2",
+		researcher_password: "testAdmin2",
+		researcher_fName: "TestTwo",
+		researcher_lName: "AdminTwo",
+		researcher_tel: "01752766646",
+		researcher_mobile: "07723619822",
+		researcher_email: "testadmin2@gmail.com"
+	};
+
+	let diaryEntryID1;
+	let diaryEntryID2;
+
+	let diaryEntry1 = {
+		patientID: null,
+		entry: "Test entry 1"
+	};
+	let diaryEntry2 = {
+		patientID: null,
+		entry: "Test entry 2"
+	};
+
+	let fallID1;
+	let fallID2;
+
+	let fall1 = {
+		patientID: null,
+		falls: 2,
+	};
+	let fall2 = {
+		patientID: null,
+		falls: 4
+	};
+
+	let questionID1;
+	let questionID2;
+
+	let question1 = {
+		patientID: null,
+		question: "Was this for a test? Please explain.",
+		question_type: "custom",
+		charLim: 120
+	};
+	let question2 = {
+		patientID: null,
+		question: "Does the API like getting tested?",
+		question_type: "choice",
+		choices: ["No", "Maybe", "Yes"],
+	};
+
+	let answerID1;
+	let answerID2;
+
+	let patientID1;
+	let patientID2;
+
+	let patient1 = {
+		researcherID: null,
+		patient_nhsRef: "9991111113",
+		patient_username: "testPatient1",
+		patient_password: "testPatient1",
+		patient_fName: "TestOne",
+		patient_lName: "PatientOne",
+		patient_dob: "2000/12/31 12:54:23",
+		patient_addressI: "Test One Street",
+		patient_addressII: "Test One Flat",
+		patient_postcode: "TESTPC",
+		patient_tel: "01752723645",
+		patient_mobile: "07723619152",
+		patient_email: "testpatient1@gmail.com",
+		patient_comment: "Just the first patient for testing.",
+	};
+	let patient2 = {
+		researcherID: null,
+		patient_nhsRef: "9991111114",
+		patient_username: "testPatient2",
+		patient_password: "testPatient2",
+		patient_fName: "TestTwo",
+		patient_lName: "PatientTwo",
+		patient_dob: "2000/12/24 12:54:23",
+		patient_addressI: "Test Two Street",
+		patient_addressII: "Test Two Flat",
+		patient_postcode: "TESTZC",
+		patient_tel: "01721723645",
+		patient_mobile: "07513619152",
+		patient_email: "testpatient2@gmail.com",
+		patient_comment: "Just the second patient for testing.",
+	};
+
 	let inputUserUsername = document.getElementById("user-username");
 	let inputUserPassword = document.getElementById("user-password");
 
@@ -82,6 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
 								description: "You are now logged in as a user."
 							});
 
+							log("success", "Logged In As User");
+
 							resolve();
 						} else {
 							reject("Login failed.");
@@ -116,6 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
 								description: "You are now logged in as an admin."
 							});
 
+							log("success", "Logged In As Admin");
+
 							resolve();
 						} else {
 							reject("Login failed.");
@@ -146,6 +256,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		try {
 			divOutput.innerHTML = "";
 
+			if (apiKey.includes("user")) {
+				log("alert", "Using User Token");
+			} else if (apiKey.includes("admin")) {
+				log("alert", "Using Admin Token");
+			} else {
+				log("alert", "Using Development Token");
+			}
+
 			log("info", "Testing /admins/");
 
 			await adminsCreate().catch(e => {
@@ -170,27 +288,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 			await adminUpdate().catch(e => {
-				handleError(e);
-			});
-
-			log("info", "Testing /answers/");
-
-			await answersCreate().catch(e => {
-				handleError(e);
-			});
-			await answersDelete().catch(e => {
-				handleError(e);
-			});
-			await answersReadAll().catch(e => {
-				handleError(e);
-			});
-			await answersReadUser().catch(e => {
-				handleError(e);
-			});
-			await answersRead().catch(e => {
-				handleError(e);
-			});
-			await answersUpdate().catch(e => {
 				handleError(e);
 			});
 
@@ -263,6 +360,27 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
+			log("info", "Testing /answers/");
+
+			await answersCreate().catch(e => {
+				handleError(e);
+			});
+			await answersDelete().catch(e => {
+				handleError(e);
+			});
+			await answersReadAll().catch(e => {
+				handleError(e);
+			});
+			await answersReadUser().catch(e => {
+				handleError(e);
+			});
+			await answersRead().catch(e => {
+				handleError(e);
+			});
+			await answersUpdate().catch(e => {
+				handleError(e);
+			});
+
 			log("info", "Testing /users/");
 
 			await usersCreate().catch(e => {
@@ -294,8 +412,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	function adminsCreate() {
+	function adminsCreate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "admins/create.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve();
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -344,49 +472,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 	function adminUpdate() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
-
-	function answersCreate() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
-	function answersDelete() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
-	function answersReadAll() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
-	function answersReadUser() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
-	function answersRead() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
-	function answersUpdate() {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
@@ -537,6 +622,49 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
+	function answersCreate() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				reject("Timeout - " + arguments.callee.name + "()");
+			}, timeoutLimit);
+		});
+	}
+	function answersDelete() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				reject("Timeout - " + arguments.callee.name + "()");
+			}, timeoutLimit);
+		});
+	}
+	function answersReadAll() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				reject("Timeout - " + arguments.callee.name + "()");
+			}, timeoutLimit);
+		});
+	}
+	function answersReadUser() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				reject("Timeout - " + arguments.callee.name + "()");
+			}, timeoutLimit);
+		});
+	}
+	function answersRead() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				reject("Timeout - " + arguments.callee.name + "()");
+			}, timeoutLimit);
+		});
+	}
+	function answersUpdate() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				reject("Timeout - " + arguments.callee.name + "()");
+			}, timeoutLimit);
+		});
+	}
+
 	function usersCreate() {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
@@ -568,8 +696,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	function usersReadAll() {
 		return new Promise((resolve, reject) => {
 			sendRequest("GET", apiURL + "users/read-all.php?key=" + apiKey).then((result) => {
-				handleResponse(result.endpoint, result.response);
-				resolve();
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve();
+				}, 200);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
