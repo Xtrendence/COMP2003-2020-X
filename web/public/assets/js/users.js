@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-
-
     let from = 1;
     let to = 50;
     const xhr = new XMLHttpRequest();
@@ -25,41 +22,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function getUsers(from, to, userID, firstName, lastName) {
-
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 let json = xhr.responseText;
-                    let users = JSON.parse(json);
-                    let keys = Object.keys(users["data"]);
-                    console.log(users);
-                    try {
-                        layer.innerHTML = "";
-                        let patient = users["data"];
-                        for (let i = 0; i < keys.length; i++){
-                            console.log("123");
-                            console.log("errorrerer");
-                            let userID = patient[i]["patientID"];
-                            let firstName = patient[i]["patient_fName"];
-                            let lastName = patient[i]["patient_lName"];
-                            let row = document.createElement("tr");
-                            let cell1 = row.insertCell(0);
-                            let cell2 = row.insertCell(1);
-                            let cell3 = row.insertCell(2);
-                            let cellAct = row.insertCell(3);
-                            row.id = userID;
-                            cell1.innerHTML = (userID);
-                            cell2.innerHTML = (firstName);
-                            cell3.innerHTML = (lastName);
-                            layer.appendChild(row);
-                            layer.appendChild(cell1);
-                            layer.appendChild(cell2);
-                            layer.appendChild(cell3);
+                let users = JSON.parse(json);
+                let keys = Object.keys(users["data"]);
+                console.log(users);
+                try {
+                    layer.innerHTML = "";
+                    let patient = users["data"];   
 
-                            createButtons(deleteButton, editButton, profileButton, answerButton, questButton, userID, cellAct, row);
-                        }
-                    } catch {
-                        console.error("error");
+                    for (let i = 0; i < keys.length; i++){
+                        let userID = patient[i]["patientID"];
+                        let firstName = patient[i]["patient_fName"];
+                        let lastName = patient[i]["patient_lName"];
+                        let row = document.createElement("tr");
+                        let cell1 = row.insertCell(0);
+                        let cell2 = row.insertCell(1);
+                        let cell3 = row.insertCell(2);
+                        let cellAct = row.insertCell(3);
+                        row.id = userID;
+                        cell1.innerHTML = (userID);
+                        cell2.innerHTML = (firstName);
+                        cell3.innerHTML = (lastName);
+                        layer.appendChild(row);
+                        layer.appendChild(cell1);
+                        layer.appendChild(cell2);
+                        layer.appendChild(cell3);
+
+                        createButtons(deleteButton, editButton, profileButton, answerButton, questButton, userID, cellAct, row);
                     }
+                } catch {
+                    console.error("error");
+                }
 
             }
         });
