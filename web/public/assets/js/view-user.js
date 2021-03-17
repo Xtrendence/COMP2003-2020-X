@@ -36,11 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
             let users = JSON.parse(json);
             let keys = Object.keys(users);
 
+
             try {
                 let patient = users;
+                let userID = patient["patientID"];
                 for (let i = 0; i < keys.length; i++){
 
                     /* Variables used for "read" api endpoint field values */
+                    let userID = patient["patientID"];
                     let ref = patient["patient_nhsRef"];
                     let userName = patient["patient_username"];
                     let firstName = patient["patient_fName"];
@@ -69,10 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     commentsCard.innerText = comments;
 
 
+                    console.log("hello");
 
 
-                    createButton(chartsButton, userID, cellAct);
                 }
+
+                createButton(chartsButton, userID);
             } catch {
                 console.error("error");
             }
@@ -83,17 +88,27 @@ document.addEventListener("DOMContentLoaded", () => {
     xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6&id=" + patID, true);
     xhr.send();
 
-    function createButton(chartsButton, userID, cellAct){
+    let chartsButton;
+    let buttonDiv = document.getElementById("buttons");
+
+
+    function createButton(chartsButton, userID){
+
+
 
         let chartsAnchor = document.createElement("a");
 
 
         chartsButton = document.createElement("button");
-        chartsButton.classList.add("action-button");
-        chartsButton.id = "profileButton";
-        chartsButton.textContent = 'View Profile';
+        chartsButton.classList.add("page-button");
+        chartsButton.id = "chartsButton";
+        chartsButton.textContent = 'View User Charts';
         chartsAnchor.href = "./charts.php?id=" + userID + "";
         chartsAnchor.appendChild(chartsButton);
+
+        buttonDiv.appendChild(chartsAnchor);
+
+
     }
 
 });

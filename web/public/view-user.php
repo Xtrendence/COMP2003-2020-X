@@ -164,8 +164,8 @@
 
         </div>
 
-    <div class="button-wrapper">
-        <button class="page-button">View User Charts</button>
+    <div class="button-wrapper" id="buttons">
+
 
     </div>
 
