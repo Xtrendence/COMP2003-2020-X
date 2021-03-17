@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/create-question/style.css">
     <script src="./assets/js/create-question.js"></script>
+    <script src="./assets/js/lib/x-notify.js"></script>
     <meta charset="UTF-8">
     <title>Create A Question</title>
 </head>
@@ -103,10 +104,6 @@
             <button id="submit" class="submit-button">
                 <span>Submit Question</span>
             </button>
-        </div>
-
-        <div id="sub" class="hidden">
-            <span>Question Submitted</span>
         </div>
     </div>
 </div>

@@ -18,7 +18,7 @@ export class LoginPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			wave: false,
+			wave: true,
 			loading: false,
 			username: null,
 			password: null
@@ -134,9 +134,9 @@ export class LoginPage extends Component {
 						style={{width:"100%", height:"100%"}}
 						H={screenHeight - 300}
 						waveParams={[
-							{A: 20, T: screenWidth, fill: globalColors.accentMedium},
-							{A: 15, T: screenWidth + 20, fill: globalColors.accentLight},
-							{A: 30, T: screenWidth + 30, fill: globalColors.accentLightest},
+							{A: 30, T: screenWidth, fill: "rgba(104,112,141,1)"},
+							{A: 20, T: screenWidth + 20, fill: "rgba(104,112,141,0.7)"},
+							{A: 40, T: screenWidth + 40, fill: "rgba(104,112,141,0.5)"},
 						]}
 						animated={true}
 					/>

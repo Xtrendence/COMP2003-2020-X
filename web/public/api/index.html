@@ -19,6 +19,23 @@
 		<title>BRIMS SMS API Documentation</title>
 	</head>
 	<body>
+		<div class="title-card">
+			<span>Extra Information</span>
+		</div>
+		<div class="wide-card">
+			<div class="alert-wrapper">
+				<span>Please note that all requests made to the API require an API key as part of the URL except for the login endpoints. For example:</span>
+			</div>
+			<div class="description-wrapper">
+				<span>POST /api/users/create.php?key={apiKey}</span>
+				<span>GET /api/users/read-all.php?key={apiKey}</span>
+				<span>GET /api/users/read-range.php?from={patientID}&to={patientID}&key={apiKey}</span>
+				<span>GET /api/falls/read-date.php?id={patientID}&from={fall_date}&to={fall_date}&key={apiKey}</span>
+			</div>
+			<div class="description-wrapper">
+				<span>While in development mode, a hardcoded API key can be used (which can be found on Teams). When development mode is disabled, session tokens act as API keys, with admin tokens being able to access all endpoints.</span>
+			</div>
+		</div>
 		<!-- Users -->
 		<div class="title-card">
 			<span>Users</span>
@@ -31,7 +48,7 @@
 				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/create.php" target="_blank">/api/users/create.php</a></span>
 			</div>
 			<div class="data-wrapper">
-				<span>researcher_username</span>
+				<span>researcherID</span>
 				<span>patient_nhsRef</span>
 				<span>patient_username</span>
 				<span>patient_password</span>
@@ -97,14 +114,12 @@
 				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/update.php" target="_blank">/api/users/update.php</a></span>
 			</div>
 			<div class="data-wrapper">
-				<span>patientID</span>
-				<span>researcher_username</span>
+				<span>researcherID</span>
 				<span>patient_nhsRef</span>
 				<span>patient_username</span>
 				<span>patient_password</span>
 				<span>patient_fName</span>
 				<span>patient_lName</span>
-				<span>patient_dob</span>
 				<span>patient_addressI</span>
 				<span>patient_addressII</span>
 				<span>patient_postcode</span>
@@ -114,7 +129,7 @@
 				<span>patient_comment</span>
 			</div>
 			<div class="description-wrapper">
-				<span>Update a user's details. The patientID is used to determine which user to update the details of, the ID itself cannot be changed.</span>
+				<span>Update a user's details. The NHS number is used to determine which user to update the details of.</span>
 			</div>
 		</div>
 		<div class="wide-card">
@@ -155,7 +170,7 @@
 				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/logout.php" target="_blank">/api/users/logout.php</a></span>
 			</div>
 			<div class="data-wrapper">
-				<span>patient_username</span>
+				<span>patientID</span>
 			</div>
 			<div class="description-wrapper">
 				<span>Log a user out of the system.</span>
@@ -250,6 +265,20 @@
 				<span>Delete a user's fall.</span>
 			</div>
 		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/export.php?id=1" target="_blank">/api/falls/export.php?id={patientID}</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>patientID</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Export the falls data of a user.</span>
+			</div>
+		</div>
 		<!-- Diary Entries -->
 		<div class="title-card">
 			<span>Diary Entries</span>
@@ -274,9 +303,10 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/read.php?id=1" target="_blank">/api/diary-entries/read.php?id={entryID}</a></span>
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/read.php?id=1" target="_blank">/api/diary-entries/read.php?patientID={patientID}&entryID={entryID}</a></span>
 			</div>
 			<div class="data-wrapper">
+				<span>patientID</span>
 				<span>entryID</span>
 			</div>
 			<div class="description-wrapper">
@@ -325,12 +355,29 @@
 		</div>
 		<div class="wide-card">
 			<div class="method-wrapper">
+				<span>PUT</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/update.php" target="_blank">/api/diary-entries/update.php</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>patientID</span>
+				<span>entryID</span>
+				<span>entry</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Update a user's diary entry.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
 				<span>DELETE</span>
 			</div>
 			<div class="endpoint-wrapper">
 				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/delete.php" target="_blank">/api/diary-entries/delete.php</a></span>
 			</div>
 			<div class="data-wrapper">
+				<span>patientID</span>
 				<span>entryID</span>
 			</div>
 			<div class="description-wrapper">
@@ -497,9 +544,8 @@
 				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php" target="_blank">/api/answers/update.php</a></span>
 			</div>
 			<div class="data-wrapper">
-				<span>answerID</span>
-				<span>questionID</span>
 				<span>patientID</span>
+				<span>answerID</span>
 				<span>answer</span>
 			</div>
 			<div class="description-wrapper">
@@ -529,6 +575,101 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/create.php" target="_blank">/api/admins/create.php</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>researcher_nhsRef</span>
+				<span>researcher_username</span>
+				<span>researcher_password</span>
+				<span>researcher_fName</span>
+				<span>researcher_lName</span>
+				<span>researcher_tel</span>
+				<span>researcher_mobile</span>
+				<span>researcher_email</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Create an admin.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/read.php?id=1" target="_blank">/api/admins/read.php?id={researcherID}</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>researcherID</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Get the details of one admin.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/read-all.php" target="_blank">/api/admins/read-all.php</a></span>
+			</div>
+			<div class="description-wrapper">
+				<span>Get the details of every admin.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/read-range.php?from=1&to=3" target="_blank">/api/admins/read-range.php?from={researcherID}&to={researcherID}</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>researcherID</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Get the details of admins within a researcherID range.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>PUT</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/update.php" target="_blank">/api/admins/update.php</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>researcher_nhsRef</span>
+				<span>researcher_username</span>
+				<span>researcher_password</span>
+				<span>researcher_fName</span>
+				<span>researcher_lName</span>
+				<span>researcher_tel</span>
+				<span>researcher_mobile</span>
+				<span>researcher_email</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Update an admin's details. The NHS number is used to determine which admin to update the details of.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>DELETE</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/delete.php" target="_blank">/api/admins/delete.php</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>researcherID</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Delete an admin.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>POST</span>
+			</div>
+			<div class="endpoint-wrapper">
 				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/login.php" target="_blank">/api/admins/login.php</a></span>
 			</div>
 			<div class="data-wrapper">
@@ -547,7 +688,7 @@
 				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/logout.php" target="_blank">/api/admins/logout.php</a></span>
 			</div>
 			<div class="data-wrapper">
-				<span>researcher_username</span>
+				<span>researcherID</span>
 			</div>
 			<div class="description-wrapper">
 				<span>Log an admin out of the system.</span>
