@@ -30,6 +30,23 @@ document.addEventListener("DOMContentLoaded", () => {
     //let recentQuestion = contentNoAns.lastChild.nodeValue;
     //console.log(recentQuestion);
 
+    function theSeperators() {
+        if (recentNoAns.childNodes.length !== 0){
+            seperator.classList.remove("hidden");
+            seperator.classList.add("seperator");
+        } else {
+            seperator.classList.remove("seperator");
+            seperator.classList.add("hidden");
+        }
+        if (contentAns.childNodes.length !== 0){
+            seperator2.classList.remove("hidden");
+            seperator2.classList.add("seperator");
+        } else {
+            seperator2.classList.remove("seperator");
+            seperator2.classList.add("hidden");
+        }
+    }
+
     dropdownButton.addEventListener('click', function() {
         if (dropdownContent.classList.contains("hidden")) {
             dropdownContent.classList.remove("hidden");
@@ -68,12 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (recentNoAns.classList("hidden")) {
             recentNoAns.classList.remove("hidden")
         }
-        if (seperator.classList("hidden")) {
-            seperator.classList.remove("hidden")
-        }
-        if (seperator2.classList("hidden")) {
-            seperator2.classList.remove("hidden")
-        }
+        theSeperators();
     });
 
     qMost.addEventListener('click', function() {
@@ -102,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!contentNoAns.classList("hidden")) {
             contentNoAns.classList.add("hidden");
         }
+        theSeperators();
     });
 
     qAnswered.addEventListener('click', function() {
@@ -131,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!recentNoAns.classList("hidden")) {
             recentNoAns.classList.add("hidden");
         }
+        theSeperators();
     });
 
     qUnanswered.addEventListener('click', function() {
@@ -160,9 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!contentAns.classList("hidden")) {
             contentAns.classList.add("hidden");
         }
-        if (seperator.classList("hidden")) {
-            seperator.classList.remove("hidden")
-        }
+        theSeperators();
     });
 
     xhr.addEventListener("readystatechange", function() {
@@ -172,14 +184,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 let ans = JSON.parse(json);
                 let keys = Object.keys(ans["data"]);
 
+                recentNoAns.innerHTML = "";
                 contentNoAns.innerHTML = "";
                 contentAns.innerHTML = "";
                 let quest = ans["data"];
                 for (let i = 0; i < keys.length; i++){
-                    let question = quest[i]["question"];
-                    let questionType = quest[i]["question_type"];
-                    let answer = quest[i]["answer"];
-                    let choices = quest[i]["choices"];
+                    let question = quest[keys[i]]["question"];
+                    let questionType = quest[keys[i]]["question_type"];
+                    let answer = quest[keys[i]]["answer"];
+                    let choices = quest[keys[i]]["choices"];
 
                     let cardDiv = document.createElement("div");
                     cardDiv.classList.add("wide-card");
@@ -239,13 +252,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         contentAns.appendChild(cardDiv);
                     }
                 }
-
-                    recentQuestion
-                } catch {
-                    seperator.classList.add("hidden");
-                    seperator2.classList.add("hidden");
-                    console.error("error");
-                }
+                theSeperators();
+            } catch {
+                seperator.classList.add("hidden");
+                seperator2.classList.add("hidden");
+                seperator.classList.remove("seperator");
+                seperator2.classList.remove("seperator");
+                console.error("error");
+            }
         }
     });
     xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id="+ patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);

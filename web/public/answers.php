@@ -69,17 +69,19 @@
         </div>
     </div>
 
-    <div id="content-not-answered-recent">
-    </div>
+    <div id="card-wrapper">
+        <div id="content-not-answered-recent">
+        </div>
 
-    <div id="sep" class="seperator"></div>
+        <div id="sep" class="seperator"></div>
 
-    <div id="content-not-answered">
-    </div>
+        <div id="content-not-answered">
+        </div>
 
-    <div id="sep2" class="seperator"></div>
+        <div id="sep2" class="seperator"></div>
 
-    <div id="content-answered">
+        <div id="content-answered">
+        </div>
     </div>
 </div>
 
