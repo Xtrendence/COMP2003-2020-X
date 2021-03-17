@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+
+
     let from = 1;
     let to = 50;
     const xhr = new XMLHttpRequest();
@@ -22,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function getUsers(from, to, userID, firstName, lastName) {
+
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 let json = xhr.responseText;
@@ -33,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         let patient = users["data"];
                         for (let i = 0; i < keys.length; i++){
                             console.log("123");
+                            console.log("errorrerer");
                             let userID = patient[i]["patientID"];
                             let firstName = patient[i]["patient_fName"];
                             let lastName = patient[i]["patient_lName"];
