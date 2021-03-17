@@ -72,17 +72,17 @@
         </div>
     </div>
 
-    <div id="content-not-answered-recent">
+    <div id="content-not-answered-recent" class="">
     </div>
 
     <div id="sep" class="seperator"></div>
 
-    <div id="content-not-answered">
+    <div id="content-not-answered" class="">
     </div>
 
     <div id="sep2" class="seperator"></div>
 
-    <div id="content-answered">
+    <div id="content-answered" class="">
     </div>
 </div>
 

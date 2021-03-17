@@ -76,13 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
         caretContainer.appendChild(rightCaret);
         dropdownButton.appendChild(caretContainer);
 
-        if (contentAns.classList("hidden")) {
+        if (contentAns.classList.contains("hidden")) {
             contentAns.classList.remove("hidden");
         }
-        if (contentNoAns.classList("hidden")) {
+        if (contentNoAns.classList.contains("hidden")) {
             contentNoAns.classList.remove("hidden");
         }
-        if (recentNoAns.classList("hidden")) {
+        if (recentNoAns.classList.contains("hidden")) {
             recentNoAns.classList.remove("hidden")
         }
         theSeperators();
@@ -105,16 +105,19 @@ document.addEventListener("DOMContentLoaded", () => {
         caretContainer.appendChild(rightCaret);
         dropdownButton.appendChild(caretContainer);
 
-        if (recentNoAns.classList("hidden")) {
+        if (recentNoAns.classList.contains("hidden")) {
             recentNoAns.classList.remove("hidden");
         }
-        if (!contentAns.classList("hidden")) {
+        if (!contentAns.classList.contains("hidden")) {
             contentAns.classList.add("hidden");
         }
-        if (!contentNoAns.classList("hidden")) {
+        if (!contentNoAns.classList.contains("hidden")) {
             contentNoAns.classList.add("hidden");
         }
-        theSeperators();
+        seperator.classList.add("hidden");
+        seperator2.classList.add("hidden");
+        seperator.classList.remove("seperator");
+        seperator2.classList.remove("seperator");
     });
 
     qAnswered.addEventListener('click', function() {
@@ -135,16 +138,19 @@ document.addEventListener("DOMContentLoaded", () => {
         caretContainer.appendChild(rightCaret);
         dropdownButton.appendChild(caretContainer);
 
-        if (contentAns.classList("hidden")) {
+        if (contentAns.classList.contains("hidden")) {
             contentAns.classList.remove("hidden");
         }
-        if (!contentNoAns.classList("hidden")) {
+        if (!contentNoAns.classList.contains("hidden")) {
             contentNoAns.classList.add("hidden");
         }
-        if (!recentNoAns.classList("hidden")) {
+        if (!recentNoAns.classList.contains("hidden")) {
             recentNoAns.classList.add("hidden");
         }
-        theSeperators();
+        seperator.classList.add("hidden");
+        seperator2.classList.add("hidden");
+        seperator.classList.remove("seperator");
+        seperator2.classList.remove("seperator");
     });
 
     qUnanswered.addEventListener('click', function() {
@@ -165,16 +171,19 @@ document.addEventListener("DOMContentLoaded", () => {
         caretContainer.appendChild(rightCaret);
         dropdownButton.appendChild(caretContainer);
 
-        if (contentNoAns.classList("hidden")) {
+        if (contentNoAns.classList.contains("hidden")) {
             contentNoAns.classList.remove("hidden");
         }
-        if (recentNoAns.classList("hidden")) {
+        if (recentNoAns.classList.contains("hidden")) {
             recentNoAns.classList.remove("hidden")
         }
-        if (!contentAns.classList("hidden")) {
+        if (!contentAns.classList.contains("hidden")) {
             contentAns.classList.add("hidden");
         }
-        theSeperators();
+        seperator.classList.remove("hidden");
+        seperator2.classList.add("hidden");
+        seperator.classList.add("seperator");
+        seperator2.classList.remove("seperator");
     });
 
     xhr.addEventListener("readystatechange", function() {
