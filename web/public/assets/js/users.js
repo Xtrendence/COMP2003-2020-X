@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(users);
                 try {
                     layer.innerHTML = "";
-                    let patient = users["data"];   
+                    let patient = users["data"];
 
                     for (let i = 0; i < keys.length; i++){
                         let userID = patient[i]["patientID"];
