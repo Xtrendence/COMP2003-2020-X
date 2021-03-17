@@ -139,6 +139,8 @@
     border-radius: 0 0 10px 10px;
 }
 
-.wide-card:first-of-type {
-    margin-top: 80px;
+.blocker {
+    height: 60px;
+    width: 20px;
+    display: inline-block;
 }
