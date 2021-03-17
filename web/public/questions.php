@@ -76,17 +76,28 @@
     <div class="wide-card">
         <div class="text-margin">
             <span class="card-heading">Patient ID:</span>
+        </div>
+
+        <div class="text-margin">
             <span class="card-heading">Question ID:</span>
+        </div>
+
+        <div class="text-margin">
             <span class="card-heading">Question:</span>
+        </div>
+
+        <div class="text-margin">
             <span class="card-heading">Character Limit:</span>
+        </div>
+
+        <div class="text-margin">
             <span class="card-heading">Type:</span>
         </div>
 
     </div>
 
-    <div class="wide-card">
 
-    </div>
+
 
 </div>
 

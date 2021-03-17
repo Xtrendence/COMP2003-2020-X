@@ -41,9 +41,9 @@
 
 .card-heading {
     font-weight: bold;
+    display: block;
 }
 
 .text-margin {
-    padding: 20px 5px 20px 120px;
-    position: absolute;
+    margin-bottom: 2px;
 }
