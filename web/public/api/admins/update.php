@@ -19,14 +19,18 @@
 			$input = json_decode(file_get_contents('php://input'), true);
 
 			$admin = new Admin($db);
-			$admin->researcher_nhsRef = isset($_POST['researcher_nhsRef']) ? $_POST['researcher_nhsRef'] : array_push($missing, 'researcher_nhsRef');
-			$admin->researcher_username = isset($_POST['researcher_username']) ? $_POST['researcher_username'] : array_push($missing, 'researcher_username');
-			$admin->researcher_password = isset($_POST['researcher_password']) ? password_hash($_POST['researcher_password'], PASSWORD_DEFAULT) : array_push($missing, 'researcher_password');
-			$admin->researcher_fName = isset($_POST['researcher_fName']) ? $_POST['researcher_fName'] : array_push($missing, 'researcher_fName');
-			$admin->researcher_lName = isset($_POST['researcher_lName']) ? $_POST['researcher_lName'] : array_push($missing, 'researcher_lName');
-			$admin->researcher_tel = isset($_POST['researcher_tel']) ? $_POST['researcher_tel'] : array_push($missing, 'researcher_tel');
-			$admin->researcher_mobile = isset($_POST['researcher_mobile']) ? $_POST['researcher_mobile'] : array_push($missing, 'researcher_mobile');
-			$admin->researcher_email = isset($_POST['researcher_email']) ? $_POST['researcher_email'] : array_push($missing, 'researcher_email');
+			$admin->researcher_nhsRef = isset($input['researcher_nhsRef']) ? $input['researcher_nhsRef'] : array_push($missing, 'researcher_nhsRef');
+			$admin->researcher_username = isset($input['researcher_username']) ? $input['researcher_username'] : array_push($missing, 'researcher_username');
+
+			if (isset($input['researcher_password']) && !empty($input['researcher_password'])) {
+				$admin->researcher_password = password_hash($input['researcher_password'], PASSWORD_DEFAULT);
+			}
+
+			$admin->researcher_fName = isset($input['researcher_fName']) ? $input['researcher_fName'] : array_push($missing, 'researcher_fName');
+			$admin->researcher_lName = isset($input['researcher_lName']) ? $input['researcher_lName'] : array_push($missing, 'researcher_lName');
+			$admin->researcher_tel = isset($input['researcher_tel']) ? $input['researcher_tel'] : array_push($missing, 'researcher_tel');
+			$admin->researcher_mobile = isset($input['researcher_mobile']) ? $input['researcher_mobile'] : array_push($missing, 'researcher_mobile');
+			$admin->researcher_email = isset($input['researcher_email']) ? $input['researcher_email'] : array_push($missing, 'researcher_email');
 
 			if (empty($missing)) {
 				$admin->update();

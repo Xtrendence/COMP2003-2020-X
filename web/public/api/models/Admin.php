@@ -69,6 +69,17 @@
 		}
 
 		public function update() {
+			if (empty($this->researcher_password)) {
+				$query = 'SELECT researcher_password FROM ' . $this->table . ' WHERE researcher_nhsRef=:researcher_nhsRef';
+				$command = $this->connection->prepare($query);
+				$command->bindParam(':researcher_nhsRef', $this->researcher_nhsRef);
+				$command->execute();
+
+				$row = $command->fetch(PDO::FETCH_ASSOC);
+
+				$this->researcher_password = $row['researcher_password'];
+			}
+
 			$query = 'CALL updateResearcher(:researcher_nhsRef, :researcher_username, :researcher_password, :researcher_fName, :researcher_lName, :researcher_tel, :researcher_mobile, :researcher_email)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':researcher_nhsRef', $this->researcher_nhsRef);

@@ -89,6 +89,17 @@
 		}
 
 		public function update() {
+			if (empty($this->patient_password)) {
+				$query = 'SELECT patient_password FROM ' . $this->table . ' WHERE patient_nhsRef=:patient_nhsRef';
+				$command = $this->connection->prepare($query);
+				$command->bindParam(':patient_nhsRef', $this->patient_nhsRef);
+				$command->execute();
+
+				$row = $command->fetch(PDO::FETCH_ASSOC);
+
+				$this->patient_password = $row['patient_password'];
+			}
+
 			$query = 'CALL updatePatient(:patient_nhsRef, :patient_username, :patient_password, :patient_fName, :patient_lName, :patient_addressI, :patient_addressII, :patient_postcode, :patient_tel, :patient_mobile, :patient_email, :patient_comment, "-", NOW())';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':patient_nhsRef', $this->patient_nhsRef);

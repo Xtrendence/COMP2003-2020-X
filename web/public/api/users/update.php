@@ -22,7 +22,11 @@
 			$researcherID = isset($input['researcherID']) ? $input['researcherID'] : array_push($missing, 'researcherID');
 			$user->patient_nhsRef = isset($input['patient_nhsRef']) ? $input['patient_nhsRef'] : array_push($missing, 'patient_nhsRef');
 			$user->patient_username = isset($input['patient_username']) ? $input['patient_username'] : array_push($missing, 'patient_username');
-			$user->patient_password = isset($input['patient_password']) ? password_hash($input['patient_password'], PASSWORD_DEFAULT) : array_push($missing, 'patient_password');
+
+			if (isset($input['patient_password']) && !empty($input['patient_password'])) {
+				$user->patient_password = password_hash($input['patient_password'], PASSWORD_DEFAULT);
+			}
+
 			$user->patient_fName = isset($input['patient_fName']) ? $input['patient_fName'] : array_push($missing, 'patient_fName');
 			$user->patient_lName = isset($input['patient_lName']) ? $input['patient_lName'] : array_push($missing, 'patient_lName');
 			$user->patient_dob = isset($input['patient_dob']) ? $input['patient_dob'] : array_push($missing, 'patient_dob');
