@@ -49,6 +49,7 @@ export const globalComponentStyles = {
 		textAlignVertical: "top",
 	},
 	cardTitle: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.smallFont,
 		fontWeight: "bold",
 		color: globalColors.mainContrast,

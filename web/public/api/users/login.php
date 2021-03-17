@@ -6,7 +6,10 @@
 		include_once '../config/Database.php';
 		include_once '../models/User.php';
 
-		$database = new Database();
+		$expected = ['patient_username', 'patient_password', 'fcmToken'];
+		$missing = [];
+
+		$database = new Database(true);
 		$db = $database->connect('bypass');
 
 		if (empty($_POST)) {
@@ -15,16 +18,20 @@
 		}
 		
 		$user = new User($db);
-		$user->patient_username = isset($_POST['patient_username']) ? $_POST['patient_username'] : die();
-		$user->patient_password = isset($_POST['patient_password']) ? $_POST['patient_password'] : die();
-		$user->fcmToken = isset($_POST['fcmToken']) ? $_POST['fcmToken'] : die();
+		$user->patient_username = isset($_POST['patient_username']) ? $_POST['patient_username'] : array_push($missing, 'patient_username');
+		$user->patient_password = isset($_POST['patient_password']) ? $_POST['patient_password'] : array_push($missing, 'patient_password');
+		$user->fcmToken = isset($_POST['fcmToken']) ? $_POST['fcmToken'] : array_push($missing, 'fcmToken');
 
-		$loggedIn = $user->login();
+		if (empty($missing)) {
+			$loggedIn = $user->login();
 
-		if ($loggedIn['valid']) {
-			echo json_encode(array('valid' => true, 'token' => $database->api_key, 'patientID' => $loggedIn['patientID']));
+			if ($loggedIn['valid']) {
+				echo json_encode(array('valid' => true, 'token' => $database->api_key, 'patientID' => $loggedIn['patientID']));
+			} else {
+				echo json_encode(array('valid' => false));
+			}
 		} else {
-			echo json_encode(array('valid' => false));
+			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));

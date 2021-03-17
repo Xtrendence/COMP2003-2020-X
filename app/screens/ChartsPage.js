@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import { LineChart } from 'react-native-chart-kit';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
@@ -13,125 +13,47 @@ import LoadingScreen from '../components/LoadingScreen';
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-export const ChartsPage = ({ navigation }) => {
-	const [loading, setLoading] = React.useState(false);
-	const [timeFrom, setTimeFrom] = React.useState(previousWeek(new Date()));
-	const [timeTo, setTimeTo] = React.useState(new Date());
-	const [timespan, setTimespan] = React.useState("");
-	const [labels, setLabels] = React.useState([""]);
-	const [data, setData] = React.useState([0]);
-	const [segments, setSegments] = React.useState(4);
+export class ChartsPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			loading: false,
+			timeFrom: this.previousWeek(new Date()),
+			timeTo: new Date(),
+			timespan: "",
+			labels: [""],
+			data: [0],
+			segments: 4
+		};
+		this.navigation = props.navigation;
+	}
 
-	useEffect(() => {
-		getData(previousWeek(new Date()), new Date());
-	}, []);
-
-	return (
-		<View style={styles.container}>
-			{ loading &&
-				<LoadingScreen>Loading...</LoadingScreen>
-			}
-			<TopBar navigation={navigation}>Charts</TopBar>
-			<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20}}>
-				{ !loading &&
-					<View style={styles.pageWrapper}>
-						<View style={styles.banner}>
-							<Text style={styles.bannerText}>Number Of Falls</Text>
-						</View>
-						<View style={styles.chartWrapper}>
-							{ segments === 1 &&
-								<Text style={styles.chartLabelFix}>1</Text>
-							}
-							<LineChart
-								data={{
-									labels: labels,
-									datasets: [
-										{
-											data: data
-										}
-									]
-								}}
-								width={screenWidth - 40 - 40}
-								height={250}
-								segments={segments}
-								withHorizontalLines={true}
-								withVerticalLines={false}
-								chartConfig={{
-									backgroundColor: globalColors.mainFirst,
-									backgroundGradientFrom: globalColors.mainFirst,
-									backgroundGradientTo: globalColors.mainFirst,
-									decimalPlaces: 0,
-									color: () => "rgba(95,103,129,0.8)",
-									labelColor: () => "rgba(95,103,129,1)",
-									style: {
-										borderRadius: 0
-									},
-									propsForDots: {
-										r: "4",
-										strokeWidth: "2",
-										stroke: globalColors.mainFifth
-									},
-									propsForVerticalLabels: {
-										fontSize: 10,
-										rotation: -45,
-									},
-									propsForBackgroundLines: {
-										strokeWidth: 2,
-										stroke: "rgba(95,103,129,0.4)"
-									}
-								}}
-								bezier
-								style={{
-									backgroundColor: "rgba(255,255,255,0)",
-									borderRadius: globalStyles.borderRadius,
-								}}
-							/>
-						</View>
-						<View style={styles.navigationWrapper}>
-							<TouchableOpacity style={styles.actionButton} onPress={() => navigatePrevious()}>
-								<Icon name="chevron-left" color={globalColors.accentContrast} size={40}/>
-							</TouchableOpacity>
-							<Text style={styles.actionInfo}>{timespan}</Text>
-							<TouchableOpacity style={styles.actionButton} onPress={() => navigateNext()}>
-								<Icon name="chevron-right" color={globalColors.accentContrast} size={40}/>
-							</TouchableOpacity>
-						</View>
-						{ nextWeek(timeTo) <= new Date() &&
-							<View style={styles.todayWrapper}>
-								<TouchableOpacity style={styles.todayButton} onPress={() => navigateToday()}>
-									<Text style={styles.actionText}>This Week</Text>
-								</TouchableOpacity>
-							</View>
-						}
-					</View>
-				}
-			</ScrollView>
-		</View>
-	);
-
-	function navigateToday() {
-		let from = previousWeek(new Date());
+	// Navigates to today's date on the chart.
+	navigateToday() {
+		let from = this.previousWeek(new Date());
 		let to = new Date();
-		setTimeFrom(from);
-		setTimeTo(to);
-		getData(from, to);
+		this.setState({timeFrom:from});
+		this.setState({timeTo:to});
+		this.getData(from, to);
 	}
 
-	function navigatePrevious() {
-		let from = previousWeek(timeFrom);
-		let to = timeFrom;
-		setTimeFrom(from);
-		setTimeTo(to);
-		getData(from, to);
+	// Navigates to the previous week.
+	navigatePrevious() {
+		let from = this.previousWeek(this.state.timeFrom);
+		let to = this.state.timeFrom;
+		this.setState({timeFrom:from});
+		this.setState({timeTo:to});
+		this.getData(from, to);
 	}
 
-	function navigateNext() {
-		let from = timeTo;
-		let to = nextWeek(timeTo);
+	// Navigates to the next week.
+	navigateNext() {
+		let from = this.state.timeTo;
+		let to = this.nextWeek(this.state.timeTo);
 		if (to <= new Date()) {
-			setTimeFrom(from);
-			setTimeTo(to);
-			getData(from, to);
+			this.setState({timeFrom:from});
+			this.setState({timeTo:to});
+			this.getData(from, to);
 		} else {
 			showMessage({
 				message: "Date Error",
@@ -141,15 +63,78 @@ export const ChartsPage = ({ navigation }) => {
 		}
 	}
 
-	async function getData(from, to) {
+	// Format a date to YYYY-MM-DD where the hyphen can be any character.
+	formatDate(date, separator) {
+		let d = new Date(date), month = "" + (d.getMonth() + 1), day = "" + d.getDate(), year = d.getFullYear();
+
+		if (month.length < 2) {
+			month = "0" + month;
+		}
+		if (day.length < 2) {
+			day = "0" + day;
+		}
+		return [year, month, day].join(separator);
+	}
+
+	// Format a date to YYYY-MM-DD HH:MM:SS.
+	formatDateTime(date) {
+		return date.getFullYear() + "-" +
+			("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+			("00" + date.getDate()).slice(-2) + "+" +
+			("00" + date.getHours()).slice(-2) + ":" +
+			("00" + date.getMinutes()).slice(-2) + ":" +
+			("00" + date.getSeconds()).slice(-2);
+	}
+
+	// Get the previous week's date.
+	previousWeek(date) {
+		return new Date(date.getTime() - (60 * 60 * 24 * 6 * 1000));
+	}
+
+	// Get next week's date.
+	nextWeek(date) {
+		return new Date(date.getTime() + (60 * 60 * 24 * 6 * 1000));
+	}
+
+	// Determines if a number is prime.
+	isPrime(num) {
+		for (let i = 2; i < num; i++) {
+			if (num % i === 0) {
+				return false;
+			}
+			return num > 1;
+		}
+	}
+
+	// Finds the lowest number divisble by a given number.
+	findLowestDivisible(num) {
+		for (let i = 2; i <= num; i++) {
+			if (num % i === 0) {
+				return i;
+			}
+		}
+	}
+
+	// Finds the highest number divisible by a given number.
+	findHighestDivisible(num) {
+		for (let i = num - 1; i >= 2; i--) {
+			if (num % i === 0) {
+				return i;
+			}
+		}
+	}
+
+	// Fetch the user's fall data from the API.
+	async getData(from, to) {
 		let token = await AsyncStorage.getItem("token");
 		let patientID = await AsyncStorage.getItem("patientID");
 
-		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read-date.php?id=" + patientID + "&from=" + formatDateTime(from) + "&to=" + formatDateTime(to) + "&key=" + token;
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read-date.php?id=" + patientID + "&from=" + this.formatDateTime(from) + "&to=" + this.formatDateTime(to) + "&key=" + token;
 
-		setTimespan(formatDate(from, "/") + " - " + formatDate(to, "/"));
+		this.setState({timespan:this.formatDate(from, "/") + " - " + this.formatDate(to, "/")});
 		
-		setLoading(true);
+		this.setState({loading:true});
+
 		fetch(endpoint, {
 			method: "GET",
 			headers: {
@@ -166,11 +151,11 @@ export const ChartsPage = ({ navigation }) => {
 
 			for (let i = 0; i < 7; i++) {
 				let dateTime = new Date(from.getTime() + (60 * 60 * 24 * i * 1000));
-				let labelDate = formatDate(dateTime, "/");
+				let labelDate = this.formatDate(dateTime, "/");
 				let formatted = labelDate.slice(-5);
 				chartLabels.push(formatted);
 
-				let date = formatDate(dateTime, "-").toString();
+				let date = this.formatDate(dateTime, "-").toString();
 				days[date] = 0;
 			}
 
@@ -179,7 +164,7 @@ export const ChartsPage = ({ navigation }) => {
 				Object.keys(falls).map(key => {
 					let fall = falls[key];
 					let dateTime = fall["fall_date"].toString().replace(" ", "T");
-					let date = formatDate(dateTime, "-");
+					let date = this.formatDate(dateTime, "-");
 					days[date] = date in days ? days[date] + 1 : 1;
 				});
 			}
@@ -188,17 +173,17 @@ export const ChartsPage = ({ navigation }) => {
 				chartData.push(days[key]);
 			});
 
-			setLabels(chartLabels);
-			setData(chartData);
+			this.setState({labels:chartLabels});
+			this.setState({data:chartData});
 
 			let chartSegments = 1;
 			let max = Math.max.apply(null, chartData);
 			
 			if (max > 8) {
-				if (isPrime(max)) {
+				if (this.isPrime(max)) {
 					chartSegments = 5;
 				} else {
-					let divisible = findHighestDivisible(max);
+					let divisible = this.findHighestDivisible(max);
 					chartSegments = divisible;
 				}
 			} else if (max <= 8 && max > 1) {
@@ -211,13 +196,13 @@ export const ChartsPage = ({ navigation }) => {
 				chartSegments = 10;
 			}
 
-			setSegments(chartSegments);
+			this.setState({segments:chartSegments});
 
-			setLoading(false);
+			this.setState({loading:false});
 		})
 		.catch((error) => {
 			console.log(error);
-			setLoading(false);
+			this.setState({loading:false});
 			showMessage({
 				message: "Network Error",
 				type: "danger"
@@ -225,70 +210,123 @@ export const ChartsPage = ({ navigation }) => {
 		});
 	}
 
-	function formatDate(date, separator) {
-		let d = new Date(date), month = "" + (d.getMonth() + 1), day = "" + d.getDate(), year = d.getFullYear();
-
-		if (month.length < 2) {
-			month = "0" + month;
-		}
-		if (day.length < 2) {
-			day = "0" + day;
-		}
-		return [year, month, day].join(separator);
-	}
-
-	function formatDateTime(date) {
-		return date.getFullYear() + "-" +
-			("00" + (date.getMonth() + 1)).slice(-2) + "-" +
-			("00" + date.getDate()).slice(-2) + "+" +
-			("00" + date.getHours()).slice(-2) + ":" +
-			("00" + date.getMinutes()).slice(-2) + ":" +
-			("00" + date.getSeconds()).slice(-2);
-	}
-
-	function previousWeek(date) {
-		return new Date(date.getTime() - (60 * 60 * 24 * 6 * 1000));
-	}
-
-	function nextWeek(date) {
-		return new Date(date.getTime() + (60 * 60 * 24 * 6 * 1000));
-	}
-
-	function isPrime(num) {
-		for (let i = 2; i < num; i++) {
-			if (num % i === 0) {
-				return false;
+	componentDidMount() {
+		this.getData(this.previousWeek(new Date()), new Date());
+		this.setState({loading:true});
+		this.navigation.addListener("focus", () => {
+			let history = this.navigation.dangerouslyGetState().history;
+			if (history.length > 0) {
+				let previous = history[history.length - 2];
+				if (!empty(previous) && "key" in previous && previous.key.includes("Falls-")) {
+					this.setState({loading:true});
+					setTimeout(() => {
+						this.getData(this.previousWeek(new Date()), new Date());
+					}, 2500);
+				} else {
+					this.getData(this.previousWeek(new Date()), new Date());
+				}
+			} else {
+				this.getData(this.previousWeek(new Date()), new Date());
 			}
-			return num > 1;
-		}
+		});
 	}
+	
+	render() {
+		return (
+			<View style={styles.container}>
+				{ this.state.loading &&
+					<LoadingScreen>Loading...</LoadingScreen>
+				}
+				<TopBar navigation={this.navigation}>Charts</TopBar>
+				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
+					{ !this.state.loading &&
+						<View style={styles.pageWrapper}>
+							<View style={styles.banner}>
+								<Text style={styles.bannerText}>Number Of Falls</Text>
+							</View>
+							<View style={styles.chartWrapper}>
+								{ this.state.segments === 1 &&
+									<Text style={styles.chartLabelFix}>1</Text>
+								}
+								<LineChart
+									data={{
+										labels: this.state.labels,
+										datasets: [
+											{
+												data: this.state.data
+											}
+										]
+									}}
+									width={screenWidth - 40 - 40}
+									height={250}
+									segments={this.state.segments}
+									withHorizontalLines={true}
+									withVerticalLines={false}
+									chartConfig={{
+										backgroundColor: globalColors.mainFirst,
+										backgroundGradientFrom: globalColors.mainFirst,
+										backgroundGradientTo: globalColors.mainFirst,
+										decimalPlaces: 0,
+										color: () => "rgba(95,103,129,0.8)",
+										labelColor: () => "rgba(95,103,129,1)",
+										style: {
+											borderRadius: 0
+										},
+										propsForDots: {
+											r: "4",
+											strokeWidth: "2",
+											stroke: globalColors.mainFifth
+										},
+										propsForVerticalLabels: {
+											fontFamily: globalStyles.fontFamily,
+											fontSize: 10,
+											rotation: -45,
+										},
+										propsForBackgroundLines: {
+											strokeWidth: 2,
+											stroke: "rgba(95,103,129,0.4)"
+										}
+									}}
+									bezier
+									style={{
+										backgroundColor: "rgba(255,255,255,0)",
+										borderRadius: globalStyles.borderRadius,
+									}}
+								/>
+							</View>
+							<View style={styles.navigationWrapper}>
+								<TouchableOpacity style={styles.actionButton} onPress={() => this.navigatePrevious()}>
+									<Icon name="chevron-left" color={globalColors.accentContrast} size={40}/>
+								</TouchableOpacity>
+								<Text style={styles.actionInfo}>{this.state.timespan}</Text>
+								<TouchableOpacity style={styles.actionButton} onPress={() => this.navigateNext()}>
+									<Icon name="chevron-right" color={globalColors.accentContrast} size={40}/>
+								</TouchableOpacity>
+							</View>
+							{ this.nextWeek(this.state.timeTo) <= new Date() &&
+								<View style={styles.todayWrapper}>
+									<TouchableOpacity style={styles.todayButton} onPress={() => this.navigateToday()}>
+										<Text style={styles.actionText}>This Week</Text>
+									</TouchableOpacity>
+								</View>
+							}
+						</View>
+					}
+				</ScrollView>
+			</View>
+		);
+	}
+}
 
-	function findLowestDivisible(num) {
-		for (let i = 2; i <= num; i++) {
-			if (num % i === 0) {
-				return i;
-			}
-		}
+function empty(value) {
+	if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
+		return true;
 	}
+	return false;
+}
 
-	function findHighestDivisible(num) {
-		for (let i = num - 1; i >= 2; i--) {
-			if (num % i === 0) {
-				return i;
-			}
-		}
-	}
-
-	String.prototype.replaceAll = function(str1, str2, ignore) {
-		return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
-	}
-
-	function empty(value) {
-		if (value === null || typeof value === "undefined" || value.toString().trim() === "") {
-			return true;
-		}
-		return false;
-	}
+String.prototype.replaceAll = function(str1, str2, ignore) {
+	return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
 }
 
 const styles = StyleSheet.create({
@@ -300,8 +338,7 @@ const styles = StyleSheet.create({
 	},
 	scrollView: {
 		width: "100%",
-		height: "100%",
-		paddingLeft: 20
+		height: "100%"
 	},
 	pageWrapper: {
 		width: screenWidth - 40
@@ -320,6 +357,7 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		fontSize: globalStyles.smallFont,
 		color: globalColors.accentContrast,
+		fontFamily: globalStyles.fontFamily,
 		fontWeight: "bold",
 		paddingTop: 10,
 		paddingBottom: 10,
@@ -340,6 +378,7 @@ const styles = StyleSheet.create({
 	},
 	chartLabelFix: {
 		fontSize: 12,
+		fontFamily: globalStyles.fontFamily,
 		position: "absolute",
 		top: 24,
 		left: 45,
@@ -374,6 +413,7 @@ const styles = StyleSheet.create({
 		lineHeight: 40,
 		textAlign: "center",
 		color: globalColors.accentContrast,
+		fontFamily: globalStyles.fontFamily,
 		fontWeight: "bold",
 		fontSize: globalStyles.smallFont,
 		borderRadius: globalStyles.borderRadius,
@@ -384,6 +424,7 @@ const styles = StyleSheet.create({
 		elevation: globalStyles.shadowElevation,
 	},
 	actionText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.mediumFont,
 		fontWeight: "bold",
 		color: globalColors.accentContrast,
