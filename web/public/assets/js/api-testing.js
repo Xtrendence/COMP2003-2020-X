@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			apiURL = apiURL + "/";
 		}
 
-		if ((empty(inputUserUsername.value) && empty(inputUserPassword.value)) || (empty(inputAdminUsername.value) && empty(inputAdminPassword.value))) {
+		if ((empty(inputUserUsername.value) && empty(inputUserPassword.value)) && (empty(inputAdminUsername.value) && empty(inputAdminPassword.value))) {
 			let url = new URL(window.location.href);
 			let key = url.searchParams.get("key");
 			if (empty(key)) {
@@ -212,6 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
 								title: "Success",
 								description: "You are now logged in as a user."
 							});
+
+							patientID1 = response.patientID;
+							patientID2 = 3;
 
 							log("success", "Logged In As User");
 
@@ -355,20 +358,22 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			await usersLogin(patient1login).then(response => {
-				patientID1 = response.patientID;
-				console.log("Patient ID 1: " + patientID1);
-				console.log("Patient Login Token 1: " + response.token);
-			}).catch(e => {
-				handleError(e);
-			});
-			await usersLogin(patient2login).then(response => {
-				patientID2 = response.patientID;
-				console.log("Patient ID 2: " + patientID2);
-				console.log("Patient Login Token 2: " + response.token);
-			}).catch(e => {
-				handleError(e);
-			});
+			if (empty(patientID1)) {
+				await usersLogin(patient1login).then(response => {
+					patientID1 = response.patientID;
+					console.log("Patient ID 1: " + patientID1);
+					console.log("Patient Login Token 1: " + response.token);
+				}).catch(e => {
+					handleError(e);
+				});
+				await usersLogin(patient2login).then(response => {
+					patientID2 = response.patientID;
+					console.log("Patient ID 2: " + patientID2);
+					console.log("Patient Login Token 2: " + response.token);
+				}).catch(e => {
+					handleError(e);
+				});
+			}
 
 			diaryEntry1.patientID = patientID1;
 			diaryEntry2.patientID = patientID1;
@@ -380,7 +385,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			await diaryEntriesReadAll().then(response => {
+			await diaryEntriesReadDate(patientID1, yesterday, tomorrow).then(response => {
 				let ids = Object.keys(response.data);
 				let id1 = ids[ids.length - 2];
 				let id2 = ids[ids.length - 1];
@@ -401,7 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			await diaryEntriesReadDate(patientID1, yesterday, tomorrow).catch(e => {
+			await diaryEntriesReadAll().catch(e => {
 				handleError(e);
 			});
 
@@ -435,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			await fallsReadAll().then(response => {
+			await fallsReadDate(patientID1, yesterday, tomorrow).then(response => {
 				let ids = Object.keys(response.data);
 				let id1 = ids[ids.length - 2];
 				let id2 = ids[ids.length - 1];
@@ -447,7 +452,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			await fallsReadDate(patientID1, yesterday, tomorrow).catch(e => {
+			await fallsReadAll().catch(e => {
 				handleError(e);
 			});
 
