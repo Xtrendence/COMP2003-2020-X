@@ -462,34 +462,59 @@ document.addEventListener("DOMContentLoaded", () => {
 			question1.patientID = patientID1;
 			question2.patientID = patientID1;
 
-			await questionsCreate().then(response => {
-
+			await questionsCreate(question1).then(response => {
+				questionID1 = response.questionID;
 			}).catch(e => {
 				handleError(e);
 			});
-			await questionsDelete().then(response => {
-
+			await questionsCreate(question2).then(response => {
+				questionID2 = response.questionID;
 			}).catch(e => {
 				handleError(e);
 			});
-			await questionsReadAll().then(response => {
 
+			await answersReadAll().then(response => {
+				let ids = Object.keys(response.data);
+				let id1 = ids[ids.length - 2];
+				let id2 = ids[ids.length - 1];
+				answerID1 = response.data[id1].answerID;
+				answerID2 = response.data[id2].answerID;
+				console.log("Answer ID 1: " + answerID1);
+				console.log("Answer ID 2: " + answerID2);
 			}).catch(e => {
 				handleError(e);
 			});
-			await questionsReadRange().then(response => {
 
-			}).catch(e => {
+			await questionsReadAll().catch(e => {
 				handleError(e);
 			});
-			await questionsRead().then(response => {
 
-			}).catch(e => {
+			question1.question = "Has the question changed for the test?";
+
+			await questionsUpdate(question1).catch(e => {
 				handleError(e);
 			});
-			await questionsUpdate().then(response => {
 
-			}).catch(e => {
+			await questionsReadRange(parseInt(questionID1) - 2, parseInt(questionID1) + 2).catch(e => {
+				handleError(e);
+			});
+
+			question2.question = "Has the other question changed for another test?";
+			question2.choices = ["It Hasn't", "It Has"];
+
+			await questionsUpdate(question2).catch(e => {
+				handleError(e);
+			});
+
+			await questionsDelete({ questionID:questionID2 }).catch(e => {
+				handleError(e);
+			});
+
+			await questionsRead(questionID1).catch(e => {
+				handleError(e);
+			});
+
+			await questionsRead(questionID2).catch(e => {
 				handleError(e);
 			});
 
@@ -501,11 +526,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 			await answersDelete().then(response => {
-
-			}).catch(e => {
-				handleError(e);
-			});
-			await answersReadAll().then(response => {
 
 			}).catch(e => {
 				handleError(e);
@@ -949,15 +969,35 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-	function questionsCreate() {
+	function questionsCreate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "questions/create.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function questionsDelete() {
+	function questionsDelete(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("DELETE", apiURL + "questions/delete.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -965,27 +1005,67 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	function questionsReadAll() {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "questions/read-all.php?key=" + apiKey).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function questionsReadRange() {
+	function questionsReadRange(from, to) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "questions/read-range.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function questionsRead() {
+	function questionsRead(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "questions/read.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function questionsUpdate() {
+	function questionsUpdate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("PUT", apiURL + "admins/update.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
