@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	let apiKeyDuplicate;
 	let apiURL;
 
-	let timeoutLimit = 10000;
-	let requestInterval = 500;
+	let timeoutLimit = 12500;
+	let requestInterval = 750;
 	
 	let yesterday = formatDateTime(new Date(new Date().setDate(new Date().getDate() - 1)));
 	let tomorrow = formatDateTime(new Date(new Date().setDate(new Date().getDate() + 1)));
@@ -1486,7 +1486,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (!empty(body)) {
 			output(id, "textarea", body);
 		}
-		output(id, "textarea", "Expected Response");
 		output(id, "textarea", response);
 		output(id, "span", "Request Successfully Sent", "success");
 	}
