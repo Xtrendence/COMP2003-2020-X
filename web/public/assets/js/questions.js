@@ -29,10 +29,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         let questionLim = question[i]["question_charLim"];
                         let questionType = question[i]["question_type"];
                         let choices = question[i]["choices"];
+                        let choicesLength = choices.length;
+
+                        console.log(choicesLength);
 
                         console.log("debug");
-                        questionCard(wideCard, questionID, q, questionLim, questionType);
-                        choiceCard(wideCard, questionID, q, questionLim, questionType, choices);
+
+                        if (questionType == "choice") {
+
+                            choiceCard(wideCard, questionID, q, questionLim, questionType, choices);
+
+                        } else {
+                            questionCard(wideCard, questionID, q, questionLim, questionType);
+                        }
                     }
 
                 } catch {
@@ -45,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         console.log("123");
-        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read-all.php?&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read-all.php?&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
         xhr.send();
 
     }
@@ -92,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let cardAnchor = document.createElement("a");
 
+
         wideCard = document.createElement("div");
         wideCard.classList.add("wide-card");
         wideCard.id = "wideCard";
@@ -109,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
             '        </div>\n' +
             '\n' +
             '        <div class="text-margin">\n' +
-            '            <span class="card-heading">Choices: '+ choices +' </span>\n' +
+            '            <span class="card-heading">Choices: '+ choices[1] +' </span>\n' +
             '        </div>\n' +
             '\n' +
             '    </div>'
