@@ -5,7 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	let apiKeyDuplicate;
 	let apiURL;
 
-	let timeoutLimit = 2000;
+	let timeoutLimit = 10000;
+	let requestInterval = 500;
+	
+	let yesterday = formatDateTime(new Date(new Date().setDate(new Date().getDate() - 1)));
+	let tomorrow = formatDateTime(new Date(new Date().setDate(new Date().getDate() + 1)));
 
 	let researcherLoginToken;
 	let patientLoginToken;
@@ -69,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		patientID: null,
 		question: "Was this for a test? Please explain.",
 		question_type: "custom",
-		charLim: 120
+		question_charLim: 120
 	};
 	let question2 = {
 		patientID: null,
@@ -108,7 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	};
 	let patient1login = {
 		patient_username: "testPatient1",
-		patient_password: "testPatient1"
+		patient_password: "testPatient1",
+		fcmToken: "-"
 	}
 	let patient2 = {
 		researcherID: null,
@@ -128,7 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	};
 	let patient2login = {
 		patient_username: "testPatient2",
-		patient_password: "testPatient2"
+		patient_password: "testPatient2",
+		fcmToken: "-"
 	}
 
 	let inputUserUsername = document.getElementById("user-username");
@@ -273,6 +279,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	async function runTests() {
 		try {
+			console.log("Starting Tests...");
+
 			divOutput.innerHTML = "";
 
 			apiKeyDuplicate = apiKey;
@@ -284,8 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			} else {
 				log("alert", "Using Development Token");
 			}
-
-			log("info", "Testing /admins/");
 
 			await adminsCreate(researcher1).catch(e => {
 				handleError(e);
@@ -299,6 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				researcherID1 = response.researcherID;
 				console.log("Researcher ID 1: " + researcherID1);
 				if (!empty(researcherLoginToken)) {
+					console.log("Researcher Login Token 1: " + researcherLoginToken);
 					apiKey = researcherLoginToken;
 				}
 			}).catch(e => {
@@ -308,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			await adminsLogin(researcher2login).then(response => {
 				researcherID2 = response.researcherID;
 				console.log("Researcher ID 2: " + researcherID2);
+				console.log("Researcher Login Token 2: " + response.token);
 			}).catch(e => {
 				handleError(e);
 			});
@@ -349,16 +357,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			await usersLogin(patient1login).then(response => {
 				patientID1 = response.patientID;
+				console.log("Patient ID 1: " + patientID1);
+				console.log("Patient Login Token 1: " + response.token);
 			}).catch(e => {
 				handleError(e);
 			});
 			await usersLogin(patient2login).then(response => {
 				patientID2 = response.patientID;
+				console.log("Patient ID 2: " + patientID2);
+				console.log("Patient Login Token 2: " + response.token);
 			}).catch(e => {
 				handleError(e);
 			});
-
-			log("info", "Testing /diary-entries/");
 
 			diaryEntry1.patientID = patientID1;
 			diaryEntry2.patientID = patientID1;
@@ -382,16 +392,16 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
+			diaryEntry1.entryID = diaryEntryID1;
 			diaryEntry1.entry = "Updated diary entry 1 for testing.";
+
+			diaryEntry2.entryID = diaryEntryID2;
 
 			await diaryEntriesUpdate(diaryEntry1).catch(e => {
 				handleError(e);
 			});
 
-			let yesterday = formatDateTime(new Date().setDate(new Date().getDate() - 1));
-			let tomorrow = formatDateTime(new Date().setDate(new Date().getDate() + 1));
-
-			await diaryEntriesReadDate(yesterday, tomorrow).catch(e => {
+			await diaryEntriesReadDate(patientID1, yesterday, tomorrow).catch(e => {
 				handleError(e);
 			});
 
@@ -399,11 +409,11 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			await diaryEntriesRead(diaryEntryID2).catch(e => {
+			await diaryEntriesRead(patientID1, diaryEntryID2).catch(e => {
 				handleError(e);
 			});
 
-			await diaryEntriesReadDate(yesterday, tomorrow).catch(e => {
+			await diaryEntriesReadDate(patientID1, yesterday, tomorrow).catch(e => {
 				handleError(e);
 			});
 
@@ -418,8 +428,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			await diaryEntriesReadUser(patientID1).catch(e => {
 				handleError(e);
 			});
-			
-			log("info", "Testing /falls/");
 
 			fall1.patientID = patientID1;
 
@@ -439,11 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			await fallsExport(patientID1).catch(e => {
-				handleError(e);
-			});
-
-			await fallsReadDate(yesterday, tomorrow).catch(e => {
+			await fallsReadDate(patientID1, yesterday, tomorrow).catch(e => {
 				handleError(e);
 			});
 
@@ -463,19 +467,13 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			log("info", "Testing /questions/");
-
 			question1.patientID = patientID1;
 			question2.patientID = patientID1;
 
-			await questionsCreate(question1).then(response => {
-				questionID1 = response.questionID;
-			}).catch(e => {
+			await questionsCreate(question1).catch(e => {
 				handleError(e);
 			});
-			await questionsCreate(question2).then(response => {
-				questionID2 = response.questionID;
-			}).catch(e => {
+			await questionsCreate(question2).catch(e => {
 				handleError(e);
 			});
 
@@ -485,6 +483,12 @@ document.addEventListener("DOMContentLoaded", () => {
 				let id2 = ids[ids.length - 1];
 				answerID1 = response.data[id1].answerID;
 				answerID2 = response.data[id2].answerID;
+				questionID1 = response.data[id1].questionID;
+				questionID2 = response.data[id2].questionID;
+				question1.questionID = questionID1;
+				question2.questionID = questionID2;
+				console.log("Question ID 1: " + questionID1);
+				console.log("Question ID 2: " + questionID2);
 				console.log("Answer ID 1: " + answerID1);
 				console.log("Answer ID 2: " + answerID2);
 			}).catch(e => {
@@ -511,8 +515,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			await questionsUpdate(question2).catch(e => {
 				handleError(e);
 			});
-
-			log("info", "Testing /answers/");
 
 			await answersReadUser(patientID1).catch(e => {
 				handleError(e);
@@ -544,7 +546,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			log("info", "Testing /users/");
+			await questionsDelete({ questionID:questionID1 }).catch(e => {
+				handleError(e);
+			});
 
 			await usersReadRange(parseInt(patientID1) - 2, parseInt(patientID2) + 2).catch(e => {
 				handleError(e);
@@ -612,6 +616,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			await adminsReadAll().catch(e => {
 				handleError(e);
 			});
+
+			console.log("Testing Finished.");
 		} catch(e) {
 			console.log(e);
 		}
@@ -624,8 +630,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("POST", apiURL + "admins/create.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -641,8 +651,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("DELETE", apiURL + "admins/delete.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -653,8 +667,22 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, timeoutLimit);
 		});
 	}
-	function adminsLogin() {
+	function adminsLogin(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "admins/login.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -665,8 +693,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("POST", apiURL + "admins/logout.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -682,8 +714,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "admins/read-all.php?key=" + apiKey).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -699,8 +735,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "admins/read-range.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -716,8 +756,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "admins/read.php?key=" + apiKey + "&id=" + id).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -733,8 +777,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("PUT", apiURL + "admins/update.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -751,8 +799,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("POST", apiURL + "diary-entries/create.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -768,8 +820,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("DELETE", apiURL + "diary-entries/delete.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -785,8 +841,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "diary-entries/read-all.php?key=" + apiKey).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -797,13 +857,17 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, timeoutLimit);
 		});
 	}
-	function diaryEntriesReadDate(from, to) {
+	function diaryEntriesReadDate(id, from, to) {
 		return new Promise((resolve, reject) => {
-			sendRequest("GET", apiURL + "diary-entries/read-date.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
+			sendRequest("GET", apiURL + "diary-entries/read-date.php?key=" + apiKey + "&id=" + id + "&from=" + from + "&to=" + to).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -819,8 +883,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "diary-entries/read-user.php?key=" + apiKey + "&id=" + id).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -831,13 +899,17 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, timeoutLimit);
 		});
 	}
-	function diaryEntriesRead(id) {
+	function diaryEntriesRead(patientID, entryID) {
 		return new Promise((resolve, reject) => {
-			sendRequest("GET", apiURL + "diary-entries/read.php?key=" + apiKey + "&id=" + id).then((result) => {
+			sendRequest("GET", apiURL + "diary-entries/read.php?key=" + apiKey + "&patientID=" + patientID + "&entryID=" + entryID).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -853,8 +925,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("PUT", apiURL + "diary-entries/update.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -871,8 +947,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("POST", apiURL + "falls/create.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -888,25 +968,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("DELETE", apiURL + "falls/delete.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
-			}).catch((e) => {
-				handleError("Error - " + result.endpoint);
-				reject(e);
-			});
-
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
-	function fallsExport(id) {
-		return new Promise((resolve, reject) => {
-			sendRequest("GET", apiURL + "falls/export.php?key=" + apiKey + "&id=" + id).then((result) => {
-				setTimeout(() => {
-					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -922,8 +989,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "falls/read-all.php?key=" + apiKey).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -934,13 +1005,17 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, timeoutLimit);
 		});
 	}
-	function fallsReadDate(from, to) {
+	function fallsReadDate(id, from, to) {
 		return new Promise((resolve, reject) => {
-			sendRequest("GET", apiURL + "falls/read-date.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
+			sendRequest("GET", apiURL + "falls/read-date.php?key=" + apiKey + "&id=" + id + "&from=" + from + "&to=" + to).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -956,8 +1031,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "falls/read-user.php?key=" + apiKey + "&id=" + id).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -973,8 +1052,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "falls/read.php?key=" + apiKey + "&id=" + id).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -991,8 +1074,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("POST", apiURL + "questions/create.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1008,8 +1095,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("DELETE", apiURL + "questions/delete.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1025,8 +1116,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "questions/read-all.php?key=" + apiKey).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1042,8 +1137,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "questions/read-range.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1059,8 +1158,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "questions/read.php?key=" + apiKey + "&id=" + id).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1073,11 +1176,15 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	function questionsUpdate(body) {
 		return new Promise((resolve, reject) => {
-			sendRequest("PUT", apiURL + "admins/update.php?key=" + apiKey, body).then((result) => {
+			sendRequest("PUT", apiURL + "questions/update.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1094,8 +1201,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "answers/read-all.php?key=" + apiKey).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1111,8 +1222,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "answers/read-user.php?key=" + apiKey + "&id=" + id).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1128,8 +1243,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "answers/read.php?key=" + apiKey + "&id=" + id).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1145,8 +1264,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("PUT", apiURL + "answers/update.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1163,8 +1286,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("POST", apiURL + "users/create.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1177,11 +1304,15 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	function usersDelete(body) {
 		return new Promise((resolve, reject) => {
-			sendRequest("DELETE", apiURL + "answers/delete.php?key=" + apiKey, body).then((result) => {
+			sendRequest("DELETE", apiURL + "users/delete.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1197,8 +1328,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("POST", apiURL + "users/login.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1214,8 +1349,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("POST", apiURL + "users/logout.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1231,8 +1370,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "users/read-all.php?key=" + apiKey).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1248,8 +1391,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "users/read-range.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1265,8 +1412,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "users/read.php?key=" + apiKey + "&id=" + id).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1282,8 +1433,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("PUT", apiURL + "users/update.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve(JSON.parse(result.response));
-				}, 200);
+					if (validJSON(result.response)) {
+						resolve(JSON.parse(result.response));
+					} else {
+						resolve();
+					}
+				}, requestInterval);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
 				reject(e);
@@ -1303,7 +1458,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			xhr.addEventListener("readystatechange", () => {
 				if (xhr.readyState === XMLHttpRequest.DONE) {
-					if (validJSON(xhr.responseText)) {
+					if (validJSON(xhr.responseText) || empty(xhr.responseText)) {
 						if (!empty(body)) {
 							resolve({ endpoint:endpoint, response:xhr.responseText, body:body });
 						} else {
