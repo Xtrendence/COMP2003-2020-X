@@ -81,6 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	let answerID1;
 	let answerID2;
 
+	let answer2 = {
+		patientID: null,
+		answerID: null,
+		answer: "It Has"
+	};
+
 	let patientID1;
 	let patientID2;
 
@@ -506,6 +512,26 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
+			log("info", "Testing /answers/");
+
+			await answersReadUser(patientID1).catch(e => {
+				handleError(e);
+			});
+			await answersRead(answerID2).catch(e => {
+				handleError(e);
+			});
+
+			answer2.patientID = patientID1;
+			answer2.answerID = answerID2;
+
+			await answersUpdate(answer2).catch(e => {
+				handleError(e);
+			});
+
+			await answersRead(answerID2).catch(e => {
+				handleError(e);
+			});
+
 			await questionsDelete({ questionID:questionID2 }).catch(e => {
 				handleError(e);
 			});
@@ -518,65 +544,56 @@ document.addEventListener("DOMContentLoaded", () => {
 				handleError(e);
 			});
 
-			log("info", "Testing /answers/");
-
-			await answersCreate().then(response => {
-
-			}).catch(e => {
-				handleError(e);
-			});
-			await answersDelete().then(response => {
-
-			}).catch(e => {
-				handleError(e);
-			});
-			await answersReadUser().then(response => {
-
-			}).catch(e => {
-				handleError(e);
-			});
-			await answersRead().then(response => {
-
-			}).catch(e => {
-				handleError(e);
-			});
-			await answersUpdate().then(response => {
-
-			}).catch(e => {
-				handleError(e);
-			});
-
 			log("info", "Testing /users/");
-				
-			await usersDelete().then(response => {
 
-			}).catch(e => {
+			await usersReadRange(parseInt(patientID1) - 2, parseInt(patientID2) + 2).catch(e => {
+				handleError(e);
+			});
+
+			patient1.patient_fName = "ChangedFName";
+			patient1.patient_lName = "ChangedLName";
+
+			await usersUpdate(patient1).catch(e => {
+				handleError(e);
+			});
+
+			await usersReadRange(parseInt(patientID1) - 2, parseInt(patientID2) + 2).catch(e => {
+				handleError(e);
+			});
+				
+			await usersDelete({ patientID:patientID2 }).catch(e => {
+				handleError(e);
+			});
+
+			await usersReadAll().catch(e => {
+				handleError(e);
+			});
+
+			await usersRead(patientID1).catch(e => {
+				handleError(e);
+			});
+
+			await usersRead(patientID2).catch(e => {
 				handleError(e);
 			});
 			
-			await usersLogout().then(response => {
-
-			}).catch(e => {
+			await usersLogout({ patientID:patientID1 }).catch(e => {
 				handleError(e);
 			});
-			await usersReadAll().then(response => {
 
-			}).catch(e => {
+			apiKey = patientLoginToken;
+
+			await usersRead(patientID1).catch(e => {
 				handleError(e);
 			});
-			await usersReadRange().then(response => {
 
-			}).catch(e => {
+			apiKey = apiKeyDuplicate;
+
+			await usersDelete({ patientID:patientID1 }).catch(e => {
 				handleError(e);
 			});
-			await usersRead().then(response => {
 
-			}).catch(e => {
-				handleError(e);
-			});
-			await usersUpdate().then(response => {
-
-			}).catch(e => {
+			await usersRead(patientID1).catch(e => {
 				handleError(e);
 			});
 
@@ -1072,72 +1089,138 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-	function answersCreate() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
-	function answersDelete() {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject("Timeout - " + arguments.callee.name + "()");
-			}, timeoutLimit);
-		});
-	}
 	function answersReadAll() {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "answers/read-all.php?key=" + apiKey).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function answersReadUser() {
+	function answersReadUser(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "answers/read-user.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function answersRead() {
+	function answersRead(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "answers/read.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function answersUpdate() {
+	function answersUpdate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("PUT", apiURL + "answers/update.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
 
-	function usersCreate() {
+	function usersCreate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "users/create.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function usersDelete() {
+	function usersDelete(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("DELETE", apiURL + "answers/delete.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function usersLogin() {
+	function usersLogin(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "users/login.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function usersLogout() {
+	function usersLogout(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "users/logout.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -1160,22 +1243,52 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, timeoutLimit);
 		});
 	}
-	function usersReadRange() {
+	function usersReadRange(from, to) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "users/read-range.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function usersRead() {
+	function usersRead(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "users/read.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function usersUpdate() {
+	function usersUpdate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("PUT", apiURL + "users/update.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
