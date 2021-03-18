@@ -27,8 +27,15 @@
 			<input id="api-url" type="text" placeholder="API URL..." value="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/">
 			<input id="admin-username" type="text" placeholder="Admin Username...">
 			<input id="admin-password" type="text" placeholder="Admin Password...">
+			<input id="api-key" type="text" placeholder="API Key...">
+			<button id="clear-button">Clear Test</button>
+			<button id="results-button" class="disabled">Test Results</button>
 			<button id="test-button">Start Testing</button>
 		</div>
 		<div class="bottom" id="output"></div>
+		<div class="results-wrapper hidden" id="results-wrapper">
+			<button id="back-button">Back</button>
+			<div id="results-list"></div>
+		</div>
 	</body>
 </html>
