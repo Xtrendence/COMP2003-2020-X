@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-
+    const xhr = new XMLHttpRequest();
     let questionAutofill
     let numChoicesAutofill
     let choicesAutofill
@@ -21,25 +21,36 @@ document.addEventListener("DOMContentLoaded", () => {
     let submitText = document.getElementById("sub");
 
     let url = new URL(window.location.href);
-    let patID = url.searchParams.get("id");
-
-    let titleCard = document.getElementById("edit-question");
-    let title = "Edit a Question - User ";
-    let addID = title.concat(patID);
+    let qID = url.searchParams.get("id");
+    let titleCard = document.getElementById("user-question");
+    let title = "Ask a Question - User ";
+    let addID = title.concat(qID);
     titleCard.innerText = addID;
 
+    function getQuestion(){
+        xhr.addEventListener("readystatechange", function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                let json = xhr.responseText;
+                let question = JSON.parse(json);
+                let keys = Object.keys(question["data"]);
+                try{
+                    let questionID = question[qID]["questionID"];
+                    let questionTxt = question[qID]["question"];
+                    let questionLim = question[qID]["question_charLim"];
+                    let questionType = question[qID]["question_type"];
+                    let questionChoice = question[qID]["choices"];
 
-    function txtAutofill() {
-
+                    enquiry.innerHTML = (questionTxt);
+                }
+                catch{
+                    console.error("error");
+                }
+            }
+        });
+        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read.php?id=" + questionID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+        xhr.send();
     }
 
-
-
-
-    /**
-     * @desc checks to see is all input boxes have been inputted into
-     * @returns {boolean}
-     */
     function checkForm() {
         let input = document.getElementsByTagName("input");
         let formComplete = true;
@@ -54,11 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return formComplete;
     }
 
-    /**
-     * @desc event listener removes any error boxes, then looks for the click on the multiple choice radio button
-     *      it clears all the input boxes, not the question box, and shows all the relevant information boxes to be
-     *      filled in
-     */
     multipleChoiceRadioButton.addEventListener("click", function() {
         let input = document.getElementsByTagName("input");
         for (let i = 0; i < input.length; i++) {
@@ -85,11 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /**
-     * @desc event listener removes any error boxes, then looks for the click on the long answer radio button
-     *      it clears all the input boxes, not the question box, and shows all the relevant information boxes to be
-     *      filled in
-     */
     longAnswerRadioButton.addEventListener("click", function() {
         let input = document.getElementsByTagName("input");
         for (let i = 0; i < input.length; i++) {
@@ -109,11 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /**
-     * @desc event listener waits for keyup then checks to see if the key pressed is back space,
-     *      once that is checked, it removes all the child nodes from the option container where the
-     *      number of choices are larger than 2 and 16 or less
-     */
     numberOfChoices.addEventListener("keyup", function(e) {
         if (e.key.toLowerCase() === "backspace") {
             if (numberOfChoices.value > 2 || numberOfChoices.value <= 16) {
@@ -122,12 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /**
-     * @desc event listener awaits key press and checks if it was the enter button.
-     *      when this is true it will then check to see if the value is 16 or less,
-     *      when this is the case it will add the appropriate number of choice boxes into
-     *      the option container. if not it will highlight the box with an error
-     */
     numberOfChoices.addEventListener("keyup", function() {
         optionContainer.innerHTML = "";
         if (numberOfChoices.value >= 2 && numberOfChoices.value <= 16) {
@@ -144,9 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /**
-     * @desc checks that limit is more than 50 characters
-     */
     characterLimit.addEventListener("keyup", function() {
         if (characterLimit.value < 50) {
             characterLimit.classList.add("error");
@@ -155,71 +142,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /**
-     * @desc event listener awaits click on the submit button. The first thing it does
-     *      is check to see which radio button is active. If it's the multiple choice radio
-     *      button then it'll enter al the users custom choices into an array, after that it
-     *      constructs the object to be used in the api. This contains the question, type of question
-     *      and the choices. Then all of the input boxes are cleared, and a note saying that the
-     *      question has been submitted. If the long answer radio button is selected, it checks to
-     *      make sure the character limit is no less than 50, if it is, the input box will
-     *      be highlighted red. Once corrected, it creates the object containing the question, type of question
-     *      and the character limit.
-     */
-    submitButton.addEventListener("click", function() {
-        if (checkForm()) {
-            let body;
-            let xhr = new XMLHttpRequest();
-            if (multipleChoiceRadioButton.classList.contains("active")) {
-                let choiceOptions = [];
-                let choiceFields = document.getElementsByClassName("choice-field");
-                for (let i = 0; i < choiceFields.length; i++) {
-                    choiceOptions.push(choiceFields[i].value);
-                    choiceFields[i].value = "";
-                }
 
-                body = {
-                    patientID: patID,
-                    question: enquiry.value,
-                    question_type: "choice",
-                    choices: choiceOptions
-                };
-
-                submitText.classList.remove("hidden");
-                submitText.classList.add("submission");
-                enquiry.value = "";
-                numberOfChoices.value = "";
-                optionContainer.innerHTML = "";
-
-            } else {
-                body = {
-                    patientID: patID,
-                    question: enquiry.value,
-                    question_type: "custom",
-                    question_charLim: characterLimit.value
-                };
-                submitText.classList.remove("hidden");
-                submitText.classList.add("submission");
-                enquiry.value = "";
-                characterLimit.value = null;
-            }
-
-            xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
-            xhr.send(JSON.stringify(body));
-
-            xhr.addEventListener("readystatechange", function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    let responseJSON = xhr.responseText;
-
-                    try {
-                        let response = JSON.parse(responseJSON);
-
-                        let questionID = response["questionID"];
-                    } catch(e) {
-                        console.log(e);
-                    }
-                }
-            });
-        }
-    });
 });
