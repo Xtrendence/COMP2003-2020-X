@@ -59,11 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	let fall1 = {
 		patientID: null,
-		falls: 2,
-	};
-	let fall2 = {
-		patientID: null,
-		falls: 4
+		falls: 2
 	};
 
 	let questionID1;
@@ -283,319 +279,302 @@ document.addEventListener("DOMContentLoaded", () => {
 				log("alert", "Using Development Token");
 			}
 
-			let tests = {
-				admins: true,
-				answers: true,
-				diaryEntries: true,
-				falls: true,
-				questions: true,
-				users: true
-			};
-
-			if (tests.admins) {
-				log("info", "Testing /admins/");
-
-				await adminsCreate(researcher1).catch(e => {
-					handleError(e);
-				});
-				await adminsCreate(researcher2).catch(e => {
-					handleError(e);
-				});
-
-				await adminsLogin(researcher1login).then(response => {
-					researcherLoginToken = response.token;
-					researcherID1 = response.researcherID;
-					console.log("Researcher ID 1: " + researcherID1);
-					if (!empty(researcherLoginToken)) {
-						apiKey = researcherLoginToken;
-					}
-				}).catch(e => {
-					handleError(e);
-				});
-
-				await adminsLogin(researcher2login).then(response => {
-					researcherID2 = response.researcherID;
-					console.log("Researcher ID 2: " + researcherID2);
-				}).catch(e => {
-					handleError(e);
-				});
-
-				await adminsRead(researcherID1).catch(e => {
-					handleError(e);
-				});
-
-				researcher1.researcher_fName = "NewAdminFName1";
-				researcher1.researcher_lName = "NewAdminLName1";
-
-				await adminsUpdate(researcher1).catch(e => {
-					handleError(e);
-				});
-
-				await adminsReadRange(parseInt(researcherID1) - 2, parseInt(researcherID2) + 2).catch(e => {
-					handleError(e);
-				});
-
-				await adminsLogout({ researcherID:researcherID1 }).catch(e => {
-					handleError(e);
-				});
-
-				await adminsRead(researcherID1).catch(e => {
-					handleError(e);
-				});
-
-				apiKey = apiKeyDuplicate;
-			}
-
-			if (tests.users) {
-				patient1.researcherID = researcherID1;
-				patient2.researcherID = researcherID2;
-
-				await usersCreate(patient1).catch(e => {
-					handleError(e);
-				});
-				await usersCreate(patient2).catch(e => {
-					handleError(e);
-				});
-
-				await usersLogin(patient1login).then(response => {
-					patientID1 = response.patientID;
-				}).catch(e => {
-					handleError(e);
-				});
-				await usersLogin(patient2login).then(response => {
-					patientID2 = response.patientID;
-				}).catch(e => {
-					handleError(e);
-				});
-			}
-
-			if (tests.diaryEntries) {
-				log("info", "Testing /diary-entries/");
-
-				diaryEntry1.patientID = patientID1;
-				diaryEntry2.patientID = patientID1;
-
-				await diaryEntriesCreate(diaryEntry1).catch(e => {
-					handleError(e);
-				});
-				await diaryEntriesCreate(diaryEntry2).catch(e => {
-					handleError(e);
-				});
-
-				await diaryEntriesReadAll().then(response => {
-					let ids = Object.keys(response.data);
-					let id1 = ids[ids.length - 2];
-					let id2 = ids[ids.length - 1];
-					diaryEntryID1 = response.data[id1].entryID;
-					diaryEntryID2 = response.data[id2].entryID;
-					console.log("Diary Entry ID 1: " + diaryEntryID1);
-					console.log("Diary Entry ID 2: " + diaryEntryID2);
-				}).catch(e => {
-					handleError(e);
-				});
-
-				diaryEntry1.entry = "Updated diary entry 1 for testing.";
-
-				await diaryEntriesUpdate(diaryEntry1).catch(e => {
-					handleError(e);
-				});
-
-				let yesterday = formatDateTime(new Date().setDate(new Date().getDate() - 1));
-				let tomorrow = formatDateTime(new Date().setDate(new Date().getDate() + 1));
-
-				await diaryEntriesReadDate(yesterday, tomorrow).catch(e => {
-					handleError(e);
-				});
-
-				await diaryEntriesDelete({ patientID:patientID1, entryID:diaryEntryID1 }).catch(e => {
-					handleError(e);
-				});
-
-				await diaryEntriesRead(diaryEntryID2).catch(e => {
-					handleError(e);
-				});
-
-				await diaryEntriesReadDate(yesterday, tomorrow).catch(e => {
-					handleError(e);
-				});
-
-				await diaryEntriesReadUser(patientID1).catch(e => {
-					handleError(e);
-				});
-
-				await diaryEntriesDelete({ patientID:patientID1, entryID:diaryEntryID2 }).catch(e => {
-					handleError(e);
-				});
-
-				await diaryEntriesReadUser(patientID1).catch(e => {
-					handleError(e);
-				});
-			}
-
-			if (tests.falls) {
-				log("info", "Testing /falls/");
-
-				await fallsCreate().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await fallsDelete().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await fallsExport().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await fallsReadAll().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await fallsReadDate().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await fallsReadUser().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await fallsRead().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-			}
-
-			if (tests.questions) {
-				log("info", "Testing /questions/");
-
-				await questionsCreate().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await questionsDelete().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await questionsReadAll().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await questionsReadRange().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await questionsRead().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await questionsUpdate().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-			}
-
-			if (tests.answers) {
-				log("info", "Testing /answers/");
-
-				await answersCreate().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await answersDelete().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await answersReadAll().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await answersReadUser().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await answersRead().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await answersUpdate().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-			}
-
-			if (tests.users) {
-				log("info", "Testing /users/");
-
-				
-				await usersDelete().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				
-				await usersLogout().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await usersReadAll().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await usersReadRange().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await usersRead().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-				await usersUpdate().then(response => {
-
-				}).catch(e => {
-					handleError(e);
-				});
-
-				if (tests.admins) {
-					await adminsDelete({ researcherID:researcherID1 }).catch(e => {
-						handleError(e);
-					});
-
-					await adminsRead(researcherID1).catch(e => {
-						handleError(e);
-					});
-
-					await adminsDelete({ researcherID:researcherID2 }).catch(e => {
-						handleError(e);
-					});
-				
-					await adminsReadAll().catch(e => {
-						handleError(e);
-					});
+			log("info", "Testing /admins/");
+
+			await adminsCreate(researcher1).catch(e => {
+				handleError(e);
+			});
+			await adminsCreate(researcher2).catch(e => {
+				handleError(e);
+			});
+
+			await adminsLogin(researcher1login).then(response => {
+				researcherLoginToken = response.token;
+				researcherID1 = response.researcherID;
+				console.log("Researcher ID 1: " + researcherID1);
+				if (!empty(researcherLoginToken)) {
+					apiKey = researcherLoginToken;
 				}
-			}
+			}).catch(e => {
+				handleError(e);
+			});
+
+			await adminsLogin(researcher2login).then(response => {
+				researcherID2 = response.researcherID;
+				console.log("Researcher ID 2: " + researcherID2);
+			}).catch(e => {
+				handleError(e);
+			});
+
+			await adminsRead(researcherID1).catch(e => {
+				handleError(e);
+			});
+
+			researcher1.researcher_fName = "NewAdminFName1";
+			researcher1.researcher_lName = "NewAdminLName1";
+
+			await adminsUpdate(researcher1).catch(e => {
+				handleError(e);
+			});
+
+			await adminsReadRange(parseInt(researcherID1) - 2, parseInt(researcherID2) + 2).catch(e => {
+				handleError(e);
+			});
+
+			await adminsLogout({ researcherID:researcherID1 }).catch(e => {
+				handleError(e);
+			});
+
+			await adminsRead(researcherID1).catch(e => {
+				handleError(e);
+			});
+
+			apiKey = apiKeyDuplicate;
+
+			patient1.researcherID = researcherID1;
+			patient2.researcherID = researcherID2;
+
+			await usersCreate(patient1).catch(e => {
+				handleError(e);
+			});
+			await usersCreate(patient2).catch(e => {
+				handleError(e);
+			});
+
+			await usersLogin(patient1login).then(response => {
+				patientID1 = response.patientID;
+			}).catch(e => {
+				handleError(e);
+			});
+			await usersLogin(patient2login).then(response => {
+				patientID2 = response.patientID;
+			}).catch(e => {
+				handleError(e);
+			});
+
+			log("info", "Testing /diary-entries/");
+
+			diaryEntry1.patientID = patientID1;
+			diaryEntry2.patientID = patientID1;
+
+			await diaryEntriesCreate(diaryEntry1).catch(e => {
+				handleError(e);
+			});
+			await diaryEntriesCreate(diaryEntry2).catch(e => {
+				handleError(e);
+			});
+
+			await diaryEntriesReadAll().then(response => {
+				let ids = Object.keys(response.data);
+				let id1 = ids[ids.length - 2];
+				let id2 = ids[ids.length - 1];
+				diaryEntryID1 = response.data[id1].entryID;
+				diaryEntryID2 = response.data[id2].entryID;
+				console.log("Diary Entry ID 1: " + diaryEntryID1);
+				console.log("Diary Entry ID 2: " + diaryEntryID2);
+			}).catch(e => {
+				handleError(e);
+			});
+
+			diaryEntry1.entry = "Updated diary entry 1 for testing.";
+
+			await diaryEntriesUpdate(diaryEntry1).catch(e => {
+				handleError(e);
+			});
+
+			let yesterday = formatDateTime(new Date().setDate(new Date().getDate() - 1));
+			let tomorrow = formatDateTime(new Date().setDate(new Date().getDate() + 1));
+
+			await diaryEntriesReadDate(yesterday, tomorrow).catch(e => {
+				handleError(e);
+			});
+
+			await diaryEntriesDelete({ patientID:patientID1, entryID:diaryEntryID1 }).catch(e => {
+				handleError(e);
+			});
+
+			await diaryEntriesRead(diaryEntryID2).catch(e => {
+				handleError(e);
+			});
+
+			await diaryEntriesReadDate(yesterday, tomorrow).catch(e => {
+				handleError(e);
+			});
+
+			await diaryEntriesReadUser(patientID1).catch(e => {
+				handleError(e);
+			});
+
+			await diaryEntriesDelete({ patientID:patientID1, entryID:diaryEntryID2 }).catch(e => {
+				handleError(e);
+			});
+
+			await diaryEntriesReadUser(patientID1).catch(e => {
+				handleError(e);
+			});
+			
+			log("info", "Testing /falls/");
+
+			fall1.patientID = patientID1;
+
+			await fallsCreate(fall1).catch(e => {
+				handleError(e);
+			});
+
+			await fallsReadAll().then(response => {
+				let ids = Object.keys(response.data);
+				let id1 = ids[ids.length - 2];
+				let id2 = ids[ids.length - 1];
+				fallID1 = response.data[id1].fallID;
+				fallID2 = response.data[id2].fallID;
+				console.log("Fall ID 1: " + fallID1);
+				console.log("Fall ID 2: " + fallID2);
+			}).catch(e => {
+				handleError(e);
+			});
+
+			await fallsExport(patientID1).catch(e => {
+				handleError(e);
+			});
+
+			await fallsReadDate(yesterday, tomorrow).catch(e => {
+				handleError(e);
+			});
+
+			await fallsDelete({ fallID:fallID1 }).catch(e => {
+				handleError(e);
+			});
+
+			await fallsReadUser(patientID1).catch(e => {
+				handleError(e);
+			});
+			
+			await fallsRead(fallID2).catch(e => {
+				handleError(e);
+			});
+
+			await fallsDelete({ fallID:fallID2 }).catch(e => {
+				handleError(e);
+			});
+
+			log("info", "Testing /questions/");
+
+			question1.patientID = patientID1;
+			question2.patientID = patientID1;
+
+			await questionsCreate().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await questionsDelete().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await questionsReadAll().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await questionsReadRange().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await questionsRead().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await questionsUpdate().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+
+			log("info", "Testing /answers/");
+
+			await answersCreate().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await answersDelete().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await answersReadAll().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await answersReadUser().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await answersRead().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await answersUpdate().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+
+			log("info", "Testing /users/");
+				
+			await usersDelete().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			
+			await usersLogout().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await usersReadAll().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await usersReadRange().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await usersRead().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+			await usersUpdate().then(response => {
+
+			}).catch(e => {
+				handleError(e);
+			});
+
+			await adminsDelete({ researcherID:researcherID1 }).catch(e => {
+				handleError(e);
+			});
+
+			await adminsRead(researcherID1).catch(e => {
+				handleError(e);
+			});
+
+			await adminsDelete({ researcherID:researcherID2 }).catch(e => {
+				handleError(e);
+			});
+		
+			await adminsReadAll().catch(e => {
+				handleError(e);
+			});
 		} catch(e) {
 			console.log(e);
 		}
@@ -850,22 +829,52 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-	function fallsCreate() {
+	function fallsCreate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "falls/create.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function fallsDelete() {
+	function fallsDelete(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("DELETE", apiURL + "falls/delete.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function fallsExport() {
+	function fallsExport(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "falls/export.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -873,27 +882,67 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	function fallsReadAll() {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "falls/read-all.php?key=" + apiKey).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function fallsReadDate() {
+	function fallsReadDate(from, to) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "falls/read-date.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function fallsReadUser() {
+	function fallsReadUser(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "falls/read-user.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function fallsRead() {
+	function fallsRead(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "falls/read.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
