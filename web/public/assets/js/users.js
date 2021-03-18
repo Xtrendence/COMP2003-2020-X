@@ -19,8 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         '</svg>';
 
 
-
-
     function getUsers(from, to, userID, firstName, lastName) {
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -133,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cellAct.appendChild(answerAnchor);
         cellAct.appendChild(questionAnchor);
         layer.appendChild(cellAct);
-        // questButton = "<a href=\"./create-question?id=\" + userID + \"></a>";
     }
 
     getUsers(from, to);

@@ -65,6 +65,7 @@
 
 td {
     border-bottom: lightslategray 1px solid;
+    padding-bottom: 10px;
 }
 
 .table-header {
