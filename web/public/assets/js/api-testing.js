@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const Notify = new XNotify("BottomRight");
 
 	let apiKey;
+	let apiKeyDuplicate;
 	let apiURL;
 
 	let timeoutLimit = 2000;
@@ -22,6 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		researcher_mobile: "07723619852",
 		researcher_email: "testadmin1@gmail.com"
 	};
+	let researcher1login = {
+		researcher_username: "testAdmin1",
+		researcher_password: "testAdmin1"
+	}
 	let researcher2 = {
 		researcher_nhsRef: "9991111112",
 		researcher_username: "testAdmin2",
@@ -32,6 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		researcher_mobile: "07723619822",
 		researcher_email: "testadmin2@gmail.com"
 	};
+	let researcher2login = {
+		researcher_username: "testAdmin2",
+		researcher_password: "testAdmin2"
+	}
 
 	let diaryEntryID1;
 	let diaryEntryID2;
@@ -95,6 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		patient_email: "testpatient1@gmail.com",
 		patient_comment: "Just the first patient for testing.",
 	};
+	let patient1login = {
+		patient_username: "testPatient1",
+		patient_password: "testPatient1"
+	}
 	let patient2 = {
 		researcherID: null,
 		patient_nhsRef: "9991111114",
@@ -111,6 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		patient_email: "testpatient2@gmail.com",
 		patient_comment: "Just the second patient for testing.",
 	};
+	let patient2login = {
+		patient_username: "testPatient2",
+		patient_password: "testPatient2"
+	}
 
 	let inputUserUsername = document.getElementById("user-username");
 	let inputUserPassword = document.getElementById("user-password");
@@ -256,6 +273,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		try {
 			divOutput.innerHTML = "";
 
+			apiKeyDuplicate = apiKey;
+
 			if (apiKey.includes("user")) {
 				log("alert", "Using User Token");
 			} else if (apiKey.includes("admin")) {
@@ -264,160 +283,332 @@ document.addEventListener("DOMContentLoaded", () => {
 				log("alert", "Using Development Token");
 			}
 
-			log("info", "Testing /admins/");
+			let tests = {
+				admins: true,
+				answers: true,
+				diaryEntries: true,
+				falls: true,
+				questions: true,
+				users: true
+			};
 
-			await adminsCreate().catch(e => {
-				handleError(e);
-			});
-			await adminsDelete().catch(e => {
-				handleError(e);
-			});
-			await adminsLogin().catch(e => {
-				handleError(e);
-			});
-			await adminsLogout().catch(e => {
-				handleError(e);
-			});
-			await adminsReadAll().catch(e => {
-				handleError(e);
-			});
-			await adminsReadRange().catch(e => {
-				handleError(e);
-			});
-			await adminRead().catch(e => {
-				handleError(e);
-			});
-			await adminUpdate().catch(e => {
-				handleError(e);
-			});
+			if (tests.admins) {
+				log("info", "Testing /admins/");
 
-			log("info", "Testing /diary-entries/");
+				await adminsCreate(researcher1).catch(e => {
+					handleError(e);
+				});
+				await adminsCreate(researcher2).catch(e => {
+					handleError(e);
+				});
 
-			await diaryEntriesCreate().catch(e => {
-				handleError(e);
-			});
-			await diaryEntriesDelete().catch(e => {
-				handleError(e);
-			});
-			await diaryEntriesReadAll().catch(e => {
-				handleError(e);
-			});
-			await diaryEntriesReadDate().catch(e => {
-				handleError(e);
-			});
-			await diaryEntriesReadUser().catch(e => {
-				handleError(e);
-			});
-			await diaryEntriesRead().catch(e => {
-				handleError(e);
-			});
-			await diaryEntriesUpdate().catch(e => {
-				handleError(e);
-			});
+				await adminsLogin(researcher1login).then(response => {
+					researcherLoginToken = response.token;
+					researcherID1 = response.researcherID;
+					console.log("Researcher ID 1: " + researcherID1);
+					if (!empty(researcherLoginToken)) {
+						apiKey = researcherLoginToken;
+					}
+				}).catch(e => {
+					handleError(e);
+				});
 
-			log("info", "Testing /falls/");
+				await adminsLogin(researcher2login).then(response => {
+					researcherID2 = response.researcherID;
+					console.log("Researcher ID 2: " + researcherID2);
+				}).catch(e => {
+					handleError(e);
+				});
 
-			await fallsCreate().catch(e => {
-				handleError(e);
-			});
-			await fallsDelete().catch(e => {
-				handleError(e);
-			});
-			await fallsExport().catch(e => {
-				handleError(e);
-			});
-			await fallsReadAll().catch(e => {
-				handleError(e);
-			});
-			await fallsReadDate().catch(e => {
-				handleError(e);
-			});
-			await fallsReadUser().catch(e => {
-				handleError(e);
-			});
-			await fallsRead().catch(e => {
-				handleError(e);
-			});
+				await adminsRead(researcherID1).catch(e => {
+					handleError(e);
+				});
 
-			log("info", "Testing /questions/");
+				researcher1.researcher_fName = "NewAdminFName1";
+				researcher1.researcher_lName = "NewAdminLName1";
 
-			await questionsCreate().catch(e => {
-				handleError(e);
-			});
-			await questionsDelete().catch(e => {
-				handleError(e);
-			});
-			await questionsReadAll().catch(e => {
-				handleError(e);
-			});
-			await questionsReadRange().catch(e => {
-				handleError(e);
-			});
-			await questionsRead().catch(e => {
-				handleError(e);
-			});
-			await questionsUpdate().catch(e => {
-				handleError(e);
-			});
+				await adminsUpdate(researcher1).catch(e => {
+					handleError(e);
+				});
 
-			log("info", "Testing /answers/");
+				await adminsReadRange(parseInt(researcherID1) - 2, parseInt(researcherID2) + 2).catch(e => {
+					handleError(e);
+				});
 
-			await answersCreate().catch(e => {
-				handleError(e);
-			});
-			await answersDelete().catch(e => {
-				handleError(e);
-			});
-			await answersReadAll().catch(e => {
-				handleError(e);
-			});
-			await answersReadUser().catch(e => {
-				handleError(e);
-			});
-			await answersRead().catch(e => {
-				handleError(e);
-			});
-			await answersUpdate().catch(e => {
-				handleError(e);
-			});
+				await adminsLogout({ researcherID:researcherID1 }).catch(e => {
+					handleError(e);
+				});
 
-			log("info", "Testing /users/");
+				await adminsRead(researcherID1).catch(e => {
+					handleError(e);
+				});
 
-			await usersCreate().catch(e => {
-				handleError(e);
-			});
-			await usersDelete().catch(e => {
-				handleError(e);
-			});
-			await usersLogin().catch(e => {
-				handleError(e);
-			});
-			await usersLogout().catch(e => {
-				handleError(e);
-			});
-			await usersReadAll().catch(e => {
-				handleError(e);
-			});
-			await usersReadRange().catch(e => {
-				handleError(e);
-			});
-			await usersRead().catch(e => {
-				handleError(e);
-			});
-			await usersUpdate().catch(e => {
-				handleError(e);
-			});
+				apiKey = apiKeyDuplicate;
+			}
+
+			if (tests.users) {
+				patient1.researcherID = researcherID1;
+				patient2.researcherID = researcherID2;
+
+				await usersCreate(patient1).catch(e => {
+					handleError(e);
+				});
+				await usersCreate(patient2).catch(e => {
+					handleError(e);
+				});
+
+				await usersLogin(patient1login).then(response => {
+					patientID1 = response.patientID;
+				}).catch(e => {
+					handleError(e);
+				});
+				await usersLogin(patient2login).then(response => {
+					patientID2 = response.patientID;
+				}).catch(e => {
+					handleError(e);
+				});
+			}
+
+			if (tests.diaryEntries) {
+				log("info", "Testing /diary-entries/");
+
+				diaryEntry1.patientID = patientID1;
+				diaryEntry2.patientID = patientID1;
+
+				await diaryEntriesCreate(diaryEntry1).catch(e => {
+					handleError(e);
+				});
+				await diaryEntriesCreate(diaryEntry2).catch(e => {
+					handleError(e);
+				});
+
+				await diaryEntriesReadAll().then(response => {
+					let ids = Object.keys(response.data);
+					let id1 = ids[ids.length - 2];
+					let id2 = ids[ids.length - 1];
+					diaryEntryID1 = response.data[id1].entryID;
+					diaryEntryID2 = response.data[id2].entryID;
+					console.log("Diary Entry ID 1: " + diaryEntryID1);
+					console.log("Diary Entry ID 2: " + diaryEntryID2);
+				}).catch(e => {
+					handleError(e);
+				});
+
+				diaryEntry1.entry = "Updated diary entry 1 for testing.";
+
+				await diaryEntriesUpdate(diaryEntry1).catch(e => {
+					handleError(e);
+				});
+
+				let yesterday = formatDateTime(new Date().setDate(new Date().getDate() - 1));
+				let tomorrow = formatDateTime(new Date().setDate(new Date().getDate() + 1));
+
+				await diaryEntriesReadDate(yesterday, tomorrow).catch(e => {
+					handleError(e);
+				});
+
+				await diaryEntriesDelete({ patientID:patientID1, entryID:diaryEntryID1 }).catch(e => {
+					handleError(e);
+				});
+
+				await diaryEntriesRead(diaryEntryID2).catch(e => {
+					handleError(e);
+				});
+
+				await diaryEntriesReadDate(yesterday, tomorrow).catch(e => {
+					handleError(e);
+				});
+
+				await diaryEntriesReadUser(patientID1).catch(e => {
+					handleError(e);
+				});
+
+				await diaryEntriesDelete({ patientID:patientID1, entryID:diaryEntryID2 }).catch(e => {
+					handleError(e);
+				});
+
+				await diaryEntriesReadUser(patientID1).catch(e => {
+					handleError(e);
+				});
+			}
+
+			if (tests.falls) {
+				log("info", "Testing /falls/");
+
+				await fallsCreate().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await fallsDelete().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await fallsExport().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await fallsReadAll().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await fallsReadDate().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await fallsReadUser().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await fallsRead().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+			}
+
+			if (tests.questions) {
+				log("info", "Testing /questions/");
+
+				await questionsCreate().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await questionsDelete().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await questionsReadAll().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await questionsReadRange().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await questionsRead().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await questionsUpdate().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+			}
+
+			if (tests.answers) {
+				log("info", "Testing /answers/");
+
+				await answersCreate().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await answersDelete().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await answersReadAll().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await answersReadUser().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await answersRead().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await answersUpdate().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+			}
+
+			if (tests.users) {
+				log("info", "Testing /users/");
+
+				
+				await usersDelete().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				
+				await usersLogout().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await usersReadAll().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await usersReadRange().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await usersRead().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+				await usersUpdate().then(response => {
+
+				}).catch(e => {
+					handleError(e);
+				});
+
+				if (tests.admins) {
+					await adminsDelete({ researcherID:researcherID1 }).catch(e => {
+						handleError(e);
+					});
+
+					await adminsRead(researcherID1).catch(e => {
+						handleError(e);
+					});
+
+					await adminsDelete({ researcherID:researcherID2 }).catch(e => {
+						handleError(e);
+					});
+				
+					await adminsReadAll().catch(e => {
+						handleError(e);
+					});
+				}
+			}
 		} catch(e) {
 			console.log(e);
 		}
 	}
+
+	// Start of test functions.
 
 	function adminsCreate(body) {
 		return new Promise((resolve, reject) => {
 			sendRequest("POST", apiURL + "admins/create.php?key=" + apiKey, body).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve();
+					resolve(JSON.parse(result.response));
 				}, 200);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
@@ -429,8 +620,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, timeoutLimit);
 		});
 	}
-	function adminsDelete() {
+	function adminsDelete(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("DELETE", apiURL + "admins/delete.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -443,8 +644,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, timeoutLimit);
 		});
 	}
-	function adminsLogout() {
+	function adminsLogout(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "admins/logout.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -452,42 +663,102 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	function adminsReadAll() {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "admins/read-all.php?key=" + apiKey).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function adminsReadRange() {
+	function adminsReadRange(from, to) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "admins/read-range.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function adminRead() {
+	function adminsRead(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "admins/read.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function adminUpdate() {
+	function adminsUpdate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("PUT", apiURL + "admins/update.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
 
-	function diaryEntriesCreate() {
+	function diaryEntriesCreate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("POST", apiURL + "diary-entries/create.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function diaryEntriesDelete() {
+	function diaryEntriesDelete(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("DELETE", apiURL + "diary-entries/delete.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -495,34 +766,84 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	function diaryEntriesReadAll() {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "diary-entries/read-all.php?key=" + apiKey).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function diaryEntriesReadDate() {
+	function diaryEntriesReadDate(from, to) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "diary-entries/read-date.php?key=" + apiKey + "&from=" + from + "&to=" + to).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function diaryEntriesReadUser() {
+	function diaryEntriesReadUser(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "diary-entries/read-user.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function diaryEntriesRead() {
+	function diaryEntriesRead(id) {
 		return new Promise((resolve, reject) => {
+			sendRequest("GET", apiURL + "diary-entries/read.php?key=" + apiKey + "&id=" + id).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
 		});
 	}
-	function diaryEntriesUpdate() {
+	function diaryEntriesUpdate(body) {
 		return new Promise((resolve, reject) => {
+			sendRequest("PUT", apiURL + "diary-entries/update.php?key=" + apiKey, body).then((result) => {
+				setTimeout(() => {
+					handleResponse(result.endpoint, result.response);
+					resolve(JSON.parse(result.response));
+				}, 200);
+			}).catch((e) => {
+				handleError("Error - " + result.endpoint);
+				reject(e);
+			});
+
 			setTimeout(() => {
 				reject("Timeout - " + arguments.callee.name + "()");
 			}, timeoutLimit);
@@ -698,7 +1019,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			sendRequest("GET", apiURL + "users/read-all.php?key=" + apiKey).then((result) => {
 				setTimeout(() => {
 					handleResponse(result.endpoint, result.response);
-					resolve();
+					resolve(JSON.parse(result.response));
 				}, 200);
 			}).catch((e) => {
 				handleError("Error - " + result.endpoint);
@@ -731,6 +1052,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, timeoutLimit);
 		});
 	}
+
+	// End of test functions.
 
 	function sendRequest(method, endpoint, body) {
 		return new Promise((resolve, reject) => {
@@ -814,6 +1137,15 @@ document.addEventListener("DOMContentLoaded", () => {
 			return true;
 		}
 		return false;
+	}
+
+	function formatDateTime(date) {
+		return date.getFullYear() + "-" +
+			("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+			("00" + date.getDate()).slice(-2) + "+" +
+			("00" + date.getHours()).slice(-2) + ":" +
+			("00" + date.getMinutes()).slice(-2) + ":" +
+			("00" + date.getSeconds()).slice(-2);
 	}
 
 	function validJSON(json) {
