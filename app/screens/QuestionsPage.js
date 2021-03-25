@@ -9,11 +9,14 @@ import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
 import { TopBar } from '../components/TopBar';
 import LoadingScreen from '../components/LoadingScreen';
+import { ThemeContext } from '../utils/ThemeProvider';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export class QuestionsPage extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -27,6 +30,8 @@ export class QuestionsPage extends Component {
 		};
 		this.navigation = props.navigation;
 		this._mounted;
+		this.theme;
+		this.toggleTheme;
 	}
 
 	// Save radio input answers.
@@ -194,6 +199,11 @@ export class QuestionsPage extends Component {
 
 	componentDidMount() {
 		this._mounted = true;
+
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
 
 		this.getData();
 
