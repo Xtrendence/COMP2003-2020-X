@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let addID = title.concat(patID);
     titleCard.innerText = addID;
 
+    let sessionToken = localStorage.getItem("sessionToken");
+
     /**
      * @desc checks to see is all input boxes have been inputted into
      * @returns {boolean}
@@ -203,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	            color: "var(--accent-contrast)",
             });
 
-            xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("POST", "../../api/questions/create.php?key=" + sessionToken + "", true);
             xhr.send(JSON.stringify(body));
 
             xhr.addEventListener("readystatechange", function() {
