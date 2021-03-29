@@ -24,9 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let contentAns = document.getElementById("content-answered");
     let del =  document.getElementById("del");
 
-    let seperator = document.getElementById("sep")
-    let seperator2 = document.getElementById("sep2")
+    let seperator = document.getElementById("sep");
+    let seperator2 = document.getElementById("sep2");
 
+    let sessionToken = localStorage.getItem("sessionToken");
+    
     //let recentQuestion = contentNoAns.lastChild.nodeValue;
     //console.log(recentQuestion);
 
@@ -275,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
-    xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id="+ patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+    xhr.open("GET", "../../api/answers/read-user.php?id=" + patID + "&key=" + sessionToken + "", true);
     xhr.send();
 
     /**
