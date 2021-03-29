@@ -197,7 +197,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 contentNoAns.innerHTML = "";
                 contentAns.innerHTML = "";
                 let quest = ans["data"];
+
                 for (let i = 0; i < keys.length; i++){
+                    let questionId = quest[keys[i]]["questionID"];
                     let question = quest[keys[i]]["question"];
                     let questionType = quest[keys[i]]["question_type"];
                     let answer = quest[keys[i]]["answer"];
@@ -211,6 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     titleSpan.classList.add("titleSpan")
                     let span = document.createElement("span");
                     titleSpan.innerHTML = (question);
+                    
                     if (questionType == "choice") {
                         let choice = [];
                         let choiceKeys = Object.keys(choices);
@@ -253,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         editBut.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>';
 
                         editAnchor.appendChild(editBut);
-                        editAnchor.href = "./edit-question.php?"
+                        editAnchor.href = "./edit-question.php?id=" + questionId + "";
                         butContainer.appendChild(editAnchor);
 
                         cardDiv.appendChild(butContainer);
