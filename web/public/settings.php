@@ -68,10 +68,9 @@
     <div class="wide-card">
         <span>other setting</span>
     </div> 
-    <button id="logout" class="logout">Logout</button>
+    <a href="login.php" class="logout" id="logout">Logout</a>
 
     </div>
 </div>
-
 </body>
 </html>

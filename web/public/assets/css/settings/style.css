@@ -1,4 +1,4 @@
-.logout{
+.logout {
     text-align: center;
     padding: 10px 10px 10px 10px;
     background: var(--accent-gradient);
@@ -11,6 +11,8 @@
     cursor: pointer;
     margin: auto auto;
     display: block;
+    text-decoration: none;
+    width: 81px;
 }
 
 .toggle-container {
