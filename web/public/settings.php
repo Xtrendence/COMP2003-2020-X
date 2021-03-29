@@ -68,7 +68,7 @@
     <div class="wide-card">
         <span>other setting</span>
     </div> 
-    <button class="logout">Logout</button>
+    <button id="logout" class="logout">Logout</button>
 
     </div>
 </div>
