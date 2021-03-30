@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { LineChart } from 'react-native-chart-kit';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
 import { globalColors, globalColorsDark, globalStyles, globalComponentStyles } from '../styles/global';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -10,6 +10,7 @@ import { TopBar } from '../components/TopBar';
 import Card from '../components/Card';
 import LoadingScreen from '../components/LoadingScreen';
 import { ThemeContext } from '../utils/ThemeProvider';
+import { wait } from '../utils/Utils';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -21,6 +22,7 @@ export class ChartsPage extends Component {
 		super(props);
 		this.state = {
 			loading: false,
+			refreshing: false,
 			timeFrom: this.previousWeek(new Date()),
 			timeTo: new Date(),
 			timespan: "",
@@ -31,6 +33,12 @@ export class ChartsPage extends Component {
 		this.navigation = props.navigation;
 		this.toggleTheme;
 	}
+
+	onRefresh = () => {
+		this.setState({refreshing:true});
+		this.getData(this.previousWeek(new Date()), new Date());
+		wait(750).then(() => this.setState({refreshing:false}));
+	};
 
 	// Navigates to today's date on the chart.
 	navigateToday() {
@@ -257,7 +265,7 @@ export class ChartsPage extends Component {
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
 				<TopBar navigation={this.navigation}>Charts</TopBar>
-				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
+				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
 					{ !this.state.loading &&
 						<View style={styles.pageWrapper}>
 							<View style={styles.banner}>

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity, BackHandler } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity, BackHandler, RefreshControl } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Notifier from '../utils/Notifier';
@@ -10,6 +10,7 @@ import Card from '../components/Card';
 import { TopBar } from '../components/TopBar';
 import LoadingScreen from '../components/LoadingScreen';
 import { ThemeContext } from '../utils/ThemeProvider';
+import { wait } from '../utils/Utils';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -21,6 +22,7 @@ export class QuestionsPage extends Component {
 		super(props);
 		this.state = {
 			firstNavigator: true,
+			refreshing: false,
 			recent: null,
 			unanswered: {},
 			answered: {},
@@ -32,6 +34,12 @@ export class QuestionsPage extends Component {
 		this._mounted;
 		this.toggleTheme;
 	}
+
+	onRefresh = () => {
+		this.setState({refreshing:true})
+		this.getData();
+		wait(750).then(() => this.setState({refreshing:false}));
+	};
 
 	// Save radio input answers.
 	saveChecked(key, answerID, value) {
@@ -256,7 +264,7 @@ export class QuestionsPage extends Component {
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
 				<TopBar navigation={this.navigation}>Questions</TopBar>
-				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
+				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
 					{ !empty(this.state.recent) &&
 						<View>
 							{
