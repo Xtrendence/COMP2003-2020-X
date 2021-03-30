@@ -28,7 +28,7 @@ export const globalColorsDark = {
 	mainFourth: "rgb(45,45,45)",
 	mainFifth: "rgb(65,65,65)",
 	mainSixth: "rgb(85,85,85)",
-	mainContrast: "rgb(200,200,200)",
+	mainContrast: "rgb(240,240,240)",
 	mainPlaceholder: "rgb(180,180,180)",
 };
 

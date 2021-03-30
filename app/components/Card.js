@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import { globalStyles, globalColors } from '../styles/global';
+import { globalStyles, globalColors, globalColorsDark } from '../styles/global';
+import { ThemeContext } from '../utils/ThemeProvider';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export default class Card extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
+		this.state = {};
+		this.toggleTheme;
+	}
+
+	componentDidMount() {
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
 	}
 
 	render() {
 		return (
-			<View style={styles.card}>
+			<View style={[styles.card, styles[`card${this.state.theme}`]]}>
 				<View style={styles.content}>
 					{ this.props.children }
 				</View>
@@ -34,4 +46,7 @@ const styles = StyleSheet.create({
 		elevation: globalStyles.shadowElevation,
 		marginTop: 20,
 	},
+	cardDark: {
+		backgroundColor: globalColorsDark.mainFirst
+	}
 });

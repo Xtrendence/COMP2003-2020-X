@@ -2,18 +2,21 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { LineChart } from 'react-native-chart-kit';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
-import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
+import { globalColors, globalColorsDark, globalStyles, globalComponentStyles } from '../styles/global';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Entypo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TopBar } from '../components/TopBar';
 import Card from '../components/Card';
 import LoadingScreen from '../components/LoadingScreen';
+import { ThemeContext } from '../utils/ThemeProvider';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export class ChartsPage extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -26,6 +29,7 @@ export class ChartsPage extends Component {
 			segments: 4
 		};
 		this.navigation = props.navigation;
+		this.toggleTheme;
 	}
 
 	// Navigates to today's date on the chart.
@@ -211,6 +215,11 @@ export class ChartsPage extends Component {
 	}
 
 	componentDidMount() {
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
+		
 		this.getData(this.previousWeek(new Date()), new Date());
 		this.setState({loading:true});
 		this.navigation.addListener("focus", () => {
