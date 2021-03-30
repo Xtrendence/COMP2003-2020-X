@@ -20,14 +20,14 @@ export class ThemeProvider extends Component {
 		AsyncStorage.getItem("theme").then(result => {
 			if(result === "Dark") {
 				this.setState({theme:"Dark"});
-				changeNavigationBarColor(rgbToHex(globalColorsDark.mainThird), false);
+				changeNavigationBarColor(rgbToHex(globalColorsDark.accentMedium), false);
 			} else {
 				this.setState({theme:"Light"});
-				changeNavigationBarColor(rgbToHex(globalColors.mainThird), true);
+				changeNavigationBarColor(rgbToHex(globalColors.accentMedium), false);
 			}
 		}).catch(error => {
 			this.setState({theme:"Light"});
-			changeNavigationBarColor(rgbToHex(globalColors.mainThird), true);
+			changeNavigationBarColor(rgbToHex(globalColors.accentMedium), false);
 			AsyncStorage.setItem("theme", "Light");
 			console.log(error);
 		});
@@ -36,11 +36,11 @@ export class ThemeProvider extends Component {
 	async toggleTheme() {
 		if(this.state.theme === "Dark") {
 			this.setState({theme:"Light"});
-			changeNavigationBarColor(rgbToHex(globalColors.mainThird), true);
+			changeNavigationBarColor(rgbToHex(globalColors.accentMedium), false);
 			await AsyncStorage.setItem("theme", "Light");
 		} else {
 			this.setState({theme:"Dark"});
-			changeNavigationBarColor(rgbToHex(globalColorsDark.mainThird), false);
+			changeNavigationBarColor(rgbToHex(globalColorsDark.accentMedium), false);
 			await AsyncStorage.setItem("theme", "Dark");
 		}
 	}

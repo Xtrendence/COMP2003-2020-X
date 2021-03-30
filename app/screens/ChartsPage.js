@@ -214,12 +214,22 @@ export class ChartsPage extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
+
 	componentDidMount() {
 		const { theme, toggleTheme } = this.context;
 		
 		this.setState({theme:theme});
 		this.toggleTheme = toggleTheme;
-		
+
 		this.getData(this.previousWeek(new Date()), new Date());
 		this.setState({loading:true});
 		this.navigation.addListener("focus", () => {
@@ -242,7 +252,7 @@ export class ChartsPage extends Component {
 	
 	render() {
 		return (
-			<View style={styles.container}>
+			<View style={[styles.container, styles[`container${this.state.theme}`]]}>
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
@@ -253,7 +263,7 @@ export class ChartsPage extends Component {
 							<View style={styles.banner}>
 								<Text style={styles.bannerText}>Number Of Falls</Text>
 							</View>
-							<View style={styles.chartWrapper}>
+							<View style={[styles.chartWrapper, styles[`chartWrapper${this.state.theme}`]]}>
 								{ this.state.segments === 1 &&
 									<Text style={styles.chartLabelFix}>1</Text>
 								}
@@ -272,19 +282,19 @@ export class ChartsPage extends Component {
 									withHorizontalLines={true}
 									withVerticalLines={false}
 									chartConfig={{
-										backgroundColor: globalColors.mainFirst,
-										backgroundGradientFrom: globalColors.mainFirst,
-										backgroundGradientTo: globalColors.mainFirst,
+										backgroundColor: (this.state.theme === "Dark") ? globalColorsDark.mainFirst : globalColors.mainFirst,
+										backgroundGradientFrom: (this.state.theme === "Dark") ? globalColorsDark.mainFirst : globalColors.mainFirst,
+										backgroundGradientTo: (this.state.theme === "Dark") ? globalColorsDark.mainFirst : globalColors.mainFirst,
 										decimalPlaces: 0,
-										color: () => "rgba(95,103,129,0.8)",
-										labelColor: () => "rgba(95,103,129,1)",
+										color: () => "rgb(95,103,129)",
+										labelColor: () => "rgb(95,103,129)",
 										style: {
 											borderRadius: 0
 										},
 										propsForDots: {
 											r: "4",
 											strokeWidth: "2",
-											stroke: globalColors.mainFifth
+											stroke: (this.state.theme === "Dark") ? globalColorsDark.mainFifth : globalColors.mainFifth
 										},
 										propsForVerticalLabels: {
 											fontFamily: globalStyles.fontFamily,
@@ -345,6 +355,9 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start",
 		backgroundColor: globalColors.mainSecond,
 	},
+	containerDark: {
+		backgroundColor: globalColorsDark.mainThird
+	},
 	scrollView: {
 		width: "100%",
 		height: "100%"
@@ -384,6 +397,9 @@ const styles = StyleSheet.create({
 		elevation: globalStyles.shadowElevation,
 		marginTop: 20,
 		marginBottom: 20,
+	},
+	chartWrapperDark: {
+		backgroundColor: globalColorsDark.mainFirst
 	},
 	chartLabelFix: {
 		fontSize: 12,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalStyles, globalColors, globalColorsDark } from '../styles/global';
 import { ThemeContext } from '../utils/ThemeProvider';
 
@@ -13,6 +14,16 @@ export default class Card extends Component {
 		super(props);
 		this.state = {};
 		this.toggleTheme;
+	}
+
+	componentDidUpdate() {
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
 	}
 
 	componentDidMount() {
