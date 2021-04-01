@@ -22,6 +22,11 @@ export function SettingsPopup(props) {
 							<Text style={styles.actionText}>Save</Text>
 						</TouchableOpacity>
 					</View>
+					<View style={styles.buttonWrapper}>
+						<TouchableOpacity style={styles.actionButton}>
+							<Text style={styles.actionText}>Theme</Text>
+						</TouchableOpacity>
+					</View>
 				</Card>
 			</ScrollView>
 		</View>
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
 	},
 	actionButton: {
 		backgroundColor: globalColors.accentDark,
-		width: 80,
+		width: 100,
 		height: 35,
 		justifyContent: "center",
 		borderRadius: globalStyles.borderRadius,
