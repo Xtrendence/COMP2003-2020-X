@@ -3,19 +3,28 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 import { TopBar } from '../components/TopBar';
-import { SettingsPopup} from '../components/SettingsPopup';
+import { SettingsPopup } from '../components/SettingsPopup';
 import Card from '../components/Card';
 
 export class HelpPage extends Component {
 	constructor(props) {
 		super(props);
 		this.navigation = props.navigation;
+		this.state = {
+			settings: false
+		};
+	}
+
+	setSettings(page, value){
+		page.setState({settings:value})
 	}
 
 	render() {
 		return (
 			<View>
-				<TopBar navigation={this.navigation}>Help</TopBar>
+				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Help</TopBar>
+				{ this.state.settings &&
+                    <SettingsPopup></SettingsPopup>}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 70, paddingLeft: 20}}>
 					<View style={styles.imageWrapper}>
 						<Image style={styles.image} source={require("../assets/Logo.png")}/>
