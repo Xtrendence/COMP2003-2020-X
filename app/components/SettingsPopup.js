@@ -39,7 +39,7 @@ export class SettingsPopup extends Component{
 	render() {
 		return (	
 			<View style={styles.settingsContainer}>
-				<ScrollView style={[styles.cardContainer, styles[`cardContainer${this.state.theme}`]]}>
+				<ScrollView style={styles.cardContainer}>
 					<Card>
 						<Text style={globalComponentStyles.cardTitle}>Enter the time of day you'd like to recieve notifications of your falls</Text>
 						<Text style={styles.settingsText}>Time of day:</Text>
@@ -89,10 +89,6 @@ const styles = StyleSheet.create({
 		height: "100%",
 		paddingLeft: 20,
 		paddingTop: 220,
-		backgroundColor: globalColors.mainFirst
-	},
-	cardContainerDark:{
-		backgroundColor: globalColorsDark.mainFirst,
 	},
     settingsContainer: {
 		height: "100%",

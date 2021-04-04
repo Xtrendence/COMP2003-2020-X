@@ -24,7 +24,8 @@ export class HelpPage extends Component {
 			<View>
 				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Help</TopBar>
 				{ this.state.settings &&
-                    <SettingsPopup></SettingsPopup>}
+                    <SettingsPopup></SettingsPopup> 
+				}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 70, paddingLeft: 20}}>
 					<View style={styles.imageWrapper}>
 						<Image style={styles.image} source={require("../assets/Logo.png")}/>

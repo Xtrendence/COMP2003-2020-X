@@ -7,6 +7,7 @@ import Card from '../components/Card';
 import LoadingScreen from '../components/LoadingScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showMessage, hideMessage } from 'react-native-flash-message';
+import { SettingsPopup } from '../components/SettingsPopup';
 
 export class FallsPage extends Component {
 	constructor(props) {
@@ -15,8 +16,14 @@ export class FallsPage extends Component {
 			falls: 0,
 			diary: null,
 			loading: false,
+			settings: false,
 		};
 		this.navigation = props.navigation;
+		
+	}
+
+	setSettings(page, value){
+		page.setState({settings:value})
 	}
 
 	async saveFalls() {
@@ -61,7 +68,10 @@ export class FallsPage extends Component {
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
-				<TopBar navigation={this.navigation}>Recording Falls</TopBar>
+				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Recording Falls</TopBar>
+				{ this.state.settings &&
+                    <SettingsPopup></SettingsPopup> 
+				}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<Card>
 						<Text style={globalComponentStyles.cardTitle}>Today's Number of Falls</Text>
