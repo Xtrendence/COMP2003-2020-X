@@ -3,7 +3,6 @@
     outline: none;
     border: none;
     background: var(--accent-gradient);
-    /* box-shadow: var(--shadow-smooth); */
     color: var(--accent-contrast);
     font-size: var(--font-medium);
     border-radius: 10px;
@@ -19,17 +18,16 @@
     outline: none;
     border: none;
     background: var(--accent-gradient);
-    /* box-shadow: var(--shadow-smooth); */
     color: var(--accent-contrast);
     font-size: var(--font-medium);
     border-radius: 10px;
     cursor: pointer;
     height: 30px;
-    margin-left: 550px;
-    margin-bottom: 3px;
+    margin-right: 20px;
     text-align: right;
     -webkit-transition: all .1s ease;
     position: relative;
+    float: right;
 
 }
 
