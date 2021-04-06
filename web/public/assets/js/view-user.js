@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 /* Variables for getting api URI data */
-
     let url = new URL(window.location.href);
     let patID = url.searchParams.get("id");
-
     let titleCard = document.getElementById("user-title");
     let title = "User Profile - User ";
     let addID = title.concat(patID);
@@ -91,24 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let chartsButton;
     let buttonDiv = document.getElementById("buttons");
 
-
+    /* createButton function used to Generate charts button and direct web page to the appropriate charts page for currently viewed user profile */
     function createButton(chartsButton, userID){
 
-
-
         let chartsAnchor = document.createElement("a");
-
 
         chartsButton = document.createElement("button");
         chartsButton.classList.add("page-button");
         chartsButton.id = "chartsButton";
         chartsButton.textContent = 'View User Charts';
         chartsAnchor.href = "./charts.php?id=" + userID + "";
+
         chartsAnchor.appendChild(chartsButton);
-
         buttonDiv.appendChild(chartsAnchor);
-
-
     }
 
 });

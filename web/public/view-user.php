@@ -57,7 +57,6 @@
 
     <div class="wrapper">
 
-
         <div class="title-card">
             <span id="user-title"></span>
         </div>
@@ -65,13 +64,11 @@
         <div id="content">
 
             <div class="view-small-card">
-
                 <span class="field-title">NHS Reference Number</span>
 
                 <div class="text-margin">
                     <span id="NHS-RN"></span>
                 </div>
-
             </div>
 
             <div class="view-small-card">
@@ -100,6 +97,7 @@
 
             <div class="view-small-card">
                 <span class="field-title">Date of Birth</span>
+
                 <div class="text-margin">
                     <span id="DOB"></span>
                 </div>
@@ -161,12 +159,9 @@
                 </div>
             </div>
 
-
         </div>
 
     <div class="button-wrapper" id="buttons">
-
-
     </div>
 
 </body>
