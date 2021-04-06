@@ -37,17 +37,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         console.log("debug");
 
+
+
                         /*questionCard(wideCard, questionID, q, questionLim, questionType);
                         choiceCard(wideCard, questionID, q, questionLim, questionType, choices);*/
 
                         if (questionType == "choice") {
 
 
+
                             choiceCard(wideCard, questionID, q, questionLim, questionType, choices);
+
 
                         } else {
                             questionCard(wideCard, questionID, q, questionLim, questionType);
                         }
+
+
 
                     }
 
@@ -73,12 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function questionCard(wideCard, questionID, q, questionLim, questionType){
 
-        let cardAnchor = document.createElement("a");
+            let cardAnchor = document.createElement("a");
 
-        wideCard = document.createElement("div");
-        wideCard.classList.add("wide-card");
-        wideCard.id = "wideCard";
-        wideCard.innerHTML = '\n' +
+            wideCard = document.createElement("div");
+            wideCard.classList.add("wide-card");
+            wideCard.id = "wideCard";
+            wideCard.innerHTML = '\n' +
             '        <div class="text-margin">\n' +
             '            <span class="card-heading">Question ID:'+ questionID +' </span>\n' +
             '        </div>\n' +
@@ -98,8 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
             '    </div>'
 
 
-        cardAnchor.appendChild(wideCard);
-        cardWrap.appendChild(cardAnchor);
+            cardAnchor.appendChild(wideCard);
+            cardWrap.appendChild(cardAnchor);
 
     }
 
@@ -135,13 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     '        </div>\n' +
                     '\n' +
                     '        <div class="text-margin">\n' +
-                    '            <span class="card-heading">Choices: '
-                    for (let i=0; i < Object.keys(choices).length; i++) {
-                        + choices[i]
-                    }
-
-
-                    + ' </span>\n' +
+                    '            <span class="card-heading">Choices: ' + Object.values(choices).join(", ") + ' </span>\n' +
                     '        </div>\n' +
                     '\n' +
                     '    </div>'
