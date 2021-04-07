@@ -4,11 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let wideCard;
     let cardWrap = document.getElementById("cards");
     const xhr = new XMLHttpRequest();
+    let layer = document.getElementById("cards");
+
+    let from = 1;
+    let to = 2;
+
 
 
     console.log("debug");
 
-    function getQuestions() {
+    function getQuestions(from, to) {
         xhr.addEventListener("readystatechange", function () {
             console.log("hello");
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -18,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 let keys = Object.keys(users["data"]);
 
                 try {
-
+                    layer.innerHTML = "";
                     let question = users["data"];
                     console.log(keys.length + "look");
                     for (let i = 0; i < keys.length; i++) {
@@ -69,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         console.log("123");
-        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read-all.php?&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read-range.php?from=" + from + "&to=" + to + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
         xhr.send();
 
     }
@@ -109,9 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
-    getQuestions();
-
+    getQuestions(from, to);
 
     function choiceCard(wideCard, questionID, q, questionLim, questionType, choices) {
 
@@ -159,6 +162,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     }
+
+
+
+    document.getElementById("prev-button").addEventListener("click", function () {
+        let xhr = new XMLHttpRequest();
+        layer.innerHTML = "";
+        from = to - 1 ;
+        to = to - 2 ;
+        getQuestions(from, to);
+    });
+
+
+    document.getElementById("next-button").addEventListener("click", function () {
+        let xhr = new XMLHttpRequest();
+        layer.innerHTML = "";
+        from = to + 1;
+        to = to + 2;
+        getQuestions(from, to);
+    });
+
 
 
     /**
