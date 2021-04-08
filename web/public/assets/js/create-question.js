@@ -1,6 +1,4 @@
-
 document.addEventListener("DOMContentLoaded", () => {
-
     verifySession(localStorage.getItem("sessionToken")).then(result => {
     
         /**
