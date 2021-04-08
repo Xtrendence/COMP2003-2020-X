@@ -66,7 +66,7 @@
     </div>      
     <div class="seperator"></div>
     <div class="wide-card">
-        <span>other setting</span>
+        <span>Settings to come!</span>
     </div> 
     <a href="login.php" class="logout" id="logout">Logout</a>
 
