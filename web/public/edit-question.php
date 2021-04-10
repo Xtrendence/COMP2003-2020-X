@@ -57,7 +57,7 @@
         <div class="text">
             <span>Question Text</span>
         </div>
-        <input id="question" placeholder="Question...">
+        <input id="question">
 
         <div class="text">
             <span>Question Type</span>

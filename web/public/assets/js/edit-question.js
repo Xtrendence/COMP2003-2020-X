@@ -27,27 +27,33 @@ document.addEventListener("DOMContentLoaded", () => {
     let addID = title.concat(qID);
     titleCard.innerText = addID;
 
+    let sessionToken = localStorage.getItem("sessionToken");
+
     function getQuestion(){
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 let json = xhr.responseText;
-                let question = JSON.parse(json);
-                let keys = Object.keys(question["data"]);
+                let questions = JSON.parse(json);
+                let keys = Object.keys(questions["data"]);
                 try{
-                    let questionID = question[qID]["questionID"];
-                    let questionTxt = question[qID]["question"];
-                    let questionLim = question[qID]["question_charLim"];
-                    let questionType = question[qID]["question_type"];
-                    let questionChoice = question[qID]["choices"];
+                    let question = questions["data"];
+                    for (let i = 0; i < keys.length; i++){
+                        let questionID = question[qID]["questionID"];
+                        let questionTxt = question[qID]["question"];
+                        let questionLim = question[qID]["question_charLim"];
+                        let questionType = question[qID]["question_type"];
+                        let questionChoice = question[qID]["choices"];
 
-                    enquiry.innerHTML = (questionTxt);
+                        enquiry.placeholder = questionTxt;
+                    }
+
                 }
                 catch{
                     console.error("error");
                 }
             }
         });
-        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read.php?id=" + qID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read.php?id=" + qID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6" , true);
         xhr.send();
     }
 
@@ -146,4 +152,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     getQuestion();
+
+    /**
+     * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
+     *      when that is true, it sets the body with an attribute to turn the theme dark.
+     */
+    if(localStorage.getItem('theme') === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+    } else {
+        document.body.removeAttribute('data-theme', 'dark');
+    }
 });
