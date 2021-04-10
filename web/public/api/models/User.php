@@ -89,6 +89,17 @@
 		}
 
 		public function update() {
+			if (empty($this->patient_password)) {
+				$query = 'SELECT patient_password FROM ' . $this->table . ' WHERE patient_nhsRef=:patient_nhsRef';
+				$command = $this->connection->prepare($query);
+				$command->bindParam(':patient_nhsRef', $this->patient_nhsRef);
+				$command->execute();
+
+				$row = $command->fetch(PDO::FETCH_ASSOC);
+
+				$this->patient_password = $row['patient_password'];
+			}
+
 			$query = 'CALL updatePatient(:patient_nhsRef, :patient_username, :patient_password, :patient_fName, :patient_lName, :patient_addressI, :patient_addressII, :patient_postcode, :patient_tel, :patient_mobile, :patient_email, :patient_comment, "-", NOW())';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':patient_nhsRef', $this->patient_nhsRef);
@@ -122,22 +133,32 @@
 			$row = $command->fetch(PDO::FETCH_ASSOC);
 
 			if ($this->patient_username == $row['patient_username'] && password_verify($this->patient_password, $row['patient_password'])) {
-				return array('valid' => true, 'patientID' => $row['patientID']);
 				$query = 'UPDATE ' . $this->table . ' SET fcmToken=:token WHERE patient_username=:username';
 				$command = $this->connection->prepare($query);
 				$command->bindParam(':username', $this->patient_username);
 				$command->bindParam(':token', $this->fcmToken);
 				$command->execute();
+
+				$id = $row['patientID'];
+				$token = 'user$' . bin2hex(openssl_random_pseudo_bytes(32)) . '$' . $id . '$' . time();
+
+				$query = 'CALL createPatientLogin(:patientID, :login_token)';
+				$command = $this->connection->prepare($query);
+				$command->bindParam(':patientID', $id);
+				$command->bindParam(':login_token', $token);
+				$command->execute();
+
+				return array('valid' => true, 'patientID' => $id, 'token' => $token);
 			}
 			return array('valid' => false);
 		}
 
-		public function logout() {
-			$query = '';
+		public function logout($token) {
+			$query = 'UPDATE patientlogin SET login_status=FALSE WHERE login_token=:login_token AND patientID=:patientID';
 			$command = $this->connection->prepare($query);
+			$command->bindParam(':patientID', $this->patientID);
+			$command->bindParam(':login_token', $token);
 			$command->execute();
-
-			return $command;
 		}
 	}
 ?>

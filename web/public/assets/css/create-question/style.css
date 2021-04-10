@@ -103,9 +103,3 @@ input[type=number] {
 input.error {
     box-shadow: var(--error-shadow);
 }
-
-.submission {
-    font-size: var(--font-medium);
-    color: var(--accent-gradient);
-    text-align: center;
-}

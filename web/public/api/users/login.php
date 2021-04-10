@@ -6,11 +6,11 @@
 		include_once '../config/Database.php';
 		include_once '../models/User.php';
 
-		$expected = [];
+		$expected = ['patient_username', 'patient_password', 'fcmToken'];
 		$missing = [];
 
-		$database = new Database(true);
-		$db = $database->connect('bypass');
+		$database = new Database();
+		$db = $database->connect();
 
 		if (empty($_POST)) {
 			$json = file_get_contents('php://input');
@@ -26,7 +26,7 @@
 			$loggedIn = $user->login();
 
 			if ($loggedIn['valid']) {
-				echo json_encode(array('valid' => true, 'token' => $database->api_key, 'patientID' => $loggedIn['patientID']));
+				echo json_encode($loggedIn);
 			} else {
 				echo json_encode(array('valid' => false));
 			}

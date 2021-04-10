@@ -8,22 +8,27 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$expected = [];
+		$expected = ['researcherID'];
 		$missing = [];
 
-		$database = new Database(false);
-		$db = $database->connect($api_key);
-
-		$admin = new Admin($db);
+		$database = new Database();
 		
-		$input = json_decode(file_get_contents('php://input'), true);
+		if ($database->verify(array('key' => $api_key))) {
+			$db = $database->connect();
 
-		$admin->researcherID = !empty($input['researcherID']) ? $input['researcherID'] : array_push($missing, 'researcherID');
+			$admin = new Admin($db);
+		
+			$input = json_decode(file_get_contents('php://input'), true);
 
-		if (empty($missing)) {
-			$admin->delete();
+			$admin->researcherID = !empty($input['researcherID']) ? $input['researcherID'] : array_push($missing, 'researcherID');
+
+			if (empty($missing)) {
+				$admin->delete();
+			} else {
+				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+			}
 		} else {
-			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+			echo json_encode(array('message' => 'Invalid API key.'));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use DELETE instead.'));

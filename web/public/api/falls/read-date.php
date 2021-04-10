@@ -8,44 +8,51 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$expected = [];
+		$expected = ['id', 'from', 'to'];
 		$missing = [];
 
-		$database = new Database(false);
-		$db = $database->connect($api_key);
+		$patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-		$fall = new Fall($db);
-		$fall->patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
+		$database = new Database();
 
-		$from = isset($_GET['from']) ? $_GET['from'] : array_push($missing, 'from');
-		$to = isset($_GET['to']) ? $_GET['to'] : array_push($missing, 'to');
+		if ($database->verify(array('key' => $api_key, 'id' => $patientID))) {
+			$db = $database->connect();
 
-		if (empty($missing)) {
-			$result = $fall->readDate($from, $to);
+			$fall = new Fall($db);
+			$fall->patientID = $patientID;
 
-			$rows = $result->rowCount();
+			$from = isset($_GET['from']) ? $_GET['from'] : array_push($missing, 'from');
+			$to = isset($_GET['to']) ? $_GET['to'] : array_push($missing, 'to');
+
+			if (empty($missing)) {
+				$result = $fall->readDate($from, $to);
+
+				$rows = $result->rowCount();
 		
-			if ($rows > 0) {
-				$array = array();
-				$array['data'] = array();
-				while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-					extract($row);
+				if ($rows > 0) {
+					$array = array();
+					$array['data'] = array();
+					while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+						extract($row);
 		
-					$item = array(
-						'fallID' => $fallID,
-						'patientID' => $patientID,
-						'fall_date' => $fall_date
-					);
+						$item = array(
+							'fallID' => $fallID,
+							'patientID' => $patientID,
+							'fall_date' => $fall_date
+						);
 		
-					array_push($array['data'], $item);
+						array_push($array['data'], $item);
+					}
+		
+					echo json_encode($array, JSON_PRETTY_PRINT);
+				} else {
+					echo json_encode(array('message' => 'No falls found.'));
 				}
-		
-				echo json_encode($array, JSON_PRETTY_PRINT);
 			} else {
-				echo json_encode(array('message' => 'No falls found.'));
+				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 			}
 		} else {
-			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+			echo json_encode(array('message' => 'Invalid API key.'));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));

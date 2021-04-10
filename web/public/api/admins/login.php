@@ -6,11 +6,11 @@
 		include_once '../config/Database.php';
 		include_once '../models/Admin.php';
 
-		$expected = [];
+		$expected = ['researcher_username', 'researcher_password'];
 		$missing = [];
 
-		$database = new Database(true);
-		$db = $database->connect('bypass');
+		$database = new Database();
+		$db = $database->connect();
 
 		if (empty($_POST)) {
 			$json = file_get_contents('php://input');
@@ -25,7 +25,7 @@
 			$loggedIn = $admin->login();
 
 			if ($loggedIn['valid']) {
-				echo json_encode(array('valid' => true, 'token' => $database->api_key, 'researcherID' => $loggedIn['researcherID']));
+				echo json_encode($loggedIn);
 			} else {
 				echo json_encode(array('valid' => false));
 			}
