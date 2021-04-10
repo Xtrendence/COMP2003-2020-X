@@ -27,7 +27,7 @@
             $question->question_type = isset($_POST['question_type']) ? $_POST['question_type'] : array_push($missing, 'question_type');
             
             if ($question->question_type == 'custom') {
-                $expected = ['patientID', 'question', 'question_type', 'charLim'];
+                $expected = ['patientID', 'question', 'question_type', 'question_charLim'];
                 $question->question_charLim = isset($_POST['question_charLim']) ? $_POST['question_charLim'] : array_push($missing, 'question_charLim');
             } else {
                 $expected = ['patientID', 'question', 'question_type', 'choices'];

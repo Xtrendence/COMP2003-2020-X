@@ -96,19 +96,19 @@
 				}
 
 				for (let i = 0; i < 90; i++) {
-					let query = 'CALL createDiaryEntry(1, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
 
 					diaryEntry.textContent += query + "\n\n";
 				}
 
 				for (let i = 90; i < 140; i++) {
-					let query = 'CALL createDiaryEntry(2, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
 
 					diaryEntry.textContent += query + "\n\n";
 				}
 
 				for (let i = 140; i < 190; i++) {
-					let query = 'CALL createDiaryEntry(3, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
 
 					diaryEntry.textContent += query + "\n\n";
 				}
@@ -201,8 +201,8 @@
 		</script>
 	</head>
 	<body>
-		<textarea id="patient"></textarea>
 		<textarea id="researcher"></textarea>
+		<textarea id="patient"></textarea>
 		<textarea id="diary-entry"></textarea>
 		<textarea id="fall"></textarea>
 		<textarea id="question"></textarea>

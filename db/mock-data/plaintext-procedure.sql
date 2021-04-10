@@ -1,3 +1,23 @@
+CALL createResearcher(1111111304, 'juicy238', 'i8y2c3uj', 'Virgen', 'Locascio', '01752123999', '+447849198656', 'juicy238@gmail.com');
+
+CALL createResearcher(1111111305, 'strengthen535', 't53hgse5rentn', 'Barabara', 'Bently', '01752123999', '+447849198656', 'strengthen535@gmail.com');
+
+CALL createResearcher(1111111306, 'zesty503', 'zyse50t3', 'Marcell', 'Negron', '01752123999', '+447849198656', 'zesty503@gmail.com');
+
+CALL createResearcher(1111111307, 'general120', 'e2aleg1r0n', 'Debby', 'Gattison', '01752123999', '+447849198656', 'general120@gmail.com');
+
+CALL createResearcher(1111111308, 'seal413', 'l3a14es', 'Herb', 'Anchondo', '01752123999', '+447849198656', 'seal413@gmail.com');
+
+CALL createResearcher(1111111309, 'lumpy79', 'uy9p7ml', 'Alana', 'Guerin', '01752123999', '+447849198656', 'lumpy79@gmail.com');
+
+CALL createResearcher(1111111310, 'aromatic279', 'c2mtar9oai7', 'Deloras', 'Lueras', '01752123999', '+447849198656', 'aromatic279@gmail.com');
+
+CALL createResearcher(1111111311, 'agree244', '44age2er', 'Barbara', 'Blank', '01752123999', '+447849198656', 'agree244@gmail.com');
+
+CALL createResearcher(1111111312, 'scattered306', '630estrtcaed', 'Akilah', 'Commons', '01752123999', '+447849198656', 'scattered306@gmail.com');
+
+CALL createResearcher(1111111313, 'sloppy220', 'yop202lps', 'Virgilio', 'Louis', '01752123999', '+447849198656', 'sloppy220@gmail.com');
+
 CALL createPatient(1, 1111111113, 'maureenW38', 'Iamthedefault', 'Maureen', 'Ward', '1995/06/21 02:00:00', '0 Some Road', 'Some Flat', 'PL3XQC', '01752123999', '+447849198656', 'maureenW38@gmail.com', 'No comment.', '-', NOW());
 
 CALL createPatient(1, 1111111114, 'irate455', 'et4ir55a', 'Mckenzie', 'Cap', '1979/10/5 09:00:00', '1 Some Road', 'Some Flat', 'PL3XQC', '01752123999', '+447849198656', 'irate455@gmail.com', 'No comment.', '-', NOW());
@@ -379,26 +399,6 @@ CALL createPatient(1, 1111111301, 'shivering591', '1eirni9h5gvs', 'Marylynn', 'C
 CALL createPatient(1, 1111111302, 'society608', '8co0t6eiys', 'Elise', 'Leyva', '1982/02/23 08:00:00', '189 Some Road', 'Some Flat', 'PL3XQC', '01752123999', '+447849198656', 'society608@gmail.com', 'No comment.', '-', NOW());
 
 CALL createPatient(1, 1111111303, 'back987', '9b78ack', 'Marcie', 'Brafford', '1940/11/27 09:00:00', '190 Some Road', 'Some Flat', 'PL3XQC', '01752123999', '+447849198656', 'back987@gmail.com', 'No comment.', '-', NOW());
-
-CALL createResearcher(1111111304, 'juicy238', 'i8y2c3uj', 'Virgen', 'Locascio', '01752123999', '+447849198656', 'juicy238@gmail.com');
-
-CALL createResearcher(1111111305, 'strengthen535', 't53hgse5rentn', 'Barabara', 'Bently', '01752123999', '+447849198656', 'strengthen535@gmail.com');
-
-CALL createResearcher(1111111306, 'zesty503', 'zyse50t3', 'Marcell', 'Negron', '01752123999', '+447849198656', 'zesty503@gmail.com');
-
-CALL createResearcher(1111111307, 'general120', 'e2aleg1r0n', 'Debby', 'Gattison', '01752123999', '+447849198656', 'general120@gmail.com');
-
-CALL createResearcher(1111111308, 'seal413', 'l3a14es', 'Herb', 'Anchondo', '01752123999', '+447849198656', 'seal413@gmail.com');
-
-CALL createResearcher(1111111309, 'lumpy79', 'uy9p7ml', 'Alana', 'Guerin', '01752123999', '+447849198656', 'lumpy79@gmail.com');
-
-CALL createResearcher(1111111310, 'aromatic279', 'c2mtar9oai7', 'Deloras', 'Lueras', '01752123999', '+447849198656', 'aromatic279@gmail.com');
-
-CALL createResearcher(1111111311, 'agree244', '44age2er', 'Barbara', 'Blank', '01752123999', '+447849198656', 'agree244@gmail.com');
-
-CALL createResearcher(1111111312, 'scattered306', '630estrtcaed', 'Akilah', 'Commons', '01752123999', '+447849198656', 'scattered306@gmail.com');
-
-CALL createResearcher(1111111313, 'sloppy220', 'yop202lps', 'Virgilio', 'Louis', '01752123999', '+447849198656', 'sloppy220@gmail.com');
 
 CALL createDiaryEntry(1, '2021/02/19 03:00:00', 'I hung out with my friend Maureen');
 

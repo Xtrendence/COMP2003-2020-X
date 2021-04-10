@@ -16,14 +16,14 @@
 		if ($database->verify(array('key' => $api_key))) {
 			$db = $database->connect();
 
-			$questions = new Question($db);
+			$question = new Question($db);
 			
 			$input = json_decode(file_get_contents('php://input'), true);
 
-			$questions->questionID = !empty($input['questionID']) ? $input['questionID'] : array_push($missing, 'questionID');
+			$question->questionID = !empty($input['questionID']) ? $input['questionID'] : array_push($missing, 'questionID');
 
 			if (empty($missing)) {
-				$questions->delete();
+				$question->delete();
 			} else {
 				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 			}
