@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let url = new URL(window.location.href);
     let qID = url.searchParams.get("id");
     let titleCard = document.getElementById("user-question");
-    let title = "Ask a Question - User ";
+    let title = "Ask a Question - Question ";
     let addID = title.concat(qID);
     titleCard.innerText = addID;
 
@@ -47,9 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
-        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read.php?id=" + questionID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read.php?id=" + qID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
         xhr.send();
     }
+
+
+
 
     function checkForm() {
         let input = document.getElementsByTagName("input");
@@ -142,5 +145,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-
+    getQuestion();
 });
