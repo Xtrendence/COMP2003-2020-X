@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
         '  <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>\n' +
         '</svg>';
 
+    let sessionToken = localStorage.getItem("sessionToken");
+    let url = "../../api/users/read-range.php?key=" + sessionToken + "&from=" + from + "&to=" + to;
     
     function getUsers(from, to, userID, firstName, lastName) {
         xhr.addEventListener("readystatechange", function() {
@@ -56,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         });
-        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read-range.php?from=" + from + "&to=" + to + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+        xhr.open("GET", url, true);
         xhr.send();
     }
 
