@@ -46,9 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         cell2.innerHTML = (firstName);
                         cell3.innerHTML = (lastName);
                         layer.appendChild(row);
-                        layer.appendChild(cell1);
-                        layer.appendChild(cell2);
-                        layer.appendChild(cell3);
 
                         createButtons(deleteButton, editButton, profileButton, answerButton, questButton, userID, cellAct, row);
                     }
@@ -132,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cellAct.appendChild(profileAnchor);
         cellAct.appendChild(answerAnchor);
         cellAct.appendChild(questionAnchor);
-        layer.appendChild(cellAct);
+        row.appendChild(cellAct);
     }
 
     getUsers(from, to);
