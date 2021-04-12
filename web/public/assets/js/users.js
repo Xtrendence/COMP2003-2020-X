@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         '</svg>';
 
     let sessionToken = localStorage.getItem("sessionToken");
-    let url = "../../api/users/read-range.php?key=" + sessionToken + "&from=" + from + "&to=" + to;
+    let url = "./api/users/read-range.php?from=" + from + "to=" + to + "key=" + sessionToken;
     
     function getUsers(from, to, userID, firstName, lastName) {
         xhr.addEventListener("readystatechange", function() {
@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         to = to - 50;
         getUsers(from, to);
     });
+
     function createButtons(deleteButton, editButton, profileButton, answerButton, questButton, userID, cellAct, row){
         let editAnchor = document.createElement("a");
         let profileAnchor = document.createElement("a");
