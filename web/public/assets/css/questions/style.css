@@ -9,6 +9,7 @@
     border-radius: 10px;
     display: block;
     font-size: var(--font-smaller);
+    position: relative;
 }
 
 .page-button {
@@ -78,9 +79,13 @@
 }
 
 .card-button-wrapper {
-    float: right;
     display: inline-block;
-    line-height: 75px;
+    line-height: 60px;
+    position: absolute;
+    height: 60px;
+    top: calc(50% - 60px / 2);
+    right: 20px;
+
 }
 
 .SVG {
