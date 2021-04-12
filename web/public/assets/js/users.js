@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location = "./api/users/delete.php?id=" + userID + "";
         }
         else{
-            window.alert("User " + userID + " not deleted")
+            window.alert("User was not deleted");
         }
     }
 
