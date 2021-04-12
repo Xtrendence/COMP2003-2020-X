@@ -53,12 +53,12 @@
 
 .card-heading {
     font-weight: bold;
-    display: block;
+    display: inline;
 }
 
 .card-text {
     font-weight: normal;
-    display: block;
+    display: inline;
 
 }
 
