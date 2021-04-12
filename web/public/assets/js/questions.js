@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let cardAnchor = document.createElement("a");
 
             wideCard = document.createElement("div");
-            wideCard.classList.add("wide-card");
+            wideCard.classList.add("question-wide-card");
             wideCard.id = "wideCard";
             wideCard.innerHTML = '\n' +
             '        <div class="text-margin">\n' +
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             wideCard = document.createElement("div");
-            wideCard.classList.add("wide-card");
+            wideCard.classList.add("question-wide-card");
             wideCard.id = "wideCard";
 
 
