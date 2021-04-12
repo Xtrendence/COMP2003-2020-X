@@ -32,9 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function getQuestion(){
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
+                console.log("1");
                 let json = xhr.responseText;
                 let questions = JSON.parse(json);
                 let keys = Object.keys(questions["data"]);
+                console.log("2");
                 try{
                     let question = questions["data"];
                     for (let i = 0; i < keys.length; i++){
@@ -43,8 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         let questionLim = question[qID]["question_charLim"];
                         let questionType = question[qID]["question_type"];
                         let questionChoice = question[qID]["choices"];
-
-                        enquiry.placeholder = questionTxt;
+                        console.log(questionTxt);
+                        enquiry.innerText = questionTxt;
                     }
 
                 }
