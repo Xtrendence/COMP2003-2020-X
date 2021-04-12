@@ -1,3 +1,16 @@
+
+.question-wide-card {
+    background: var(--main-first);
+    box-shadow: var(--shadow-smooth);
+    color: var(--main-contrast);
+    padding: 10px 10px 10px 10px;
+    margin: 20px auto 0 auto;
+    width: calc(100% - 40px - 20px);
+    border-radius: 10px;
+    display: block;
+    font-size: var(--font-smaller);
+}
+
 .page-button {
     outline: none;
     border: none;
@@ -40,6 +53,12 @@
 .card-heading {
     font-weight: bold;
     display: block;
+}
+
+.card-text {
+    font-weight: normal;
+    display: block;
+
 }
 
 .card-button {
