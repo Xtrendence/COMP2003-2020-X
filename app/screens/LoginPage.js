@@ -7,24 +7,28 @@ import { showMessage, hideMessage } from 'react-native-flash-message';
 import Notifier from '../utils/Notifier';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Wave from 'react-native-waveview';
-import { globalColors, globalStyles } from '../styles/global';
+import { globalColors, globalColorsDark, globalStyles } from '../styles/global';
 import LoadingScreen from '../components/LoadingScreen';
-import { rgbToHex } from '../utils/Utils';
+import { ThemeContext } from '../utils/ThemeProvider';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export class LoginPage extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			wave: true,
 			loading: false,
 			username: null,
-			password: null
+			password: null,
+			theme: "Light"
 		};
 		this.navigation = props.navigation;
 		this._mounted;
+		this.toggleTheme;
 	}
 
 	async login() {
@@ -96,7 +100,22 @@ export class LoginPage extends Component {
 		}
 	}
 
+	componentDidUpdate() {
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
+
 	componentDidMount() {
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
+
 		this._mounted = true;
 
 		// To be removed once testing is complete.
@@ -115,7 +134,7 @@ export class LoginPage extends Component {
 		);
 
 		return (
-			<View style={styles.pageContainer}>
+			<View style={[styles.pageContainer, styles[`pageContainer${this.state.theme}`]]}>
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
@@ -123,8 +142,8 @@ export class LoginPage extends Component {
 					<Image style={styles.image} source={require("../assets/Logo.png")}/>
 				</View>
 				<View style={styles.loginForm}>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username}></TextInput>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry>{this.state.password}</TextInput>
+					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
+					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}>{this.state.password}</TextInput>
 					<TouchableOpacity style={styles.actionButton} onPress={() => this.login()}>
 						<Text style={styles.actionText}>Login</Text>
 					</TouchableOpacity>
@@ -179,6 +198,9 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%"
 	},
+	pageContainerDark: {
+		backgroundColor: globalColorsDark.mainThird
+	},
 	imageWrapper: {
 		alignItems: "center",
 		justifyContent: "center",
@@ -216,6 +238,10 @@ const styles = StyleSheet.create({
 		elevation: globalStyles.shadowElevation,
 		marginBottom: 20,
 		fontFamily: globalStyles.fontFamily,
+	},
+	inputFieldDark: {
+		backgroundColor: globalColorsDark.mainThird,
+		color: globalColorsDark.mainContrast
 	},
 	actionButton: {
 		backgroundColor: globalColors.accentDarkest,

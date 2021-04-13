@@ -68,7 +68,7 @@
                     echo json_encode(array('message' => 'No questions found.'));
                 }
             } else {
-                die(json_encode(array('expected' => $expected, 'missing' => $missing)));
+                die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
             }
         } else {
 			echo json_encode(array('message' => 'Invalid API key.'));
