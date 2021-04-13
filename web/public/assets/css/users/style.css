@@ -53,10 +53,6 @@
     margin: 20px auto 0 auto
 }
 
-.div-button {
-    padding-top: 10px;
-}
-
 .patient-table {
     text-align: center;
     border-collapse: separate;
@@ -74,4 +70,31 @@ td {
 
 .actions-header {
     width: 800px;
+}
+
+.search-div{
+    margin-left: 40%;
+    margin-top: 10px;
+    position: relative;
+}
+
+.search-child{
+    display: inline-block;
+    height: 20px;
+}
+
+.search-button{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 25px;
+    width: 40px;
+    text-align: center;
 }

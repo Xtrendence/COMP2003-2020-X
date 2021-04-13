@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let questButton;
     let nextButton = document.getElementById("next-button");
     let prevButton = document.getElementById("prev-button");
+    let searchButton = document.getElementById("search-button");
     nextButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">\n' +
         '  <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>\n' +
         '</svg>';
@@ -20,7 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let sessionToken = localStorage.getItem("sessionToken");
     let url = "./api/users/read-range.php?from=" + from + "to=" + to + "key=" + sessionToken;
-    
+
+    let searchID = document.getElementById("id-search").value;
+
     function getUsers(from, to, userID, firstName, lastName) {
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -143,6 +146,17 @@ document.addEventListener("DOMContentLoaded", () => {
         cellAct.appendChild(questionAnchor);
         row.appendChild(cellAct);
     }
+
+
+
+    searchButton.addEventListener("click", function () {
+        if(searchID!= null) {
+            console.log(searchID);
+            from = searchID;
+            to = searchID;
+            getUsers(from, to);
+        }
+    });
 
     getUsers(from, to);
 

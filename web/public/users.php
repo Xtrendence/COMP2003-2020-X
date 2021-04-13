@@ -59,6 +59,12 @@
         <button type="button" class="nav-button" id="next-button"> Next</button>
     </div>
     <div class="wide-card">
+        <div class="search-div">
+<!--            <p class="search-child">Search: </p>-->
+            <input type="number" id="id-search" class="search-child">
+            <button class="search-child search-button" id="search-button"></button>
+        </div>
+
         <table class="patient-table">
             <thead id="table-header">
                 <tr>
@@ -76,12 +82,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-<!--<button type="button" class="button"> Delete</button>-->
-<!--<button type="button" class="button"> Edit</button>-->
-<!--<button type="button" class="button"> View Chart</button>-->
-<!--<button type="button" class="button"> View Answers</button>-->
-<!--<button type="button" class="button"> Ask Questions</button>-->
