@@ -35,7 +35,6 @@ export class SettingsPopup extends Component{
 		this.toggleTheme = toggleTheme;
 	}
 
-	
 	render() {
 		return (	
 			<View style={styles.settingsContainer}>
@@ -83,7 +82,6 @@ function onNotification(notification) {
 }
 
 const styles = StyleSheet.create({
-
 	cardContainer: {
 		width: "100%",
 		height: "100%",
