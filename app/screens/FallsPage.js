@@ -19,7 +19,6 @@ export class FallsPage extends Component {
 			settings: false,
 		};
 		this.navigation = props.navigation;
-		
 	}
 
 	setSettings(page, value){
@@ -59,7 +58,7 @@ export class FallsPage extends Component {
 	}
 
 	async saveDiary() {
-
+		
 	}
 
 	render() {

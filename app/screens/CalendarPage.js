@@ -5,7 +5,6 @@ import { globalColors, globalStyles } from '../styles/global';
 import { TopBar } from '../components/TopBar';
 import { SettingsPopup} from '../components/SettingsPopup';
 
-
 export class CalendarPage extends Component {
 	constructor(props) {
 		super(props);

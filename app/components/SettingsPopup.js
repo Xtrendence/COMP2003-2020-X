@@ -13,9 +13,7 @@ export class SettingsPopup extends Component{
 	constructor(props) {
 		super(props);
 		this.navigation = props.navigation;
-		this.state = {
-	
-		};
+		this.state = {};
 		this.toggleTheme;
 	}
 
