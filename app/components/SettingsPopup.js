@@ -1,12 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Dimensions } from 'react-native';
 import { globalColors, globalStyles, globalComponentStyles, globalColorsDark } from '../styles/global';
 import Card from './Card';
 import Notifier from '../utils/Notifier';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from '../utils/ThemeProvider';
 import { wait } from '../utils/Utils';
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 export class SettingsPopup extends Component{
 	static contextType = ThemeContext;
@@ -36,11 +39,11 @@ export class SettingsPopup extends Component{
 	render() {
 		return (	
 			<View style={styles.settingsContainer}>
-				<ScrollView style={styles.cardContainer}>
+				<View style={styles.cardContainer}>
 					<Card>
-						<Text style={globalComponentStyles.cardTitle}>Enter the time of day you'd like to recieve notifications of your falls</Text>
-						<Text style={styles.settingsText}>Time of day:</Text>
-						<TextInput style={[globalComponentStyles.inputFieldMultiline,{height: 50}]} placeholder="HH.MM" multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({time:value})} value={this.state.time}></TextInput>
+						<Text style={[globalComponentStyles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Enter the time of day you'd like to recieve notifications of your falls</Text>
+						<Text style={[styles.settingsText, styles[`settingsText${this.state.theme}`]]}>Time of day:</Text>
+						<TextInput style={[globalComponentStyles.inputFieldMultiline, styles[`inputFieldMultiline${this.state.theme}`], { height: 50 }]} placeholder="HH.MM" multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({time:value})} value={this.state.time} placeholderTextColor={this.state.theme === "Dark" ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => notifcation()}>
 								<Text style={styles.actionText}>Save</Text>
@@ -52,7 +55,7 @@ export class SettingsPopup extends Component{
 							</TouchableOpacity>
 						</View>
 					</Card>
-				</ScrollView>
+				</View>
 			</View>
 		);
 	}
@@ -80,15 +83,36 @@ function onNotification(notification) {
 }
 
 const styles = StyleSheet.create({
-	cardContainer: {
+	settingsContainer: {
 		width: "100%",
 		height: "100%",
-		paddingLeft: 20,
-		paddingTop: 220,
-	},
-    settingsContainer: {
-		height: "100%",
 		backgroundColor: "rgba(52, 52, 52, 0.8)",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	cardContainer: {
+		width: screenWidth - 40,
+		marginBottom: 40,
+		position: "absolute",
+		top: (screenHeight / 4),
+		zIndex: 10,
+		alignItems: "center",
+		justifyContent: "center"
+	},
+	cardTitleDark: {
+		color: globalColorsDark.mainContrast
+	},
+	inputFieldMultilineDark: {
+		backgroundColor: globalColorsDark.mainThird,
+		color: globalColorsDark.mainContrast
+	},
+	settingsText: {
+		color: globalColors.mainContrast,
+		marginBottom: 10,
+	},
+	settingsTextDark: {
+		color: globalColorsDark.mainContrast,
+		
 	},
 	buttonWrapper: {
 		width: "100%",
