@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
-import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
+import { globalColors, globalColorsDark, globalStyles, globalComponentStyles,  } from '../styles/global';
 import { TopBar } from '../components/TopBar';
 import Card from '../components/Card';
 import LoadingScreen from '../components/LoadingScreen';
@@ -73,7 +73,7 @@ export class FallsPage extends Component {
 				}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<Card>
-						<Text style={globalComponentStyles.cardTitle}>Today's Number of Falls</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Today's Number of Falls</Text>
 						<TextInput style={globalComponentStyles.inputField} placeholder="Number..." multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({falls:value})} value={this.state.falls.toString()}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => this.saveFalls()}>
@@ -82,7 +82,7 @@ export class FallsPage extends Component {
 						</View>
 					</Card>
 					<Card>
-						<Text style={globalComponentStyles.cardTitle}>Diary Entry</Text>
+						<Text style={[globalComponentStyles.cardTitle, , styles[`cardTitle${this.state.theme}`]]}>Diary Entry</Text>
 						<TextInput style={[globalComponentStyles.inputFieldMultiline,{height: 120}]} placeholder="..." multiline={true} onChangeText={(value) => this.setState({diary:value})} value={this.state.diary}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => this.saveDiary()}>
@@ -107,6 +107,18 @@ const styles = StyleSheet.create({
 	cardContainer: {
 		width: "100%",
 		height: "100%"
+	},
+	cardTitle: {
+		color: globalColors.mainContrast
+	},
+	cardTitleDark: {
+		color: globalColorsDark.mainContrast
+	},
+	TextColour: {
+		color: globalColors.mainContrast
+	},
+	TextColourDark: {
+		color: globalColorsDark.mainContrast
 	},
 	buttonWrapper: {
 		width: "100%",

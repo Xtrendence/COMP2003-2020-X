@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
 	},
 	settingsTextDark: {
 		color: globalColorsDark.mainContrast,
-		
 	},
 	buttonWrapper: {
 		width: "100%",
