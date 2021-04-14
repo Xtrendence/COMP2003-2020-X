@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/index/style.css">
+    <script src="./assets/js/index.js"></script>
     <meta charset="UTF-8">
     <title>BRIMS SMS Home</title>
 </head>
