@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let addID = title.concat(userID);
     titleCard.innerText = addID;
 
-
     let sessionToken = localStorage.getItem("sessionToken");
 
     function getUser(){
@@ -19,18 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 let json = xhr.responseText;
                 let users = JSON.parse(json);
-                console.log(json);
-
-                // let keys = Object.keys(users["data"]);
                 let keys = Object.keys(users);
-
                 try {
-                    // let patient = users["data"];
                     let patient = users;
-
                     for (let i = 0; i < keys.length; i++) {
-                        let fName = patient[userID]["patient_fName"];
-                        let sName = patient[userID]["patient_lName"];
+                        let fName = patient["patient_fName"];
+                        let sName = patient["patient_lName"];
 
                         fNameInput.innerHTML = fName;
                         sNameInput.innerHTML = sName;
