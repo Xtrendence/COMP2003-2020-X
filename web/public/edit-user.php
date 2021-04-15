@@ -2,9 +2,20 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../public/assets/css/themes.css">
-    <link rel="stylesheet" href="../public/assets/css/global.css">
-    <link rel="stylesheet" href="../public/assets/css/edit-user/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="./assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./assets/img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="./assets/img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#a3acd1">
+    <link rel="stylesheet" href="./assets/css/themes.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/edit-user/style.css">
+    <link rel="stylesheet" href="./assets/css/edit-user/resize.css">
+    <script src="./assets/js/edit-user.js"></script>
     <meta charset="UTF-8">
     <title>Edit User</title>
 </head>
@@ -45,7 +56,7 @@
 
 <div class="wrapper">
     <div class="title-card">
-        <span>Edit User - </span>
+        <span id="user-id"></span>
     </div>
 
     <div class="main-card">
