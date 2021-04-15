@@ -36,6 +36,11 @@
     margin-right: 10px;
 }
 
+.question-all{
+    width: 150px;
+    height: 45px;
+}
+
 .button-div{
     margin-left: 40%;
     margin-top: 10px;

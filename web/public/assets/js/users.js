@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let sessionToken = localStorage.getItem("sessionToken");
     let url = "./api/users/read-range.php?from=" + from + "to=" + to + "key=" + sessionToken;
 
-    let searchID = document.getElementById("id-search").value;
+    let idInput = document.getElementById("id-search");
+    let searchID = parseInt(idInput.value);
 
     function getUsers(from, to, userID, firstName, lastName) {
         xhr.addEventListener("readystatechange", function() {
