@@ -74,7 +74,7 @@
         </div>
 
         <div class="text-names">
-            <input id="inputSurname"
+            <input id="inputSurname">
         </div>
 
         <div class="div-button">

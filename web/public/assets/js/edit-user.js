@@ -1,39 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const xhr = new XMLHttpRequest();
+
+    let fNameInput = document.getElementById("inputForename");
+    let sNameInput = document.getElementById("inputSurname");
+
     let url = new URL(window.location.href);
-    let qID = url.searchParams.get("id");
+    let userID = url.searchParams.get("id");
     let titleCard = document.getElementById("user-id");
     let title = "Edit User - User ";
-    let addID = title.concat(qID);
+    let addID = title.concat(userID);
     titleCard.innerText = addID;
+
+
+    let sessionToken = localStorage.getItem("sessionToken");
 
     function getUser(){
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log("1");
                 let json = xhr.responseText;
-                let questions = JSON.parse(json);
-                let keys = Object.keys(questions["data"]);
-                console.log("2");
-                try{
-                    let question = questions["data"];
-                    for (let i = 0; i < keys.length; i++){
-                        let questionID = question[qID]["questionID"];
-                        let questionTxt = question[qID]["question"];
-                        let questionLim = question[qID]["question_charLim"];
-                        let questionType = question[qID]["question_type"];
-                        let questionChoice = question[qID]["choices"];
-                        console.log(questionTxt);
-                        enquiry.innerText = questionTxt;
-                    }
+                let users = JSON.parse(json);
+                console.log(json);
 
-                }
-                catch{
+                // let keys = Object.keys(users["data"]);
+                let keys = Object.keys(users);
+
+                try {
+                    // let patient = users["data"];
+                    let patient = users;
+
+                    for (let i = 0; i < keys.length; i++) {
+                        let fName = patient[userID]["patient_fName"];
+                        let sName = patient[userID]["patient_lName"];
+
+                        fNameInput.innerHTML = fName;
+                        sNameInput.innerHTML = sName;
+                    }
+                } catch {
                     console.error("error");
                 }
             }
         });
-        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read.php?id=" + qID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6" , true);
+        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read.php?id=" + userID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6" , true);
         xhr.send();
     }
 
+    getUser();
 });
