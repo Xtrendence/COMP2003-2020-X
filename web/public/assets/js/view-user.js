@@ -13,16 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let xhr = new XMLHttpRequest();
 
 /* Variables used for small card api field values that transform the ID of each span into the field characters */
-    let refCard = document.getElementById("NHS-RN");
+    let refCard = document.getElementById("nhs-rn");
     let usernameCard = document.getElementById("username");
     let fnCard = document.getElementById("firstname");
     let lnCard = document.getElementById("lastname");
-    let dobCard = document.getElementById("DOB");
-    let aline1Card = document.getElementById("AL1");
-    let aline2Card = document.getElementById("AL2");
-    let postcodeCard = document.getElementById("postcode");
-    let tnCard = document.getElementById("TN");
-    let mnCard = document.getElementById("MN");
+    let dobCard = document.getElementById("dob");
+    let aline1Card = document.getElementById("al-1");
+    let aline2Card = document.getElementById("al-2");
+    let postcodeCard = document.getElementById("post-code");
+    let tnCard = document.getElementById("tn");
+    let mnCard = document.getElementById("mn");
     let emailCard = document.getElementById("email");
     let commentsCard = document.getElementById("comments");
 
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         chartsButton = document.createElement("button");
         chartsButton.classList.add("page-button");
-        chartsButton.id = "chartsButton";
+        chartsButton.id = "charts-button";
         chartsButton.textContent = 'View User Charts';
         chartsAnchor.href = "./charts.php?id=" + userID + "";
 

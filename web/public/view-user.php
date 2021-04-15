@@ -67,7 +67,7 @@
                 <span class="field-title">NHS Reference Number</span>
 
                 <div class="text-margin">
-                    <span id="NHS-RN"></span>
+                    <span id="nhs-rn"></span>
                 </div>
             </div>
 
@@ -99,7 +99,7 @@
                 <span class="field-title">Date of Birth</span>
 
                 <div class="text-margin">
-                    <span id="DOB"></span>
+                    <span id="dob"></span>
                 </div>
             </div>
 
@@ -107,7 +107,7 @@
                 <span class="field-title">Address Line 1</span>
 
                 <div class="text-margin">
-                    <span id="AL1"></span>
+                    <span id="al-1"></span>
                 </div>
             </div>
 
@@ -115,7 +115,7 @@
                 <span class="field-title">Address Line 2</span>
 
                 <div class="text-margin">
-                    <span id="AL2"></span>
+                    <span id="al-2"></span>
                 </div>
             </div>
 
@@ -123,7 +123,7 @@
                 <span class="field-title">Postcode</span>
 
                 <div class="text-margin">
-                    <span id="postcode"></span>
+                    <span id="post-code"></span>
                 </div>
             </div>
 
@@ -131,7 +131,7 @@
                 <span class="field-title">Telephone Number</span>
 
                 <div class="text-margin">
-                    <span id="TN"></span>
+                    <span id="tn"></span>
                 </div>
             </div>
 
@@ -139,7 +139,7 @@
                 <span class="field-title">Mobile Number</span>
 
                 <div class="text-margin">
-                    <span id="MN"></span>
+                    <span id="mn"></span>
                 </div>
             </div>
 
