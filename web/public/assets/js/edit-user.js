@@ -19,14 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 let json = xhr.responseText;
                 let users = JSON.parse(json);
                 let keys = Object.keys(users);
+                console.log(json);
                 try {
                     let patient = users;
                     for (let i = 0; i < keys.length; i++) {
                         let fName = patient["patient_fName"];
                         let sName = patient["patient_lName"];
 
-                        fNameInput.innerHTML = fName;
-                        sNameInput.innerHTML = sName;
+                        fNameInput.setAttribute("value", fName);
+                        sNameInput.setAttribute("value", sName);
                     }
                 } catch {
                     console.error("error");
