@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { globalColors, globalStyles } from '../styles/global';
@@ -7,20 +7,31 @@ import { globalColors, globalStyles } from '../styles/global';
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-export function TopBar(props) {
-    return (
-        <View style={styles.header}>
-            <TouchableOpacity style={styles.cogView}>
-                <Icon name="cog" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
-            </TouchableOpacity>
-            <View style={styles.textView}>
-                <Text style={styles.headerText}>{ props.children }</Text>
-            </View>
-            <TouchableOpacity style={styles.logoutView}>
-                <Icon name="log-out" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
-            </TouchableOpacity>
-        </View>
-    );
+export class TopBar extends Component {
+	constructor(props) {
+		super(props);
+		this.navigation = props.navigation;
+	}
+
+	logout() {
+		this.navigation.dangerouslyGetParent().navigate("LoginPage");
+	}
+
+	render() {
+		return (
+			<View style={styles.header}>
+				<TouchableOpacity style={styles.cogView}>
+					<Icon name="cog" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
+				</TouchableOpacity>
+				<View style={styles.textView}>
+					<Text style={styles.headerText}>{ this.props.children }</Text>
+				</View>
+				<TouchableOpacity style={styles.logoutView} onPress={() => this.logout()}>
+					<Icon name="log-out" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
+				</TouchableOpacity>
+			</View>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
@@ -31,7 +42,8 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: "bold",
-        fontSize: globalStyles.bigFont,
+		fontSize: globalStyles.bigFont,
+		fontFamily: globalStyles.fontFamily,
         color: globalColors.accentContrast,
         letterSpacing: 1,
     },

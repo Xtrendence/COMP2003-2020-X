@@ -18,7 +18,7 @@ html, input, textarea {
 /*body*/
 body {
     background: var(--main-second);
-    margin:0;
+    margin: 0;
     font-size: var(--font-smaller);
 }
 
@@ -49,6 +49,10 @@ body {
     border-radius: 10px;
     display: block;
     font-size: var(--font-smaller);
+}
+
+.wide-card:last-of-type {
+    margin-bottom: 20px;
 }
 
 .small-card {

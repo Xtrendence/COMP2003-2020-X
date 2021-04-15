@@ -1,14 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
 
-export default function LoadingScreen(props) {
-	return (
-		<View style={styles.loadingContainer}>
-			<Text style={styles.loadingText}>{ props.children }</Text>
-		</View>
-	);
+export default class LoadingScreen extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<View style={styles.loadingContainer}>
+				<Text style={styles.loadingText}>{ this.props.children }</Text>
+			</View>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
@@ -25,6 +31,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "rgba(18,18,18,0.85)",
 	},
 	loadingText: {
+		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.bigFont,
 		fontWeight: "bold",
 		color: globalColors.accentContrast,
