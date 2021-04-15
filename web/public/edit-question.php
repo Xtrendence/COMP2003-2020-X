@@ -78,16 +78,16 @@
             <span>Written Answer</span>
         </div>
 
-        <div id="multiple" class="">
+        <div id="multiple">
             <div class="text">
                 <span>Number of Choices</span>
             </div>
-            <input placeholder="Number..." id="number-of-choices" type="number" min="2" max="16">
+            <input id="number-of-choices" type="number" min="2" max="16">
             <div class="text">
                 <span>Choices</span>
             </div>
-            <input class="choice-field" placeholder="Choice 1..." type="text">
-            <input class="choice-field" placeholder="Choice 2..." type="text">
+            <input class="choice-field" type="text">
+            <input class="choice-field" type="text">
             <div id="multiple-sub">
             </div>
         </div>
@@ -96,7 +96,7 @@
             <div class="text">
                 <span>Character limit</span>
             </div>
-            <input placeholder="Limit..." id="characters" type="number">
+            <input id="characters" type="number">
         </div>
 
         <div class="button-wrapper">

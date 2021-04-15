@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let multipleChoiceRadioButton = document.getElementById("multiple-choice-op");
     let longAnswerRadioButton = document.getElementById("long-answer");
 
-    let enquiry = document.getElementById("question");
+    let questionText = document.getElementById("question");
     let multipleOption = document.getElementById("multiple");
     let numberOfChoices = document.getElementById("number-of-choices");
     let choiceFields = document.getElementsByClassName("choice-field");
@@ -32,21 +32,22 @@ document.addEventListener("DOMContentLoaded", () => {
     function getQuestion(){
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log("1");
                 let json = xhr.responseText;
                 let questions = JSON.parse(json);
-                let keys = Object.keys(questions["data"]);
-                console.log("2");
+                let keys = Object.keys(questions);
+                console.log(json);
                 try{
-                    let question = questions["data"];
+                    let question = questions;
                     for (let i = 0; i < keys.length; i++){
-                        let questionID = question[qID]["questionID"];
-                        let questionTxt = question[qID]["question"];
-                        let questionLim = question[qID]["question_charLim"];
-                        let questionType = question[qID]["question_type"];
-                        let questionChoice = question[qID]["choices"];
-                        console.log(questionTxt);
-                        enquiry.innerText = questionTxt;
+                        let questionID = question["questionID"];
+                        let questionTxt = question["question"];
+                        let questionLim = question["question_charLim"];
+                        let questionType = question["question_type"];
+                        let questionChoice = question["choices"];
+
+                        questionText.setAttribute("value", questionTxt);
+                        numberOfChoices.setAttribute("value", questionTxt);
+                        numberOfChoices.setAttribute("value", questionTxt);
                     }
 
                 }
