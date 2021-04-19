@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         profileButton.classList.add("action-button");
         profileButton.id = "profileButton";
         profileButton.textContent = 'View Profile';
-        profileAnchor.href = "./charts.php?id=" + userID + "";
+        profileAnchor.href = "./view-user.php?id=" + userID + "";
         profileAnchor.appendChild(profileButton);
 
         answerButton = document.createElement("button");
