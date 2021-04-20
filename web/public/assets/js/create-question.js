@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    verifySession(localStorage.getItem("sessionToken")).then(result => {
+    //verifySession(localStorage.getItem("sessionToken")).then(result => {
     
         /**
          * @desc used for noticication creation
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.removeAttribute('data-theme', 'dark');
         } 
         
-    }).catch(error => {
-        window.location.replace("./login.php");
-    });
+    //}).catch(error => {
+    //    window.location.replace("./login.php");
+    //});
 });
