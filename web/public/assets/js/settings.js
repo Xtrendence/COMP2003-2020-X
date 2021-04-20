@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    verifySession(localStorage.getItem("sessionToken")).then(result => {
+    //verifySession(localStorage.getItem("sessionToken")).then(result => {
 
         let togglePosition = document.getElementById("toggleBut");
         let toggleContainer = document.getElementById('toggle');
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.removeAttribute('data-theme', 'dark');
             togglePosition.classList.remove("toggle-button-active")
         }
-    }).catch(error => {
-        window.location.replace("./login.php");
-    });
+    //}).catch(error => {
+    //    window.location.replace("./login.php");
+    //});
 });
