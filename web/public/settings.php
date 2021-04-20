@@ -61,7 +61,7 @@
     <div class="wide-card">
         <span>Theme</span>
         <div  id="toggle" class="toggle-container">
-            <div id="togglebut" class="toggle-button"></div>
+            <div id="toggle-button" class="toggle-button"></div>
         </div>
     </div>      
     <div class="seperator"></div>

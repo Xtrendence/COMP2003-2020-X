@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     //verifySession(localStorage.getItem("sessionToken")).then(result => {
 
-        let togglePosition = document.getElementById("togglebut");
+        let togglePosition = document.getElementById("toggle-button");
         let toggleContainer = document.getElementById('toggle');
 
         let logout = document.getElementById('logout');
