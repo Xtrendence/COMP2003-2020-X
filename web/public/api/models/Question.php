@@ -39,6 +39,31 @@
             $command->bindParam(':questionID', $this->questionID);
             $command->bindParam(':patientID', $patientID);
             $command->execute();
+
+            $api_key = "AAAAO3Shusw:APA91bH-FgYl74yuESuuTvlIt5vGNhbOp7vWmvr6TYAWc6FOnaB2YmJOZ64M9SMlwKDBCQz3y-qcb9hFtz1Knf9d6yF6gl_akLrgHnAXLt5hrxTdR7btBJYNRUjCmMH9rGx3rEvqB8NS";
+
+            $query = 'SELECT fcmToken FROM patient WHERE patientID=:id';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':id', $patientID);
+            $command->execute();
+
+            $row = $command->fetch(PDO::FETCH_ASSOC);
+
+            $token = $row['fcmToken'];
+
+            $message = array("body" => "You have a new question to answer.", "title" => "New Question");
+            $fields = array("to" => $token, "notification" => $message);
+            $headers = array("Authorization: key=" . $api_key, "Content-Type: application/json");
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://fcm.googleapis.com/fcm/send%22)";
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+            curl_exec($ch);
+            curl_close($ch);
         }
 
         public function delete() {
@@ -131,6 +156,31 @@
             $command->bindParam(':questionID', $this->questionID);
             $command->bindParam(':patientID', $patientID);
             $command->execute();
+
+            $api_key = "AAAAO3Shusw:APA91bH-FgYl74yuESuuTvlIt5vGNhbOp7vWmvr6TYAWc6FOnaB2YmJOZ64M9SMlwKDBCQz3y-qcb9hFtz1Knf9d6yF6gl_akLrgHnAXLt5hrxTdR7btBJYNRUjCmMH9rGx3rEvqB8NS";
+
+            $query = 'SELECT fcmToken FROM patient WHERE patientID=:id';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':id', $patientID);
+            $command->execute();
+
+            $row = $command->fetch(PDO::FETCH_ASSOC);
+
+            $token = $row['fcmToken'];
+
+            $message = array("body" => "An un-answered question has been updated.", "title" => "Updated  Question");
+            $fields = array("to" => $token, "notification" => $message);
+            $headers = array("Authorization: key=" . $api_key, "Content-Type: application/json");
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://fcm.googleapis.com/fcm/send%22)";
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+            curl_exec($ch);
+            curl_close($ch);
         }
     }
 ?>
