@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
         profileButton = document.createElement("button");
         profileButton.classList.add("action-button");
         profileButton.id = "profileButton";
-        profileButton.innerHTML = '<div class="svg-div"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">\n' +
-            '  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>\n' +
+        profileButton.innerHTML = '<div class="svg-div"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 16">\n' +
+            '   <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>\n' +
             '</svg></div>'
         profileAnchor.href = "./charts.php?id=" + userID + "";
         profileAnchor.appendChild(profileButton);
