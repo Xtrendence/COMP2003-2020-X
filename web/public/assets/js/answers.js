@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let titleCard = document.getElementById("question-answer");
         let title = "Questions & Answers - User ";
-        let addID = title.concat(patID);
-        titleCard.innerText = addID;
+        let addId = title.concat(patID);
+        titleCard.innerText = addId;
 
         let dropdownButton = document.getElementById("dropdown-button");
         let dropdownContent = document.getElementById("dropdown-content");
@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("GET", "../../api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
             xhr.send();
         }
 
@@ -287,21 +287,20 @@ document.addEventListener("DOMContentLoaded", () => {
             let xhr = new XMLHttpRequest();
             let body = {
                     questionID: id
-                };
-            console.log(body);
+            };
+
             xhr.addEventListener("readystatechange", function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
-                    //let responseJSON = xhr.responseText;
+                    let responseJSON = xhr.responseText;
                     try {
-                        //let response = JSON.parse(responseJSON);
-                        //let questionID = response["questionID"];
-                        //console.log(questionID);
+                        let response = JSON.parse(responseJSON);
+                        let questionID = response["questionID"];
                     } catch(error){
                         console.log(error);
                     }
                 }
             });
-            xhr.open("DELETE", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/delete.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("DELETE", "../../api/questions/delete.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
             xhr.send(JSON.stringify(body));
             //location.reload(true); 
         }

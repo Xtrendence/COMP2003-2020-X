@@ -60,7 +60,7 @@
 
     <div class="blocker"></div>
 
-    <div id="ddContainer" class="dd-Container">
+    <div id="dd-container" class="dd-container">
         <button id="dropdown-button" class="dropdown-button">
             All Questions 
             <div class="caret-container">
