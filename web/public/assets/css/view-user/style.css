@@ -1,0 +1,46 @@
+/* Small card style: for holding a field of data for viewing user */
+.view-small-card {
+    background: var(--main-first);
+    box-shadow: var(--shadow-smooth);
+    color: var(--main-contrast);
+    padding: 10px 10px 10px 10px;
+    margin: 20px auto 0 20px;
+    width: calc(25% - 20px - 20px - 10px);
+    border-radius: 10px;
+    display: inline-block;
+    font-size: var(--font-smaller);
+}
+
+/* Styling for field card title */
+.field-title {
+    font-weight: bolder;
+    display: block;
+}
+
+.text-margin {
+    margin-top: 10px;
+}
+
+/* Styling for HTML buttons */
+.page-button {
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    /* box-shadow: var(--shadow-smooth); */
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: auto;
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    text-align: center;
+    -webkit-transition: all .1s ease;
+}
+
+/* Button wrapper */
+.button-wrapper {
+    text-align: center;
+    margin-top: 20px;
+}
