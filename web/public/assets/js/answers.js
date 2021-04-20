@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             cardDiv.id = i;
 
                             let titleSpan = document.createElement("span");
-                            titleSpan.classList.add("titleSpan")
+                            titleSpan.classList.add("title-span")
                             let span = document.createElement("span");
                             titleSpan.innerHTML = (question);
                             

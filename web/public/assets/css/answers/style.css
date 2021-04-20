@@ -37,7 +37,7 @@
     vertical-align: middle;
 }
 
-.titleSpan {
+.title-span {
     font-size: var(--font-medium);
     font-weight: bolder;
 }
