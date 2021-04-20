@@ -56,7 +56,7 @@
             $headers = array("Authorization: key=" . $api_key, "Content-Type: application/json");
 
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://fcm.googleapis.com/fcm/send%22)";
+            curl_setopt($ch, CURLOPT_URL, "https://fcm.googleapis.com/fcm/send%22");
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
