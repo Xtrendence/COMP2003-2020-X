@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
         function deleteQuestion(id) {
             let xhr = new XMLHttpRequest();
             let body = {
-                    questionID: parseid
+                    questionID: id
                 };
             console.log(body);
             xhr.addEventListener("readystatechange", function() {
@@ -294,7 +294,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     let responseJSON = xhr.responseText;
                     try {
                         let response = JSON.parse(responseJSON);
-                        console.log(response);
+                        let questionID = response["questionID"];
+                        console.log(questionID);
                     } catch{
                         console.error("error");
                     }
