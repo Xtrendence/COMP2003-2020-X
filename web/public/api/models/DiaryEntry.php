@@ -14,7 +14,7 @@
 
 		public function create() {
 			$date = date('Y-m-d H:i:s');
-			$query = 'INSERT INTO ' . $this->table . ' (patientID, entry_date, entry) VALUES (:id, "' . $date . '", :entry)';
+			$query = 'CALL createDiaryEntry(:id, :entry)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->patientID);
 			$command->bindParam(':entry', $this->entry);
@@ -63,8 +63,16 @@
 			return $command;
 		}
 
+		public function update() {
+			$query = 'CALL updateDiaryEntry(:id, :entry)';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->entryID);
+			$command->bindParam(':entry', $this->entry);
+			$command->execute();
+		}
+
 		public function delete() {
-			$query = 'DELETE FROM ' . $this->table . ' WHERE entryID=:id';
+			$query = 'CALL deleteDiaryEntry(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->entryID);
 			$command->execute();

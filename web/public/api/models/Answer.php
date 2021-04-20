@@ -13,15 +13,23 @@
         }
     
         public function create() {
-
+            $query = 'CALL createAnswer(:questionID, :patientID, :answer)';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':questionID', $this->questionID);
+            $command->bindParam(':patientID', $this->patientID);
+            $command->bindParam(':answer', $this->answer);
+            $command->execute();
         }
     
         public function delete() {
-
+            $query = 'CALL deleteAnswer(:id)';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':id', $this->answerID);
+            $command->execute();
         }
 
         public function readAll() {
-            $query = 'SELECT answer.patientID, answer.questionID, answer.answer, question.question, question.question_type 
+            $query = 'SELECT answer.answerID, answer.patientID, answer.questionID, answer.answer, question.question, question.question_type, question.question_charLim
             FROM ' . $this->table . ' 
             INNER JOIN question ON answer.questionID = question.questionID';
             $command = $this->connection->prepare($query);
@@ -42,15 +50,22 @@
             return $command;
         }
 
-        public function read() {
+        public function read($answerID) {
+            $query = 'SELECT answer.patientID, answer.questionID, answer.answer, question.question, question.question_type 
+            FROM ' . $this->table . ' 
+            INNER JOIN question ON answer.questionID = question.questionID
+            WHERE answerID=:id';
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':id', $answerID);
+            $command->execute();
+
+            return $command;
         }
 
         public function update() {
-            $query = 'UPDATE ' . $this->table . ' SET questionID=:questionID, patientID=:patientID, answer=:answer WHERE answerID=:answerID';
+            $query = 'CALL updateAnswer(:answerID, :answer)';
             $command = $this->connection->prepare($query);
             $command->bindParam(':answerID', $this->answerID);
-            $command->bindParam(':questionID', $this->questionID);
-            $command->bindParam(':patientID', $this->patientID);
             $command->bindParam(':answer', $this->answer);
             $command->execute();
         }

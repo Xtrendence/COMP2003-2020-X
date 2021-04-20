@@ -1,12 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import { StackNavigator } from '../components/StackNavigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Notifier from '../utils/Notifier';
-import { rgbToHex } from '../utils/Utils';
-import { globalColors } from '../styles/global';
-
-changeNavigationBarColor(rgbToHex(globalColors.accentDark), false);
+import { ThemeProvider } from '../utils/ThemeProvider';
 
 export default class App extends Component {
 	constructor(props) {
@@ -20,7 +16,11 @@ export default class App extends Component {
 		);
 
 		// The StackNavigator contains the LoginPage as well as the BottomBar. The BottomBar contains the other pages.
-		return <StackNavigator></StackNavigator>
+		return (
+			<ThemeProvider>
+				<StackNavigator></StackNavigator>
+			</ThemeProvider>
+		);
 
 		async function onRegister(token) {
 			if (!empty(token.token)) {
