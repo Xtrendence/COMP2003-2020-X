@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
     function createButtons(deleteButton, editButton, profileButton, answerButton, questButton, userID, cellAct, row){
         let editAnchor = document.createElement("a");
         let profileAnchor = document.createElement("a");
@@ -147,8 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cellAct.appendChild(questionAnchor);
         row.appendChild(cellAct);
     }
-
-
 
     searchButton.addEventListener("click", function () {
         if(searchID!= null) {
