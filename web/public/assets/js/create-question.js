@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     color: "var(--accent-contrast)",
                 });
 
-                xhr.open("POST", "./api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+                xhr.open("POST", "./api/questions/create.php?key=" + sessionToken + "", true);
                 xhr.send(JSON.stringify(body));
 
                 xhr.addEventListener("readystatechange", function() {
