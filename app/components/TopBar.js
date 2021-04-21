@@ -19,7 +19,7 @@ export class TopBar extends Component {
 
         let token = await AsyncStorage.getItem("token");
 
-        let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/logout.php";
+        let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/logout.php";
 
         let body = { patientID:patientID, token:token };
 

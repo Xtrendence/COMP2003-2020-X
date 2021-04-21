@@ -50,7 +50,7 @@ export class LoginPage extends Component {
 			}, 5000);
 			
 			if (!empty(params) && "token" in params) {
-				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/verify.php?key=" + params.token, {
+				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/verify.php?key=" + params.token, {
 					method: "GET",
 					headers: {
 						Accept: "application/json", "Content-Type": "application/json"
@@ -75,7 +75,7 @@ export class LoginPage extends Component {
 			} else {
 				let body = { patient_username:username, patient_password:password, fcmToken:fcm };
 
-				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
+				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/login.php", {
 					method: "POST",
 					headers: {
 						Accept: "application/json", "Content-Type": "application/json"

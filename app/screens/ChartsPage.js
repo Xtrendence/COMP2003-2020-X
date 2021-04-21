@@ -147,7 +147,7 @@ export class ChartsPage extends Component {
 		let token = await AsyncStorage.getItem("token");
 		let patientID = await AsyncStorage.getItem("patientID");
 
-		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read-date.php?id=" + patientID + "&from=" + this.formatDateTime(from) + "&to=" + this.formatDateTime(to) + "&key=" + token;
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/falls/read-date.php?id=" + patientID + "&from=" + this.formatDateTime(from) + "&to=" + this.formatDateTime(to) + "&key=" + token;
 
 		this.setState({timespan:this.formatDate(from, "/") + " - " + this.formatDate(to, "/")});
 		
