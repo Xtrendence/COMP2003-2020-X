@@ -7627,11 +7627,6 @@ rimraf@~2.6.2:
   dependencies:
     glob "^7.1.3"
 
-rn-curved-navigation-bar@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/rn-curved-navigation-bar/-/rn-curved-navigation-bar-1.1.0.tgz"
-  integrity sha512-YI53vt9Cx+yFy5GqeMneAfBydl+y1JkcHWaTmK0Qgx9tTZjz5q7It5vj8pF9Rztsbyw6cMHrKal74usoEqqhbg==
-
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.npmjs.org/rsvp/-/rsvp-4.8.5.tgz"
