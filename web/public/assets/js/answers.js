@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("GET", "../../api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("GET", "./api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
             xhr.send();
         }
 
@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("DELETE", "../../api/questions/delete.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("DELETE", "./api/questions/delete.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
             xhr.send(JSON.stringify(body));
             //location.reload(true); 
         }
