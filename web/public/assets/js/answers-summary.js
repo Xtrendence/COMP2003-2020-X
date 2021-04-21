@@ -7,6 +7,19 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.body.removeAttribute("data-theme", "dark");
 	}
 
+	let colorArray = [
+		"7d2ee6",
+		"c4a9de",
+		"dbcfab",
+		"53cfbe",
+		"dbbf40",
+		"db6f51",
+		"d47da4",
+		"49d169",
+		"5571d9",
+		"9bbcbf"
+	];
+
 	let divAnswersList = document.getElementById("answers-list");
 
 	getAnswers().then(answers => {
@@ -49,6 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				let percentages = {};
 
 				choices.map(choice => {
+					colors.push("#" + colorArray[index]);
+
 					index++;
 
 					let count = counts[choice];
@@ -60,8 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 						percentages[choice] = percentage;
 						total -= percentage;
 					}
-
-					colors.push(randomRGB());
 
 					card.innerHTML += '<span>' + choice + ': ' + percentages[choice].toFixed(0) + '%</span>';
 				});
@@ -99,10 +112,19 @@ document.addEventListener("DOMContentLoaded", () => {
 			}]
 		};
 
+		let options = {
+			legend: {
+				labels: {
+					fontColor: document.body.getAttribute("data-theme") === "dark" ? "rgb(255,255,255)" : "rgb(75,75,75)",
+					fontSize: 14
+				}
+			},
+		};
+
 		let config = {
 			type: "doughnut",
 			data,
-			options: {}
+			options: options
 		};
 
 		new Chart(canvas, config);
@@ -154,17 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			return false;
 		}
 		return true;
-	}
-
-	function randomBetween(min, max) {
-		return min + Math.floor(Math.random() * (max - min + 1));
-	}
-
-	function randomRGB() {
-		let r = randomBetween(0, 255);
-		let g = randomBetween(0, 255);
-		let b = randomBetween(0, 255);
-		return rgb = `rgb(${r},${g},${b})`;
 	}
 
 	function validJSON(json) {
