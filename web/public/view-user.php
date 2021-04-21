@@ -5,9 +5,9 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../public/assets/css/themes.css">
-    <link rel="stylesheet" href="../public/assets/css/global.css">
-    <link rel="stylesheet" href="../public/assets/css/view-user/style.css">
+    <link rel="stylesheet" href="./assets/css/themes.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/view-user/style.css">
     <script src="./assets/js/view-user.js"></script>
 
     <meta charset="UTF-8">
