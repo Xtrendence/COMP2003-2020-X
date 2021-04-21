@@ -1,11 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const Notify = new XNotify("BottomRight");
 
-	if(localStorage.getItem("theme") === "dark") { 
-		document.body.setAttribute("data-theme", "dark"); 
-	} else { 
-		document.body.removeAttribute("data-theme", "dark");
-	}
+	checkTheme();
 
 	let colorArray = [
 		"7d2ee6",
