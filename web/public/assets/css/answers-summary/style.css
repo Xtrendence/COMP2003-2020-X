@@ -1,0 +1,7 @@
+.wrapper span {
+	font-size:16px;
+}
+.wrapper span.title {
+	font-weight:bold;
+	color:var(--main-contrast);
+}

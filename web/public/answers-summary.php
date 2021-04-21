@@ -13,6 +13,8 @@
 		<link rel="stylesheet" href="./assets/css/themes.css">
 		<link rel="stylesheet" href="./assets/css/global.css">
 		<link rel="stylesheet" href="./assets/css/answers-summary/style.css">
+		<script src="./assets/js/lib/chart.js"></script>
+		<script src="./assets/js/lib/x-notify.js"></script>
 		<script src="./assets/js/answers-summary.js"></script>
 		<meta charset="UTF-8">
 		<title>Answers Summary</title>
@@ -50,7 +52,7 @@
 				</button>
 			</a>
 		</div>
-		<div class="wrapper">
+		<div class="wrapper" id="answers-list">
 			<div class="title-card">
 				<span>Answers Summary</span>
 			</div>
