@@ -12,9 +12,8 @@
 		}
 
 		public function create($falls) {
-			$date = date('Y-m-d H:i:s');
 			for ($i = 0; $i < $falls; $i++) {
-				$query = 'INSERT INTO ' . $this->table . ' (patientID, fall_date) VALUES (:id, "' . $date . '")';
+				$query = 'CALL createFall(:id)';
 				$command = $this->connection->prepare($query);
 				$command->bindParam(':id', $this->patientID);
 				$command->execute();
@@ -63,7 +62,7 @@
 		}
 
 		public function delete() {
-			$query = 'DELETE FROM ' . $this->table . ' WHERE fallID=:id';
+			$query = 'CALL deleteFall(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->fallID);
 			$command->execute();

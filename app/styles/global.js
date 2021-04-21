@@ -15,6 +15,23 @@ export const globalColors = {
 	mainPlaceholder: "rgb(150,150,150)",
 };
 
+export const globalColorsDark = {
+	accentLightest: "rgb(77,89,138)",
+	accentLight: "rgb(79,89,124)",
+	accentMedium: "rgb(60,69,102)",
+	accentDark: "rgb(52,57,82)",
+	accentDarkest: "rgb(40,46,63)",
+	accentContrast: "rgb(255,255,255)",
+	mainFirst: "rgb(25,25,25)",
+	mainSecond: "rgb(10,10,10)",
+	mainThird: "rgb(35,35,35)",
+	mainFourth: "rgb(45,45,45)",
+	mainFifth: "rgb(65,65,65)",
+	mainSixth: "rgb(85,85,85)",
+	mainContrast: "rgb(240,240,240)",
+	mainPlaceholder: "rgb(180,180,180)",
+};
+
 export const globalStyles = {
 	shadowColor: "rgb(0,0,0)",
 	shadowOffset: {

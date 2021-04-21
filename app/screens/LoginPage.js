@@ -7,27 +7,31 @@ import { showMessage, hideMessage } from 'react-native-flash-message';
 import Notifier from '../utils/Notifier';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Wave from 'react-native-waveview';
-import { globalColors, globalStyles } from '../styles/global';
+import { globalColors, globalColorsDark, globalStyles } from '../styles/global';
 import LoadingScreen from '../components/LoadingScreen';
-import { rgbToHex } from '../utils/Utils';
+import { ThemeContext } from '../utils/ThemeProvider';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export class LoginPage extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			wave: false,
+			wave: true,
 			loading: false,
 			username: null,
-			password: null
+			password: null,
+			theme: "Light"
 		};
 		this.navigation = props.navigation;
 		this._mounted;
+		this.toggleTheme;
 	}
 
-	async login() {
+	async login(params) {
 		// To be removed once testing is complete.
 		let username = "maureenW38";
 		let password = "Iamthedefault";
@@ -44,48 +48,57 @@ export class LoginPage extends Component {
 					this.setState({loading:false});
 				}
 			}, 5000);
-
-			// To be changed to use the username and password stored in state.
-			let body = { patient_username:username, patient_password:password, fcmToken:fcm };
-
-			fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
-				method: "POST",
-				headers: {
-					Accept: "application/json", "Content-Type": "application/json"
-				},
-				body: JSON.stringify(body)
-			})
-			.then((response) => {
-				return response.json();
-			})
-			.then(async (json) => {
-				if (this._mounted) {
-					this.setState({loading:false});
-				}
-				if (json.valid !== true) {
-					showMessage({
-						message: json.message,
-						type: "warning"
-					});
-				} else {
-					await AsyncStorage.setItem("token", json.token);
-					await AsyncStorage.setItem("patientID", json.patientID);
-
-					if (!empty(json.token) && !empty(json.patientID) && !empty(await AsyncStorage.getItem("token")) && !empty(await AsyncStorage.getItem("patientID"))) {
-						this.navigation.navigate("BottomBar");
+			
+			if (!empty(params) && "token" in params) {
+				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/verify.php?key=" + params.token, {
+					method: "GET",
+					headers: {
+						Accept: "application/json", "Content-Type": "application/json"
 					}
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-				if (this._mounted) {
-					this.setState({loading:false});
-				}
-				showMessage({
-					message: "Network Error",
-					type: "danger"
+				})
+				.then((response) => {
+					return response.json();
+				})
+				.then(async (json) => {
+					this.processLogin(json);
+				})
+				.catch((error) => {
+					console.log(error);
+					if (this._mounted) {
+						this.setState({loading:false});
+					}
+					showMessage({
+						message: "Network Error",
+						type: "danger"
+					});
 				});
-			});
+			} else {
+				let body = { patient_username:username, patient_password:password, fcmToken:fcm };
+
+				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
+					method: "POST",
+					headers: {
+						Accept: "application/json", "Content-Type": "application/json"
+					},
+					body: JSON.stringify(body)
+				})
+				.then((response) => {
+					return response.json();
+				})
+				.then(async (json) => {
+					this.processLogin(json);
+				})
+				.catch((error) => {
+					console.log(error);
+					if (this._mounted) {
+						this.setState({loading:false});
+					}
+					showMessage({
+						message: "Network Error",
+						type: "danger"
+					});
+				});
+			}
 		} else {
 			showMessage({
 				message: "App Error",
@@ -96,8 +109,61 @@ export class LoginPage extends Component {
 		}
 	}
 
+	async processLogin(response) {
+		if (this._mounted) {
+			this.setState({loading:false});
+		}
+		if (response.valid !== true) {
+			showMessage({
+				message: response.message,
+				type: "warning"
+			});
+		} else {
+			await AsyncStorage.setItem("token", response.token);
+			await AsyncStorage.setItem("patientID", response.patientID);
+
+			if (!empty(response.token) && !empty(response.patientID) && !empty(await AsyncStorage.getItem("token")) && !empty(await AsyncStorage.getItem("patientID"))) {
+				this.navigation.navigate("BottomBar");
+			}
+		}
+	}
+
+	async getToken() {
+		return new Promise(async (resolve, reject) => {
+			let token = await AsyncStorage.getItem("token");
+			let patientID = await AsyncStorage.getItem("patientID");
+
+			if(!empty(token) && !empty(patientID)) {
+				resolve({ token:token, patientID:patientID });
+			} else {
+				reject();
+			}
+		});
+	}
+
+	componentDidUpdate() {
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
+
 	componentDidMount() {
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
+
 		this._mounted = true;
+
+		this.getToken().then(patient => {
+			this.login({ patient });
+		}).catch(error => {
+			console.log(error);
+		});
 
 		// To be removed once testing is complete.
 		this.setState({username:"maureenW38"});
@@ -115,7 +181,7 @@ export class LoginPage extends Component {
 		);
 
 		return (
-			<View style={styles.pageContainer}>
+			<View style={[styles.pageContainer, styles[`pageContainer${this.state.theme}`]]}>
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
@@ -123,8 +189,8 @@ export class LoginPage extends Component {
 					<Image style={styles.image} source={require("../assets/Logo.png")}/>
 				</View>
 				<View style={styles.loginForm}>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username}></TextInput>
-					<TextInput style={styles.inputField} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry>{this.state.password}</TextInput>
+					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
+					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}>{this.state.password}</TextInput>
 					<TouchableOpacity style={styles.actionButton} onPress={() => this.login()}>
 						<Text style={styles.actionText}>Login</Text>
 					</TouchableOpacity>
@@ -134,9 +200,9 @@ export class LoginPage extends Component {
 						style={{width:"100%", height:"100%"}}
 						H={screenHeight - 300}
 						waveParams={[
-							{A: 20, T: screenWidth, fill: globalColors.accentMedium},
-							{A: 15, T: screenWidth + 20, fill: globalColors.accentLight},
-							{A: 30, T: screenWidth + 30, fill: globalColors.accentLightest},
+							{A: 30, T: screenWidth, fill: "rgba(104,112,141,1)"},
+							{A: 20, T: screenWidth + 20, fill: "rgba(104,112,141,0.7)"},
+							{A: 40, T: screenWidth + 40, fill: "rgba(104,112,141,0.5)"},
 						]}
 						animated={true}
 					/>
@@ -179,6 +245,9 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%"
 	},
+	pageContainerDark: {
+		backgroundColor: globalColorsDark.mainThird
+	},
 	imageWrapper: {
 		alignItems: "center",
 		justifyContent: "center",
@@ -216,6 +285,10 @@ const styles = StyleSheet.create({
 		elevation: globalStyles.shadowElevation,
 		marginBottom: 20,
 		fontFamily: globalStyles.fontFamily,
+	},
+	inputFieldDark: {
+		backgroundColor: globalColorsDark.mainThird,
+		color: globalColorsDark.mainContrast
 	},
 	actionButton: {
 		backgroundColor: globalColors.accentDarkest,

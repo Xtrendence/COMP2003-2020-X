@@ -1,33 +1,51 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity, BackHandler } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TextInput, ScrollView, TouchableOpacity, BackHandler, RefreshControl } from 'react-native';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Notifier from '../utils/Notifier';
-import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
+import { globalColors, globalColorsDark, globalStyles, globalComponentStyles } from '../styles/global';
 import { RadioButton } from 'react-native-paper';
 import Card from '../components/Card';
 import { TopBar } from '../components/TopBar';
 import LoadingScreen from '../components/LoadingScreen';
+import { ThemeContext } from '../utils/ThemeProvider';
+import { wait } from '../utils/Utils';
+import { SettingsPopup } from '../components/SettingsPopup';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export class QuestionsPage extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			firstNavigator: true,
+			refreshing: false,
 			recent: null,
 			unanswered: {},
 			answered: {},
 			loading: false,
 			checked: {},
-			custom: {}
+			custom: {},
+			settings: false,
 		};
 		this.navigation = props.navigation;
 		this._mounted;
+		this.toggleTheme;
 	}
+
+	setSettings(page, value){
+		page.setState({settings:value})
+	}
+
+	onRefresh = () => {
+		this.setState({refreshing:true})
+		this.getData();
+		wait(750).then(() => this.setState({refreshing:false}));
+	};
 
 	// Save radio input answers.
 	saveChecked(key, answerID, value) {
@@ -86,7 +104,7 @@ export class QuestionsPage extends Component {
 		return Object.keys(object).map(questionID => {
 			return (
 				<Card key={questionID}>
-					<Text style={globalComponentStyles.cardTitle}>{ object[questionID]["question"] }</Text>
+					<Text style={[globalComponentStyles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>{ object[questionID]["question"] }</Text>
 					{ object[questionID]["question_type"] === "choice" ?
 						<RadioButton.Group onValueChange={value => this.saveChecked(questionID, object[questionID]["answerID"], value)} value={this.state.checked[questionID]}>
 							{ 
@@ -94,7 +112,7 @@ export class QuestionsPage extends Component {
 									return (
 										<View style={styles.radioBlock} key={choiceKey}>
 											<RadioButton value={object[questionID]["choices"][choiceKey]} uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-											<Text>{object[questionID]["choices"][choiceKey]}</Text>
+											<Text style={[styles.choiceText, styles[`choiceText${this.state.theme}`]]}>{object[questionID]["choices"][choiceKey]}</Text>
 										</View>
 									);
 								})
@@ -102,7 +120,7 @@ export class QuestionsPage extends Component {
 						</RadioButton.Group>
 					:
 						<View>
-							<TextInput style={globalComponentStyles.inputFieldMultiline} placeholder="Answer..." multiline={true} onChangeText={(value) => this.setState({custom:{ ...this.state.custom, [questionID]:value }})} value={this.state.custom[questionID]}></TextInput>
+							<TextInput style={[globalComponentStyles.inputFieldMultiline, styles[`inputFieldMultiline${this.state.theme}`]]} placeholder="Answer..." multiline={true} onChangeText={(value) => this.setState({custom:{ ...this.state.custom, [questionID]:value }})} value={this.state.custom[questionID]} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
 							<View style={styles.buttonWrapper}>
 								<TouchableOpacity style={styles.actionButton} onPress={() => this.saveCustom(questionID, object[questionID]["answerID"], this.state.custom[questionID])}>
 									<Text style={styles.actionText}>Save</Text>
@@ -161,9 +179,11 @@ export class QuestionsPage extends Component {
 				});
 
 				// Since the keys of the unansweredQuestions object would be the questionIDs, and since questionIDs are incremented automatically, the highest one would always be the most recent question.
-				let max = Math.max.apply(null, Object.keys(unansweredQuestions));
-				Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
-				delete unansweredQuestions[max];
+				if (Object.keys(unansweredQuestions).length > 0) {
+					let max = Math.max.apply(null, Object.keys(unansweredQuestions));
+					Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
+					delete unansweredQuestions[max];
+				}
 
 				if (this._mounted) {
 					this.setState({recent:recentQuestion});
@@ -190,8 +210,23 @@ export class QuestionsPage extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
+
 	componentDidMount() {
 		this._mounted = true;
+
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
 
 		this.getData();
 
@@ -230,12 +265,15 @@ export class QuestionsPage extends Component {
 		);
 
 		return (
-			<View style={styles.container}>
+			<View style={[styles.container, styles[`container${this.state.theme}`]]}>
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
-				<TopBar navigation={this.navigation}>Questions</TopBar>
-				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
+				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Questions</TopBar>
+				{ this.state.settings &&
+                    <SettingsPopup></SettingsPopup> 
+				}
+				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
 					{ !empty(this.state.recent) &&
 						<View>
 							{
@@ -300,10 +338,8 @@ const styles = StyleSheet.create({
 		backgroundColor: globalColors.mainSecond,
 		width: "100%",
 	},
-	topBarPlaceholder: {
-		backgroundColor: globalColors.accentLightest,
-		width: "100%",
-		height: 50,
+	containerDark: {
+		backgroundColor: globalColorsDark.mainThird
 	},
 	cardContainer: {
 		width: "100%",
@@ -348,4 +384,20 @@ const styles = StyleSheet.create({
 		color: globalColors.accentContrast,
 		textAlign: "center"
 	},
+	cardTitle: {
+		color: globalColors.mainContrast
+	},
+	cardTitleDark: {
+		color: globalColorsDark.mainContrast
+	},
+	choiceText: {
+		color: globalColors.mainContrast
+	},
+	choiceTextDark: {
+		color: globalColorsDark.mainContrast
+	},
+	inputFieldMultilineDark: {
+		backgroundColor: globalColorsDark.mainThird,
+		color: globalColorsDark.mainContrast
+	}
 });

@@ -9,61 +9,64 @@
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
 		$database = new Database();
-		$db = $database->connect($api_key);
 
-		$question = new Question($db);
-		$result = $question->readAll();
+		if ($database->verify(array('key' => $api_key))) {
+			$db = $database->connect();
 
-		$rows = $result->rowCount();
+			$question = new Question($db);
+			$result = $question->readAll();
 
-		if ($rows > 0) {
-			$array = array();
-			$array['data'] = array();
-			
-			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				extract($row);
+			$rows = $result->rowCount();
 
-				if ($question_type == 'custom') {
-					$item = array(
-						'questionID' => $questionID,
-						'question' => $question,
-						'question_charLim' => $question_charLim,
-						'question_type' => $question_type						
-					);
+			if ($rows > 0) {
+				$array = array();
+				$array['data'] = array();
 				
-				} else {
-					$item = array(
-						'questionID' => $questionID,
-						'question' => $question,
-						'question_type' => $question_type,
-						'choices' => array()							
-					);
+				while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+					extract($row);
 
-					$choices = [];
+					if ($question_type == 'custom') {
+						$item = array(
+							'questionID' => $questionID,
+							'question' => $question,
+							'question_charLim' => $question_charLim,
+							'question_type' => $question_type						
+						);
+					
+					} else {
+						$item = array(
+							'questionID' => $questionID,
+							'question' => $question,
+							'question_type' => $question_type,
+							'choices' => array()							
+						);
 
-					$query = 'SELECT * FROM choice WHERE questionID=:id';
-					$command = $db->prepare($query);
-					$command->bindParam(':id', $questionID);
-					$command->execute();
+						$choices = [];
 
-					if ($command->rowCount() > 0) {
-						while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
-							array_push($choices, $row['choice']);
+						$query = 'SELECT * FROM choice WHERE questionID=:id';
+						$command = $db->prepare($query);
+						$command->bindParam(':id', $questionID);
+						$command->execute();
+
+						if ($command->rowCount() > 0) {
+							while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
+								array_push($choices, $row['choice']);
+							}
+						}
+
+						for ($i = 0; $i < count($choices); $i++) {
+							$item['choices'][$i + 1] = $choices[$i];
 						}
 					}
-
-					for ($i = 0; $i < count($choices); $i++) {
-						$item['choices'][$i + 1] = $choices[$i];
-					}
-					
-					
+					array_push($array['data'], $item);
 				}
-				array_push($array['data'], $item);
-			}
 
-			echo json_encode($array, JSON_PRETTY_PRINT);
+				echo json_encode($array, JSON_PRETTY_PRINT);
+			} else {
+				echo json_encode(array('message' => 'No questions found.'));
+			}
 		} else {
-			echo json_encode(array('message' => 'No questions found.'));
+			echo json_encode(array('message' => 'Invalid API key.'));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
