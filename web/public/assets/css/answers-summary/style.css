@@ -1,7 +1,9 @@
-.wrapper span {
+.wide-card span {
 	font-size:16px;
+	display:block;
+	line-height:24px;
 }
-.wrapper span.title {
+.wide-card span.title {
 	font-weight:bold;
 	color:var(--main-contrast);
 }

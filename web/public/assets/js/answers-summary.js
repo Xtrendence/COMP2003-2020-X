@@ -42,12 +42,24 @@ document.addEventListener("DOMContentLoaded", () => {
 					counts[answer] = counts[answer] ? counts[answer] + 1 : 1;
 				}
 
+				let index = 0;
+				let total = 100;
 				let percentages = {};
 
 				choices.map(choice => {
+					index++;
+
 					let count = counts[choice];
-					let percentage = (count * 100) / answers.length;
-					percentages[choice] = percentage;
+					let percentage = parseInt(((count * 100) / answers.length).toFixed(0));
+					
+					if(index === choices.length) {
+						percentages[choice] = total;
+					} else {
+						percentages[choice] = percentage;
+						total -= percentage;
+					}
+
+					card.innerHTML += '<span>' + choice + ': ' + percentages[choice].toFixed(0) + '%</span>';
 				});
 
 				console.log("Question: " + question);
