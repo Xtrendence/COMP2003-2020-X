@@ -32,6 +32,7 @@ export class TopBar extends Component {
 		})
 		.then(async () => {
             await AsyncStorage.removeItem("token");
+            await AsyncStorage.removeItem("patientID");
             this.navigation.dangerouslyGetParent().navigate("LoginPage");
 		})
 		.catch((error) => {
