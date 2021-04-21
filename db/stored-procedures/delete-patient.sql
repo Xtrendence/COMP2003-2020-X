@@ -1,5 +1,5 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deletePatient`(
-	IN patientId INTEGER
+	IN patientIdNo INTEGER
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -8,7 +8,7 @@ BEGIN
 			SELECT 'SQLException has occurred. Please try again.';
 		END;
     
-    DELETE FROM PATIENT WHERE patientID = patientId;
+    DELETE FROM PATIENT WHERE patientID = patientIdNo;
     COMMIT;
     SELECT 'Patient deleted successfully.';
 END

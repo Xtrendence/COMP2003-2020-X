@@ -14,8 +14,8 @@
 
 /*drop down button containing Title question text for collapsible */
 .drop-down {
-    background: rgba(238, 238, 238, 0.93);
-    color: #444444;
+    background: var(--main-third);
+    color: var(--main-contrast);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -40,7 +40,7 @@
     padding: 0 18px;
     display: none;
     overflow: hidden;
-    background-color: #f1f1f1;
+    background: var(--main-third);
     border-radius: 0 0 10px 10px;
 }
 
@@ -57,5 +57,3 @@
 .caret-icon.active {
     transform: rotate(90deg);
 }
-
-

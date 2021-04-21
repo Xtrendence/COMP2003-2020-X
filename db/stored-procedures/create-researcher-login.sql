@@ -9,7 +9,7 @@ BEGIN
         SELECT 'SQLException has occurred. Please try again.';
 	END;
     
-	INSERT INTO PATIENTLOGIN (researcherID, login_date, login_status, login_token) 
+	INSERT INTO RESEARCHERLOGIN (researcherID, login_date, login_status, login_token) 
 		VALUES (researcherID, CURRENT_TIMESTAMP(), TRUE, loginToken);    
     
     COMMIT;

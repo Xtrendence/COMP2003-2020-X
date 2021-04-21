@@ -11,7 +11,7 @@ const screenHeight = Dimensions.get("window").height;
 export class TopBar extends Component {
 	constructor(props) {
 		super(props);
-		this.navigation = props.navigation;
+		this.navigation = props.navigation;     
 	}
 
 	async logout() {
@@ -46,11 +46,11 @@ export class TopBar extends Component {
 	render() {
 		return (
 			<View style={styles.header}>
-				<TouchableOpacity style={styles.cogView}>
+				<TouchableOpacity style={styles.cogView} onPress={() => this.props.setSettings(this.props.page, !this.props.settings)}>
 					<Icon name="cog" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
 				</TouchableOpacity>
 				<View style={styles.textView}>
-					<Text style={styles.headerText}>{ this.props.children }</Text>
+					<Text style={styles.headerText}>{this.props.children }</Text>
 				</View>
 				<TouchableOpacity style={styles.logoutView} onPress={() => this.logout()}>
 					<Icon name="log-out" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />

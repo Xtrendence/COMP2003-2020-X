@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="../assets/img/favicon/favicon-16x16.png">
+		<link rel="manifest" href="../assets/img/favicon/site.webmanifest">
+		<link rel="mask-icon" href="../assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico">
+		<meta name="msapplication-TileColor" content="#2b5797">
+		<meta name="msapplication-config" content="../assets/img/favicon/browserconfig.xml">
+		<meta name="theme-color" content="#a3acd1">
+		<link rel="stylesheet" href="../assets/css/themes.css">
+		<link rel="stylesheet" href="../assets/css/global.css">
+		<link rel="stylesheet" href="../assets/css/api/style.css">
+		<link rel="stylesheet" href="../assets/css/api/resize.css">
+		<script src="../assets/js/lib/x-notify.js"></script>
+		<script src="../assets/js/api-testing.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8">
+		<title>BRIMS SMS API Testing</title>
+	</head>
+	<body class="testing">
+		<div class="top">
+			<input id="user-username" type="text" placeholder="User Username...">
+			<input id="user-password" type="text" placeholder="User Password...">
+			<input id="api-url" type="text" placeholder="API URL..." value="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/">
+			<input id="admin-username" type="text" placeholder="Admin Username...">
+			<input id="admin-password" type="text" placeholder="Admin Password...">
+			<input id="api-key" type="text" placeholder="API Key...">
+			<button id="clear-button">Clear Test</button>
+			<button id="results-button" class="disabled">Test Results</button>
+			<button id="test-button">Start Testing</button>
+		</div>
+		<div class="bottom" id="output"></div>
+		<div class="results-wrapper hidden" id="results-wrapper">
+			<button id="back-button">Back</button>
+			<div id="results-list"></div>
+		</div>
+	</body>
+</html>
