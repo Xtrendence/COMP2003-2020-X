@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	getAnswers().then(answers => {
 		if("data" in answers) {
 			let choiceAnswers = getChoiceAnswers(answers.data);
-			console.log(choiceAnswers);
 
 			Object.keys(choiceAnswers).map(question => {
 				let card = document.createElement("div");
@@ -116,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			legend: {
 				labels: {
 					fontColor: document.body.getAttribute("data-theme") === "dark" ? "rgb(255,255,255)" : "rgb(75,75,75)",
-					fontSize: 14
+					fontSize: 14,
 				}
 			},
 		};
@@ -128,6 +127,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		};
 
 		new Chart(canvas, config);
+
+		Chart.Legend.prototype.afterFit = function() {
+			this.height = this.height + 20;
+		};
 
 		wrapper.appendChild(canvas);
 
