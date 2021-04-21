@@ -71,6 +71,10 @@
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
+            $query = 'DELETE FROM answer WHERE questionID = :id AND answer = ""';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->questionID);
+            $command->execute();
         }
 
         public function readAll() {
