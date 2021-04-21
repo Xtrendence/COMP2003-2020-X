@@ -49,7 +49,7 @@ export class LoginPage extends Component {
 				}
 			}, 5000);
 			
-			if ("token" in params) {
+			if (!empty(params) && "token" in params) {
 				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/verify.php?key=" + params.token, {
 					method: "GET",
 					headers: {
