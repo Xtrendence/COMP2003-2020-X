@@ -11,6 +11,7 @@ import { TopBar } from '../components/TopBar';
 import LoadingScreen from '../components/LoadingScreen';
 import { ThemeContext } from '../utils/ThemeProvider';
 import { wait } from '../utils/Utils';
+import { SettingsPopup } from '../components/SettingsPopup';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -28,11 +29,16 @@ export class QuestionsPage extends Component {
 			answered: {},
 			loading: false,
 			checked: {},
-			custom: {}
+			custom: {},
+			settings: false,
 		};
 		this.navigation = props.navigation;
 		this._mounted;
 		this.toggleTheme;
+	}
+
+	setSettings(page, value){
+		page.setState({settings:value})
 	}
 
 	onRefresh = () => {
@@ -263,7 +269,10 @@ export class QuestionsPage extends Component {
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
-				<TopBar navigation={this.navigation}>Questions</TopBar>
+				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Questions</TopBar>
+				{ this.state.settings &&
+                    <SettingsPopup></SettingsPopup> 
+				}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
 					{ !empty(this.state.recent) &&
 						<View>

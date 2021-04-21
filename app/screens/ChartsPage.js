@@ -11,6 +11,7 @@ import Card from '../components/Card';
 import LoadingScreen from '../components/LoadingScreen';
 import { ThemeContext } from '../utils/ThemeProvider';
 import { wait } from '../utils/Utils';
+import { SettingsPopup} from '../components/SettingsPopup';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -28,10 +29,15 @@ export class ChartsPage extends Component {
 			timespan: "",
 			labels: [""],
 			data: [0],
-			segments: 4
+			segments: 4,
+			settings: false,
 		};
 		this.navigation = props.navigation;
 		this.toggleTheme;
+	}
+
+	setSettings(page, value){
+		page.setState({settings:value})
 	}
 
 	onRefresh = () => {
@@ -264,7 +270,10 @@ export class ChartsPage extends Component {
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
-				<TopBar navigation={this.navigation}>Charts</TopBar>
+				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Charts</TopBar>
+				{ this.state.settings &&
+                    <SettingsPopup></SettingsPopup> 
+				}
 				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
 					{ !this.state.loading &&
 						<View style={styles.pageWrapper}>
