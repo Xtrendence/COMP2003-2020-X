@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if("data" in answers) {
 			let choiceAnswers = getChoiceAnswers(answers.data);
 			console.log(choiceAnswers);
+
 			Object.keys(choiceAnswers).map(question => {
 				let card = document.createElement("div");
 				card.classList.add("wide-card");
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				let counts = {};
 				let choices = [];
+				let colors = [];
 
 				Object.keys(choiceAnswer["choices"]).map(key => {
 					choices.push(choiceAnswer["choices"][key]);
@@ -59,12 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
 						total -= percentage;
 					}
 
+					colors.push(randomRGB());
+
 					card.innerHTML += '<span>' + choice + ': ' + percentages[choice].toFixed(0) + '%</span>';
 				});
 
-				console.log("Question: " + question);
-				console.log("Answers: " + answers.length);
-				console.log(percentages);
+				let chart = generateChart(choices, counts, colors);
+				
+				card.appendChild(chart);
 
 				divAnswersList.appendChild(card);
 			});
@@ -79,6 +83,34 @@ document.addEventListener("DOMContentLoaded", () => {
 	}).catch(error => {
 		console.log(error);
 	});
+
+	function generateChart(labels, dataset, colors) {
+		let wrapper = document.createElement("div");
+		let canvas = document.createElement("canvas");
+
+		wrapper.classList.add("chart-wrapper");
+
+		let data = {
+			labels: labels,
+			datasets: [{
+				data: Object.values(dataset),
+				backgroundColor: colors,
+				hoverOffset: 4
+			}]
+		};
+
+		let config = {
+			type: "doughnut",
+			data,
+			options: {}
+		};
+
+		new Chart(canvas, config);
+
+		wrapper.appendChild(canvas);
+
+		return wrapper;
+	}
 
 	function getChoiceAnswers(answers) {
 		let choiceAnswers = {};
@@ -122,6 +154,17 @@ document.addEventListener("DOMContentLoaded", () => {
 			return false;
 		}
 		return true;
+	}
+
+	function randomBetween(min, max) {
+		return min + Math.floor(Math.random() * (max - min + 1));
+	}
+
+	function randomRGB() {
+		let r = randomBetween(0, 255);
+		let g = randomBetween(0, 255);
+		let b = randomBetween(0, 255);
+		return rgb = `rgb(${r},${g},${b})`;
 	}
 
 	function validJSON(json) {
