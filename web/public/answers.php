@@ -11,6 +11,7 @@
 	<meta name="msapplication-TileColor" content="#2b5797">
 	<meta name="msapplication-config" content="./assets/img/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#a3acd1">
+    <script src="./assets/js/global.js"></script>
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/answers/style.css">
