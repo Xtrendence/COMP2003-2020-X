@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     };
                 });
-                xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read-all.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+                xhr.open("GET", "./api/users/read-all.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
                 xhr.send();
 
                 
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     characterLimit.value = null;
                 }
                 
-                xhr.open("POST", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+                xhr.open("POST", "./api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
                 xhr.send(JSON.stringify(body));
                 
                 xhr.addEventListener("readystatechange", function() {
