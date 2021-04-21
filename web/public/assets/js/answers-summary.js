@@ -21,6 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				let choiceAnswer = choiceAnswers[question];
 				let answerObjects = choiceAnswer["answers"];
 
+				let counts = {};
+				let choices = [];
+
+				Object.keys(choiceAnswer["choices"]).map(key => {
+					choices.push(choiceAnswer["choices"][key]);
+					counts[choiceAnswer["choices"][key]] = 0;
+				});
+
 				let answers = [];
 
 				Object.keys(answerObjects).map(key => {
@@ -29,7 +37,22 @@ document.addEventListener("DOMContentLoaded", () => {
 					answers.push(answer);
 				});
 
-				console.log(answers);
+				for(let i = 0; i < answers.length; i++) {
+					let answer = answers[i];
+					counts[answer] = counts[answer] ? counts[answer] + 1 : 1;
+				}
+
+				let percentages = {};
+
+				choices.map(choice => {
+					let count = counts[choice];
+					let percentage = (count * 100) / answers.length;
+					percentages[choice] = percentage;
+				});
+
+				console.log("Question: " + question);
+				console.log("Answers: " + answers.length);
+				console.log(percentages);
 
 				divAnswersList.appendChild(card);
 			});
