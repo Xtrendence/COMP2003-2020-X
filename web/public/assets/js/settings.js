@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //verifySession(localStorage.getItem("sessionToken")).then(result => {
+    verifySession(localStorage.getItem("sessionToken")).then(result => {
 
         let togglePosition = document.getElementById("toggle-button");
         let toggleContainer = document.getElementById('toggle');
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         logout.addEventListener('click', function(){
             let xhr = new XMLHttpRequest();
 
-            xhr.open("POST", "../../api/admins/logout.php?key=" + sessionToken + "", true);
+            xhr.open("POST", "./api/admins/logout.php?key=" + sessionToken + "", true);
             xhr.send(JSON.stringify(body));
 
             xhr.addEventListener("readystatechange", function() {
@@ -51,14 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
         * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
         *      when that is true, it sets the body with an attribute to turn the theme dark.
         */
-        if(localStorage.getItem('theme') === 'dark'){
-            document.body.setAttribute('data-theme', 'dark');
-            togglePosition.classList.add("toggle-button-active")
-        } else {
-            document.body.removeAttribute('data-theme', 'dark');
-            togglePosition.classList.remove("toggle-button-active")
-        }
-    //}).catch(error => {
-    //    window.location.replace("./login.php");
-    //});
+        checkTheme()
+
+    }).catch(error => {
+        window.location.replace("./login.php");
+    });
 });

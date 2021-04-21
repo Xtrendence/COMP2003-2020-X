@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/settings/style.css">
+    <script src="./assets/js/global.js"></script>
     <script src="./assets/js/settings.js"></script>
     <meta charset="UTF-8">
     <title>Create A Question</title>
