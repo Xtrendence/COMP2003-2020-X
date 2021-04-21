@@ -73,6 +73,7 @@
         </div>
 
         <button type="button" class="nav-button question-all" id="q-all-button">Ask Question to All Users</button>
+        <a href="./answers-summary.php"><button type="button" class="nav-button charts-all" id="c-all-button">Answers Summary</button></a>
 
         <table class="patient-table">
             <thead id="table-header">
