@@ -1,12 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
-import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
+import { globalColors, globalColorsDark, globalStyles, globalComponentStyles } from '../styles/global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TopBar } from '../components/TopBar';
 import { SettingsPopup } from '../components/SettingsPopup';
 import Card from '../components/Card';
+import { ThemeContext } from '../utils/ThemeProvider';
 
 export class HelpPage extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
 		this.navigation = props.navigation;
@@ -19,9 +23,25 @@ export class HelpPage extends Component {
 		page.setState({settings:value})
 	}
 
+	componentDidMount() {
+		const { theme, toggleTheme } = this.context;
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
+	}
+
+	componentDidUpdate() {
+        AsyncStorage.getItem("theme").then(result => {
+            if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+                this.setState({theme:result});
+            }
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
 	render() {
 		return (
-			<View>
+			<View style={[styles.container, styles[`container${this.state.theme}`]]}>
 				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Help</TopBar>
 				{ this.state.settings &&
                     <SettingsPopup></SettingsPopup> 
@@ -29,27 +49,27 @@ export class HelpPage extends Component {
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 70, paddingLeft: 20}}>
 					<View style={styles.imageWrapper}>
 						<Image style={styles.image} source={require("../assets/Logo.png")}/>
-						<Text style={styles.imageText}>BRIMS SMS</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`, styles.imageText]]}>BRIMS SMS</Text>
 					</View>
 					<Card>
-						<Text style={globalComponentStyles.cardTitle}>How do I change the notification time?</Text>
-						<Text style={styles.helpText}>Tap on the cogwheel icon on the top left, and choose the time of day you'd rather get a notifcation at.</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>How do I change the notification time?</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Tap on the cogwheel icon on the top left, and choose the time of day you'd rather get a notifcation at.</Text>
 					</Card>
 					<Card>
-						<Text style={globalComponentStyles.cardTitle}>How do I record a fall?</Text>
-						<Text style={styles.helpText}>Go to the "Falls" page, and fill out the box that asks you to enter the number of times you've fallen today.</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>How do I record a fall?</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Go to the "Falls" page, and fill out the box that asks you to enter the number of times you've fallen today.</Text>
 					</Card>
 					<Card>
-						<Text style={globalComponentStyles.cardTitle}>What's the "Questions" page for?</Text>
-						<Text style={styles.helpText}>Your researchers might have questions for you that you can answer if you go to the "Questions" page you can fill out those questions.</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>What's the "Questions" page for?</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Your researchers might have questions for you that you can answer if you go to the "Questions" page you can fill out those questions.</Text>
 					</Card>
 					<Card>
-						<Text style={globalComponentStyles.cardTitle}>How does the "Charts" page work?</Text>
-						<Text style={styles.helpText}>Allows the user to see a clear graph for trends displaying the progression of their falls.</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>How does the "Charts" page work?</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Allows the user to see a clear graph for trends displaying the progression of their falls.</Text>
 					</Card>
 					<Card>
-						<Text style={globalComponentStyles.cardTitle}>What's the Calendar page for?</Text>
-						<Text style={styles.helpText}>Calendar page highlights the days in a month recorded by the falls page that the user has fallen.</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>What's the Calendar page for?</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Calendar page highlights the days in a month recorded by the falls page that the user has fallen.</Text>
 					</Card>
 				</ScrollView>
 			</View>
@@ -65,12 +85,27 @@ const styles = StyleSheet.create({
 		backgroundColor: globalColors.mainSecond,
 		width: "100%",
 	},
+	containerDark: {
+		backgroundColor: globalColorsDark.mainThird
+	},
 	cardContainer: {
 		width: "100%",
 		height: "100%"
 	},
+	cardTitle: {
+		color: globalColors.mainContrast
+	},
+	cardTitleDark: {
+		color: globalColorsDark.mainContrast
+	},
 	helpText: {
 		lineHeight: 25,
+	},
+	textColour: {
+		color: globalColors.mainContrast
+	},
+	textColourDark: {
+		color: globalColorsDark.mainContrast
 	},
 	image: {
 		width: 120,
