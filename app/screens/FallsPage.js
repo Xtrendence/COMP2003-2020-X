@@ -8,8 +8,11 @@ import LoadingScreen from '../components/LoadingScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import { SettingsPopup } from '../components/SettingsPopup';
+import { ThemeContext } from '../utils/ThemeProvider';
 
 export class FallsPage extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,6 +22,7 @@ export class FallsPage extends Component {
 			settings: false,
 		};
 		this.navigation = props.navigation;
+		
 	}
 
 	setSettings(page, value){
@@ -57,13 +61,19 @@ export class FallsPage extends Component {
 		});
 	}
 
+	componentDidMount() {
+		const { theme, toggleTheme } = this.context;
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
+	}
+
 	async saveDiary() {
 		
 	}
 
 	render() {
 		return (
-			<View>
+			<View style={[styles.container, styles[`container${this.state.theme}`]]}>
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
@@ -73,8 +83,8 @@ export class FallsPage extends Component {
 				}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<Card>
-						<Text style={[globalComponentStyles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Today's Number of Falls</Text>
-						<TextInput style={globalComponentStyles.inputField} placeholder="Number..." multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({falls:value})} value={this.state.falls.toString()}></TextInput>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Today's Number of Falls</Text>
+						<TextInput style={[globalComponentStyles.inputField,  styles[`textColour${this.state.theme}`]]} placeholder="Number..." multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({falls:value})} value={this.state.falls.toString()}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => this.saveFalls()}>
 								<Text style={styles.actionText}>Confirm</Text>
@@ -82,8 +92,8 @@ export class FallsPage extends Component {
 						</View>
 					</Card>
 					<Card>
-						<Text style={[globalComponentStyles.cardTitle, , styles[`cardTitle${this.state.theme}`]]}>Diary Entry</Text>
-						<TextInput style={[globalComponentStyles.inputFieldMultiline,{height: 120}]} placeholder="..." multiline={true} onChangeText={(value) => this.setState({diary:value})} value={this.state.diary}></TextInput>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Diary Entry</Text>
+						<TextInput style={[[globalComponentStyles.inputFieldMultiline,{height: 120}], styles[`textColour${this.state.theme}`]]} placeholder="..." multiline={true} onChangeText={(value) => this.setState({diary:value})} value={this.state.diary}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => this.saveDiary()}>
 								<Text style={styles.actionText}>Save</Text>
@@ -104,6 +114,9 @@ const styles = StyleSheet.create({
 		backgroundColor: globalColors.mainSecond,
 		width: "100%",
 	},
+	containerDark: {
+		backgroundColor: globalColorsDark.mainThird
+	},
 	cardContainer: {
 		width: "100%",
 		height: "100%"
@@ -114,10 +127,10 @@ const styles = StyleSheet.create({
 	cardTitleDark: {
 		color: globalColorsDark.mainContrast
 	},
-	TextColour: {
+	textColour: {
 		color: globalColors.mainContrast
 	},
-	TextColourDark: {
+	textColourDark: {
 		color: globalColorsDark.mainContrast
 	},
 	buttonWrapper: {
