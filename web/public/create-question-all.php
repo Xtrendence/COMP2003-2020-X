@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/create-question/style.css">
-    <link rel="stylesheet" href="./assets/css/create-question/resize.css">
     <script src="./assets/js/global.js"></script>
     <script src="./assets/js/create-question-all.js"></script>
     <script src="./assets/js/lib/x-notify.js"></script>
