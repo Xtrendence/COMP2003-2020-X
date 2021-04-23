@@ -67,6 +67,16 @@ export class FallsPage extends Component {
 		this.toggleTheme = toggleTheme;
 	}
 
+	componentDidUpdate() {
+        AsyncStorage.getItem("theme").then(result => {
+            if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+                this.setState({theme:result});
+            }
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
 	async saveDiary() {
 		
 	}
@@ -84,7 +94,7 @@ export class FallsPage extends Component {
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Today's Number of Falls</Text>
-						<TextInput style={[globalComponentStyles.inputField,  styles[`textColour${this.state.theme}`]]} placeholder="Number..." multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({falls:value})} value={this.state.falls.toString()}></TextInput>
+						<TextInput style={[globalComponentStyles.inputField, styles[`inputFieldMultiline${this.state.theme}`], styles[`textColour${this.state.theme}`]]} placeholder="Number..." multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({falls:value})} value={this.state.falls.toString()}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => this.saveFalls()}>
 								<Text style={styles.actionText}>Confirm</Text>
@@ -93,7 +103,7 @@ export class FallsPage extends Component {
 					</Card>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Diary Entry</Text>
-						<TextInput style={[[globalComponentStyles.inputFieldMultiline,{height: 120}], styles[`textColour${this.state.theme}`]]} placeholder="..." multiline={true} onChangeText={(value) => this.setState({diary:value})} value={this.state.diary}></TextInput>
+						<TextInput style={[[globalComponentStyles.inputFieldMultiline,{height: 120}], styles[`inputFieldMultiline${this.state.theme}`], styles[`textColour${this.state.theme}`]]} placeholder="..." multiline={true} onChangeText={(value) => this.setState({diary:value})} value={this.state.diary}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => this.saveDiary()}>
 								<Text style={styles.actionText}>Save</Text>
@@ -125,6 +135,10 @@ const styles = StyleSheet.create({
 		color: globalColors.mainContrast
 	},
 	cardTitleDark: {
+		color: globalColorsDark.mainContrast
+	},
+	inputFieldMultilineDark: {
+		backgroundColor: globalColorsDark.mainThird,
 		color: globalColorsDark.mainContrast
 	},
 	textColour: {
