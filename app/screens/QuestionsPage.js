@@ -69,7 +69,7 @@ export class QuestionsPage extends Component {
 		let method;
 		let body;
 
-		endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php?key=" + key;
+		endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/answers/update.php?key=" + key;
 		method = "PUT";
 		body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
 
@@ -139,7 +139,7 @@ export class QuestionsPage extends Component {
 
 		let patientID = await AsyncStorage.getItem("patientID");
 
-		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id=" + patientID + "&key=" + token;
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/answers/read-user.php?id=" + patientID + "&key=" + token;
 
 		if (this._mounted) {
 			this.setState({loading:true});
