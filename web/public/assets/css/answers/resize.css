@@ -1,3 +1,7 @@
 @media screen and (max-width:800px) {
-    
+    .button-wrapper {
+        float: left;
+        display: inline-block;
+        line-height: 75px;
+    }
 }

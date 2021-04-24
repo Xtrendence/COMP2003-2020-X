@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/answers/style.css">
+    <link rel="stylesheet" href="./assets/css/answers/resize.css">
     <script src="./assets/js/answers.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
