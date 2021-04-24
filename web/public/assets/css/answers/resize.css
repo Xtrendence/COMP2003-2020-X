@@ -1,7 +1,14 @@
 @media screen and (max-width:800px) {
-    .button-wrapper {
-        float: left;
-        display: inline-block;
-        line-height: 75px;
+    .navbar {
+        width: 75px;
+    }
+
+    .wrapper {
+        margin-left: 75px;
+        font-size: 0;
+    }
+
+    .navbar button {
+        font-size: 0;
     }
 }
