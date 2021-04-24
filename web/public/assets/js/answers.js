@@ -26,9 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let seperator2 = document.getElementById("sep2");
 
         let sessionToken = localStorage.getItem("sessionToken");
-        
-        //let recentQuestion = contentNoAns.lastChild.nodeValue;
-        //console.log(recentQuestion);
 
         function theSeperators() {
             if (recentNoAns.childNodes.length !== 0){
@@ -272,6 +269,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                 contentAns.appendChild(cardDiv);
                             }
                         }
+
+                        let recentQuestion = contentNoAns.lastChild;
+                        recentNoAns.appendChild(recentQuestion);
+
                         theSeperators();
                     } catch(error) {
                         seperator.classList.add("hidden");
