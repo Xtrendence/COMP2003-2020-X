@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let dropdownButton = document.getElementById("dropdown-button");
         let dropdownContent = document.getElementById("dropdown-content");
+        let cardContent = document.getElementById("card-content");
         
         let qAll = document.getElementById("dd-1");
         let qMost = document.getElementById("dd-2");
@@ -51,10 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 dropdownContent.classList.remove("hidden");
                 dropdownContent.classList.add("dropdown-content");
                 dropdownButton.classList.add("dropdown-button-radius");
+                cardContent.classList.add("card-container");
             }
             else {
                 dropdownContent.classList.add("hidden");
                 dropdownButton.classList.remove("dropdown-button-radius");
+                cardContent.classList.remove("card-container");
             }
         });
 
@@ -270,16 +273,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             }
                         }
                         theSeperators();
-                    } catch {
+                    } catch(error) {
                         seperator.classList.add("hidden");
                         seperator2.classList.add("hidden");
                         seperator.classList.remove("seperator");
                         seperator2.classList.remove("seperator");
-                        console.error("error");
+                        console.log(error);
                     }
                 }
             });
-            xhr.open("GET", "./api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("GET", "http://localhost/COMP2003-2020-X/web/public/api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
             xhr.send();
         }
 

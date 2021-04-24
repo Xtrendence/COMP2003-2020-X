@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="./assets/css/answers/style.css">
     <script src="./assets/js/answers.js"></script>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions &amp; Answers</title>
 </head>
 
@@ -78,17 +79,19 @@
         </div>
     </div>
 
-    <div id="content-not-answered-recent" class="">
-    </div>
+    <div id="card-content" class="">
+        <div id="content-not-answered-recent" class="">
+        </div>
 
-    <div id="sep" class="seperator"></div>
+        <div id="sep" class="seperator"></div>
 
-    <div id="content-not-answered" class="">
-    </div>
+        <div id="content-not-answered" class="">
+        </div>
 
-    <div id="sep2" class="seperator"></div>
+        <div id="sep2" class="seperator"></div>
 
-    <div id="content-answered" class="">
+        <div id="content-answered" class="">
+        </div>
     </div>
 </div>
 
