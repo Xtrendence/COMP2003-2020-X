@@ -37,6 +37,12 @@ export class SettingsPopup extends Component{
 	}
 
 	render() {
+
+		let notifier = new Notifier(
+			onRegister.bind(this),
+			onNotification.bind(this)
+		);
+		
 		return (	
 			<View style={styles.settingsContainer}>
 				<View style={styles.cardContainer}>

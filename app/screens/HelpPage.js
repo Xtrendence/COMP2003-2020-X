@@ -49,27 +49,27 @@ export class HelpPage extends Component {
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 70, paddingLeft: 20}}>
 					<View style={styles.imageWrapper}>
 						<Image style={styles.image} source={require("../assets/Logo.png")}/>
-						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`, styles.imageText]]}>BRIMS SMS</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>BRIMS SMS</Text>
 					</View>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>How do I change the notification time?</Text>
-						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Tap on the cogwheel icon on the top left, and choose the time of day you'd rather get a notifcation at.</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Tap on the cogwheel icon on the top left, and choose the time of day you'd rather get a notifcation at.</Text>
 					</Card>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>How do I record a fall?</Text>
-						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Go to the "Falls" page, and fill out the box that asks you to enter the number of times you've fallen today.</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Go to the "Falls" page, and fill out the box that asks you to enter the number of times you've fallen today.</Text>
 					</Card>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>What's the "Questions" page for?</Text>
-						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Your researchers might have questions for you that you can answer if you go to the "Questions" page you can fill out those questions.</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Your researchers might have questions for you that you can answer if you go to the "Questions" page you can fill out those questions.</Text>
 					</Card>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>How does the "Charts" page work?</Text>
-						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Allows the user to see a clear graph for trends displaying the progression of their falls.</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Allows the user to see a clear graph for trends displaying the progression of their falls.</Text>
 					</Card>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>What's the Calendar page for?</Text>
-						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`, styles.helpText]]}>Calendar page highlights the days in a month recorded by the falls page that the user has fallen.</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Calendar page highlights the days in a month recorded by the falls page that the user has fallen.</Text>
 					</Card>
 				</ScrollView>
 			</View>
