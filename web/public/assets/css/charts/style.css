@@ -1,0 +1,20 @@
+.button-wrapper {
+    padding: 20px 20px 10px 20px;
+    float: right;
+}
+
+.export-button {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    margin: auto auto;
+    display: block;
+
+}

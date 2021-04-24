@@ -59,6 +59,12 @@
     <div class="title-card">
         <span id="user-chart"></span>
     </div>
+
+    <div class="button-wrapper">
+        <button id="export" class="export-button">
+            <span>Export To Spreadsheet</span>
+        </button>
+    </div>
 </div>
 
 </body>
