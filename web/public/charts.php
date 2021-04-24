@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/charts/style.css">
     <script src="./assets/js/charts.js"></script>
+    <script src="./assets/js/global.js"></script>
     <script src="./assets/js/lib/x-notify.js"></script>
     <meta charset="UTF-8">
     <title>User Charts</title>
