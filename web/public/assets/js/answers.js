@@ -75,6 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
             caretContainer.appendChild(rightCaret);
             dropdownButton.appendChild(caretContainer);
 
+            cardContent.classList.remove("card-container");
+
             if (contentAns.classList.contains("hidden")) {
                 contentAns.classList.remove("hidden");
             }
@@ -103,6 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
             caretContainer.appendChild(leftCaret);
             caretContainer.appendChild(rightCaret);
             dropdownButton.appendChild(caretContainer);
+
+            cardContent.classList.remove("card-container");
 
             if (recentNoAns.classList.contains("hidden")) {
                 recentNoAns.classList.remove("hidden");
@@ -137,6 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
             caretContainer.appendChild(rightCaret);
             dropdownButton.appendChild(caretContainer);
 
+            cardContent.classList.remove("card-container");
+
             if (contentAns.classList.contains("hidden")) {
                 contentAns.classList.remove("hidden");
             }
@@ -169,6 +175,8 @@ document.addEventListener("DOMContentLoaded", () => {
             caretContainer.appendChild(leftCaret);
             caretContainer.appendChild(rightCaret);
             dropdownButton.appendChild(caretContainer);
+
+            cardContent.classList.remove("card-container");
 
             if (contentNoAns.classList.contains("hidden")) {
                 contentNoAns.classList.remove("hidden");
