@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //verifySession(localStorage.getItem("sessionToken")).then(result => {
+    verifySession(localStorage.getItem("sessionToken")).then(result => {
 
         let url = new URL(window.location.href);
         let patID = url.searchParams.get("id");
@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("GET", "http://localhost/COMP2003-2020-X/web/public/api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("GET", "./api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
             xhr.send();
         }
 
@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
          */
         checkTheme()
 
-    //}).catch(error => {
-    //    window.location.replace("./login.php");
-    //});
+    }).catch(error => {
+        window.location.replace("./login.php");
+    });
 });
