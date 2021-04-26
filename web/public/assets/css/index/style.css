@@ -7,6 +7,7 @@
     font-size: var(--font-medium);
 }
 
+/*main title text*/
 .title-text {
     font-size: var(--font-larger);
     font-weight: bold;
@@ -15,12 +16,13 @@
     width: 8em;
 }
 
-.subtitle-text{
+/*subtitle text used in the two small cards*/
+.subtitle-text {
     font-size: medium;
     font-weight: bold;
 }
 
-.subtitle-align{
+.subtitle-align {
     text-align: center;
 }
 
@@ -37,32 +39,34 @@
     margin-bottom: 15px;
 }
 
-/*purple NHS tile card area: with hyperlink to NHS website about MS*/
-.nhs-title-card {
-    background: var(--accent-gradient);
+/*purple NHS button: with hyperlink to NHS website about MS*/
+.nhs-button {
+    background-color: var(--accent-medium);
     box-shadow: var(--shadow-smooth);
     color: var(--accent-contrast);
     font-size: var(--font-medium);
+    font-weight: bold;
     padding: 10px 10px 10px 10px;
     margin: 15px auto 0 auto;
     width: auto;
     border-radius: 10px;
-    display: block;
+    border: none;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.nhs-button:hover {
+    background-color: var(--accent-darkest);
+}
+
+/*wrapper for NHS link button*/
+.nhs-div {
     text-align: center;
 }
 
-/*used to remove purple hyperlink colouring & underline from NHS text*/
-.nhs-title-card a {
+a {
     text-decoration: none;
 }
-
-/*span text styling for NHS text*/
-.nhs-subtitle-text {
-    font-size: var(--font-medium);
-    font-weight: bold;
-    color: var(--accent-contrast);
-}
-
 
 .margin-space {
     padding: 30px 10px 0px 5px;
@@ -74,7 +78,6 @@
     width: 100%;
     text-align: center;
     position: relative;
-
     font-size: 0;
 }
 
