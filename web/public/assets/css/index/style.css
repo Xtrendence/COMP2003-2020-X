@@ -7,6 +7,7 @@
     font-size: var(--font-medium);
 }
 
+/*main title text*/
 .title-text {
     font-size: var(--font-larger);
     font-weight: bold;
@@ -15,12 +16,13 @@
     width: 8em;
 }
 
-.subtitle-text{
+/*subtitle text used in the two small cards*/
+.subtitle-text {
     font-size: medium;
     font-weight: bold;
 }
 
-.subtitle-align{
+.subtitle-align {
     text-align: center;
 }
 
@@ -57,6 +59,7 @@
     background-color: var(--accent-darkest);
 }
 
+/*wrapper for NHS link button*/
 .nhs-div {
     text-align: center;
 }

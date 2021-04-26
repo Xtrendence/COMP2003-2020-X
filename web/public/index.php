@@ -69,9 +69,7 @@
 
         <div class="nhs-div">
             <a href="https://www.nhs.uk/conditions/multiple-sclerosis/">
-                <button class="nhs-button">
-                    View NHS Website
-                </button>
+                <button class="nhs-button">View NHS Website</button>
             </a>
         </div>
 
