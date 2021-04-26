@@ -67,9 +67,14 @@
             It’s most commonly diagnosed in people in their 20s and 30s, although it can develop at any age. It’s about 2 to 3 times more common in women than men.</span>
         </div>
 
-        <div class="nhs-title-card">
-            <a href="https://www.nhs.uk/conditions/multiple-sclerosis/"><span class="nhs-subtitle-text">View NHS Website</span></a>
+        <div class="nhs-div">
+            <a href="https://www.nhs.uk/conditions/multiple-sclerosis/">
+                <button class="nhs-button">
+                    View NHS Website
+                </button>
+            </a>
         </div>
+
     </div>
 
     <div class="small-card">
