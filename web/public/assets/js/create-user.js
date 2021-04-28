@@ -4,21 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const Notify = new XNotify("BottomRight");
 
-	let researcherID = document.getElementById("researcher-id");
-	let nhsRef = document.getElementById("patient-nhs-ref");
-	let username = document.getElementById("patient-username");
-	let password = document.getElementById("patient-password");
-	let firstName = document.getElementById("patient-first-name");
-	let lastName = document.getElementById("patient-last-name");
-	let dateOfBirth = document.getElementById("patient-dob");
-	let addressLine1 = document.getElementById("patient-address-line-1");
-	let addressLine2 = document.getElementById("patient-address-line-2");
-	let postcode = document.getElementById("patient-postcode");
-	let telephone = document.getElementById("patient-telephone");
-	let mobile = document.getElementById("patient-mobile");
-	let email = document.getElementById("patient-email");
-	let comment = document.getElementById("patient-comment");
-
 	let createForm = document.getElementById("create-form");
 	let createUser = document.getElementById("create-user");
 
