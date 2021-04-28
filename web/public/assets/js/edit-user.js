@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 let json = xhr.responseText;
                 let users = JSON.parse(json);
                 let keys = Object.keys(users);
-                console.log(json);
                 try {
                     let patient = users;
                     for (let i = 0; i < keys.length; i++) {
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
-        xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read.php?id=" + userID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6" , true);
+        xhr.open("GET", "./api/users/read.php?id=" + userID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6" , true);
         xhr.send();
     }
 
