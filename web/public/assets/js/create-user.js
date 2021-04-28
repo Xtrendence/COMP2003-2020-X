@@ -22,25 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	let createForm = document.getElementById("create-form");
 	let createUser = document.getElementById("create-user");
 
-	let testing = true;
-
-	if(testing) {
-		researcherID.value = "1";
-		nhsRef.value = "1191191303";
-		username.value = "AdrianX";
-		password.value = "JustATest";
-		firstName.value = "Adrian";
-		lastName.value = "Nouchin";
-		dateOfBirth.value = "1969-11-01 15:00:00";
-		addressLine1.value = "Some Place";
-		addressLine2.value = "Some Flat";
-		postcode.value = "PL3XQC";
-		telephone.value = "01752123999";
-		mobile.value = "+447849198656";
-		email.value = "adrian@xtrendence.com";
-		comment.value = "This is just a test.";
-	}
-
 	createUser.addEventListener("click", () => {
 		let user = {};
 
