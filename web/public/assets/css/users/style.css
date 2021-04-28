@@ -87,6 +87,10 @@ td {
 }
 
 .search-child{
+    background: var(--main-third);
+    color: var(--main-contrast);
+    outline: none;
+    border: none;
     display: inline-block;
     height: 20px;
 }
