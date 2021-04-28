@@ -1,0 +1,21 @@
+.wide-card {
+	min-height:290px;
+	position:relative;
+}
+.wide-card span {
+	font-size:16px;
+	display:block;
+	line-height:24px;
+}
+.wide-card span.title {
+	font-weight:bold;
+	margin-bottom:20px;
+	color:var(--main-contrast);
+}
+.chart-wrapper {
+	width:calc(100% - 100px);
+	max-width:800px;
+	display:block;
+	margin:10px auto 10px auto;
+	padding:20px;
+}

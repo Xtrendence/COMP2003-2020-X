@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
@@ -10,21 +11,47 @@ const screenHeight = Dimensions.get("window").height;
 export class TopBar extends Component {
 	constructor(props) {
 		super(props);
-		this.navigation = props.navigation;
+		this.navigation = props.navigation;     
 	}
 
-	logout() {
-		this.navigation.dangerouslyGetParent().navigate("LoginPage");
+	async logout() {
+        let patientID = await AsyncStorage.getItem("patientID");
+
+        let token = await AsyncStorage.getItem("token");
+
+        let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/logout.php";
+
+        let body = { patientID:patientID, token:token };
+
+        fetch(endpoint, {
+			method: "POST",
+			headers: {
+				Accept: "application/json", "Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+		.then(async () => {
+            await AsyncStorage.removeItem("token");
+            await AsyncStorage.removeItem("patientID");
+            this.navigation.dangerouslyGetParent().navigate("LoginPage");
+		})
+		.catch((error) => {
+			console.log(error);
+			showMessage({
+				message: "Error",
+				type: "danger"
+			});
+		});
 	}
 
 	render() {
 		return (
 			<View style={styles.header}>
-				<TouchableOpacity style={styles.cogView}>
+				<TouchableOpacity style={styles.cogView} onPress={() => this.props.setSettings(this.props.page, !this.props.settings)}>
 					<Icon name="cog" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
 				</TouchableOpacity>
 				<View style={styles.textView}>
-					<Text style={styles.headerText}>{ this.props.children }</Text>
+					<Text style={styles.headerText}>{this.props.children }</Text>
 				</View>
 				<TouchableOpacity style={styles.logoutView} onPress={() => this.logout()}>
 					<Icon name="log-out" color={globalColors.accentContrast} size={globalStyles.topBarIconSize}  />
