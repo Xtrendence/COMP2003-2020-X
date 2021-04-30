@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     /* XHR element: XML HTTP GET REQUEST: followed by URI link for "read" api end point */
-    xhr.open("GET", "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6&id=" + patID, true);
+    xhr.open("GET", "./api/users/read.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6&id=" + patID, true);
     xhr.send();
 
     let chartsButton;
