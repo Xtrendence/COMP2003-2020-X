@@ -125,11 +125,11 @@
         </div>
 
         <div class="text-margin">
-            <span class="card-heading">Character Limit:</span>
+            <span class="card-heading">Type:</span>
         </div>
 
         <div class="text-margin">
-            <span class="card-heading">Type:</span>
+            <span class="card-heading">Choices:</span>
         </div>
 
         <div class="card-button-wrapper">

@@ -91,21 +91,22 @@ document.addEventListener("DOMContentLoaded", () => {
             wideCard.id = "wideCard";
             wideCard.innerHTML = '\n' +
             '        <div class="text-margin">\n' +
-            '            <span class="card-heading">Question ID:'+ questionID +' </span>\n' +
+            '            <span class="card-heading">Question ID: <span class="card-text">'+ questionID +'</span> </span>\n' +
             '        </div>\n' +
             '\n' +
             '        <div class="text-margin">\n' +
-            '            <span class="card-heading">Question: '+ q +'</span>\n' +
+            '            <span class="card-heading">Question: <span class="card-text">'+ q +'</span> </span>\n' +
             '        </div>\n' +
             '\n' +
             '        <div class="text-margin">\n' +
-            '            <span class="card-heading">Character Limit: '+ questionLim +'</span>\n' +
+            '            <span class="card-heading">Character Limit: <span class="card-text">'+ questionLim +'</span></span>\n' +
             '        </div>\n' +
             '\n' +
             '        <div class="text-margin">\n' +
-            '            <span class="card-heading">Type: '+ questionType +' </span>\n' +
+            '            <span class="card-heading">Type: <span class="card-text">'+ questionType +'</span> </span>\n' +
             '        </div>\n' +
             '\n' +
+
             '    </div>'
 
 
@@ -132,19 +133,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 wideCard.innerHTML = '\n' +
                     '        <div class="text-margin">\n' +
-                    '            <span class="card-heading">Question ID:' + questionID + ' </span>\n' +
+                    '            <span class="card-heading">Question ID: <span class="card-text">' + questionID + '</span> </span>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="text-margin">\n' +
-                    '            <span class="card-heading">Question: ' + q + '</span>\n' +
+                    '            <span class="card-heading">Question: <span class="card-text">' + q + '</span> </span>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="text-margin">\n' +
-                    '            <span class="card-heading">Type: ' + questionType + '</span>\n' +
+                    '            <span class="card-heading">Type: <span class="card-text">' + questionType + '</span> </span>\n' +
                     '        </div>\n' +
                     '\n' +
                     '        <div class="text-margin">\n' +
-                    '            <span class="card-heading">Choices: ' + Object.values(choices).join(", ") + ' </span>\n' +
+                    '            <span class="card-heading">Choices: <span class="card-text">' + Object.values(choices).join(", ") + '</span> </span>\n' +
                     '        </div>\n' +
                     '\n' +
                     '    </div>'
