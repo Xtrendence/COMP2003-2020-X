@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	let divAnswersList = document.getElementById("answers-list");
 
 	getAnswers().then(answers => {
-		if("data" in answers) {
+		if ("data" in answers) {
 			let choiceAnswers = getChoiceAnswers(answers.data);
 
 			Object.keys(choiceAnswers).map(question => {
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					let count = counts[choice];
 					let percentage = parseInt(((count * 100) / answers.length).toFixed(0));
 					
-					if(index === choices.length) {
+					if (index === choices.length) {
 						percentages[choice] = total;
 					} else {
 						percentages[choice] = percentage;
@@ -137,8 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		let choiceAnswers = {};
 		Object.keys(answers).map(key => {
 			let answer = answers[key];
-			if(answer["question_type"] === "choice" && !empty(answer["answer"])) {
-				if(answer["question"] in choiceAnswers) {
+			if (answer["question_type"] === "choice" && !empty(answer["answer"])) {
+				if (answer["question"] in choiceAnswers) {
 					choiceAnswers[answer["question"]]["answers"].push(answer);
 				} else {
 					choiceAnswer = {
@@ -157,8 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		return new Promise((resolve, reject) => {
 			let xhr = new XMLHttpRequest();
 			xhr.addEventListener("readystatechange", () => {
-				if(xhr.readyState === XMLHttpRequest.DONE) {
-					if(validJSON(xhr.responseText)) {
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (validJSON(xhr.responseText)) {
 						resolve(JSON.parse(xhr.responseText));
 					} else {
 						reject("Invalid JSON.");
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function empty(string) {
-		if(string != null && typeof string != "undefined" && string.trim() != "" && JSON.stringify(string) != "" && JSON.stringify(string) != "{}") {
+		if (string != null && typeof string != "undefined" && string.trim() != "" && JSON.stringify(string) != "" && JSON.stringify(string) != "{}") {
 			return false;
 		}
 		return true;
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function validJSON(json) {
 		try {
 			let object = JSON.parse(json);
-			if(object && typeof object === "object") {
+			if (object && typeof object === "object") {
 				return object;
 			}
 		}

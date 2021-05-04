@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 
 		create(user).then(response => {
-			if("error" in response) {
+			if ("error" in response) {
 				Notify.error({
 					title: "Error", 
 					description: response.error, 
@@ -50,10 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			let xhr = new XMLHttpRequest();
 			
 			xhr.addEventListener("readystatechange", () => {
-				if(xhr.readyState === XMLHttpRequest.DONE) {
-					if(validJSON(xhr.responseText)) {
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (validJSON(xhr.responseText)) {
 						resolve(JSON.parse(xhr.responseText));
-					} else if(empty(xhr.responseText)) {
+					} else if (empty(xhr.responseText)) {
 						resolve({});
 					} else {
 						reject("Invalid JSON.");

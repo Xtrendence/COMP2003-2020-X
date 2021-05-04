@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				xhr.addEventListener("readystatechange", () => {
 					if (xhr.readyState === XMLHttpRequest.DONE) {
-						if(validJSON(xhr.responseText)) {
+						if (validJSON(xhr.responseText)) {
 							resolve(JSON.parse(xhr.responseText));
 						} else {
 							reject("Invalid JSON.");
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function empty(string) {
-	if(string != null && typeof string != "undefined" && string.trim() != "" && JSON.stringify(string) != "" && JSON.stringify(string) != "{}") {
+	if (string != null && typeof string != "undefined" && string.trim() != "" && JSON.stringify(string) != "" && JSON.stringify(string) != "{}") {
 		return false;
 	}
 	return true;
@@ -267,7 +267,7 @@ function empty(string) {
 function validJSON(json) {
 	try {
 		let object = JSON.parse(json);
-		if(object && typeof object === "object") {
+		if (object && typeof object === "object") {
 			return object;
 		}
 	}
