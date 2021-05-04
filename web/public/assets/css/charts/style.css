@@ -1,0 +1,20 @@
+.wrapper button {
+	width: auto;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	color: var(--accent-contrast);
+	background: var(--accent-gradient);
+	box-shadow: var(--shadow-smooth);
+	border-radius: 10px;
+	outline: none;
+	border: none;
+	display: block;
+	height: 40px;
+	padding: 0 10px 0 10px;
+	margin: 30px auto 0 auto;
+	transition: transform 0.25s;
+}
+.wrapper button:hover {
+	transform: scale(0.95);
+}

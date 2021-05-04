@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const Notify = new XNotify("BottomRight");
 
+	checkTheme();
+
 	let apiKey = localStorage.getItem("sessionToken");
 	let apiURL = "./api/";
 
