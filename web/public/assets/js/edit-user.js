@@ -1,41 +1,111 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const xhr = new XMLHttpRequest();
-
-    let fNameInput = document.getElementById("inputForename");
-    let sNameInput = document.getElementById("inputSurname");
-
-    let url = new URL(window.location.href);
-    let userID = url.searchParams.get("id");
-    let titleCard = document.getElementById("user-id");
-    let title = "Edit User - User ";
-    let addID = title.concat(userID);
-    titleCard.innerText = addID;
-
     let sessionToken = localStorage.getItem("sessionToken");
 
-    function getUser(){
-        xhr.addEventListener("readystatechange", function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                let json = xhr.responseText;
-                let users = JSON.parse(json);
-                let keys = Object.keys(users);
-                try {
-                    let patient = users;
-                    for (let i = 0; i < keys.length; i++) {
-                        let fName = patient["patient_fName"];
-                        let sName = patient["patient_lName"];
+    verifySession(sessionToken).then(result => {
+        const xhr = new XMLHttpRequest();
 
-                        fNameInput.setAttribute("value", fName);
-                        sNameInput.setAttribute("value", sName);
+        let researcherInput = document.getElementById("researcher-id");
+        let nhsInput = document.getElementById("patient-nhs-ref");
+        let usernameInput = document.getElementById("patient-username");
+        let passwordInput = document.getElementById("patient-password");
+        let fNameInput = document.getElementById("patient-first-name");
+        let lNameInput = document.getElementById("patient-last-name");
+        let dobInput = document.getElementById("patient-dob");
+        let ad1Input = document.getElementById("patient-address-line-1");
+        let ad2Input = document.getElementById("patient-address-line-2");
+        let postInput = document.getElementById("patient-postcode");
+        let telInput = document.getElementById("patient-telephone");
+        let mobInput = document.getElementById("patient-mobile");
+        let emailInput = document.getElementById("patient-email");
+        let commInput = document.getElementById("patient-comment");
+
+
+        let editBtn = document.getElementById("submit-edit")
+
+        let url = new URL(window.location.href);
+        let userID = url.searchParams.get("id");
+        let titleCard = document.getElementById("user-id");
+        let title = "Edit User - User ";
+        let addID = title.concat(userID);
+        titleCard.innerText = addID;
+
+        let changes;
+
+        function getUser() {
+            xhr.addEventListener("readystatechange", function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    let json = xhr.responseText;
+                    let users = JSON.parse(json);
+                    let keys = Object.keys(users);
+                    console.log(users);
+                    try {
+                        let patient = users;
+                        for (let i = 0; i < keys.length; i++) {
+                            let res = patient["researcherID"];
+                            let nhs = patient["patient_nhsRef"];
+                            let username = patient["patient_username"];
+                            let password = patient["patient_password"];
+                            let first = patient["patient_fName"];
+                            let last = patient["patient_lName"];
+                            let dob = patient["patient_dob"];
+                            let ad1 = patient["patient_addressI"];
+                            let ad2 = patient["patient_addressII"];
+                            let pCode = patient["patient_postcode"];
+                            let tel = patient["patient_tel"];
+                            let mobl = patient["patient_mobile"];
+                            let email = patient["patient_email"];
+                            let comm = patient["patient_comment"];
+
+                            researcherInput.setAttribute("value", res);
+                            nhsInput.setAttribute("value", nhs);
+                            usernameInput.setAttribute("value", username);
+                            passwordInput.setAttribute("value", password);
+                            fNameInput.setAttribute("value", first);
+                            lNameInput.setAttribute("value", last);
+                            dobInput.setAttribute("value", dob);
+                            ad1Input.setAttribute("value", ad1);
+                            ad2Input.setAttribute("value", ad2);
+                            postInput.setAttribute("value", pCode);
+                            telInput.setAttribute("value", tel);
+                            mobInput.setAttribute("value", mobl);
+                            emailInput.setAttribute("value", email);
+                            commInput.setAttribute("value", comm);
+                        }
+                    } catch {
+                        console.error("error");
                     }
-                } catch {
-                    console.error("error");
                 }
-            }
-        });
-        xhr.open("GET", "./api/users/read.php?id=" + userID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6" , true);
-        xhr.send();
-    }
+            });
+            xhr.open("GET", "./api/users/read.php?id=" + userID + "&key=" + result.token, true);
+            xhr.send();
+        }
 
-    getUser();
+        editBtn.addEventListener("click", function () {
+            changes = {
+                researcherID: result.researcherID,
+                patient_nhsRef: result.patient_nhsRef,
+                patient_username: usernameInput,
+                patient_password: passwordInput,
+                patient_fName: fNameInput.value,
+                patient_lName: sNameInput.value ,
+                patient_addressI: ad1Input,
+                patient_addressII: ad2Input,
+                patient_postcode: postInput,
+                patient_tel: telInput,
+                patient_mobile: mobInput,
+                patient_email: emailInput,
+                patient_comment: commInput
+            };
+            console.log(changes);
+
+        xhr.open("PUT", "./api/users/update.php?&key=" + result.token, true);
+        xhr.send(JSON.stringify(changes));
+        getUser();
+        });
+
+        getUser();
+
+    }).catch(error => {
+        window.location.replace("./login.php");
+    });
 });

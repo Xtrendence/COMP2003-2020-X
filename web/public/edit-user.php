@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/edit-user/style.css">
     <link rel="stylesheet" href="./assets/css/edit-user/resize.css">
+    <script src="./assets/js/global.js"></script>
     <script src="./assets/js/edit-user.js"></script>
     <meta charset="UTF-8">
     <title>Edit User</title>
@@ -58,28 +59,27 @@
     <div class="title-card">
         <span id="user-id"></span>
     </div>
-
     <div class="main-card">
-        <div class="text-names">
-            <span>First Name</span>
-        </div>
-
-        <div class="text-names">
-            <input id="inputForename">
-        </div>
-
-
-        <div class="text-names">
-            <span>Last Name</span>
-        </div>
-
-        <div class="text-names">
-            <input id="inputSurname">
-        </div>
-
+        <span>Researcher Details</span>
+        <input id="researcher-id" type="number" placeholder="Researcher ID...">
+        <span>Patient Details</span>
+        <input id="patient-nhs-ref" type="number" placeholder="NHS Ref...">
+        <input id="patient-username" type="text" placeholder="Username...">
+        <input id="patient-password" type="text" placeholder="Password...">
+        <input id="patient-first-name" type="text" placeholder="First Name...">
+        <input id="patient-last-name" type="text" placeholder="Last Name...">
+        <input id="patient-dob" type="text" placeholder="Date of Birth...">
+        <input id="patient-address-line-1" type="text" placeholder="Address Line 1...">
+        <input id="patient-address-line-2" type="text" placeholder="Address Line 2...">
+        <input id="patient-postcode" type="text" placeholder="Postcode...">
+        <input id="patient-telephone" type="text" placeholder="Telephone Number...">
+        <input id="patient-mobile" type="text" placeholder="Mobile Number...">
+        <input id="patient-email" type="text" placeholder="Email Address...">
+        <input id="patient-comment" type="text" placeholder="Comment...">
         <div class="div-button">
-            <button class="edit-button">Submit Edit</button>
+            <button class="edit-button" id="submit-edit">Save Details</button>
         </div>
+    </div>
     </div>
 </div>
 
