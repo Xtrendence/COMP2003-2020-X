@@ -28,7 +28,7 @@
 			<span>Username</span>
 			<input id="admin-username" type="text" placeholder="Username...">
 			<span>Password</span>
-			<input id="admin-password" type="text" placeholder="Password...">
+			<input id="admin-password" type="password" placeholder="Password...">
 			<button id="admin-login">Log In</button>
 		</div>
 	</body>
