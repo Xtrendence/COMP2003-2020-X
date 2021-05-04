@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	let apiKey = localStorage.getItem("sessionToken");
 	let apiURL = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/";
-	let apiAccess;
 
 	let inputAdminUsername = document.getElementById("admin-username");
 	let inputAdminPassword = document.getElementById("admin-password");
@@ -17,6 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			title: "Error",
 			description: error
 		});
+	});
+
+	document.addEventListener("keydown", (e) => {
+		if (e.key.toLowerCase() === "enter") {
+			buttonAdminLogin.click();
+		}
 	});
 
 	buttonAdminLogin.addEventListener("click", async () => {
