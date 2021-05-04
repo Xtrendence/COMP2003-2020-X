@@ -12,9 +12,51 @@
 	display: block;
 	height: 40px;
 	padding: 0 10px 0 10px;
-	margin: 30px auto 0 auto;
+	margin: 50px auto 0 auto;
 	transition: transform 0.25s;
 }
 .wrapper button:hover {
 	transform: scale(0.95);
+}
+
+.buttons-wrapper {
+	width: 100%;
+	text-align: center;
+	display: block;
+	margin: 20px auto 20px auto;
+}
+.buttons-wrapper span {
+	display: block;
+	font-size: 16px;
+	background: var(--accent-gradient);
+	color: var(--accent-contrast);
+	line-height: 40px;
+	height: 40px;
+	border-radius: 10px;
+	font-weight: bold;
+	margin: 0 auto 20px auto;
+	width: 240px;
+	text-align: center;
+}
+.buttons-wrapper button {
+	display: inline-block;
+	vertical-align: top;
+	margin: 0;
+	width: 50px;
+}
+#this-week-button {
+	margin: 0 20px 0 20px;
+	width: 100px;
+}
+.buttons-wrapper svg {
+	width: 28px;
+	height: 28px;
+	margin-top: 6px;
+	fill: var(--accent-contrast);
+}
+#previous-button svg {
+	margin-right: 4px;
+}
+#next-button svg {
+	margin-left: 4px;
 }

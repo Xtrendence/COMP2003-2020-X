@@ -5,7 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		const Notify = new XNotify("BottomRight");
 
 		let spanTitle = document.getElementById("title-span");
+		let spanTime = document.getElementById("time-span");
 		
+		let buttonPrevious = document.getElementById("previous-button");
+		let buttonThisWeek = document.getElementById("this-week-button");
+		let buttonNext = document.getElementById("next-button");
 		let buttonExport = document.getElementById("export-button");
 
 		let patientID = new URL(window.location.href).searchParams.get("id");
@@ -16,9 +20,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		checkTheme();
 
-		getData(timeFrom, timeTo);
+		getData(timeFrom, timeTo).then(data => {
+			processData(data);
+		}).catch(error => {
+			Notify.error({
+				title: "Error",
+				description: error
+			});
+		});
 
 		spanTitle.textContent = "Falls Chart - User " + patientID;
+
+		buttonPrevious.addEventListener("click", () => {
+			navigatePrevious();
+		});
+
+		buttonThisWeek.addEventListener("click", () => {
+			navigateToday();
+		});
+
+		buttonNext.addEventListener("click", () => {
+			navigateNext();
+		});
 
 		buttonExport.addEventListener("click", () => {
 			let pathname = window.location.pathname;
@@ -33,8 +56,32 @@ document.addEventListener("DOMContentLoaded", () => {
 			document.body.appendChild(frame);
 		});
 
-		function getData(from, to) {
+		function processData(data) {
+			timespan = formatDate(timeFrom, "/") + " - " + formatDate(timeTo, "/");
+			spanTime.textContent = timespan;
+			
+			console.log(data);
+		}
 
+		function getData(from, to) {
+			return new Promise((resolve, reject) => {
+				let endpoint = "./api/falls/read-date.php?id=" + patientID + "&from=" + formatDateTime(from) + "&to=" + formatDateTime(to) + "&key=" + result.token;
+
+				let xhr = new XMLHttpRequest();
+
+				xhr.addEventListener("readystatechange", () => {
+					if (xhr.readyState === XMLHttpRequest.DONE) {
+						if(validJSON(xhr.responseText)) {
+							resolve(JSON.parse(xhr.responseText));
+						} else {
+							reject("Invalid JSON.");
+						}
+					}
+				});
+
+				xhr.open("GET", endpoint, true);
+				xhr.send();
+			});
 		}
 
 		// Navigates to today's date on the chart.
@@ -43,7 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			let to = new Date();
 			timeFrom = from;
 			timeTo = to;
-			getData(from, to);
+			getData(from, to).then(data => {
+				processData(data);
+			}).catch(error => {
+				Notify.error({
+					title: "Error",
+					description: error
+				});
+			});
 		}
 
 		// Navigates to the previous week.
@@ -52,7 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			let to = timeFrom;
 			timeFrom = from;
 			timeTo = to;
-			getData(from, to);
+			getData(from, to).then(data => {
+				processData(data);
+			}).catch(error => {
+				Notify.error({
+					title: "Error",
+					description: error
+				});
+			});
 		}
 
 		// Navigates to the next week.
@@ -62,7 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (to <= new Date()) {
 				timeFrom = from;
 				timeTo = to;
-				getData(from, to);
+				getData(from, to).then(data => {
+					processData(data);
+				}).catch(error => {
+					Notify.error({
+						title: "Error",
+						description: error
+					});
+				});
 			} else {
 				Notify.error({
 					title: "Error",
@@ -108,3 +176,21 @@ document.addEventListener("DOMContentLoaded", () => {
 		// window.location.replace("./login.php");
 	});
 });
+
+function empty(string) {
+	if(string != null && typeof string != "undefined" && string.trim() != "" && JSON.stringify(string) != "" && JSON.stringify(string) != "{}") {
+		return false;
+	}
+	return true;
+}
+
+function validJSON(json) {
+	try {
+		let object = JSON.parse(json);
+		if(object && typeof object === "object") {
+			return object;
+		}
+	}
+	catch(e) { }
+	return false;
+}
