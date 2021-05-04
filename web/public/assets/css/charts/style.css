@@ -45,6 +45,7 @@
 	margin: 0 auto 20px auto;
 	width: 240px;
 	text-align: center;
+	box-shadow: var(--shadow-smooth);
 }
 .buttons-wrapper button {
 	display: inline-block;
