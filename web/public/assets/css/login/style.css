@@ -51,6 +51,7 @@ button {
 	cursor: pointer;
 	color: var(--accent-contrast);
 	background: var(--accent-gradient);
+	box-shadow: var(--shadow-smooth);
 	border-radius: 10px;
 	outline: none;
 	border: none;
