@@ -21,17 +21,15 @@
 		<title>Login Page</title>
 	</head>
 	<body>
-		<div class="wrapper">
-			<div class="title-card">
-				<span>Admin Login</span>
-			</div>
-			<div class="wide-card">
-				<h1>Username</h1>
-				<input id="admin-username" type="text" placeholder="Admin username...">
-				<h1>Password</h1>
-				<input id="admin-password" type="text" placeholder="Admin password...">
-				<button id="admin-login">Log In</button>
-			</div>
+		<div class="title-card">
+			<span>Admin Login</span>
+		</div>
+		<div class="wide-card">
+			<span>Username</span>
+			<input id="admin-username" type="text" placeholder="Username...">
+			<span>Password</span>
+			<input id="admin-password" type="text" placeholder="Password...">
+			<button id="admin-login">Log In</button>
 		</div>
 	</body>
 </html>
