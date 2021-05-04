@@ -7,7 +7,7 @@ body {
 	height: 270px;
 	margin: 0;
 	position: absolute;
-	left: calc(50% - 400px / 2);
+	left: calc(50% - 400px / 2 - 10px);
 	top: calc((50% - 270px / 2 + 30px) - 40px);
 	padding: 20px 10px 10px 10px;
 }
