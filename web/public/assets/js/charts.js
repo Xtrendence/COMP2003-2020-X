@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		let spanTitle = document.getElementById("title-span");
 		let spanTime = document.getElementById("time-span");
+
+		let divChartWrapper = document.getElementById("chart-wrapper");
 		
 		let buttonPrevious = document.getElementById("previous-button");
 		let buttonThisWeek = document.getElementById("this-week-button");
@@ -92,7 +94,50 @@ document.addEventListener("DOMContentLoaded", () => {
 				chartData.push(days[key]);
 			});
 
-			
+			generateChart(chartLabels, chartData);
+		}
+
+		function generateChart(labels, data) {
+			let canvas = document.createElement("canvas");
+			canvas.classList.add("chart");
+			new Chart(canvas, {
+				type:"line",
+				data: {
+					labels:labels,
+					datasets:[{
+						label:"Falls",
+						backgroundColor:"rgba(0,0,0,0)",
+						borderColor:"rgb(95,103,129)",
+						data:data
+					}],
+				},
+				options: {
+					responsive:true,
+					legend: {
+						display:true
+					},
+					scales: {
+						xAxes: [{
+							gridLines: {
+								color:document.body.getAttribute("data-theme") === "dark" ? "rgba(255,255,255,0.075)" : "rgba(0,0,0,0.2)",
+								borderDash: [8, 4]
+							}
+						}],
+						yAxes: [{
+							gridLines: {
+								color:document.body.getAttribute("data-theme") === "dark" ? "rgba(255,255,255,0.075)" : "rgba(0,0,0,0.2)",
+								borderDash: [8, 4]
+							},
+							ticks: {
+								stepSize:1
+							}
+						}]
+					}
+				}
+			});
+
+			divChartWrapper.innerHTML = "";
+			divChartWrapper.appendChild(canvas);
 		}
 
 		function getData(from, to) {
