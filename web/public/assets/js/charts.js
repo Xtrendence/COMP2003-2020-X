@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		getData(timeFrom, timeTo).then(data => {
 			processData(data);
 		}).catch(error => {
+			console.log(error);
 			Notify.error({
 				title: "Error",
 				description: error
@@ -57,10 +58,41 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 
 		function processData(data) {
-			timespan = formatDate(timeFrom, "/") + " - " + formatDate(timeTo, "/");
+			let from = timeFrom;
+			let to = timeTo;
+
+			timespan = formatDate(from, "/") + " - " + formatDate(to, "/");
 			spanTime.textContent = timespan;
+
+			let days = {};
+			let chartLabels = [];
+			let chartData = [];
+
+			for (let i = 0; i < 7; i++) {
+				let dateTime = new Date(from.getTime() + (60 * 60 * 24 * i * 1000));
+				let labelDate = formatDate(dateTime, "/");
+				let formatted = labelDate.slice(-5);
+				chartLabels.push(formatted);
+
+				let date = formatDate(dateTime, "-").toString();
+				days[date] = 0;
+			}
+
+			if ("data" in data) {
+				let falls = data.data;
+				Object.keys(falls).map(key => {
+					let fall = falls[key];
+					let dateTime = fall["fall_date"].toString().replace(" ", "T");
+					let date = formatDate(dateTime, "-");
+					days[date] = date in days ? days[date] + 1 : 1;
+				});
+			}
+
+			Object.keys(days).map(key => {
+				chartData.push(days[key]);
+			});
+
 			
-			console.log(data);
 		}
 
 		function getData(from, to) {
@@ -93,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			getData(from, to).then(data => {
 				processData(data);
 			}).catch(error => {
+				console.log(error);
 				Notify.error({
 					title: "Error",
 					description: error
@@ -109,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			getData(from, to).then(data => {
 				processData(data);
 			}).catch(error => {
+				console.log(error);
 				Notify.error({
 					title: "Error",
 					description: error
@@ -126,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				getData(from, to).then(data => {
 					processData(data);
 				}).catch(error => {
+					console.log(error);
 					Notify.error({
 						title: "Error",
 						description: error
