@@ -2,15 +2,15 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
-	<link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16x16.png">
-	<link rel="manifest" href="./assets/img/favicon/site.webmanifest">
-	<link rel="mask-icon" href="./assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
-	<link rel="shortcut icon" href="./assets/img/favicon/favicon.ico">
-	<meta name="msapplication-TileColor" content="#2b5797">
-	<meta name="msapplication-config" content="./assets/img/favicon/browserconfig.xml">
-	<meta name="theme-color" content="#a3acd1">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="./assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./assets/img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="./assets/img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#a3acd1">
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/users/style.css">
@@ -65,7 +65,7 @@
     </div>
     <div class="wide-card">
         <div class="search-div">
-<!--            <p class="search-child">Search: </p>-->
+            <!--            <p class="search-child">Search: </p>-->
             <input type="text" id="id-search" class="search-child">
             <button class="search-child search-button" id="search-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -74,15 +74,16 @@
 
         <button type="button" class="nav-button question-all" id="q-all-button">Ask Question to All Users</button>
         <a href="./answers-summary.php"><button type="button" class="nav-button charts-all" id="c-all-button">Answers Summary</button></a>
+        <a href="./create-user.php"><button type="button" class="nav-button create-user" id="create-user-button">Create A New User</button></a>
 
         <table class="patient-table">
             <thead id="table-header">
-                <tr>
-                    <th class="table-header">User ID</th>
-                    <th class="table-header">First Name</th>
-                    <th class="table-header">Last Name</th>
-                    <th class="actions-header">Actions</th>
-                </tr>
+            <tr>
+                <th class="table-header">User ID</th>
+                <th class="table-header">First Name</th>
+                <th class="table-header">Last Name</th>
+                <th class="actions-header">Actions</th>
+            </tr>
             </thead>
             <tbody id="table-body">
 
