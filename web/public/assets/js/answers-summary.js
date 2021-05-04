@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					answers.push(answer);
 				});
 
-				for(let i = 0; i < answers.length; i++) {
+				for (let i = 0; i < answers.length; i++) {
 					let answer = answers[i];
 					counts[answer] = counts[answer] ? counts[answer] + 1 : 1;
 				}

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		let inputs = createForm.getElementsByTagName("input");
 
-		for(let i = 0; i < inputs.length; i++) {
+		for (let i = 0; i < inputs.length; i++) {
 			let input = inputs[i];
 			let key = input.getAttribute("data-key");
 			let value = input.value;
