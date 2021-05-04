@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	verifySession(sessionToken).then(result => {
 		const Notify = new XNotify("BottomRight");
 
-		let spanTitle = document.getElementById("title-span");
 		let spanTime = document.getElementById("time-span");
 
 		let divChartWrapper = document.getElementById("chart-wrapper");
@@ -13,8 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		let buttonThisWeek = document.getElementById("this-week-button");
 		let buttonNext = document.getElementById("next-button");
 		let buttonExport = document.getElementById("export-button");
-
-		let patientID = new URL(window.location.href).searchParams.get("id");
 
 		let timeFrom = previousWeek(new Date());
 		let timeTo = new Date();
@@ -32,8 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 		});
 
-		spanTitle.textContent = "Falls Chart - User " + patientID;
-
 		buttonPrevious.addEventListener("click", () => {
 			navigatePrevious();
 		});
@@ -50,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			let pathname = window.location.pathname;
 			let frame = document.createElement("iframe");
 			frame.classList.add("hidden");
-			frame.src = pathname.substring(0, pathname.lastIndexOf('/')) + "/api/falls/export.php?id=" + patientID + "&key=" + result.token;
+			frame.src = pathname.substring(0, pathname.lastIndexOf('/')) + "/api/falls/export-all.php?key=" + result.token;
 			frame.addEventListener("load", () => {
 				setTimeout(() => {
 					frame.remove();
@@ -142,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		function getData(from, to) {
 			return new Promise((resolve, reject) => {
-				let endpoint = "./api/falls/read-date.php?id=" + patientID + "&from=" + formatDateTime(from) + "&to=" + formatDateTime(to) + "&key=" + result.token;
+				let endpoint = "./api/falls/read-all-date.php?from=" + formatDateTime(from) + "&to=" + formatDateTime(to) + "&key=" + result.token;
 
 				let xhr = new XMLHttpRequest();
 

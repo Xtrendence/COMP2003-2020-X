@@ -1,0 +1,77 @@
+.wrapper button {
+	width: auto;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	color: var(--accent-contrast);
+	background: var(--accent-gradient);
+	box-shadow: var(--shadow-smooth);
+	border-radius: 10px;
+	outline: none;
+	border: none;
+	display: block;
+	height: 40px;
+	padding: 0 10px 0 10px;
+	margin: 50px auto 0 auto;
+	transition: transform 0.25s;
+}
+.wrapper button:hover {
+	transform: scale(0.95);
+}
+
+.chart-wrapper {
+	width: calc(100% - 200px);
+	max-width: 150vh;
+	margin: 20px auto 0 auto;
+	display: block;
+}
+
+.buttons-wrapper {
+	width: 100%;
+	text-align: center;
+	display: block;
+	margin: 20px auto 20px auto;
+	position: relative;
+}
+.buttons-wrapper span {
+	display: block;
+	font-size: 16px;
+	background: var(--accent-gradient);
+	color: var(--accent-contrast);
+	line-height: 40px;
+	height: 40px;
+	border-radius: 10px;
+	font-weight: bold;
+	margin: 0 auto 20px auto;
+	width: 240px;
+	text-align: center;
+	box-shadow: var(--shadow-smooth);
+}
+.buttons-wrapper button {
+	display: inline-block;
+	vertical-align: top;
+	margin: 0;
+	width: 50px;
+}
+#this-week-button {
+	margin: 0 20px 0 20px;
+	width: 100px;
+}
+.buttons-wrapper svg {
+	width: 28px;
+	height: 28px;
+	margin-top: 6px;
+	fill: var(--accent-contrast);
+}
+#previous-button svg {
+	margin-right: 4px;
+}
+#next-button svg {
+	margin-left: 4px;
+}
+#export-button {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	width: auto;
+}
