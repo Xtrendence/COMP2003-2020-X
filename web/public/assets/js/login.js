@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const Notify = new XNotify("BottomRight");
 
 	let apiKey = localStorage.getItem("sessionToken");
-	let apiURL = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/";
+	let apiURL = "./api/";
 
 	let inputAdminUsername = document.getElementById("admin-username");
 	let inputAdminPassword = document.getElementById("admin-password");
