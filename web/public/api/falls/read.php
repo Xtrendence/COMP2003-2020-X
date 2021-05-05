@@ -11,28 +11,33 @@
 		$expected = ['id'];
 		$missing = [];
 
-		$database = new Database(false);
-		$db = $database->connect($api_key);
+		$database = new Database();
+		
+		if ($database->verify(array('key' => $api_key))) {
+			$db = $database->connect();
 
-		$fall = new Fall($db);
-		$fall->fallID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
+			$fall = new Fall($db);
+			$fall->fallID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-		if (empty($missing)) {
-			$fall->read();
+			if (empty($missing)) {
+				$fall->read();
 
-			if (!empty($fall->fallID)) {
-				$item = array(
-					'fallID' => $fall->fallID,
-					'patientID' => $fall->patientID,
-					'fall_date' => $fall->fall_date
-				);
+				if (!empty($fall->fallID)) {
+					$item = array(
+						'fallID' => $fall->fallID,
+						'patientID' => $fall->patientID,
+						'fall_date' => $fall->fall_date
+					);
 
-				echo json_encode($item, JSON_PRETTY_PRINT);
+					echo json_encode($item, JSON_PRETTY_PRINT);
+				} else {
+					echo json_encode(array('message' => 'Fall not found.'));
+				}
 			} else {
-				echo json_encode(array('message' => 'Fall not found.'));
+				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 			}
 		} else {
-			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+			echo json_encode(array('message' => 'Invalid API key.'));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));

@@ -1,5 +1,5 @@
 
-.delete-button {
+.action-button {
     text-align: center;
     padding: 10px 10px 10px 10px;
     background: var(--accent-gradient);
@@ -10,21 +10,137 @@
     border-radius: 10px;
     font-size: var(--font-medium);
     cursor: pointer;
-    margin: auto auto;
+    margin: auto 10px auto auto;
     display: inline-block;
     vertical-align: center;
-}
-
-.block {
-    display: block;
+    
 }
 
 .text-wrapper {
     display: inline-block;
 }
 
+.question-wrapper {
+    display: block;
+}
+
 .button-wrapper {
     float: right;
     display: inline-block;
     line-height: 75px;
+}
+
+.button-wrapper svg {
+    fill: var(--accent-contrast);
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.title-span {
+    font-size: var(--font-medium);
+    font-weight: bolder;
+}
+
+.dd-container {
+    float: right;
+    margin: 20px 20px auto auto;
+    width: 220px;
+}
+
+.dropdown-button {
+    border: none;
+    outline: none;
+    box-shadow: var(--shadow-smooth);
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    text-align: left;
+    border-radius: 10px;
+    color: var(--accent-contrast);
+    font-size: var(--font-smaller);
+    width: 220px;
+    appearance: none;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.caret-container {
+    float: right;
+    width: 30px;
+    height: 20px;
+}
+
+.left-caret {
+    padding: 1px 1px 1px 1px;
+    background: var(--accent-contrast);
+    float: right;
+    width: 12px;
+    transform: rotate(-45deg);
+    transition: 1s;
+    border-radius: 10px;
+    position: relative;
+    top: 10px;
+}
+
+.right-caret {
+    padding: 1px 1px 1px 1px;
+    background: var(--accent-contrast);
+    float: right;
+    width: 12px;
+    transform: rotate(45deg);
+    transition: 1s;
+    border-radius: 10px;
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+
+.dropdown-button:hover .left-caret {
+    transform: rotate(45deg);
+    width: 12px;
+    transition: 1s;
+}
+
+.dropdown-button-radius {
+    border-radius: 10px 10px 0 0;
+}
+
+.dropdown-button:hover .right-caret {
+    transform: rotate(-45deg);
+    width: 12px;
+}
+
+.dropdown-content {
+    border: none;
+    outline: none;
+    appearance: none;
+    box-shadow: var(--shadow-smooth);
+    background: var(--accent-gradient);
+    text-align: left;
+    border-radius: 0 0 10px 10px;
+    color: var(--accent-contrast);
+    font-size: var(--font-smaller);
+    width: 220px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 5px 0 5px 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--accent-darkest);
+}
+
+.dropdown-content a:hover:nth-child(4) {
+    background-color: var(--accent-darkest);
+    border-radius: 0 0 10px 10px;
+}
+
+.blocker {
+    height: 60px;
+    width: 20px;
+    display: inline-block;
 }

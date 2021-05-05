@@ -1,3 +1,34 @@
+ALTER TABLE admission AUTO_INCREMENT = 1;
+ALTER TABLE answer AUTO_INCREMENT = 1;
+ALTER TABLE choice AUTO_INCREMENT = 1;
+ALTER TABLE diaryentry AUTO_INCREMENT = 1;
+ALTER TABLE fall AUTO_INCREMENT = 1;
+ALTER TABLE patient AUTO_INCREMENT = 1;
+ALTER TABLE patientlogin AUTO_INCREMENT = 1;
+ALTER TABLE question AUTO_INCREMENT = 1;
+ALTER TABLE researcher AUTO_INCREMENT = 1;
+ALTER TABLE researcherlogin AUTO_INCREMENT = 1;
+
+CALL createResearcher(1111111304, 'juicy499', '$2y$10$CyaDLe4IsEZvR.VnYCiYquOqVVNseUGmn7TQBiuLf.TVOt76vJCQK', 'Virgen', 'Locascio', '01752123999', '+447849198656', 'juicy499@gmail.com');
+
+CALL createResearcher(1111111305, 'strengthen255', '$2y$10$gkLcPYpyZJAIOd..zQKiEOgVlPEU486fw5RRjXZWuClpgMCF7oVxy', 'Barabara', 'Bently', '01752123999', '+447849198656', 'strengthen255@gmail.com');
+
+CALL createResearcher(1111111306, 'zesty328', '$2y$10$hZ2XFoiHczQbTml69zTkjOvJj7RxJ1yv8MHBO./90LVnqcyJwTXca', 'Marcell', 'Negron', '01752123999', '+447849198656', 'zesty328@gmail.com');
+
+CALL createResearcher(1111111307, 'general567', '$2y$10$iVJKNiJwC0c0WU71zeQlyuDqYAkjk1BV6A7wwBRlT0tXIvOkhHF.i', 'Debby', 'Gattison', '01752123999', '+447849198656', 'general567@gmail.com');
+
+CALL createResearcher(1111111308, 'seal900', '$2y$10$7fTmqrhj6anIXf2UICTp8.c3MBf1VEfUtdCtgJlg12Oi2Khv0Gyte', 'Herb', 'Anchondo', '01752123999', '+447849198656', 'seal900@gmail.com');
+
+CALL createResearcher(1111111309, 'lumpy75', '$2y$10$BWlmGnd9Qudiu8rgpBvzLeu0JpqeyoZxI0hw2tpWoPkLt9DG7eu.m', 'Alana', 'Guerin', '01752123999', '+447849198656', 'lumpy75@gmail.com');
+
+CALL createResearcher(1111111310, 'aromatic572', '$2y$10$UYa9vAdTBimoslrjDv92LO/sgAxDLuJab.CFMickl.1qiXkwiBA6O', 'Deloras', 'Lueras', '01752123999', '+447849198656', 'aromatic572@gmail.com');
+
+CALL createResearcher(1111111311, 'agree201', '$2y$10$yaXA1D5dRoYo/AZgcmhS/.13BE7wviXw.X1f6Fkct.SR0ye3fd.T.', 'Barbara', 'Blank', '01752123999', '+447849198656', 'agree201@gmail.com');
+
+CALL createResearcher(1111111312, 'scattered877', '$2y$10$s1Uhr63n8Nxu1SrmB0SCNOM5/G9NYt5uzCz4tRX0yIBg.OcYtAcsK', 'Akilah', 'Commons', '01752123999', '+447849198656', 'scattered877@gmail.com');
+
+CALL createResearcher(1111111313, 'sloppy833', '$2y$10$TDOpsrup81rz92Yo8J81/uDqnC4cJdLrYVUbM/LkjNCfkHJ4q0PHS', 'Virgilio', 'Louis', '01752123999', '+447849198656', 'sloppy833@gmail.com');
+
 CALL createPatient(1, 1111111113, 'maureenW38', '$2y$10$4i1wX1luP2ScgZGoTLaBZObRGIVipHjgyOyZutvz2Q42p4CADHWrS', 'Maureen', 'Ward', '1963/02/25 20:00:00', '0 Some Road', 'Some Flat', 'PL3XQC', '01752123999', '+447849198656', 'maureenW38@gmail.com', 'No comment.', '-', NOW());
 
 CALL createPatient(1, 1111111114, 'irate259', '$2y$10$vwtpMEcIMboEq6fL0kaUbOhk0yU4TXoYEHwQywrsmIzzCBE8VG482', 'Mckenzie', 'Cap', '1950/06/22 10:00:00', '1 Some Road', 'Some Flat', 'PL3XQC', '01752123999', '+447849198656', 'irate259@gmail.com', 'No comment.', '-', NOW());
@@ -380,405 +411,385 @@ CALL createPatient(1, 1111111302, 'society573', '$2y$10$ZzyPQn7aJB1Y/uh9BJM5.O/3
 
 CALL createPatient(1, 1111111303, 'back633', '$2y$10$ogU1Z2cuh2w.anxuwQHI6.fpQlPFl5CMdBnk9ztuKJzy2iznfI0pO', 'Marcie', 'Brafford', '1980/04/25 04:00:00', '190 Some Road', 'Some Flat', 'PL3XQC', '01752123999', '+447849198656', 'back633@gmail.com', 'No comment.', '-', NOW());
 
-CALL createResearcher(1111111304, 'juicy499', '$2y$10$CyaDLe4IsEZvR.VnYCiYquOqVVNseUGmn7TQBiuLf.TVOt76vJCQK', 'Virgen', 'Locascio', '01752123999', '+447849198656', 'juicy499@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/5 06:00:00', 'I hung out with my friend Maureen');
 
-CALL createResearcher(1111111305, 'strengthen255', '$2y$10$gkLcPYpyZJAIOd..zQKiEOgVlPEU486fw5RRjXZWuClpgMCF7oVxy', 'Barabara', 'Bently', '01752123999', '+447849198656', 'strengthen255@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/5 00:00:00', 'I hung out with my friend Mckenzie');
 
-CALL createResearcher(1111111306, 'zesty328', '$2y$10$hZ2XFoiHczQbTml69zTkjOvJj7RxJ1yv8MHBO./90LVnqcyJwTXca', 'Marcell', 'Negron', '01752123999', '+447849198656', 'zesty328@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/7 03:00:00', 'I hung out with my friend Larue');
 
-CALL createResearcher(1111111307, 'general567', '$2y$10$iVJKNiJwC0c0WU71zeQlyuDqYAkjk1BV6A7wwBRlT0tXIvOkhHF.i', 'Debby', 'Gattison', '01752123999', '+447849198656', 'general567@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/26 05:00:00', 'I hung out with my friend Nicholle');
 
-CALL createResearcher(1111111308, 'seal900', '$2y$10$7fTmqrhj6anIXf2UICTp8.c3MBf1VEfUtdCtgJlg12Oi2Khv0Gyte', 'Herb', 'Anchondo', '01752123999', '+447849198656', 'seal900@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/14 03:00:00', 'I hung out with my friend Jeannie');
 
-CALL createResearcher(1111111309, 'lumpy75', '$2y$10$BWlmGnd9Qudiu8rgpBvzLeu0JpqeyoZxI0hw2tpWoPkLt9DG7eu.m', 'Alana', 'Guerin', '01752123999', '+447849198656', 'lumpy75@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/18 02:00:00', 'I hung out with my friend Christinia');
 
-CALL createResearcher(1111111310, 'aromatic572', '$2y$10$UYa9vAdTBimoslrjDv92LO/sgAxDLuJab.CFMickl.1qiXkwiBA6O', 'Deloras', 'Lueras', '01752123999', '+447849198656', 'aromatic572@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/5 04:00:00', 'I hung out with my friend Odelia');
 
-CALL createResearcher(1111111311, 'agree201', '$2y$10$yaXA1D5dRoYo/AZgcmhS/.13BE7wviXw.X1f6Fkct.SR0ye3fd.T.', 'Barbara', 'Blank', '01752123999', '+447849198656', 'agree201@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/10 15:00:00', 'I hung out with my friend Suellen');
 
-CALL createResearcher(1111111312, 'scattered877', '$2y$10$s1Uhr63n8Nxu1SrmB0SCNOM5/G9NYt5uzCz4tRX0yIBg.OcYtAcsK', 'Akilah', 'Commons', '01752123999', '+447849198656', 'scattered877@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/3 06:00:00', 'I hung out with my friend Maris');
 
-CALL createResearcher(1111111313, 'sloppy833', '$2y$10$TDOpsrup81rz92Yo8J81/uDqnC4cJdLrYVUbM/LkjNCfkHJ4q0PHS', 'Virgilio', 'Louis', '01752123999', '+447849198656', 'sloppy833@gmail.com');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/3 11:00:00', 'I hung out with my friend Wyatt');
 
-CALL createDiaryEntry(1, '2021/03/1 08:00:00', 'I hung out with my friend Maureen');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/17 04:00:00', 'I hung out with my friend Terese');
 
-CALL createDiaryEntry(1, '2021/02/11 05:00:00', 'I hung out with my friend Mckenzie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/26 13:00:00', 'I hung out with my friend Andrea');
 
-CALL createDiaryEntry(1, '2021/03/3 16:00:00', 'I hung out with my friend Larue');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/8 11:00:00', 'I hung out with my friend Armanda');
 
-CALL createDiaryEntry(1, '2021/02/13 10:00:00', 'I hung out with my friend Nicholle');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/20 10:00:00', 'I hung out with my friend Hilton');
 
-CALL createDiaryEntry(1, '2021/01/21 10:00:00', 'I hung out with my friend Jeannie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/10 11:00:00', 'I hung out with my friend Tyesha');
 
-CALL createDiaryEntry(1, '2021/02/5 08:00:00', 'I hung out with my friend Christinia');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/21 03:00:00', 'I hung out with my friend Tuyet');
 
-CALL createDiaryEntry(1, '2021/01/15 23:00:00', 'I hung out with my friend Odelia');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/14 20:00:00', 'I hung out with my friend Nikki');
 
-CALL createDiaryEntry(1, '2021/02/3 23:00:00', 'I hung out with my friend Suellen');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/10 09:00:00', 'I hung out with my friend Magen');
 
-CALL createDiaryEntry(1, '2021/02/5 18:00:00', 'I hung out with my friend Maris');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/13 09:00:00', 'I hung out with my friend Ayana');
 
-CALL createDiaryEntry(1, '2021/01/1 14:00:00', 'I hung out with my friend Wyatt');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/5 20:00:00', 'I hung out with my friend Marhta');
 
-CALL createDiaryEntry(1, '2021/01/28 08:00:00', 'I hung out with my friend Terese');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/24 00:00:00', 'I hung out with my friend Luanne');
 
-CALL createDiaryEntry(1, '2021/02/8 10:00:00', 'I hung out with my friend Andrea');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/5 08:00:00', 'I hung out with my friend Amal');
 
-CALL createDiaryEntry(1, '2021/02/23 19:00:00', 'I hung out with my friend Armanda');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/18 23:00:00', 'I hung out with my friend Jacques');
 
-CALL createDiaryEntry(1, '2021/03/4 15:00:00', 'I hung out with my friend Hilton');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/9 00:00:00', 'I hung out with my friend Lorinda');
 
-CALL createDiaryEntry(1, '2021/03/3 07:00:00', 'I hung out with my friend Tyesha');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/12 19:00:00', 'I hung out with my friend Alexandra');
 
-CALL createDiaryEntry(1, '2021/02/24 02:00:00', 'I hung out with my friend Tuyet');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/12 20:00:00', 'I hung out with my friend Lashaun');
 
-CALL createDiaryEntry(1, '2021/03/4 14:00:00', 'I hung out with my friend Nikki');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/11 18:00:00', 'I hung out with my friend Shondra');
 
-CALL createDiaryEntry(1, '2021/03/1 14:00:00', 'I hung out with my friend Magen');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/26 17:00:00', 'I hung out with my friend Russell');
 
-CALL createDiaryEntry(1, '2021/02/10 02:00:00', 'I hung out with my friend Ayana');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/26 16:00:00', 'I hung out with my friend Merry');
 
-CALL createDiaryEntry(1, '2021/03/4 07:00:00', 'I hung out with my friend Marhta');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/2 01:00:00', 'I hung out with my friend Anastasia');
 
-CALL createDiaryEntry(1, '2021/03/5 01:00:00', 'I hung out with my friend Luanne');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/4 21:00:00', 'I hung out with my friend Shirlee');
 
-CALL createDiaryEntry(1, '2021/03/2 08:00:00', 'I hung out with my friend Amal');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/25 00:00:00', 'I hung out with my friend Sunny');
 
-CALL createDiaryEntry(1, '2021/02/23 07:00:00', 'I hung out with my friend Jacques');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/1 19:00:00', 'I hung out with my friend Natisha');
 
-CALL createDiaryEntry(1, '2021/02/12 10:00:00', 'I hung out with my friend Lorinda');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/26 01:00:00', 'I hung out with my friend Juliana');
 
-CALL createDiaryEntry(1, '2021/02/1 15:00:00', 'I hung out with my friend Alexandra');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/6 20:00:00', 'I hung out with my friend Alissa');
 
-CALL createDiaryEntry(1, '2021/03/3 09:00:00', 'I hung out with my friend Lashaun');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/12 10:00:00', 'I hung out with my friend Amina');
 
-CALL createDiaryEntry(1, '2021/01/9 00:00:00', 'I hung out with my friend Shondra');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/28 22:00:00', 'I hung out with my friend Leonila');
 
-CALL createDiaryEntry(1, '2021/02/10 21:00:00', 'I hung out with my friend Russell');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/11 04:00:00', 'I hung out with my friend Bernarda');
 
-CALL createDiaryEntry(1, '2021/02/9 22:00:00', 'I hung out with my friend Merry');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/9 06:00:00', 'I hung out with my friend Gretchen');
 
-CALL createDiaryEntry(1, '2021/01/4 17:00:00', 'I hung out with my friend Anastasia');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/17 07:00:00', 'I hung out with my friend Dudley');
 
-CALL createDiaryEntry(1, '2021/02/27 02:00:00', 'I hung out with my friend Shirlee');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/20 13:00:00', 'I hung out with my friend Caleb');
 
-CALL createDiaryEntry(1, '2021/03/1 00:00:00', 'I hung out with my friend Sunny');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/16 03:00:00', 'I hung out with my friend Mia');
 
-CALL createDiaryEntry(1, '2021/01/28 17:00:00', 'I hung out with my friend Natisha');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/21 14:00:00', 'I hung out with my friend Sheron');
 
-CALL createDiaryEntry(1, '2021/02/18 02:00:00', 'I hung out with my friend Juliana');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/16 07:00:00', 'I hung out with my friend Pauletta');
 
-CALL createDiaryEntry(1, '2021/02/6 01:00:00', 'I hung out with my friend Alissa');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/2 02:00:00', 'I hung out with my friend Alfreda');
 
-CALL createDiaryEntry(1, '2021/03/1 02:00:00', 'I hung out with my friend Amina');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/25 23:00:00', 'I hung out with my friend Lexie');
 
-CALL createDiaryEntry(1, '2021/01/3 19:00:00', 'I hung out with my friend Leonila');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/4 07:00:00', 'I hung out with my friend Ferne');
 
-CALL createDiaryEntry(1, '2021/03/5 05:00:00', 'I hung out with my friend Bernarda');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/16 16:00:00', 'I hung out with my friend Grisel');
 
-CALL createDiaryEntry(1, '2021/01/9 08:00:00', 'I hung out with my friend Gretchen');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/21 08:00:00', 'I hung out with my friend Tonie');
 
-CALL createDiaryEntry(1, '2021/02/20 15:00:00', 'I hung out with my friend Dudley');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/22 01:00:00', 'I hung out with my friend Gordon');
 
-CALL createDiaryEntry(1, '2021/03/1 16:00:00', 'I hung out with my friend Caleb');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/3 07:00:00', 'I hung out with my friend Cira');
 
-CALL createDiaryEntry(1, '2021/02/20 17:00:00', 'I hung out with my friend Mia');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/9 11:00:00', 'I hung out with my friend Terrilyn');
 
-CALL createDiaryEntry(1, '2021/01/25 12:00:00', 'I hung out with my friend Sheron');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/16 19:00:00', 'I hung out with my friend Livia');
 
-CALL createDiaryEntry(1, '2021/01/9 04:00:00', 'I hung out with my friend Pauletta');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/5 14:00:00', 'I hung out with my friend Chana');
 
-CALL createDiaryEntry(1, '2021/01/14 08:00:00', 'I hung out with my friend Alfreda');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/11 10:00:00', 'I hung out with my friend Shyla');
 
-CALL createDiaryEntry(1, '2021/03/5 15:00:00', 'I hung out with my friend Lexie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/25 08:00:00', 'I hung out with my friend Branden');
 
-CALL createDiaryEntry(1, '2021/02/11 19:00:00', 'I hung out with my friend Ferne');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/21 11:00:00', 'I hung out with my friend Warren');
 
-CALL createDiaryEntry(1, '2021/02/15 21:00:00', 'I hung out with my friend Grisel');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/13 05:00:00', 'I hung out with my friend Octavio');
 
-CALL createDiaryEntry(1, '2021/03/4 04:00:00', 'I hung out with my friend Tonie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/13 00:00:00', 'I hung out with my friend Nancee');
 
-CALL createDiaryEntry(1, '2021/02/17 21:00:00', 'I hung out with my friend Gordon');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/22 19:00:00', 'I hung out with my friend Clarinda');
 
-CALL createDiaryEntry(1, '2021/01/25 12:00:00', 'I hung out with my friend Cira');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/13 05:00:00', 'I hung out with my friend Robbin');
 
-CALL createDiaryEntry(1, '2021/01/17 06:00:00', 'I hung out with my friend Terrilyn');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/6 01:00:00', 'I hung out with my friend Clementina');
 
-CALL createDiaryEntry(1, '2021/03/4 09:00:00', 'I hung out with my friend Livia');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/9 14:00:00', 'I hung out with my friend Kamilah');
 
-CALL createDiaryEntry(1, '2021/01/1 05:00:00', 'I hung out with my friend Chana');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/14 15:00:00', 'I hung out with my friend Donna');
 
-CALL createDiaryEntry(1, '2021/03/1 13:00:00', 'I hung out with my friend Shyla');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/20 07:00:00', 'I hung out with my friend Alfredia');
 
-CALL createDiaryEntry(1, '2021/01/10 19:00:00', 'I hung out with my friend Branden');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/10 08:00:00', 'I hung out with my friend Keturah');
 
-CALL createDiaryEntry(1, '2021/01/1 16:00:00', 'I hung out with my friend Warren');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/13 01:00:00', 'I hung out with my friend Shawanda');
 
-CALL createDiaryEntry(1, '2021/02/8 15:00:00', 'I hung out with my friend Octavio');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/10 17:00:00', 'I hung out with my friend Katina');
 
-CALL createDiaryEntry(1, '2021/01/7 04:00:00', 'I hung out with my friend Nancee');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/8 20:00:00', 'I hung out with my friend Linwood');
 
-CALL createDiaryEntry(1, '2021/03/5 23:00:00', 'I hung out with my friend Clarinda');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/11 04:00:00', 'I hung out with my friend Evita');
 
-CALL createDiaryEntry(1, '2021/01/4 09:00:00', 'I hung out with my friend Robbin');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/14 03:00:00', 'I hung out with my friend Aida');
 
-CALL createDiaryEntry(1, '2021/03/5 23:00:00', 'I hung out with my friend Clementina');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/21 07:00:00', 'I hung out with my friend Jamison');
 
-CALL createDiaryEntry(1, '2021/02/16 03:00:00', 'I hung out with my friend Kamilah');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/28 03:00:00', 'I hung out with my friend Marry');
 
-CALL createDiaryEntry(1, '2021/03/5 05:00:00', 'I hung out with my friend Donna');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/27 16:00:00', 'I hung out with my friend Jerrod');
 
-CALL createDiaryEntry(1, '2021/02/6 20:00:00', 'I hung out with my friend Alfredia');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/18 18:00:00', 'I hung out with my friend Abe');
 
-CALL createDiaryEntry(1, '2021/03/3 22:00:00', 'I hung out with my friend Keturah');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/28 10:00:00', 'I hung out with my friend Brandy');
 
-CALL createDiaryEntry(1, '2021/01/1 11:00:00', 'I hung out with my friend Shawanda');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/12 05:00:00', 'I hung out with my friend Lyn');
 
-CALL createDiaryEntry(1, '2021/03/1 12:00:00', 'I hung out with my friend Katina');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/6 13:00:00', 'I hung out with my friend Lilly');
 
-CALL createDiaryEntry(1, '2021/03/5 19:00:00', 'I hung out with my friend Linwood');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/26 02:00:00', 'I hung out with my friend Eldon');
 
-CALL createDiaryEntry(1, '2021/02/3 20:00:00', 'I hung out with my friend Evita');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/16 19:00:00', 'I hung out with my friend Dolly');
 
-CALL createDiaryEntry(1, '2021/01/13 15:00:00', 'I hung out with my friend Aida');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/6 03:00:00', 'I hung out with my friend Foster');
 
-CALL createDiaryEntry(1, '2021/01/19 01:00:00', 'I hung out with my friend Jamison');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/20 11:00:00', 'I hung out with my friend Nam');
 
-CALL createDiaryEntry(1, '2021/01/14 15:00:00', 'I hung out with my friend Marry');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/11 21:00:00', 'I hung out with my friend Arletta');
 
-CALL createDiaryEntry(1, '2021/03/3 10:00:00', 'I hung out with my friend Jerrod');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/23 20:00:00', 'I hung out with my friend Beau');
 
-CALL createDiaryEntry(1, '2021/03/3 00:00:00', 'I hung out with my friend Abe');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/26 12:00:00', 'I hung out with my friend Versie');
 
-CALL createDiaryEntry(1, '2021/03/5 18:00:00', 'I hung out with my friend Brandy');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/11 22:00:00', 'I hung out with my friend Vannesa');
 
-CALL createDiaryEntry(1, '2021/02/1 10:00:00', 'I hung out with my friend Lyn');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/23 08:00:00', 'I hung out with my friend Johnny');
 
-CALL createDiaryEntry(1, '2021/01/15 21:00:00', 'I hung out with my friend Lilly');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/01/16 01:00:00', 'I hung out with my friend Kathie');
 
-CALL createDiaryEntry(1, '2021/02/8 10:00:00', 'I hung out with my friend Eldon');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/03/11 02:00:00', 'I hung out with my friend Derek');
 
-CALL createDiaryEntry(1, '2021/02/10 10:00:00', 'I hung out with my friend Dolly');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, '2021/02/1 10:00:00', 'I hung out with my friend Mistie');
 
-CALL createDiaryEntry(1, '2021/01/21 19:00:00', 'I hung out with my friend Foster');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/6 19:00:00', 'I hung out with my friend Kaitlin');
 
-CALL createDiaryEntry(1, '2021/02/8 10:00:00', 'I hung out with my friend Nam');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/14 02:00:00', 'I hung out with my friend Peggie');
 
-CALL createDiaryEntry(1, '2021/02/12 15:00:00', 'I hung out with my friend Arletta');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/15 00:00:00', 'I hung out with my friend Maggie');
 
-CALL createDiaryEntry(1, '2021/01/14 20:00:00', 'I hung out with my friend Beau');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/24 16:00:00', 'I hung out with my friend Dennis');
 
-CALL createDiaryEntry(1, '2021/01/27 19:00:00', 'I hung out with my friend Versie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/22 17:00:00', 'I hung out with my friend Lenard');
 
-CALL createDiaryEntry(1, '2021/01/7 14:00:00', 'I hung out with my friend Vannesa');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/11 11:00:00', 'I hung out with my friend Alana');
 
-CALL createDiaryEntry(1, '2021/01/28 19:00:00', 'I hung out with my friend Johnny');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/2 13:00:00', 'I hung out with my friend Bernice');
 
-CALL createDiaryEntry(1, '2021/01/4 03:00:00', 'I hung out with my friend Kathie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/17 14:00:00', 'I hung out with my friend Margert');
 
-CALL createDiaryEntry(1, '2021/01/23 08:00:00', 'I hung out with my friend Derek');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/22 09:00:00', 'I hung out with my friend Joyce');
 
-CALL createDiaryEntry(1, '2021/01/9 14:00:00', 'I hung out with my friend Mistie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/18 01:00:00', 'I hung out with my friend Colette');
 
-CALL createDiaryEntry(2, '2021/01/16 19:00:00', 'I hung out with my friend Kaitlin');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/1 23:00:00', 'I hung out with my friend Kami');
 
-CALL createDiaryEntry(2, '2021/02/2 07:00:00', 'I hung out with my friend Peggie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/16 22:00:00', 'I hung out with my friend Jeremiah');
 
-CALL createDiaryEntry(2, '2021/02/12 21:00:00', 'I hung out with my friend Maggie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/22 11:00:00', 'I hung out with my friend Magali');
 
-CALL createDiaryEntry(2, '2021/01/15 08:00:00', 'I hung out with my friend Dennis');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/4 13:00:00', 'I hung out with my friend Sparkle');
 
-CALL createDiaryEntry(2, '2021/02/27 21:00:00', 'I hung out with my friend Lenard');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/10 03:00:00', 'I hung out with my friend Romana');
 
-CALL createDiaryEntry(2, '2021/03/1 19:00:00', 'I hung out with my friend Alana');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/9 00:00:00', 'I hung out with my friend Maya');
 
-CALL createDiaryEntry(2, '2021/03/2 21:00:00', 'I hung out with my friend Bernice');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/12 08:00:00', 'I hung out with my friend Carli');
 
-CALL createDiaryEntry(2, '2021/02/26 22:00:00', 'I hung out with my friend Margert');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/13 08:00:00', 'I hung out with my friend Kia');
 
-CALL createDiaryEntry(2, '2021/02/2 17:00:00', 'I hung out with my friend Joyce');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/21 05:00:00', 'I hung out with my friend Alene');
 
-CALL createDiaryEntry(2, '2021/01/22 14:00:00', 'I hung out with my friend Colette');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/14 19:00:00', 'I hung out with my friend Barney');
 
-CALL createDiaryEntry(2, '2021/01/28 19:00:00', 'I hung out with my friend Kami');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/2 11:00:00', 'I hung out with my friend Octavio');
 
-CALL createDiaryEntry(2, '2021/01/7 11:00:00', 'I hung out with my friend Jeremiah');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/7 03:00:00', 'I hung out with my friend Quinton');
 
-CALL createDiaryEntry(2, '2021/03/4 09:00:00', 'I hung out with my friend Magali');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/17 21:00:00', 'I hung out with my friend Fay');
 
-CALL createDiaryEntry(2, '2021/01/27 22:00:00', 'I hung out with my friend Sparkle');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/17 23:00:00', 'I hung out with my friend Evie');
 
-CALL createDiaryEntry(2, '2021/03/5 20:00:00', 'I hung out with my friend Romana');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/11 08:00:00', 'I hung out with my friend Casey');
 
-CALL createDiaryEntry(2, '2021/02/28 20:00:00', 'I hung out with my friend Maya');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/12 15:00:00', 'I hung out with my friend Elnora');
 
-CALL createDiaryEntry(2, '2021/01/19 13:00:00', 'I hung out with my friend Carli');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/11 13:00:00', 'I hung out with my friend Lynsey');
 
-CALL createDiaryEntry(2, '2021/02/10 22:00:00', 'I hung out with my friend Kia');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/10 16:00:00', 'I hung out with my friend Ghislaine');
 
-CALL createDiaryEntry(2, '2021/03/3 18:00:00', 'I hung out with my friend Alene');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/22 01:00:00', 'I hung out with my friend Abel');
 
-CALL createDiaryEntry(2, '2021/02/12 03:00:00', 'I hung out with my friend Barney');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/16 03:00:00', 'I hung out with my friend Niesha');
 
-CALL createDiaryEntry(2, '2021/02/15 22:00:00', 'I hung out with my friend Octavio');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/10 19:00:00', 'I hung out with my friend Elane');
 
-CALL createDiaryEntry(2, '2021/01/27 07:00:00', 'I hung out with my friend Quinton');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/18 19:00:00', 'I hung out with my friend Noella');
 
-CALL createDiaryEntry(2, '2021/02/5 00:00:00', 'I hung out with my friend Fay');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/16 03:00:00', 'I hung out with my friend Corrinne');
 
-CALL createDiaryEntry(2, '2021/02/6 09:00:00', 'I hung out with my friend Evie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/13 01:00:00', 'I hung out with my friend Noreen');
 
-CALL createDiaryEntry(2, '2021/02/11 05:00:00', 'I hung out with my friend Casey');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/15 13:00:00', 'I hung out with my friend Georgiana');
 
-CALL createDiaryEntry(2, '2021/02/10 18:00:00', 'I hung out with my friend Elnora');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/20 08:00:00', 'I hung out with my friend Maryland');
 
-CALL createDiaryEntry(2, '2021/02/12 21:00:00', 'I hung out with my friend Lynsey');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/5 15:00:00', 'I hung out with my friend Earnestine');
 
-CALL createDiaryEntry(2, '2021/02/3 19:00:00', 'I hung out with my friend Ghislaine');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/02/7 15:00:00', 'I hung out with my friend Josephina');
 
-CALL createDiaryEntry(2, '2021/02/17 15:00:00', 'I hung out with my friend Abel');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/5 00:00:00', 'I hung out with my friend Joann');
 
-CALL createDiaryEntry(2, '2021/03/3 04:00:00', 'I hung out with my friend Niesha');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/7 03:00:00', 'I hung out with my friend Shemeka');
 
-CALL createDiaryEntry(2, '2021/01/17 03:00:00', 'I hung out with my friend Elane');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/2 20:00:00', 'I hung out with my friend Dolly');
 
-CALL createDiaryEntry(2, '2021/01/8 03:00:00', 'I hung out with my friend Noella');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/5 15:00:00', 'I hung out with my friend Lorena');
 
-CALL createDiaryEntry(2, '2021/01/16 15:00:00', 'I hung out with my friend Corrinne');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/25 16:00:00', 'I hung out with my friend Kourtney');
 
-CALL createDiaryEntry(2, '2021/03/1 23:00:00', 'I hung out with my friend Noreen');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/01/11 10:00:00', 'I hung out with my friend Andy');
 
-CALL createDiaryEntry(2, '2021/02/6 17:00:00', 'I hung out with my friend Georgiana');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/7 07:00:00', 'I hung out with my friend Collette');
 
-CALL createDiaryEntry(2, '2021/01/13 00:00:00', 'I hung out with my friend Maryland');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/1 01:00:00', 'I hung out with my friend Polly');
 
-CALL createDiaryEntry(2, '2021/03/4 01:00:00', 'I hung out with my friend Earnestine');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/12 09:00:00', 'I hung out with my friend Stanton');
 
-CALL createDiaryEntry(2, '2021/02/10 00:00:00', 'I hung out with my friend Josephina');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/5 09:00:00', 'I hung out with my friend Jerald');
 
-CALL createDiaryEntry(2, '2021/03/1 10:00:00', 'I hung out with my friend Joann');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/4 10:00:00', 'I hung out with my friend Robert');
 
-CALL createDiaryEntry(2, '2021/02/20 14:00:00', 'I hung out with my friend Shemeka');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, '2021/03/15 09:00:00', 'I hung out with my friend Ewa');
 
-CALL createDiaryEntry(2, '2021/03/2 22:00:00', 'I hung out with my friend Dolly');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/22 03:00:00', 'I hung out with my friend Carlie');
 
-CALL createDiaryEntry(2, '2021/02/27 00:00:00', 'I hung out with my friend Lorena');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/7 17:00:00', 'I hung out with my friend Nilda');
 
-CALL createDiaryEntry(2, '2021/02/10 09:00:00', 'I hung out with my friend Kourtney');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/24 12:00:00', 'I hung out with my friend Brande');
 
-CALL createDiaryEntry(2, '2021/03/2 03:00:00', 'I hung out with my friend Andy');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/1 06:00:00', 'I hung out with my friend Lauran');
 
-CALL createDiaryEntry(2, '2021/01/10 09:00:00', 'I hung out with my friend Collette');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/16 13:00:00', 'I hung out with my friend Annetta');
 
-CALL createDiaryEntry(2, '2021/02/12 17:00:00', 'I hung out with my friend Polly');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/19 07:00:00', 'I hung out with my friend Leatha');
 
-CALL createDiaryEntry(2, '2021/01/12 07:00:00', 'I hung out with my friend Stanton');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/20 13:00:00', 'I hung out with my friend Phylicia');
 
-CALL createDiaryEntry(2, '2021/03/5 00:00:00', 'I hung out with my friend Jerald');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/27 00:00:00', 'I hung out with my friend Guy');
 
-CALL createDiaryEntry(2, '2021/01/25 04:00:00', 'I hung out with my friend Robert');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/28 11:00:00', 'I hung out with my friend Rosann');
 
-CALL createDiaryEntry(2, '2021/03/1 13:00:00', 'I hung out with my friend Ewa');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/19 05:00:00', 'I hung out with my friend Ethel');
 
-CALL createDiaryEntry(3, '2021/03/4 01:00:00', 'I hung out with my friend Carlie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/20 06:00:00', 'I hung out with my friend Tamala');
 
-CALL createDiaryEntry(3, '2021/03/5 00:00:00', 'I hung out with my friend Nilda');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/21 13:00:00', 'I hung out with my friend Magda');
 
-CALL createDiaryEntry(3, '2021/03/4 19:00:00', 'I hung out with my friend Brande');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/5 11:00:00', 'I hung out with my friend Fermina');
 
-CALL createDiaryEntry(3, '2021/03/5 16:00:00', 'I hung out with my friend Lauran');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/20 00:00:00', 'I hung out with my friend Anabel');
 
-CALL createDiaryEntry(3, '2021/01/14 02:00:00', 'I hung out with my friend Annetta');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/03/15 01:00:00', 'I hung out with my friend Isabella');
 
-CALL createDiaryEntry(3, '2021/03/2 10:00:00', 'I hung out with my friend Leatha');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/1 16:00:00', 'I hung out with my friend Shu');
 
-CALL createDiaryEntry(3, '2021/02/12 05:00:00', 'I hung out with my friend Phylicia');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/16 10:00:00', 'I hung out with my friend Desmond');
 
-CALL createDiaryEntry(3, '2021/02/21 19:00:00', 'I hung out with my friend Guy');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/03/15 12:00:00', 'I hung out with my friend Victorina');
 
-CALL createDiaryEntry(3, '2021/01/22 06:00:00', 'I hung out with my friend Rosann');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/24 11:00:00', 'I hung out with my friend Sage');
 
-CALL createDiaryEntry(3, '2021/01/8 16:00:00', 'I hung out with my friend Ethel');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/13 01:00:00', 'I hung out with my friend Lynette');
 
-CALL createDiaryEntry(3, '2021/02/24 02:00:00', 'I hung out with my friend Tamala');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/4 23:00:00', 'I hung out with my friend Darryl');
 
-CALL createDiaryEntry(3, '2021/03/5 10:00:00', 'I hung out with my friend Magda');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/12 21:00:00', 'I hung out with my friend Hildegard');
 
-CALL createDiaryEntry(3, '2021/03/1 02:00:00', 'I hung out with my friend Fermina');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/03/5 07:00:00', 'I hung out with my friend Ariana');
 
-CALL createDiaryEntry(3, '2021/03/1 09:00:00', 'I hung out with my friend Anabel');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/25 22:00:00', 'I hung out with my friend Margorie');
 
-CALL createDiaryEntry(3, '2021/03/2 00:00:00', 'I hung out with my friend Isabella');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/8 08:00:00', 'I hung out with my friend Maye');
 
-CALL createDiaryEntry(3, '2021/01/6 01:00:00', 'I hung out with my friend Shu');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/18 02:00:00', 'I hung out with my friend Monroe');
 
-CALL createDiaryEntry(3, '2021/03/4 22:00:00', 'I hung out with my friend Desmond');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/28 01:00:00', 'I hung out with my friend Reena');
 
-CALL createDiaryEntry(3, '2021/01/24 03:00:00', 'I hung out with my friend Victorina');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/03/15 00:00:00', 'I hung out with my friend Jeremy');
 
-CALL createDiaryEntry(3, '2021/02/2 15:00:00', 'I hung out with my friend Sage');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/19 16:00:00', 'I hung out with my friend Tamiko');
 
-CALL createDiaryEntry(3, '2021/03/2 20:00:00', 'I hung out with my friend Lynette');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/03/13 03:00:00', 'I hung out with my friend Dorsey');
 
-CALL createDiaryEntry(3, '2021/02/6 14:00:00', 'I hung out with my friend Darryl');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/10 19:00:00', 'I hung out with my friend Cori');
 
-CALL createDiaryEntry(3, '2021/01/12 00:00:00', 'I hung out with my friend Hildegard');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/6 07:00:00', 'I hung out with my friend Rosette');
 
-CALL createDiaryEntry(3, '2021/01/6 08:00:00', 'I hung out with my friend Ariana');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/4 21:00:00', 'I hung out with my friend Tyler');
 
-CALL createDiaryEntry(3, '2021/03/3 16:00:00', 'I hung out with my friend Margorie');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/28 00:00:00', 'I hung out with my friend Lora');
 
-CALL createDiaryEntry(3, '2021/01/10 23:00:00', 'I hung out with my friend Maye');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/03/9 14:00:00', 'I hung out with my friend Tyron');
 
-CALL createDiaryEntry(3, '2021/02/18 01:00:00', 'I hung out with my friend Monroe');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/11 07:00:00', 'I hung out with my friend Queen');
 
-CALL createDiaryEntry(3, '2021/03/1 07:00:00', 'I hung out with my friend Reena');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/9 19:00:00', 'I hung out with my friend Leland');
 
-CALL createDiaryEntry(3, '2021/01/5 02:00:00', 'I hung out with my friend Jeremy');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/03/17 07:00:00', 'I hung out with my friend Rozella');
 
-CALL createDiaryEntry(3, '2021/02/3 15:00:00', 'I hung out with my friend Tamiko');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/03/14 14:00:00', 'I hung out with my friend Sharron');
 
-CALL createDiaryEntry(3, '2021/03/5 08:00:00', 'I hung out with my friend Dorsey');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/28 22:00:00', 'I hung out with my friend Delores');
 
-CALL createDiaryEntry(3, '2021/03/2 20:00:00', 'I hung out with my friend Cori');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/9 20:00:00', 'I hung out with my friend Lucinda');
 
-CALL createDiaryEntry(3, '2021/03/5 23:00:00', 'I hung out with my friend Rosette');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/8 06:00:00', 'I hung out with my friend Willy');
 
-CALL createDiaryEntry(3, '2021/02/1 05:00:00', 'I hung out with my friend Tyler');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/4 06:00:00', 'I hung out with my friend Erik');
 
-CALL createDiaryEntry(3, '2021/03/2 17:00:00', 'I hung out with my friend Lora');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/1 14:00:00', 'I hung out with my friend Jarod');
 
-CALL createDiaryEntry(3, '2021/02/2 05:00:00', 'I hung out with my friend Tyron');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/18 20:00:00', 'I hung out with my friend Hanna');
 
-CALL createDiaryEntry(3, '2021/03/1 05:00:00', 'I hung out with my friend Queen');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/9 11:00:00', 'I hung out with my friend Romona');
 
-CALL createDiaryEntry(3, '2021/01/26 19:00:00', 'I hung out with my friend Leland');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/28 16:00:00', 'I hung out with my friend Lazaro');
 
-CALL createDiaryEntry(3, '2021/01/17 00:00:00', 'I hung out with my friend Rozella');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/9 04:00:00', 'I hung out with my friend Donna');
 
-CALL createDiaryEntry(3, '2021/02/14 01:00:00', 'I hung out with my friend Sharron');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/02/25 08:00:00', 'I hung out with my friend Marylynn');
 
-CALL createDiaryEntry(3, '2021/03/2 09:00:00', 'I hung out with my friend Delores');
-
-CALL createDiaryEntry(3, '2021/03/5 22:00:00', 'I hung out with my friend Lucinda');
-
-CALL createDiaryEntry(3, '2021/03/2 16:00:00', 'I hung out with my friend Willy');
-
-CALL createDiaryEntry(3, '2021/02/4 01:00:00', 'I hung out with my friend Erik');
-
-CALL createDiaryEntry(3, '2021/01/17 07:00:00', 'I hung out with my friend Jarod');
-
-CALL createDiaryEntry(3, '2021/01/2 11:00:00', 'I hung out with my friend Hanna');
-
-CALL createDiaryEntry(3, '2021/01/22 02:00:00', 'I hung out with my friend Romona');
-
-CALL createDiaryEntry(3, '2021/02/20 11:00:00', 'I hung out with my friend Lazaro');
-
-CALL createDiaryEntry(3, '2021/02/22 06:00:00', 'I hung out with my friend Donna');
-
-CALL createDiaryEntry(3, '2021/01/3 20:00:00', 'I hung out with my friend Marylynn');
-
-CALL createDiaryEntry(3, '2021/02/24 16:00:00', 'I hung out with my friend Elise');
+INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, '2021/01/8 09:00:00', 'I hung out with my friend Elise');
 
 INSERT INTO FALL (patientID, fall_date) VALUES (1, '2021/02/22 21:00:00');
 

@@ -11,23 +11,28 @@
 		$expected = ['questionID', 'patientID', 'answer'];
 		$missing = [];
 
-		$database = new Database(false);
-		$db = $database->connect($api_key);
+		$database = new Database();
 
-        if (empty($_POST)) {
-			$json = file_get_contents('php://input');
-			$_POST = json_decode($json, true);
-        }
+        if ($database->verify(array('key' => $api_key))) {
+            $db = $database->connect();
 
-        $answer = new Answer($db);
-        $answer->questionID = isset($_POST['questionID']) ? $_POST['questionID'] : array_push($missing, 'questionID');
-        $answer->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : array_push($missing, 'patientID');
-        $answer->answer = isset($_POST['answer']) ? $_POST['answer'] : array_push($missing, 'answer');
+            if (empty($_POST)) {
+                $json = file_get_contents('php://input');
+                $_POST = json_decode($json, true);
+            }
 
-        if (empty($missing)) {
-            $answer->create();
+            $answer = new Answer($db);
+            $answer->questionID = isset($_POST['questionID']) ? $_POST['questionID'] : array_push($missing, 'questionID');
+            $answer->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : array_push($missing, 'patientID');
+            $answer->answer = isset($_POST['answer']) ? $_POST['answer'] : array_push($missing, 'answer');
+
+            if (empty($missing)) {
+                $answer->create();
+            } else {
+                die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+            }
         } else {
-            die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+            echo json_encode(array('message' => 'Invalid API key.'));
         }
     } else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use POST instead.'));

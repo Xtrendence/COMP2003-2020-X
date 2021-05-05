@@ -18,7 +18,7 @@ html, input, textarea {
 /*body*/
 body {
     background: var(--main-second);
-    margin:0;
+    margin: 0;
     font-size: var(--font-smaller);
 }
 
@@ -157,4 +157,8 @@ body {
 
 .hidden {
     display: none;
+}
+
+button {
+	transition: background 0.25s;
 }

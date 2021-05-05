@@ -1,32 +1,50 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { LineChart } from 'react-native-chart-kit';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
-import { globalColors, globalStyles, globalComponentStyles } from '../styles/global';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
+import { globalColors, globalColorsDark, globalStyles, globalComponentStyles } from '../styles/global';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Entypo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TopBar } from '../components/TopBar';
 import Card from '../components/Card';
 import LoadingScreen from '../components/LoadingScreen';
+import { ThemeContext } from '../utils/ThemeProvider';
+import { wait } from '../utils/Utils';
+import { SettingsPopup} from '../components/SettingsPopup';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export class ChartsPage extends Component {
+	static contextType = ThemeContext;
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			loading: false,
+			refreshing: false,
 			timeFrom: this.previousWeek(new Date()),
 			timeTo: new Date(),
 			timespan: "",
 			labels: [""],
 			data: [0],
-			segments: 4
+			segments: 4,
+			settings: false,
 		};
 		this.navigation = props.navigation;
+		this.toggleTheme;
 	}
+
+	setSettings(page, value){
+		page.setState({settings:value})
+	}
+
+	onRefresh = () => {
+		this.setState({refreshing:true});
+		this.getData(this.previousWeek(new Date()), new Date());
+		wait(750).then(() => this.setState({refreshing:false}));
+	};
 
 	// Navigates to today's date on the chart.
 	navigateToday() {
@@ -129,7 +147,7 @@ export class ChartsPage extends Component {
 		let token = await AsyncStorage.getItem("token");
 		let patientID = await AsyncStorage.getItem("patientID");
 
-		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read-date.php?id=" + patientID + "&from=" + this.formatDateTime(from) + "&to=" + this.formatDateTime(to) + "&key=" + token;
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/falls/read-date.php?id=" + patientID + "&from=" + this.formatDateTime(from) + "&to=" + this.formatDateTime(to) + "&key=" + token;
 
 		this.setState({timespan:this.formatDate(from, "/") + " - " + this.formatDate(to, "/")});
 		
@@ -210,7 +228,22 @@ export class ChartsPage extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
+
 	componentDidMount() {
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
+
 		this.getData(this.previousWeek(new Date()), new Date());
 		this.setState({loading:true});
 		this.navigation.addListener("focus", () => {
@@ -233,18 +266,21 @@ export class ChartsPage extends Component {
 	
 	render() {
 		return (
-			<View style={styles.container}>
+			<View style={[styles.container, styles[`container${this.state.theme}`]]}>
 				{ this.state.loading &&
 					<LoadingScreen>Loading...</LoadingScreen>
 				}
-				<TopBar navigation={this.navigation}>Charts</TopBar>
-				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
+				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Charts</TopBar>
+				{ this.state.settings &&
+                    <SettingsPopup></SettingsPopup> 
+				}
+				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
 					{ !this.state.loading &&
 						<View style={styles.pageWrapper}>
 							<View style={styles.banner}>
 								<Text style={styles.bannerText}>Number Of Falls</Text>
 							</View>
-							<View style={styles.chartWrapper}>
+							<View style={[styles.chartWrapper, styles[`chartWrapper${this.state.theme}`]]}>
 								{ this.state.segments === 1 &&
 									<Text style={styles.chartLabelFix}>1</Text>
 								}
@@ -263,19 +299,19 @@ export class ChartsPage extends Component {
 									withHorizontalLines={true}
 									withVerticalLines={false}
 									chartConfig={{
-										backgroundColor: globalColors.mainFirst,
-										backgroundGradientFrom: globalColors.mainFirst,
-										backgroundGradientTo: globalColors.mainFirst,
+										backgroundColor: (this.state.theme === "Dark") ? globalColorsDark.mainFirst : globalColors.mainFirst,
+										backgroundGradientFrom: (this.state.theme === "Dark") ? globalColorsDark.mainFirst : globalColors.mainFirst,
+										backgroundGradientTo: (this.state.theme === "Dark") ? globalColorsDark.mainFirst : globalColors.mainFirst,
 										decimalPlaces: 0,
-										color: () => "rgba(95,103,129,0.8)",
-										labelColor: () => "rgba(95,103,129,1)",
+										color: () => "rgb(95,103,129)",
+										labelColor: () => "rgb(95,103,129)",
 										style: {
 											borderRadius: 0
 										},
 										propsForDots: {
 											r: "4",
 											strokeWidth: "2",
-											stroke: globalColors.mainFifth
+											stroke: (this.state.theme === "Dark") ? globalColorsDark.mainFifth : globalColors.mainFifth
 										},
 										propsForVerticalLabels: {
 											fontFamily: globalStyles.fontFamily,
@@ -336,6 +372,9 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start",
 		backgroundColor: globalColors.mainSecond,
 	},
+	containerDark: {
+		backgroundColor: globalColorsDark.mainThird
+	},
 	scrollView: {
 		width: "100%",
 		height: "100%"
@@ -375,6 +414,9 @@ const styles = StyleSheet.create({
 		elevation: globalStyles.shadowElevation,
 		marginTop: 20,
 		marginBottom: 20,
+	},
+	chartWrapperDark: {
+		backgroundColor: globalColorsDark.mainFirst
 	},
 	chartLabelFix: {
 		fontSize: 12,

@@ -10,40 +10,47 @@
 
 		$expected = ['id'];
 		$missing = [];
-
-		$database = new Database(false);
-		$db = $database->connect($api_key);
-
-		$diaryEntry = new DiaryEntry($db);
-		$diaryEntry->patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
-
-		if (empty($missing)) {
-			$result = $diaryEntry->readUser();
-
-			$rows = $result->rowCount();
 		
-			if ($rows > 0) {
-				$array = array();
-				$array['data'] = array();
-				while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-					extract($row);
+		$patientID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
+
+		$database = new Database();
+
+		if ($database->verify(array('key' => $api_key, 'id' => $patientID))) {
+			$db = $database->connect();
+
+			$diaryEntry = new DiaryEntry($db);
+			$diaryEntry->patientID = $patientID;
+
+			if (empty($missing)) {
+				$result = $diaryEntry->readUser();
+
+				$rows = $result->rowCount();
 		
-					$item = array(
-						'entryID' => $entryID,
-						'patientID' => $patientID,
-						'entry_date' => $entry_date,
-						'entry' => $entry
-					);
+				if ($rows > 0) {
+					$array = array();
+					$array['data'] = array();
+					while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+						extract($row);
 		
-					array_push($array['data'], $item);
+						$item = array(
+							'entryID' => $entryID,
+							'patientID' => $patientID,
+							'entry_date' => $entry_date,
+							'entry' => $entry
+						);
+		
+						array_push($array['data'], $item);
+					}
+		
+					echo json_encode($array, JSON_PRETTY_PRINT);
+				} else {
+					echo json_encode(array('message' => 'No diary entries found.'));
 				}
-		
-				echo json_encode($array, JSON_PRETTY_PRINT);
 			} else {
-				echo json_encode(array('message' => 'No diary entries found.'));
+				die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
 			}
 		} else {
-			die(json_encode(array('expected' => $expected, 'missing' => $missing), JSON_PRETTY_PRINT));
+			echo json_encode(array('message' => 'Invalid API key.'));
 		}
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));

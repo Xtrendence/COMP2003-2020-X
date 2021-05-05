@@ -19,6 +19,23 @@
 		<title>BRIMS SMS API Documentation</title>
 	</head>
 	<body>
+		<div class="title-card">
+			<span>Extra Information</span>
+		</div>
+		<div class="wide-card">
+			<div class="alert-wrapper">
+				<span>Please note that all requests made to the API require an API key as part of the URL except for the login endpoints. For example:</span>
+			</div>
+			<div class="description-wrapper">
+				<span>POST /api/users/create.php?key={apiKey}</span>
+				<span>GET /api/users/read-all.php?key={apiKey}</span>
+				<span>GET /api/users/read-range.php?from={patientID}&to={patientID}&key={apiKey}</span>
+				<span>GET /api/falls/read-date.php?id={patientID}&from={fall_date}&to={fall_date}&key={apiKey}</span>
+			</div>
+			<div class="description-wrapper">
+				<span>While in development mode, a hardcoded API key can be used (which can be found on Teams). When development mode is disabled, session tokens act as API keys, with admin tokens being able to access all endpoints.</span>
+			</div>
+		</div>
 		<!-- Users -->
 		<div class="title-card">
 			<span>Users</span>
@@ -28,7 +45,7 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/create.php" target="_blank">/api/users/create.php</a></span>
+				<span><a href="./users/create.php" target="_blank">/api/users/create.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>researcherID</span>
@@ -55,7 +72,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read.php?id=1" target="_blank">/api/users/read.php?id={patientID}</a></span>
+				<span><a href="./users/read.php?id=1" target="_blank">/api/users/read.php?id={patientID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -69,7 +86,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read-all.php" target="_blank">/api/users/read-all.php</a></span>
+				<span><a href="./users/read-all.php" target="_blank">/api/users/read-all.php</a></span>
 			</div>
 			<div class="description-wrapper">
 				<span>Get the details of every user.</span>
@@ -80,7 +97,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/read-range.php?from=1&to=3" target="_blank">/api/users/read-range.php?from={patientID}&to={patientID}</a></span>
+				<span><a href="./users/read-range.php?from=1&to=3" target="_blank">/api/users/read-range.php?from={patientID}&to={patientID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -94,9 +111,10 @@
 				<span>PUT</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/update.php" target="_blank">/api/users/update.php</a></span>
+				<span><a href="./users/update.php" target="_blank">/api/users/update.php</a></span>
 			</div>
 			<div class="data-wrapper">
+				<span>researcherID</span>
 				<span>patient_nhsRef</span>
 				<span>patient_username</span>
 				<span>patient_password</span>
@@ -119,7 +137,7 @@
 				<span>DELETE</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/delete.php" target="_blank">/api/users/delete.php</a></span>
+				<span><a href="./users/delete.php" target="_blank">/api/users/delete.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -133,7 +151,7 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php" target="_blank">/api/users/login.php</a></span>
+				<span><a href="./users/login.php" target="_blank">/api/users/login.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patient_username</span>
@@ -149,14 +167,24 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/logout.php" target="_blank">/api/users/logout.php</a></span>
+				<span><a href="./users/logout.php" target="_blank">/api/users/logout.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
-				<span>login_token</span>
 			</div>
 			<div class="description-wrapper">
 				<span>Log a user out of the system.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="./users/verify.php" target="_blank">/api/users/verify.php</a></span>
+			</div>
+			<div class="description-wrapper">
+				<span>Verify a user's session token.</span>
 			</div>
 		</div>
 		<!-- Falls -->
@@ -168,7 +196,7 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/create.php" target="_blank">/api/falls/create.php</a></span>
+				<span><a href="./falls/create.php" target="_blank">/api/falls/create.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -185,7 +213,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read.php?id=1" target="_blank">/api/falls/read.php?id={fallID}</a></span>
+				<span><a href="./falls/read.php?id=1" target="_blank">/api/falls/read.php?id={fallID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>fallID</span>
@@ -199,7 +227,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read-all.php" target="_blank">/api/falls/read-all.php</a></span>
+				<span><a href="./falls/read-all.php" target="_blank">/api/falls/read-all.php</a></span>
 			</div>
 			<div class="description-wrapper">
 				<span>Get the details of every fall.</span>
@@ -210,7 +238,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read-user.php?id=1" target="_blank">/api/falls/read-user.php?id={patientID}</a></span>
+				<span><a href="./falls/read-user.php?id=1" target="_blank">/api/falls/read-user.php?id={patientID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -224,7 +252,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/read-date.php?id=1&from=2020-12-02+16:30:35&to=2020-12-08+18:20:15" target="_blank">/api/falls/read-date.php?id={patientID}&from={fall_date}&to={fall_date}</a></span>
+				<span><a href="./falls/read-date.php?id=1&from=2020-12-02+16:30:35&to=2020-12-08+18:20:15" target="_blank">/api/falls/read-date.php?id={patientID}&from={fall_date}&to={fall_date}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -239,13 +267,27 @@
 				<span>DELETE</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/delete.php" target="_blank">/api/falls/delete.php</a></span>
+				<span><a href="./falls/delete.php" target="_blank">/api/falls/delete.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>fallID</span>
 			</div>
 			<div class="description-wrapper">
 				<span>Delete a user's fall.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="./falls/export.php?id=1" target="_blank">/api/falls/export.php?id={patientID}</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>patientID</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Export the falls data of a user.</span>
 			</div>
 		</div>
 		<!-- Diary Entries -->
@@ -257,7 +299,7 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/create.php" target="_blank">/api/diary-entries/create.php</a></span>
+				<span><a href="./diary-entries/create.php" target="_blank">/api/diary-entries/create.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -272,9 +314,10 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/read.php?id=1" target="_blank">/api/diary-entries/read.php?id={entryID}</a></span>
+				<span><a href="./diary-entries/read.php?id=1" target="_blank">/api/diary-entries/read.php?patientID={patientID}&entryID={entryID}</a></span>
 			</div>
 			<div class="data-wrapper">
+				<span>patientID</span>
 				<span>entryID</span>
 			</div>
 			<div class="description-wrapper">
@@ -286,7 +329,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/read-all.php" target="_blank">/api/diary-entries/read-all.php</a></span>
+				<span><a href="./diary-entries/read-all.php" target="_blank">/api/diary-entries/read-all.php</a></span>
 			</div>
 			<div class="description-wrapper">
 				<span>Get the details of every diary entry.</span>
@@ -297,7 +340,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/read-user.php?id=1" target="_blank">/api/diary-entries/read-user.php?id={patientID}</a></span>
+				<span><a href="./diary-entries/read-user.php?id=1" target="_blank">/api/diary-entries/read-user.php?id={patientID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -311,7 +354,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/read-date.php?id=1&from=2020-12-02+16:30:35&to=2020-12-08+18:20:15" target="_blank">/api/diary-entries/read-date.php?id={patientID}&from={entry_date}&to={entry_date}</a></span>
+				<span><a href="./diary-entries/read-date.php?id=1&from=2020-12-02+16:30:35&to=2020-12-08+18:20:15" target="_blank">/api/diary-entries/read-date.php?id={patientID}&from={entry_date}&to={entry_date}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -323,12 +366,29 @@
 		</div>
 		<div class="wide-card">
 			<div class="method-wrapper">
+				<span>PUT</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="./diary-entries/update.php" target="_blank">/api/diary-entries/update.php</a></span>
+			</div>
+			<div class="data-wrapper">
+				<span>patientID</span>
+				<span>entryID</span>
+				<span>entry</span>
+			</div>
+			<div class="description-wrapper">
+				<span>Update a user's diary entry.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
 				<span>DELETE</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/diary-entries/delete.php" target="_blank">/api/diary-entries/delete.php</a></span>
+				<span><a href="./diary-entries/delete.php" target="_blank">/api/diary-entries/delete.php</a></span>
 			</div>
 			<div class="data-wrapper">
+				<span>patientID</span>
 				<span>entryID</span>
 			</div>
 			<div class="description-wrapper">
@@ -344,7 +404,7 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/create.php" target="_blank">/api/questions/create.php</a></span>
+				<span><a href="./questions/create.php" target="_blank">/api/questions/create.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -362,7 +422,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read.php?id=1" target="_blank">/api/questions/read.php?id={questionID}</a></span>
+				<span><a href="./questions/read.php?id=1" target="_blank">/api/questions/read.php?id={questionID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>questionID</span>
@@ -376,7 +436,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read-all.php" target="_blank">/api/questions/read-all.php</a></span>
+				<span><a href="./questions/read-all.php" target="_blank">/api/questions/read-all.php</a></span>
 			</div>
 			<div class="description-wrapper">
 				<span>Get the details of every question.</span>
@@ -387,7 +447,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/read-range.php?from=1&to=3" target="_blank">/api/questions/read-range.php?from={questionID}&to={questionID}</a></span>
+				<span><a href="./questions/read-range.php?from=1&to=3" target="_blank">/api/questions/read-range.php?from={questionID}&to={questionID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>questionID</span>
@@ -401,7 +461,7 @@
 				<span>PUT</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/update.php" target="_blank">/api/questions/update.php</a></span>
+				<span><a href="./questions/update.php" target="_blank">/api/questions/update.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>questionID</span>
@@ -419,7 +479,7 @@
 				<span>DELETE</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/questions/delete.php" target="_blank">/api/questions/delete.php</a></span>
+				<span><a href="./questions/delete.php" target="_blank">/api/questions/delete.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>questionID</span>
@@ -437,7 +497,7 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/create.php" target="_blank">/api/answers/create.php</a></span>
+				<span><a href="./answers/create.php" target="_blank">/api/answers/create.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>questionID</span>
@@ -453,7 +513,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read.php?id=1" target="_blank">/api/answers/read.php?id={answerID}</a></span>
+				<span><a href="./answers/read.php?id=1" target="_blank">/api/answers/read.php?id={answerID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>answerID</span>
@@ -467,7 +527,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-all.php" target="_blank">/api/answers/read-all.php</a></span>
+				<span><a href="./answers/read-all.php" target="_blank">/api/answers/read-all.php</a></span>
 			</div>
 			<div class="description-wrapper">
 				<span>Get the details of every answer.</span>
@@ -478,7 +538,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/read-user.php?id=1" target="_blank">/api/answers/read-user.php?id={patientID}</a></span>
+				<span><a href="./answers/read-user.php?id=1" target="_blank">/api/answers/read-user.php?id={patientID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>patientID</span>
@@ -492,12 +552,11 @@
 				<span>PUT</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/update.php" target="_blank">/api/answers/update.php</a></span>
+				<span><a href="./answers/update.php" target="_blank">/api/answers/update.php</a></span>
 			</div>
 			<div class="data-wrapper">
-				<span>answerID</span>
-				<span>questionID</span>
 				<span>patientID</span>
+				<span>answerID</span>
 				<span>answer</span>
 			</div>
 			<div class="description-wrapper">
@@ -509,7 +568,7 @@
 				<span>DELETE</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/answers/delete.php" target="_blank">/api/answers/delete.php</a></span>
+				<span><a href="./answers/delete.php" target="_blank">/api/answers/delete.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>answerID</span>
@@ -527,7 +586,7 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/create.php" target="_blank">/api/admins/create.php</a></span>
+				<span><a href="./admins/create.php" target="_blank">/api/admins/create.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>researcher_nhsRef</span>
@@ -548,7 +607,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/read.php?id=1" target="_blank">/api/admins/read.php?id={researcherID}</a></span>
+				<span><a href="./admins/read.php?id=1" target="_blank">/api/admins/read.php?id={researcherID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>researcherID</span>
@@ -562,7 +621,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/read-all.php" target="_blank">/api/admins/read-all.php</a></span>
+				<span><a href="./admins/read-all.php" target="_blank">/api/admins/read-all.php</a></span>
 			</div>
 			<div class="description-wrapper">
 				<span>Get the details of every admin.</span>
@@ -573,7 +632,7 @@
 				<span>GET</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/read-range.php?from=1&to=3" target="_blank">/api/admins/read-range.php?from={researcherID}&to={researcherID}</a></span>
+				<span><a href="./admins/read-range.php?from=1&to=3" target="_blank">/api/admins/read-range.php?from={researcherID}&to={researcherID}</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>researcherID</span>
@@ -587,7 +646,7 @@
 				<span>PUT</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/update.php" target="_blank">/api/admins/update.php</a></span>
+				<span><a href="./admins/update.php" target="_blank">/api/admins/update.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>researcher_nhsRef</span>
@@ -608,7 +667,7 @@
 				<span>DELETE</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/delete.php" target="_blank">/api/admins/delete.php</a></span>
+				<span><a href="./admins/delete.php" target="_blank">/api/admins/delete.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>researcherID</span>
@@ -622,7 +681,7 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/login.php" target="_blank">/api/admins/login.php</a></span>
+				<span><a href="./admins/login.php" target="_blank">/api/admins/login.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>researcher_username</span>
@@ -637,14 +696,24 @@
 				<span>POST</span>
 			</div>
 			<div class="endpoint-wrapper">
-				<span><a href="http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/admins/logout.php" target="_blank">/api/admins/logout.php</a></span>
+				<span><a href="./admins/logout.php" target="_blank">/api/admins/logout.php</a></span>
 			</div>
 			<div class="data-wrapper">
 				<span>researcherID</span>
-				<span>login_token</span>
 			</div>
 			<div class="description-wrapper">
 				<span>Log an admin out of the system.</span>
+			</div>
+		</div>
+		<div class="wide-card">
+			<div class="method-wrapper">
+				<span>GET</span>
+			</div>
+			<div class="endpoint-wrapper">
+				<span><a href="./admins/verify.php" target="_blank">/api/admins/verify.php</a></span>
+			</div>
+			<div class="description-wrapper">
+				<span>Verify an admin's session token.</span>
 			</div>
 		</div>
 	</body>

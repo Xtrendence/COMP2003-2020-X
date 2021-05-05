@@ -8,56 +8,61 @@
 
         $api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-        $database = new Database(false);
-        $db = $database->connect($api_key);
+        $database = new Database();
 
-        $answer = new Answer($db);
+        if ($database->verify(array('key' => $api_key))) {
+            $db = $database->connect();
 
-        $result = $answer->readAll();
-        $rows = $result->rowCount();
+            $answer = new Answer($db);
 
-        if ($rows > 0) {
-            $array = array();
-            $array['data'] = array();
+            $result = $answer->readAll();
+            $rows = $result->rowCount();
 
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                extract($row);
-                $item = array(
-                    'patientID' => $patientID,
-                    'questionID' => $questionID,
-                    'question' => $question,
-                    'question_type' => $question_type
-                );
+            if ($rows > 0) {
+                $array = array();
+                $array['data'] = array();
 
-                if ($question_type == 'custom') {
-                    $item['question_charLim'] = $question_charLim;
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    extract($row);
+                    $item = array(
+                        'patientID' => $patientID,
+                        'questionID' => $questionID,
+                        'question' => $question,
+                        'question_type' => $question_type
+                    );
 
-                } else {
-                    $choices = [];
+                    if ($question_type == 'custom') {
+                        $item['question_charLim'] = $question_charLim;
 
-                    $query = 'SELECT * FROM choice WHERE questionID=:id';
-                    $command = $db->prepare($query);
-                    $command->bindParam(':id', $questionID);
-                    $command->execute();
+                    } else {
+                        $choices = [];
 
-                    if ($command->rowCount() > 0) {
-                        while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
-                            array_push($choices, $row['choice']);
+                        $query = 'SELECT * FROM choice WHERE questionID=:id';
+                        $command = $db->prepare($query);
+                        $command->bindParam(':id', $questionID);
+                        $command->execute();
+
+                        if ($command->rowCount() > 0) {
+                            while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
+                                array_push($choices, $row['choice']);
+                            }
                         }
-                    }
 
-                    for ($i = 0; $i < count($choices); $i++) {
-                        $item['choices'][$i + 1] = $choices[$i];
-                    }					
+                        for ($i = 0; $i < count($choices); $i++) {
+                            $item['choices'][$i + 1] = $choices[$i];
+                        }					
+                    }
+                    $item['answerID'] = $answerID;
+                    $item['answer'] = $answer;
+                    array_push($array['data'], $item);
                 }
-                $item['answerID'] = $answerID;
-                $item['answer'] = $answer;
-                array_push($array['data'], $item);
+                
+                echo json_encode($array, JSON_PRETTY_PRINT);
+            } else {
+                echo json_encode(array('message' => 'No questions found.'));
             }
-            
-            echo json_encode($array, JSON_PRETTY_PRINT);
         } else {
-            echo json_encode(array('message' => 'No questions found.'));
+            echo json_encode(array('message' => 'Invalid API key.'));
         }
 	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use GET instead.'));
