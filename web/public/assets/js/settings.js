@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let toggleContainer = document.getElementById('toggle');
 
         let logout = document.getElementById('logout');
+        
         let sessionToken = localStorage.getItem("sessionToken");
 
         /**
