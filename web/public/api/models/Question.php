@@ -12,8 +12,71 @@
 			$this->connection = $db;
         }
 
-        public function createAll($patientID, $choices) {
+        public function createAll($choices) {
+            $api_key = "AAAAO3Shusw:APA91bH-FgYl74yuESuuTvlIt5vGNhbOp7vWmvr6TYAWc6FOnaB2YmJOZ64M9SMlwKDBCQz3y-qcb9hFtz1Knf9d6yF6gl_akLrgHnAXLt5hrxTdR7btBJYNRUjCmMH9rGx3rEvqB8NS";
 
+            $query = 'CALL createQuestion(:question, :question_charLim, :question_type)'; 
+            $command = $this->connection->prepare($query);
+            $command->bindParam(':question', $this->question);
+            $command->bindParam(':question_type', $this->question_type);
+            $command->bindParam(':question_charLim', $this->question_charLim);
+            $command->execute();
+
+            $query = 'SELECT MAX(questionID) AS questionID FROM ' . $this->table;
+            $command = $this->connection->prepare($query);
+            $command->execute();
+            $row = $command->fetch(PDO::FETCH_ASSOC);
+            $this->questionID = $row['questionID'];
+            if ($this->question_type != 'custom') {
+                for ($i = 0; $i < count($choices); $i++) {
+                    $query = 'CALL createChoice(:questionID, :choice)';
+                    $command = $this->connection->prepare($query);
+                    $command->bindParam(':questionID', $this->questionID);
+                    $command->bindParam(':choice', $choices[$i]);
+                    $command->execute();
+                } 
+            }
+
+            $query = 'SELECT patientID FROM patient';
+            $command = $this->connection->prepare($query);
+            $command->execute();
+            $users = array();
+
+            while($row = $command->fetch(PDO::FETCH_ASSOC))
+            {
+                $users[] = $row['patientID'];
+            }
+
+            for ($i = 0; $i < count($users); $i++){
+                $query = 'CALL createAnswer(:questionID, :patientID, "")';
+                $command = $this->connection->prepare($query);
+                $command->bindParam(':questionID', $this->questionID);
+                $command->bindParam(':patientID', $users[$i]);
+                $command->execute();
+
+                $query = 'SELECT fcmToken FROM patient WHERE patientID=:id';
+                $command = $this->connection->prepare($query);
+                $command->bindParam(':id', $users[$i]);
+                $command->execute();
+
+                $row = $command->fetch(PDO::FETCH_ASSOC);
+
+                $token = $row['fcmToken'];
+
+                $message = array("body" => "You have a new question to answer.", "title" => "New Question");
+                $fields = array("to" => $token, "notification" => $message);
+                $headers = array("Authorization: key=" . $api_key, "Content-Type: application/json");
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "https://fcm.googleapis.com/fcm/send%22");
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+                curl_exec($ch);
+                curl_close($ch);
+            }
         }
 
         public function create($patientID, $choices) {
@@ -24,7 +87,7 @@
             $command->bindParam(':question_charLim', $this->question_charLim);
             $command->execute();
             
-            $query = 'SELECT MAX(questionID) AS questionID FROM question';
+            $query = 'SELECT MAX(questionID) AS questionID FROM ' . $this->table;
             $command = $this->connection->prepare($query);
             $command->execute();
             $row = $command->fetch(PDO::FETCH_ASSOC);
