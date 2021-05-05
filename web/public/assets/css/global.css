@@ -18,7 +18,7 @@ html, input, textarea {
 /*body*/
 body {
     background: var(--main-second);
-    margin:0;
+    margin: 0;
     font-size: var(--font-smaller);
 }
 
@@ -49,6 +49,10 @@ body {
     border-radius: 10px;
     display: block;
     font-size: var(--font-smaller);
+}
+
+.wide-card:last-of-type {
+    margin-bottom: 20px;
 }
 
 .small-card {
@@ -139,8 +143,6 @@ body {
     cursor: default;
 }
 
-
-
 /*misc*/
 .seperator {
     background: var(--accent-gradient);
@@ -155,4 +157,8 @@ body {
 
 .hidden {
     display: none;
+}
+
+button {
+	transition: background 0.25s;
 }

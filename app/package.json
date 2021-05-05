@@ -8,8 +8,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/push-notification-ios": "^1.7.3",
+    "@react-native-firebase/app": "^10.2.0",
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/material-bottom-tabs": "^5.3.10",
     "@react-navigation/native": "^5.8.9",
@@ -18,12 +20,16 @@
     "expo-splash-screen": "~0.6.2",
     "expo-status-bar": "~1.0.2",
     "expo-updates": "~0.3.2",
-    "react": "16.13.1",
+    "prop-types": "^15.7.2",
+    "react": "17.0.1",
     "react-dom": "16.13.1",
-    "react-native": "~0.63.3",
+    "react-native": "0.64.0",
     "react-native-calendars": "^1.403.0",
     "react-native-chart-kit": "^6.7.0",
+    "react-native-flash-message": "^0.1.17",
     "react-native-gesture-handler": "~1.7.0",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-navigation-bar-color": "^2.0.1",
     "react-native-paper": "^4.4.0",
     "react-native-push-notification": "^6.1.3",
     "react-native-reanimated": "~1.13.0",
@@ -33,8 +39,7 @@
     "react-native-unimodules": "~0.11.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-waveview": "^1.1.0",
-    "react-native-web": "~0.13.12",
-    "rn-curved-navigation-bar": "^1.1.0"
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
@@ -46,6 +51,6 @@
     "preset": "react-native"
   },
   "private": true,
-  "name": "app",
+  "name": "brims-sms",
   "version": "1.0.0"
 }

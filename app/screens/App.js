@@ -1,16 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { LoginPage } from '../screens/LoginPage';
-import { BottomBar } from '../components/BottomBar';
-import { globalColors, globalStyles } from '../styles/global';
+import React, { Component } from 'react';
+import { StackNavigator } from '../components/StackNavigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Notifier from '../utils/Notifier';
+import { ThemeProvider } from '../utils/ThemeProvider';
 
-export default function App() {
-	let loggedIn = true;
-
-	if(loggedIn) {
-		return (
-			<BottomBar></BottomBar>
-		);
+export default class App extends Component {
+	constructor(props) {
+		super(props);
 	}
-	return <LoginPage></LoginPage>
+
+	render() {
+		let notifier = new Notifier(
+			onRegister.bind(this),
+			onNotification.bind(this)
+		);
+
+		// The StackNavigator contains the LoginPage as well as the BottomBar. The BottomBar contains the other pages.
+		return (
+			<ThemeProvider>
+				<StackNavigator></StackNavigator>
+			</ThemeProvider>
+		);
+
+		async function onRegister(token) {
+			if (!empty(token.token)) {
+				await AsyncStorage.setItem("fcm", token.token);
+			}
+		}
+
+		function onNotification(notification) {
+			notifier.localNotification(notification.title, notification.message);
+		}
+	}
 }

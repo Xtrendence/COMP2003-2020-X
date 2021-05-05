@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			:root {
+				--font-family: "Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif;
+			}
+			html {
+				font-family: var(--font-family);
+			}
+			body {
+				background: rgb(20,20,20);
+				color: rgb(255,255,255);
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+				overflow-x: hidden;
+				overflow-y: visible;
+			}
+			textarea {
+				width: calc(100% - 60px);
+				padding: 10px;
+				display: block;
+				margin: 20px auto 0 auto;
+				border-radius: 10px;
+				height: 400px;
+				background: rgb(40,40,40);
+				outline: none;
+				border: none;
+				color: rgb(255,255,255);
+				font-size: 16px;
+				resize: none;
+				font-family: var(--font-family);
+			}
+			textarea:last-of-type {
+				margin-bottom: 20px;
+			}
+		</style>
+		<title>SQL Mock Data Query Generator</title>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				let patient = document.getElementById("patient");
+				let researcher = document.getElementById("researcher");
+				let diaryEntry = document.getElementById("diary-entry");
+				let fall = document.getElementById("fall");
+				let question = document.getElementById("question");
+
+				let usernames = ["maureenW38", "irate", "rambunctious", "drip", "crooked", "form", "crazy", "scientific", "acoustics", "suit", "weary", "tan", "torpid", "cycle", "like", "spark", "jellyfish", "incredible", "steep", "degree", "duck", "deserted", "bell", "fragile", "school", "classy", "grateful", "soak", "hose", "fry", "lopsided", "superb", "bake", "first", "bounce", "incompetent", "multiply", "tie", "adorable", "pipe", "carriage", "ill", "boiling", "rebel", "aunt", "acceptable", "psychotic", "inject", "mysterious", "hill", "nauseating", "terrible", "amount", "selective", "tiger", "rake", "frightening", "stir", "proud", "skillful", "lackadaisical", "divergent", "group", "perpetual", "heady", "reward", "dinosaurs", "way", "suffer", "dirt", "sweater", "lung", "sleep", "crow", "slow", "wasteful", "rainy", "tough", "stare", "bury", "beautiful", "jaded", "fixed", "person", "pollution", "curly", "raspy", "stormy", "birthday", "suggest", "actually", "mix", "bruise", "launch", "sick", "needy", "volatile", "calculator", "beds", "maddening", "tendency", "snake", "brave", "remind", "powder", "annoying", "lazy", "vein", "existence", "glow", "political", "hilarious", "poke", "fluttering", "paddle", "uppity", "hand", "long-term", "stem", "room", "material", "ordinary", "robust", "mom", "kick", "current", "kind", "obtain", "sponge", "scribble", "solid", "coordinated", "sparkle", "murder", "fade", "married", "chin", "behavior", "discover", "cart", "notebook", "addition", "verdant", "woman", "vivacious", "strap", "squash", "muddle", "tree", "flesh", "credit", "juvenile", "explain", "rustic", "desert", "handsomely", "water", "buzz", "momentous", "overt", "ball", "miscreant", "son", "own", "trees", "promise", "defiant", "creator", "develop", "include", "sack", "wacky", "choke", "overwrought", "copper", "measly", "obedient", "transport", "obsolete", "pack", "complete", "memorize", "damage", "pail", "sticks", "boorish", "passenger", "tug", "shivering", "society", "back", "juicy", "strengthen", "zesty", "general", "seal", "lumpy", "aromatic", "agree", "scattered", "sloppy"];
+
+				let names = ["Maureen Ward", "Mckenzie Cap", "Larue Simeon", "Nicholle Gossard", "Jeannie Bucker", "Christinia Unrein", "Odelia Brooks", "Suellen Gehling", "Maris Vandermolen", "Wyatt Brawner", "Terese Pina", "Andrea Collinson", "Armanda Rogowski", "Hilton Hearns", "Tyesha Dicus", "Tuyet Weary", "Nikki Giel", "Magen Gerling", "Ayana Labonte", "Marhta Masi", "Luanne Litton", "Amal Torgeson", "Jacques Hendryx", "Lorinda Hoerr", "Alexandra Hendrixson", "Lashaun Buice", "Shondra Eells", "Russell Haro", "Merry Chmielewski", "Anastasia Prado", "Shirlee Rossiter", "Sunny Vanbuskirk", "Natisha Leonardi", "Juliana Bacchus", "Alissa Landi", "Amina Gaona", "Leonila Ransdell", "Bernarda Sandefur", "Gretchen Jorge", "Dudley Pratts", "Caleb Prejean", "Mia Drown", "Sheron Segundo", "Pauletta Weckerly", "Alfreda Felton", "Lexie Janicki", "Ferne Woodward", "Grisel Garibay", "Tonie Cheatam", "Gordon Valadez", "Cira Poling", "Terrilyn Mom", "Livia Westman", "Chana Wendling", "Shyla Altamirano", "Branden Dobbins", "Warren Lizaola", "Octavio Masden", "Nancee Litz", "Clarinda Marcinko", "Robbin Sturm", "Clementina Buffum", "Kamilah Lembo", "Donna Almquist", "Alfredia Guerrier", "Keturah Lashbrook", "Shawanda Dechant", "Katina Tijerina", "Linwood Sanon", "Evita Derry", "Aida Landon", "Jamison Lampe", "Marry Wroblewski", "Jerrod Parmer", "Abe Ellington", "Brandy Wynter", "Lyn Domingo", "Lilly Grijalva", "Eldon Frias", "Dolly Finkle", "Foster Dales", "Nam Gascon", "Arletta Ficklin", "Beau Wayt", "Versie Maugeri", "Vannesa Garnett", "Johnny Ellefson", "Kathie Stines", "Derek Mardis", "Mistie Dew", "Kaitlin Fravel", "Peggie Heras", "Maggie Brownlow", "Dennis Maier", "Lenard Janicki", "Alana Nealy", "Bernice Yarborough", "Margert Schlottmann", "Joyce Vivanco", "Colette Brueggeman", "Kami Jim", "Jeremiah Baynes", "Magali Scranton", "Sparkle Bernat", "Romana Gallien", "Maya Keesler", "Carli Mchale", "Kia Douglas", "Alene Mclamb", "Barney Aiken", "Octavio Greenough", "Quinton Favero", "Fay Tackitt", "Evie Blocker", "Casey Hammersley", "Elnora Ottesen", "Lynsey Strub", "Ghislaine Stauffer", "Abel Sterba", "Niesha Marrufo", "Elane Hopp", "Noella Santo", "Corrinne Jordahl", "Noreen Loken", "Georgiana Hoerr", "Maryland Rieger", "Earnestine Ruck", "Josephina Wetzler", "Joann Bragdon", "Shemeka Renzi", "Dolly Tousignant", "Lorena Corwin", "Kourtney Claflin", "Andy Canterbury", "Collette Sancho", "Polly Watts", "Stanton Stjean", "Jerald Sund", "Robert Mescher", "Ewa Ison", "Carlie Crumb", "Nilda Mahood", "Brande Thrall", "Lauran Edinger", "Annetta Crase", "Leatha Yerger", "Phylicia Ivester", "Guy Serafino", "Rosann Lieser", "Ethel Rizo", "Tamala Jacko", "Magda Dang", "Fermina Fremont", "Anabel Mean", "Isabella Carpenter", "Shu Grieves", "Desmond Westmoreland", "Victorina Dodson", "Sage Arbeiter", "Lynette Pepper", "Darryl Moats", "Hildegard Luedke", "Ariana Claborn", "Margorie Ebersole", "Maye Wakeman", "Monroe Soliday", "Reena Braz", "Jeremy Rayborn", "Tamiko Blanc", "Dorsey Huling", "Cori Seekins", "Rosette Schill", "Tyler Kilbourne", "Lora Resendez", "Tyron Moscoso", "Queen Stroupe", "Leland Pitt", "Rozella Mcglamery", "Sharron Bran", "Delores Ferrill", "Lucinda Shutts", "Willy Melanson", "Erik Stanback", "Jarod Roebuck", "Hanna Shontz", "Romona Barrie", "Lazaro Silverio", "Donna Neagle", "Marylynn Capuano", "Elise Leyva", "Marcie Brafford", "Virgen Locascio", "Barabara Bently", "Marcell Negron", "Debby Gattison", "Herb Anchondo", "Alana Guerin", "Deloras Lueras", "Barbara Blank", "Akilah Commons", "Virgilio Louis"];
+
+				let passwords = [];
+
+				let hashed = ["$2y$10$4i1wX1luP2ScgZGoTLaBZObRGIVipHjgyOyZutvz2Q42p4CADHWrS", "$2y$10$vwtpMEcIMboEq6fL0kaUbOhk0yU4TXoYEHwQywrsmIzzCBE8VG482", "$2y$10$5epEF8Jn8iuabZsEbWQuFeDfXGu45j.z94npFO8uybdokmkHgeY1m", "$2y$10$Ti2tEfdfBT3vOq2q8aDD4OeaUq0ieet5BTZbP5AIGagtQIwqHRCMC", "$2y$10$DBF.bb9fgRx7vt8mMzEjMe3DhAANFYfz2H6f8U.2fNbvrcMUHphf2", "$2y$10$QE76G8nuozYmqXfsluop5OUQCVJ3Lchf.E56BBphkFc/UDXKLTg26", "$2y$10$56yl.eGfsL5RfrQZbe/l7.5.CaWB5j5ssoWpeoqsUVdPJf1ZTAGT2", "$2y$10$4lsvsMWZnVVsG.r4kcZr/.0BHqG8FYrgJQQV70KKrj7ByQPZ3Tldi", "$2y$10$65beg9Gva4cUDKMVVkQ.O.Yeg279oS4lFAcHuU8ktJuwYQR4M5t6S", "$2y$10$XZ2AuFv5GAYOGCyKmdSxL.YoYW8akB3KdDIF1HiIU3lcmPZmnGqQy", "$2y$10$EkU5M/KAn6QwRhUXfgP9yu8gfh.QFB3vbliRo.IyJSn4chYR.jgYi", "$2y$10$uASBbuNSmEU2EssRwgUge.TsTRQk185YZrv1v58wDdUsPcMLJPGbC", "$2y$10$L6QfMZyydBHPcGCyJL6NqOLcHqG45Yt4YxZbgJgAzNQvut6bvHbkq", "$2y$10$KVyTANLhKhTelEeqmy.2NOZJgL.lZM62CsOsI8ErLB5IBlnM7pwXq", "$2y$10$/zE5vRfvsnhA5hdCdKFKaO/LDthiHLD35r3P/bJYH1G5UlygMAEvm", "$2y$10$c3WhiGoZ80NVrT/QvX28JuXy/qK9/j8dCj0HAA/ZBMG.IOcCG2buC", "$2y$10$pX9F7bUfWMYQwzLKqLA62.9ueSQYOG3bzyUNZoWHNj5sp.17ipp5q", "$2y$10$PHxuJ4qS2V07Yr0aUfwYvORGtxD7y7XHmNp/fadAsmnRBy9arb/V.", "$2y$10$31PHZmoYHAPSc8csySBeNOkiDJ1PUXpqtULSJOS2MovLs9srrJCr6", "$2y$10$if8IsW3v.zceeenLFYVzseHVqi4K.TbDaBjkltAxgVtN3ajDAYSBi", "$2y$10$mXL0UGczX2aqstcRp1iWJuW925r6zjPYASsbpx/ai0hHi3wIPeGfu", "$2y$10$l9DXpSXJ.FWluCeDTxjgze./QVmh1ymc7RKjHmx/IOebGCZO0zboG", "$2y$10$f4BJjyfy3mcCC/eGBT2UouTuHDU5oVSMx2GpZikuoF8b71YStnCt6", "$2y$10$abvHsXe3ShWV4U2uDN.2zO9Yzfm/23rsqaFzkQWJ/Ot3KQkF.6s6.", "$2y$10$DnSLISzmZlVsyALjo3wwWei1QjAZBmMQn4u7j5xy8UYecsWqBvg/2", "$2y$10$DMdeKfleFChnLL6Z.dUaquUhWDsivsUikPZiGdvBD8zrhaWSXGcom", "$2y$10$oiGlLZxQW86XJ1Yd0GqE5.nUMX4FGdRtlHLhDI7Sbo1KAGhryrn/a", "$2y$10$N3.eZCm0pmuMZXw2MlZDLucR5LKFRQdbdinX9o/t1R/2NJstKR986", "$2y$10$2j4wAbDa0T/Y6JX7IMRX7.ZbwaXcKjfpTrCtiM9IxI/KH2GVRcdey", "$2y$10$JU4AsF8CtK6AnbSonZRQCexEdQov6JjfShHB6.M459rmLmFXxMe1O", "$2y$10$cK5MwHseGicpyJmCDyf4H.Kf/ULt6gpBJ0I7NWN083AIIsqRdOaeq", "$2y$10$SQe0rbmSHzP6aJzu4bIDhOKupovnFruEKwzNeAM7Bz57xr47I9dZW", "$2y$10$Q6qVYlVfLtPkocBrmjK8mua30w5D1IlX6B2dYERdP5/uscSXzmV12", "$2y$10$PFV7NKvop2xLitKGOtPkF.X6DU90iENh/B4iyGtkROXjENU5uqhg2", "$2y$10$s1W7mQS3Wwg3OeHtHgQlYe9.1.0XWPoRlFpqt7xwgpfuFLLL32wxy", "$2y$10$QkqdzNWxve3hkDNKiPsucOVOiXXYF528duAYSv8R1icsuOtrhf/ua", "$2y$10$RFCf68mr2pJ6k4ewoIwny.wQagooYfgRa6c9GOQf2xKCyiTESrO1S", "$2y$10$ZhivEoMEQQM1UfOFIsuDse8zacchiuiBxuY/B9zACIuv2JTmu5.O6", "$2y$10$B4AHn1mSyIv4jP6C37OXLOhedxm4zWIe7qg.FSOgrfXVUgnNm1I..", "$2y$10$uLjxImiV5E9h5S.WHOVrUurX.gX5z/eBY45oYtE.EH3YcmC.ZOO0S", "$2y$10$Xv1Qsw0JGc0yvCO0NDNKeOUcR5.YWmnd5e43fSMyWVjaVlKhIrwim", "$2y$10$qHwGct7L2l2F5T8GOElKS.0Edbme3KPsXYWBWh.3CyhkoVlccl8Fy", "$2y$10$LP0owNSKNkgZTE7g8kg6Wedxh6sKGHwrq1wqpniHFD7yW2dtvf9KG", "$2y$10$X06ufYBPxw7jCfbLkDCS5uRiFFb3nJ0ggfhHBwffOlnL/p4PMd8c6", "$2y$10$FQBduAA2byLzu7u8WYimCu6r2i4TlZF.3l6PH8evtqHQchVKX3gNO", "$2y$10$2DZcLlvUD1IzWq0VnizmHuQnqnqCy4Su9Zm8NiDxsyMdIzzFoEA3G", "$2y$10$jUTP3xaONsngeI.HlBaVc.LWKIJ6EzRmEMeuCSqFeCByQRHzz/aq6", "$2y$10$F8xClR4rB2kZeEqTrS8eeeOt1hsqP84O5URQFww/jxfh2/jSQSgNq", "$2y$10$QbOlP9lEzmHKgiHAMty/JeHnHvhXXg3JTcueceKU6Rw98kP00es8.", "$2y$10$0IiGIUtKn27JnS43jJ41k.Y.39FPamiLquyz5F8AttECzQARx3hLm", "$2y$10$SWcY2rybW4elqv.wLsuIqeR58v2Rz2vQEj81dhdiXtwwJTNWy.Iu6", "$2y$10$OKlB9fpZrqXfsQYeT5Zw9Op5PjB29WUBTI0Jm.EWyj1FtaVnjuolG", "$2y$10$VHmMvMVHb2l/CIgJ28SE9eMwVa5q5I8i/SJ5PIQC.3xClobIp9Z3i", "$2y$10$TqsfjzY4LKukDt/Mf1g0OOS4dw6ayRaq.aJ7RlDzBS0cixyylwn6K", "$2y$10$yVBhtIU6PNIwsuvlBIP.2.Qi/KBgghnw7xrBD5E8QjI49mgZ2B..q", "$2y$10$3BIlbfA6LBIQr38qmsmCSOnK7xiXcp.hH2XFfwrjjktCnXTpCG0Q6", "$2y$10$3gGtSkVRnN5kR/REbH2kB.hHWpHBMmljEI0w562aiWUscYIN96132", "$2y$10$ApWyeFBI4bWpfkZfXYGWf.wSMONVHtx83qzH0GLtp5SBOpObj8eri", "$2y$10$ixDRpxUg1S/cHFR6aMGenegrPqeBEuq.fs3PIHhRDcH/qH0OvXt7G", "$2y$10$RB/SSNX.eoffmWidGm/tcuX9jXNf3Y7Kjtz8fI/GfQt7gYzgkmdqC", "$2y$10$g25uonMUPRCFqFDrn0k/Gu7thZtaD1gqdmQS8uUVLI.OqY/rGzfBa", "$2y$10$C0vsjbL3fjohSqIARL9A9.cR0rqy6fkgYT7joIUQ.dBszZgNBRGuW", "$2y$10$7sLI/uPFhhEVQT.qLggAZ.Rm5dIXNAiMhP5lmSSl3eGs3KlzzkDHG", "$2y$10$UF2iDxJ2f5IYrz9L72Inh.Abib3..dqTTziUwlN2pQGKUrNAjSJe6", "$2y$10$8FmGzLCynX9h6u4z.2RageO.gjC55fT75yZPzdMzoOvZQVoGbEtWK", "$2y$10$kOHjhnBlcUBbnBM5L2V2SeoPIE7GPuM0yJiF9BZUHgE20avVUcUBi", "$2y$10$gqot6qepNCPXSlGrg/eEk.DZfnXXRBr034eY2iHN/H3i0A3ujVhy6", "$2y$10$HwgDn81i/LuVtrDrxp0oiO7Pmdxe83iVJaI9jIKMPS3eyp/ydb1ZC", "$2y$10$i3VLP6V/Kb3PGa8cGx3Pu.40Gk2cmYUM4LUwrRBaO2upWNxeh4gba", "$2y$10$iO23ytOijTXgEA8KWTKvVukNcUxSjPn6RNG4EJvwGca0.Wsc1CbMW", "$2y$10$74G92REBsw10uaEDbuqlE.NO4XeaI7Mzzoqgwuw5bCU4HJHmXKwca", "$2y$10$WvXdHUTGOlM7LrUHC68c6uAKw7NiOd98ZZ1WV4AdxHKzPHvZSrrna", "$2y$10$kUTJSzTS7vQtbOODRZ5p9uWu.UrS/Su3qR7LTomWiVc6g2yurynGW", "$2y$10$0L9HkfraQK/YRRfg.qZee.hZx9YzRLzh00kO5icT.mKrowmQyfp8a", "$2y$10$/NcrRonH7NQsolCkwucDE.OYKEgTuYq.WE9UzTsXbGTwfaByhIoLq", "$2y$10$CyMLfwWKuUflvJijiTNnHeY6WNNZVyTGvka8RNdw9aP5qkTMAlPQm", "$2y$10$Lr2VEslVd44ZLO3ehotbCujZQ3s.Qnsj31KdHLVuZ1Uh97uXe0rRu", "$2y$10$Zm.S9AelSuniCbCwwtjdTOOidGvZ2gwc76KTmomyJHDIxcyihfSiW", "$2y$10$pZV8wdpPQ5CZ26lxPGATaeug7.JsXeoPGo46yOYws43fmNSP9KHcq", "$2y$10$q9sZ3rPBlz9dy.rJ5dz8Z.USaHBNEYQptc24Nxu1a49ZVs2wfc0Ie", "$2y$10$j7p.oQuxJaSZu09PSnkow..V1qxP4rYTIj7uNtFwhF.NrW0yyPYOK", "$2y$10$HrxUn/0i7Xo4ONNs4/7Oeu3JY8pfoh6nkXUvrgUBB0FuBOAEdlhmq", "$2y$10$1wdEUecbbkmtowIbUYZDO.HNaZ1PIarl09EpP07EsgCGgxgU2ne.q", "$2y$10$1SRKLAHMAkmxQaUWjOxr/uyth13dUbL77DZxI142TWo7YQgPkaHfK", "$2y$10$yAqYATYKtN/0kkGv4DVLuuMrzCp.Jkw6MyEOgU6M/TJKH1l4.GANm", "$2y$10$SVl0dtY8Ef1J0qx0RT0vFO06DlACErXXiOQp32FY2WTodlqOV7SVe", "$2y$10$JvNgAnMyrGjdRRo5ow55G.W/rq.0DcHBx84uMpwn7Ct0CToBy1uaq", "$2y$10$DCcBarwQyHk/r8I758SZfeYFm95TINjxKkShmY.hmtUoI9Jwb63/K", "$2y$10$BA4towzbd9DGZCEL5KbwdOJDAuuX.BcVahAfTRWzlyHWCuoGRa0Vi", "$2y$10$EufL6PkxxSvtl8LYN34tKebwoNywm3CEhfNyjJ2LVLzHU7Lfey4p6", "$2y$10$HHF/nZwIMYTUpOC2K/ocpOd7DPyQu3oeK6J5xl3p7iArntL9Up656", "$2y$10$XPzc3Mb0aD6Ozb5l6RPw6eEsIMMxuGJUxsx6U5fsZ3/97KEZL2h1y", "$2y$10$nRzertrlkk72KLvayTsfFOduv1aA5pFtbKtn3hH3o0bXm0ekwHeLe", "$2y$10$PBcV/ucNq4SHt4IVlYBFreukmJnAgmc8KKtMnBfOL9AuVFtqJUM/e", "$2y$10$pUr2RRXuqG4wBwfq0yGy9.y7cK10lukRhguY54m/UqS6aZQ7vqghu", "$2y$10$DUVOGolw6DQqzHH/3scRnucS/puE2uzXTzRxX9q8aT3tJ5yMDqxGC", "$2y$10$ouCYiAH3T.Fq204VKfk/3.cIaKYYIGdPxk8lcU38OhUrt9yph0pY6", "$2y$10$WhwMlv42z18Og5loPADVAe8.n.9u3XHX59JVYxyuMjydbFYFvLxWq", "$2y$10$D9IbccRpkPAbsHv4rpYYXutxpfJ4RHrZZ.cc.XQf0wzPFSSfd1ste", "$2y$10$9TGUt3MGZJ6R7TlcGlrYWOu6ZLRZ990.y2KL14vUpRioXOJYR5iKO", "$2y$10$zZ.rvZ4bqzpRd5etMzarZO44A/CDxPrltSMPf0WZSOXJDZJroTFVK", "$2y$10$uT94t.iBA055./I0q8Fz4eaZ5YQSvp7LF.QEkBMp0OofJlUWmgWWm", "$2y$10$Abt4iqTs8U9Cuk6gknf6f.mZEr8eJsspZ4PvoTyyFmNnDFUCYkHy2", "$2y$10$./2RKGt0xfXEFrKJVmKBDuCOrwPPJimzg27hqOFz3kzZgOuhS5wlC", "$2y$10$uT79M0fC7AkGpdDFD3QAguYEodMHh87nBMFxK6IChLrwbGbVtGiDe", "$2y$10$SrKXKs.Z/mOd5fiTP4wCTu/uZtDMdS1bVs.cZWoLqDp0YeTcuvmaO", "$2y$10$JUpCsnNtISQ9woKICOY2NeCjGZPrwiONqY9gxUDBNSKUTmW5WBoEm", "$2y$10$yp.xYtX3MFbmmf6k/6RSXemT6js.e0bsQRgywdTAZstdQk3yCdjqS", "$2y$10$d3jEpNcUxIuT0/ApMQpNDuVIOC9/OSP7zTwAZQiSpHoGnjc9CHlEW", "$2y$10$zS0JDwWUKrJkifkss.M6eurTBLX8K/QtCVHMEPExybv/KNEw1f8ha", "$2y$10$meTqQZ1ze4307cvUIMeFfOvj7lG9HiBeDtkTFqNrT6TtD5L1glxF6", "$2y$10$uxM.fIJBb5OyI5h/KjS7futjbTRjLVrzIe.AQoQOXsgtxtJAmCIny", "$2y$10$WDjvx.6Ljz7mebFwGYlwkuSiFmIUwBwKx3oS0WstF1n9MCHlwK1B.", "$2y$10$r3z5TjHlPta.u8cbpeNjL.r/wjVw2RMi./0dYOEx9B.DGw7s2UtNm", "$2y$10$tWag6V0O3pqa7GbXOl4jCu/sAA20OOEeWcKu8hu0IIM.UP44gyDb.", "$2y$10$hpLi77oj.xtJzlJNE/g2ueecdxV6/IVSOxMLZE67rm9xXaDi9JbUO", "$2y$10$iUF8zqprP.HhpWeHDBdSW.ejaeWHIKCsLZn7ZsZnu6TUa35r93/KG", "$2y$10$cwgY0nwyijoNp9a9oRJh9uVRPBwSeVYiyzCgLssCFqESyUbA/hm3q", "$2y$10$Q7ASF2lsO02sOPRYXt006.IJBFWGneIDdlAq2VovSDW0Zuw5P2s1q", "$2y$10$aVYB/qnEgop2xBYD8RFs1OkOAsIAXz/dIwr3yFe3bzZ2E932jtbFW", "$2y$10$Uh7iR1feoEZg3k6eECtzTeTyzAPolLZ3zktwaQCUNk8oPJt9VeJ3K", "$2y$10$M7Ls8gvxdXiHjW9r9jRXAuQWrc7.xV5G/.oG9gfYw4RWAyK0j9Imm", "$2y$10$qxBCcRMnZicLHhUMpYihaeAN.qZ.9L21pSKrOo5s.loOxtPWDhkRm", "$2y$10$rb1zQm/Bn2JMytwHQCYV8uAnVQWbkORoLe3XFEL1YjM4RUkjxw6NW", "$2y$10$TltJUwt7SJxBpO5/qUbg9OzGm1bLJlxYIEHIX9AslKRD3iXsCOSMW", "$2y$10$mYPGIBDq6pOws0HVic6SDepaSQSHKeAJiRMO.mvcbWWQNs.1eq2Du", "$2y$10$uVSBADkp0SlXlBs7ugLpyuN6mREmEviOMAame7cMNsKox.GnYbuZa", "$2y$10$DoAuqEzd05kjEvSb.bxLoeH3RxIISacZ7WjVLkZQNxWwbKMmW3ogy", "$2y$10$1eiK82/mVURT2hbaVTjVZuVaGgRtozLrQWNUvqTOwtNUfBRtVgBW6", "$2y$10$4nyZ6S25dBN338qYzEzbX.3zXe2lTEcWD5Uz6lE/U28Inn2k/GF4e", "$2y$10$Gft8wlL/Ds0pkM0arBa70O8hOus0uusT.yizXACLzyAAwivMRvbQe", "$2y$10$blLp0p9lDxo9pl2pKSxnoONSjtkv/kR3IJr4UNRGWXqYSCMyQQ.UG", "$2y$10$Wz9aQETLPOP8h1K2YRHhV.HtO5nby/08SsiTZKyxtNwje24XldQGK", "$2y$10$RRarAW5WWlHfF8c55/K2cu4HzxxX3az3rPjA/Si8ZQI7TUF/Ac3ea", "$2y$10$//wUHh767O74s3pptBy4autWf9hnwIuzAHaQ66uvNqDl0ukPcWw0K", "$2y$10$LAf4Yadq3JrOJrWsQFrRm.3b77GsykynhNFg5eeljOZ55iHRxCI4q", "$2y$10$Cfo61ROl/95tc6iqiuKYweGpjK474oI8gjM4/b4ro4JFamy1SrKty", "$2y$10$69tRdLJ4K.L3EpOI3sIQvu7yKq6KNm23jAD2ztVoujAVOioIX5Km2", "$2y$10$1b8kd4P4NKtMIHQ1gxV5y.4kyyYq3XxprGazy5vO4D24lWBtheArq", "$2y$10$muoDZV1SDIqm0w8PS83vQeHD7q4e418l8MTmy7.vfL1HCoODqHwky", "$2y$10$x0Nz0DIpxjCp3XsLngwggu8toSo9DLrLfz0pFHouZUEN9T45NUlXi", "$2y$10$7230CEobsmtghn7p1EeonODFP5B7OwrS9Yz6jfjVWOtrClgFVIFDy", "$2y$10$B43fHiLWN8AqLG8DozYdNudUWIt7jI8bEleMf5SfJy02Ess3KjSju", "$2y$10$2LBqCx55/PPM6VA272bBjuLNIOHI/vziiqXfbDwbAA7lprLfHbOfW", "$2y$10$mvfF2pfMjG6ExVQPJJLeJ.RVm5MHnllYrwa2Qu.uPvsebwqffpE0K", "$2y$10$bc9SH29s3vumsTBzYl8DIOhgtr6VWkI86iHB3H.nNIX.UqBCYB3X.", "$2y$10$qUNv7tRENRed83pd.zRI4uplEU8wtzaG/lZHvwe1YoMF.bFP/t386", "$2y$10$QIpuRSwXMzUuKxGLQR.A5O/tGu2u2Ls5zFp8exDyu4.TWLdDnfAKe", "$2y$10$yIqsIKMpeao5GPfLktENBO/CUnuVnaMZEs1p/Ppdw4syyQezMsvxS", "$2y$10$Td9V.PL3e15X63n25urEyOIlgCY35VA2Fy6zegUrhGHP/OzGBdaDe", "$2y$10$AUzABj9oqz2EWD.pfVDLDOnESyfmN98BbLWBrS4FXFU01hvCnMaQ6", "$2y$10$q0R/QHijgIV9bQVNVHD/9.Jz73BhwAYIRqnmeYvkHjcYUSLT/fS.2", "$2y$10$knHbZx9N5/qxul/xSLReZe1dMTFloKTHcqm2Af6P9lwDSVVmyhubS", "$2y$10$aGBnMIgQ7bRRRUVT1BSS8eHScqtgor.jRVckmaB8M3s79./52pR.u", "$2y$10$C1XzHdAnGemUEizwmVdLYOyHsnOgFGQ2NoqHdFxIFlmir/n55d/jG", "$2y$10$FKw11Bfh8mxqJ7WvVZ/MmOpovJEFwdv09s88R.pHRTfrGU9if/1j6", "$2y$10$mGaRTvPboidYO8jJyOnLneuCe1BB5VwCFrSc2Lwc9xVUomB3i7TlG", "$2y$10$qeX4BXTZTHFLKzRPFN970OKUB35Ytce7.FnvUmrOVj6s/fUqqiEwy", "$2y$10$U8Y8jyj9kFtV3za6HpZ7b.54ku7.Lu7FWLeM1MpK/SXyyPOfn7KPS", "$2y$10$6ZfSUkghxu85gxWKcOYVMOcNs9WxZtBani0CLZDJyS/snN.F2yI06", "$2y$10$uZ6wuV16zQEghs.w5Md.uu00shCHZfvxLecLeEzYyvUy5PQpwIfka", "$2y$10$Hy0x60t7R0C.E2zkl2SgROU.ALyrtjzvUZoFjhSF5R5IkqNKbhOUm", "$2y$10$WFbt7Bgc8hl7hAAIczOcSOL1PQgAjoMCwjUX4fVFrVGBc9C0Y8Y.2", "$2y$10$D34RkGeMnfvM.Gv.vSxwBegSD9abwO88C68OTq3pOloaQHY61G7mS", "$2y$10$RlnscIsJ/xdYF2AhVjsyT./Sr.ALSIB0m5dJs5Bp1yKDmHsMyK.B6", "$2y$10$itHSdDVH.HJQ9TpK.WXYceLYD9oP73v4yKobfruh41Uz8uiBHRime", "$2y$10$HQXn2VFjhVUUcn8WoZ0r8OoIdu0Ro.4MtpFWW8AwqmPF26dmINUgm", "$2y$10$Nmlbg/YBUdHPNrQ2giaEsehi7Q5rIsKNfCYW6Qx8ozmUUDa3lNfSq", "$2y$10$CvanS3.tYAPnrPORzmcRLuM/JpRil6bKgqjDsYeTzcC9F.VL4gnEC", "$2y$10$5DZZbmM8FEDBddg3yR6D6uulc86Db0D21dFra8hGd1JbL0aglNzNC", "$2y$10$nZM7JOWETrH3EGGyF9/Zo.EPMWpnvnMtuTEwbyo.aMdhZOHCzQufi", "$2y$10$aemd/Kz/P8PDDLasQYfLreIQRD5xbK8t8hohhtIV28V4fmWxe57U2", "$2y$10$KjWKZmJctThX67PRewmyTOw8XRhmB72tt.cq7UfxaoVEjNTXJRrDG", "$2y$10$20egJ.B1O8jU5iYDA9jj4uuDrtMcLjGaedmg2FW6NHuKsr/cInUTK", "$2y$10$sc0ml27MijMdlpzbWzEPNukY8tRC5j2HLk7biyfYLa.xW8km3rERO", "$2y$10$FyV90VBLsGBXEdBLGjDFPet3zo/iJQZJs.LORffgprc9TmFFK8OCi", "$2y$10$tYW5QgxXAPkp7yHSVl4KH.JdGqalfmCLVtRHXdz./MH6k3KDJBIXq", "$2y$10$vU6vgW7aqxYqjsYAVge5P.9JspKgk.ktZh6sYzBjFV83hWvoXVbvO", "$2y$10$OFUAKGC5HcvaAIOkllxU4uPq4bXv.R/aJH1KnYs/I6T0kIfhJ.uLq", "$2y$10$cj2RYNk6VC0PqJzg9pAXA.QRjdo4Is/yR/RgY4FwlGkAd656ZS5Me", "$2y$10$81A9g7o3kxPhPyR29V4fkuzaIybs2c1Cl3gOstf9j3TvOoxFE5LsO", "$2y$10$FFSwa7CdkeZ4sIrwxKPBKO2CRRFqfrqxzKtwFGlq5Qgfw3vCE85S2", "$2y$10$cT6uK6E57ShnqcVCmWPXlehKafagXJypEl5w67p2y57DpsPEs8xf.", "$2y$10$HATVXglQffwj7PkWdWxUwuiWA/lxxjDMutgNFjMA.kR..6DpBN0I2", "$2y$10$G4C3ffN.SQB1WcuMVBbplu2SdNMUh/w9y6VcjD2XGp0wRAAUw0Ocy", "$2y$10$cJho7qKc9l.Hfqh74uL3/e2gJ9eeLwPGG7hBhGavA.eKnRqBh8.f.", "$2y$10$CB7x/JgksjtKbXvny/1m..tl/JKLmCvcD3OEYbASMbQbUSiDl.wge", "$2y$10$zvNZ87IO.wsPkidPRgJXte3MRoJMI4X1OU2lriU7zTP7gmYtzV/gO", "$2y$10$pyGrNvy7svP4CY80zQxugOfFzbPGiN5UfkVqrnW7Fs9YEKQtt3Tt.", "$2y$10$ZzyPQn7aJB1Y/uh9BJM5.O/3qPwNntG4fWEX8kd8YWSaRv08USW5a", "$2y$10$ogU1Z2cuh2w.anxuwQHI6.fpQlPFl5CMdBnk9ztuKJzy2iznfI0pO", "$2y$10$CyaDLe4IsEZvR.VnYCiYquOqVVNseUGmn7TQBiuLf.TVOt76vJCQK", "$2y$10$gkLcPYpyZJAIOd..zQKiEOgVlPEU486fw5RRjXZWuClpgMCF7oVxy", "$2y$10$hZ2XFoiHczQbTml69zTkjOvJj7RxJ1yv8MHBO./90LVnqcyJwTXca", "$2y$10$iVJKNiJwC0c0WU71zeQlyuDqYAkjk1BV6A7wwBRlT0tXIvOkhHF.i", "$2y$10$7fTmqrhj6anIXf2UICTp8.c3MBf1VEfUtdCtgJlg12Oi2Khv0Gyte", "$2y$10$BWlmGnd9Qudiu8rgpBvzLeu0JpqeyoZxI0hw2tpWoPkLt9DG7eu.m", "$2y$10$UYa9vAdTBimoslrjDv92LO/sgAxDLuJab.CFMickl.1qiXkwiBA6O", "$2y$10$yaXA1D5dRoYo/AZgcmhS/.13BE7wviXw.X1f6Fkct.SR0ye3fd.T.", "$2y$10$s1Uhr63n8Nxu1SrmB0SCNOM5/G9NYt5uzCz4tRX0yIBg.OcYtAcsK", "$2y$10$TDOpsrup81rz92Yo8J81/uDqnC4cJdLrYVUbM/LkjNCfkHJ4q0PHS"];
+
+				for (let i = 0; i < usernames.length - 10; i++) {
+					let nhs = 1111111113 + i;
+					let username = usernames[i] + randomFromRange(1, 999);
+					let password = username.shuffle();
+					if (usernames[i] === "maureenW38") {
+						username = "maureenW38";
+						password = "Iamthedefault";
+					}
+					passwords.push(password);
+					let name = names[i];
+					let firstName = name.split(" ")[0];
+					let lastName = name.split(" ")[1];
+					let year = randomFromRange(1940, 2002);
+					let month = randomFromRange(1, 12);
+					if (month < 10) {
+						month = "0" + month;
+					}
+					let day = randomFromRange(1, 28);
+					let birth = year + "/" + month + "/" + day + " ";
+					let hour = randomFromRange(0, 23);
+					if (hour < 10) {
+						hour = "0" + hour;
+					}
+
+					let query = 'CALL createPatient(1, ' + nhs + ', \'' + username + '\', \'' + hashed[i] + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + birth + hour + ':00:00\', \'' + i + ' Some Road\', \'Some Flat\', \'PL3XQC\', \'01752123999\', \'+447849198656\', \'' + username + '@gmail.com\', \'No comment.\', \'-\', NOW());';
+
+					patient.textContent += query + "\n\n";
+				}
+
+				for (let i = usernames.length - 10; i < usernames.length; i++) {
+					let nhs = 1111111113 + i;
+					let username = usernames[i] + randomFromRange(1, 999);
+					let password = username.shuffle();
+					let name = names[i];
+					let firstName = name.split(" ")[0];
+					let lastName = name.split(" ")[1];
+
+					let query = 'CALL createResearcher(' + nhs + ', \'' + username + '\', \'' + hashed[i] + '\', \'' + firstName + '\', \'' + lastName + '\', \'01752123999\', \'+447849198656\', \'' + username + '@gmail.com\');';
+
+					researcher.textContent += query + "\n\n";
+				}
+
+				for (let i = 0; i < 90; i++) {
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (1, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+
+					diaryEntry.textContent += query + "\n\n";
+				}
+
+				for (let i = 90; i < 140; i++) {
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (2, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+
+					diaryEntry.textContent += query + "\n\n";
+				}
+
+				for (let i = 140; i < 190; i++) {
+					let query = 'INSERT INTO DIARYENTRY (patientID, entry_date, entry) VALUES (3, \'' + generateDate() + '\', \'I hung out with my friend ' + names[i].split(" ")[0] + '\');';
+
+					diaryEntry.textContent += query + "\n\n";
+				}
+
+				for (let i = 0; i < 190; i++) {
+					// 2020-12-09 19:24:28
+					let year = "2020";
+					let month = randomFromRange(1, 12);
+					if (month < 10) {
+						month = "0" + month;
+					}
+					monthsWith31 = [1, 3, 5, 7, 8, 10, 12];
+					monthsWith30 = [4, 6, 9, 11];
+					let day;
+					if (monthsWith31.includes(month)) {
+						day = randomFromRange(1, 31);
+					} else if (monthsWith30.includes(month)) {
+						day = randomFromRange(1, 30);
+					} else {
+						day = randomFromRange(1, 28);
+					}
+					let hour = randomFromRange(0, 23);
+					if (hour < 10) {
+						hour = "0" + hour;
+					}
+					let date = year + "/" + month + "/" + day + " " + hour + ":00:00";
+					let query = 'INSERT INTO FALL (patientID, fall_date) VALUES (1, \'' + generateDate() + '\');';
+
+					fall.textContent += query + "\n\n";
+				}
+
+				for (let i = 0; i < 100; i++) {
+					let query = 'INSERT INTO FALL (patientID, fall_date) VALUES (2, \'' + generateDate() + '\');';
+
+					fall.textContent += query + "\n\n";
+				}
+			});
+
+			String.prototype.shuffle = function() {
+				let a = this.split(""), n = a.length;
+				for (let i = n - 1; i > 0; i--) {
+					let j = Math.floor(Math.random() * (i + 1));
+					let tmp = a[i];
+					a[i] = a[j];
+					a[j] = tmp;
+				}
+				return a.join("");
+			}
+
+			function generateDate(year) {
+				// 2020-12-09 19:24:28
+				let current = new Date();
+				if (year === null || typeof year === "undefined") {
+					year = current.getFullYear();
+				}
+				let month = randomFromRange(1, 12);
+				if (year === current.getFullYear()) {
+					month = randomFromRange(1, current.getMonth() + 1);
+				}
+				if (month < 10) {
+					month = "0" + month;
+				}
+				monthsWith31 = [1, 3, 5, 7, 8, 10, 12];
+				monthsWith30 = [4, 6, 9, 11];
+				let day;
+				if (monthsWith31.includes(month)) {
+					day = randomFromRange(1, 31);
+				} else if (monthsWith30.includes(month)) {
+					day = randomFromRange(1, 30);
+				} else {
+					day = randomFromRange(1, 28);
+				}
+				let currentMonth = current.getMonth() + 1;
+				if (currentMonth < 10) {
+					currentMonth = "0" + currentMonth;
+				}
+				if (year === current.getFullYear() && month === currentMonth.toString()) {
+					day = randomFromRange(1, current.getDate() - 1);
+				}
+				let hour = randomFromRange(0, 23);
+				if (hour < 10) {
+					hour = "0" + hour;
+				}
+				return year + "/" + month + "/" + day + " " + hour + ":00:00";
+			}
+
+			function randomFromRange(min, max) {
+				return Math.floor(Math.random() * (max - min + 1) + min);
+			}
+		</script>
+	</head>
+	<body>
+		<textarea id="researcher"></textarea>
+		<textarea id="patient"></textarea>
+		<textarea id="diary-entry"></textarea>
+		<textarea id="fall"></textarea>
+		<textarea id="question"></textarea>
+	</body>
+</html>

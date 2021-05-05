@@ -1,0 +1,213 @@
+a {
+	text-decoration: none;
+	color: var(--accent-contrast);
+}
+.wide-card {
+	font-size: 0;
+}
+.wide-card:last-of-type {
+	margin-bottom: 20px;
+}
+.wide-card span {
+	font-size: var(--font-smaller);
+	display: block;
+}
+.method-wrapper, .endpoint-wrapper {
+	display: inline-block;
+	vertical-align: top;
+	height: 20px;
+	line-height: 20px;
+}
+.method-wrapper {
+	background: var(--accent-dark);
+	padding: 10px;
+	border-radius: 10px 0 0 10px;
+	color: var(--accent-contrast);
+	font-weight: bold;
+}
+.endpoint-wrapper {
+	background: var(--accent-light);
+	color: var(--accent-contrast);
+	padding: 10px;
+	border-radius: 0 10px 10px 0;
+	height: auto;
+}
+.data-wrapper, .description-wrapper, .alert-wrapper {
+	background: var(--main-third);
+	padding: 10px;
+	border-radius: 10px;
+	margin-top: 10px;
+	color: var(--main-contrast);
+}
+.data-wrapper span, .description-wrapper span, .alert-wrapper span {
+	display: block;
+	line-height: 25px;
+}
+.alert-wrapper {
+	margin: 0;
+	color: var(--accent-contrast);
+	font-weight: bold;
+	background: rgb(240, 134, 34);
+}
+
+.testing {
+	background: var(--main-fourth);
+}
+
+.top {
+	padding: 10px 0 10px 0;
+	box-shadow: var(--shadow-smooth);
+	width: 100%;
+	background: var(--main-first);
+}
+
+.top input {
+	background: var(--main-first);
+	color: var(--main-contrast);
+	padding: 10px 10px 10px 10px;
+	margin: 10px 0 10px 20px;
+	width: calc(100% / 3 - 50px - 6px);
+	border-radius: 10px;
+	display: inline-block;
+	font-size: var(--font-smaller);
+	vertical-align: top;
+	border-style: solid;
+	border-color: var(--accent-light);
+	border-width: 3px;
+	outline: none;
+}
+
+.top button {
+	background: var(--accent-light);
+	color: var(--accent-contrast);
+	padding: 10px 10px 10px 10px;
+	margin: 10px 0 10px 20px;
+	width: calc(100% / 3 - 30px);
+	border-radius: 10px;
+	display: inline-block;
+	font-size: var(--font-smaller);
+	vertical-align: top;
+	border: none;
+	outline: none;
+	font-weight: bold;
+	border-style: solid;
+	border-color: var(--accent-light);
+	border-width: 3px;
+	cursor: pointer;
+	transition: all 0.25s;
+}
+.top button:hover {
+	background: var(--accent-dark);
+	border-color: var(--accent-dark);
+}
+.top button.disabled {
+	background: var(--accent-darkest);
+	border-color: var(--accent-darkest);
+	pointer-events: none;
+}
+
+.bottom {
+	margin-top: 20px;
+}
+
+.bottom div {
+	background: var(--main-first);
+	display: inline-block;
+	width: calc(100% - 80px);
+	padding: 10px 20px 10px 20px;
+	margin: 0 0 20px 20px;
+	box-shadow: var(--shadow-smooth);
+	border-radius: 10px;
+	position: relative;
+}
+
+.bottom span.test-number {
+	position:absolute;
+	top: 5px;
+	margin: 0;
+	padding: 0;
+	left: 15px;
+	width: auto;
+	font-size: 14px;
+	color: var(--main-contrast);
+}
+
+.bottom span, .results-wrapper span {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: calc(100% - 60px);
+	padding: 0 10px 0 10px;
+	font-weight: bold;
+	border-radius: 10px;
+	color: var(--accent-contrast);
+	margin: 20px auto 20px auto;
+	text-align: center;
+	line-height: 40px;
+	cursor: default;
+}
+.bottom span.info, .results-wrapper span.info {
+	background: var(--accent-lightest);
+}
+.bottom span.alert, .results-wrapper span.alert {
+	background: rgb(240,134,34);
+}
+.bottom span.success, .results-wrapper span.success {
+	background: rgb(40,200,80);
+}
+.bottom span.error, .results-wrapper span.error {
+	background: rgb(230,50,50);
+}
+
+.bottom textarea {
+	background: var(--main-first);
+	color: var(--main-contrast);
+	padding: 10px 10px 10px 10px;
+	margin: 10px auto 20px auto;
+	width: calc(100% - 60px - 6px);
+	border-radius: 10px;
+	display: block;
+	font-size: var(--font-smaller);
+	cursor: default;
+	border-style: solid;
+	border-color: var(--accent-light);
+	border-width: 3px;
+	outline: none;
+	resize: none;
+}
+
+.results-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--main-third);
+	overflow: hidden scroll;
+	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
+}
+.results-wrapper button {
+	background: var(--accent-light);
+	color: var(--accent-contrast);
+	padding: 10px;
+	margin: 20px 0 0 20px;
+	width: auto;
+	border-radius: 10px;
+	display: inline-block;
+	font-size: var(--font-smaller);
+	vertical-align: top;
+	border: none;
+	outline: none;
+	font-weight: bold;
+	border-style: solid;
+	border-color: var(--accent-light);
+	border-width: 3px;
+	cursor: pointer;
+	transition: all 0.25s;
+}
+.results-wrapper button:hover {
+	background: var(--accent-dark);
+	border-color: var(--accent-dark);
+}

@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import { globalStyles, globalColors } from '../styles/global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { globalStyles, globalColors, globalColorsDark } from '../styles/global';
+import { ThemeContext } from '../utils/ThemeProvider';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-export default function Card(props) {
-	return (
-		<View style={styles.card}>
-			<View style={styles.content}>
-				{ props.children }
+export default class Card extends Component {
+	static contextType = ThemeContext;
+
+	constructor(props) {
+		super(props);
+		this.state = {};
+		this.toggleTheme;
+	}
+
+	componentDidUpdate() {
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
+
+	componentDidMount() {
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
+	}
+
+	render() {
+		return (
+			<View style={[styles.card, styles[`card${this.state.theme}`]]}>
+				<View style={styles.content}>
+					{ this.props.children }
+				</View>
 			</View>
-		</View>
-	);
+		);
+	}
 }
 
 const styles = StyleSheet.create({
@@ -28,4 +57,7 @@ const styles = StyleSheet.create({
 		elevation: globalStyles.shadowElevation,
 		marginTop: 20,
 	},
+	cardDark: {
+		backgroundColor: globalColorsDark.mainFirst
+	}
 });

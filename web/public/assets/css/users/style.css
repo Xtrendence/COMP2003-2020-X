@@ -1,0 +1,108 @@
+.action-button {
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+    text-align: center;
+    -webkit-transition: all .1s ease;
+    -moz-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+}
+
+.svg-div {
+    margin-top: 3px;
+    position: center;
+}
+
+.nav-button {
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    box-shadow: var(--shadow-smooth);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 40px;
+    width: 90px;
+    margin-right: 10px;
+}
+
+.question-all, .charts-all, .create-user {
+    width: auto;
+    height: 40px;
+    padding: 0 10px 0 10px;
+}
+
+.button-div{
+    margin-left: 40%;
+    margin-top: 10px;
+    position: relative;
+}
+
+.wide-card{
+    height: 100%;
+    margin-top: 30px;
+    position: relative;
+}
+
+.text-names {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px auto 0 auto
+}
+
+.patient-table {
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+td {
+    border-bottom: lightslategray 1px solid;
+    padding-bottom: 10px;
+}
+
+.table-header {
+    width: 150px;
+}
+
+.actions-header {
+    width: 800px;
+}
+
+.search-div{
+    margin-left: 40%;
+    margin-top: 10px;
+    position: absolute;
+    right: 10px;
+}
+
+.search-child{
+    display: inline-block;
+    height: 20px;
+}
+
+.search-button{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 25px;
+    width: 40px;
+    text-align: center;
+}
