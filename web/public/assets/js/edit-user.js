@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let editBtn = document.getElementById("submit-edit")
 
         let hidInput = document.createElement("input");
-        hidInput.setAttribute("type", "hidden");
+        hidInput.classList.add("hidden");
 
         let url = new URL(window.location.href);
         let userID = url.searchParams.get("id");
@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             let res = result.researcherID;
                             let nhs = patient["patient_nhsRef"];
                             let username = patient["patient_username"];
-                            let password = patient["patient_password"];
                             let first = patient["patient_fName"];
                             let last = patient["patient_lName"];
                             let dob = patient["patient_dob"];
@@ -59,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             researcherInput.setAttribute("value", res);
                             nhsInput.setAttribute("value", nhs);
                             usernameInput.setAttribute("value", username);
-                            passwordInput.setAttribute("value", password);
                             fNameInput.setAttribute("value", first);
                             lNameInput.setAttribute("value", last);
                             dobInput.setAttribute("value", dob);
@@ -90,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 patient_password: passwordInput.value,
                 patient_fName: fNameInput.value,
                 patient_lName: lNameInput.value,
+                patient_dob: dobInput.value,
                 patient_addressI: ad1Input.value,
                 patient_addressII: ad2Input.value,
                 patient_postcode: postInput.value,
@@ -98,8 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 patient_email: emailInput.value,
                 patient_comment: commInput.value
             };
+            console.log(hidInput.value);
             xhr.addEventListener("readystatechange", function() {
-                if (xhr.readystatechange === XMLHttpRequest.DONE) {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
                     getUser();
                 }
             });
