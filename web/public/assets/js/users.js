@@ -32,11 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 let json = xhr.responseText;
                 let users = JSON.parse(json);
                 let keys = Object.keys(users["data"]);
-                console.log(users);
                 try {
                     layer.innerHTML = "";
                     let patient = users["data"];
-
                     for (let i = 0; i < keys.length; i++){
                         let userID = patient[i]["patientID"];
                         let firstName = patient[i]["patient_fName"];
