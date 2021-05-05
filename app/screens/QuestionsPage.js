@@ -110,8 +110,8 @@ export class QuestionsPage extends Component {
 							{ 
 								Object.keys(object[questionID]["choices"]).map(choiceKey => {
 									return (
-										<View style={styles.radioView} key={choiceKey}>
-											<RadioButton.Item label={object[questionID]["choices"][choiceKey]} labelStyle={[styles.choiceText, styles[`choiceText${this.state.theme}`]]} value={object[questionID]["choices"][choiceKey]} uncheckedColor={globalColors.accentLight} style={[styles.radioBlock, styles[`radioBlock${this.state.theme}`]]} color={globalColors.accentLight}/>
+										<View style={[styles.radioView, styles[`radioView${this.state.theme}`]]} key={choiceKey}>
+											<RadioButton.Item label={object[questionID]["choices"][choiceKey]} labelStyle={[styles.choiceText, styles[`choiceText${this.state.theme}`]]} value={object[questionID]["choices"][choiceKey]} uncheckedColor={globalColors.accentLight} style={styles.radioBlock} color={globalColors.accentLight}/>
 										</View>
 									);
 								})
@@ -358,17 +358,19 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		borderRadius: globalStyles.borderRadius,
 	},
+	radioView: {
+		marginTop: 10,
+		backgroundColor: globalColors.mainThird,
+		borderRadius: globalStyles.borderRadius
+	},
+	radioViewDark: {
+		backgroundColor: globalColorsDark.mainFourth,
+	},
 	radioBlock: {
 		flexWrap: "wrap",
 		alignItems: "center",
 		flexDirection: "row",
 		width: screenWidth - 60,
-		backgroundColor: globalColors.mainSecond,
-		marginTop: 10,
-		borderRadius: globalStyles.borderRadius
-	},
-	radioBlockDark: {
-		backgroundColor: globalColorsDark.mainFourth,
 	},
 	buttonWrapper: {
 		width: "100%",
