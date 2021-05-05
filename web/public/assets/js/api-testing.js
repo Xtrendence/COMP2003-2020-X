@@ -213,13 +213,19 @@ document.addEventListener("DOMContentLoaded", () => {
 	buttonResults.addEventListener("click", () => {
 		if (divResultsWrapper.classList.contains("hidden")) {
 			divResultsWrapper.classList.remove("hidden");
+			document.getElementsByClassName("top")[0].classList.add("hidden");
+			divOutput.classList.add("hidden");
 		} else {
 			divResultsWrapper.classList.add("hidden");
+			document.getElementsByClassName("top")[0].classList.remove("hidden");
+			divOutput.classList.remove("hidden");
 		}
 	});
 
 	buttonBack.addEventListener("click", () => {
 		divResultsWrapper.classList.add("hidden");
+		document.getElementsByClassName("top")[0].classList.remove("hidden");
+		divOutput.classList.remove("hidden");
 	});
 
 	function loginUser(username, password) {
@@ -2161,7 +2167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function validJSON(json) {
 		try {
 			let object = JSON.parse(json);
-			if(object && typeof object === "object") {
+			if (object && typeof object === "object") {
 				return true;
 			}
 		}

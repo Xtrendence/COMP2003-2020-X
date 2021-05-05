@@ -18,7 +18,7 @@ export class ThemeProvider extends Component {
 
 	componentDidMount() {
 		AsyncStorage.getItem("theme").then(result => {
-			if(result === "Dark") {
+			if (result === "Dark") {
 				this.setState({theme:"Dark"});
 				changeNavigationBarColor(rgbToHex(globalColorsDark.accentMedium), false);
 			} else {
@@ -34,7 +34,7 @@ export class ThemeProvider extends Component {
 	}
 
 	async toggleTheme() {
-		if(this.state.theme === "Dark") {
+		if (this.state.theme === "Dark") {
 			this.setState({theme:"Light"});
 			changeNavigationBarColor(rgbToHex(globalColors.accentMedium), false);
 			await AsyncStorage.setItem("theme", "Light");

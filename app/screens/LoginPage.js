@@ -31,7 +31,7 @@ export class LoginPage extends Component {
 		this.toggleTheme;
 	}
 
-	async login() {
+	async login(params) {
 		// To be removed once testing is complete.
 		let username = "maureenW38";
 		let password = "Iamthedefault";
@@ -48,48 +48,57 @@ export class LoginPage extends Component {
 					this.setState({loading:false});
 				}
 			}, 5000);
-
-			// To be changed to use the username and password stored in state.
-			let body = { patient_username:username, patient_password:password, fcmToken:fcm };
-
-			fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/users/login.php", {
-				method: "POST",
-				headers: {
-					Accept: "application/json", "Content-Type": "application/json"
-				},
-				body: JSON.stringify(body)
-			})
-			.then((response) => {
-				return response.json();
-			})
-			.then(async (json) => {
-				if (this._mounted) {
-					this.setState({loading:false});
-				}
-				if (json.valid !== true) {
-					showMessage({
-						message: json.message,
-						type: "warning"
-					});
-				} else {
-					await AsyncStorage.setItem("token", json.token);
-					await AsyncStorage.setItem("patientID", json.patientID);
-
-					if (!empty(json.token) && !empty(json.patientID) && !empty(await AsyncStorage.getItem("token")) && !empty(await AsyncStorage.getItem("patientID"))) {
-						this.navigation.navigate("BottomBar");
+			
+			if (!empty(params) && "token" in params) {
+				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/verify.php?key=" + params.token, {
+					method: "GET",
+					headers: {
+						Accept: "application/json", "Content-Type": "application/json"
 					}
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-				if (this._mounted) {
-					this.setState({loading:false});
-				}
-				showMessage({
-					message: "Network Error",
-					type: "danger"
+				})
+				.then((response) => {
+					return response.json();
+				})
+				.then(async (json) => {
+					this.processLogin(json);
+				})
+				.catch((error) => {
+					console.log(error);
+					if (this._mounted) {
+						this.setState({loading:false});
+					}
+					showMessage({
+						message: "Network Error",
+						type: "danger"
+					});
 				});
-			});
+			} else {
+				let body = { patient_username:username, patient_password:password, fcmToken:fcm };
+
+				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/login.php", {
+					method: "POST",
+					headers: {
+						Accept: "application/json", "Content-Type": "application/json"
+					},
+					body: JSON.stringify(body)
+				})
+				.then((response) => {
+					return response.json();
+				})
+				.then(async (json) => {
+					this.processLogin(json);
+				})
+				.catch((error) => {
+					console.log(error);
+					if (this._mounted) {
+						this.setState({loading:false});
+					}
+					showMessage({
+						message: "Network Error",
+						type: "danger"
+					});
+				});
+			}
 		} else {
 			showMessage({
 				message: "App Error",
@@ -98,6 +107,38 @@ export class LoginPage extends Component {
 			});
 			DevSettings.reload();
 		}
+	}
+
+	async processLogin(response) {
+		if (this._mounted) {
+			this.setState({loading:false});
+		}
+		if (response.valid !== true) {
+			showMessage({
+				message: response.message,
+				type: "warning"
+			});
+		} else {
+			await AsyncStorage.setItem("token", response.token);
+			await AsyncStorage.setItem("patientID", response.patientID);
+
+			if (!empty(response.token) && !empty(response.patientID) && !empty(await AsyncStorage.getItem("token")) && !empty(await AsyncStorage.getItem("patientID"))) {
+				this.navigation.navigate("BottomBar");
+			}
+		}
+	}
+
+	async getToken() {
+		return new Promise(async (resolve, reject) => {
+			let token = await AsyncStorage.getItem("token");
+			let patientID = await AsyncStorage.getItem("patientID");
+
+			if (!empty(token) && !empty(patientID)) {
+				resolve({ token:token, patientID:patientID });
+			} else {
+				reject();
+			}
+		});
 	}
 
 	componentDidUpdate() {
@@ -117,6 +158,12 @@ export class LoginPage extends Component {
 		this.toggleTheme = toggleTheme;
 
 		this._mounted = true;
+
+		this.getToken().then(patient => {
+			this.login({ patient });
+		}).catch(error => {
+			console.log(error);
+		});
 
 		// To be removed once testing is complete.
 		this.setState({username:"maureenW38"});
