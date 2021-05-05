@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/index/style.css">
     <link rel="stylesheet" href="./assets/css/index/resize.css">
+
+    <script src="./assets/js/global.js"></script>
     <script src="./assets/js/index.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
