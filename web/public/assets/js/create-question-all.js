@@ -138,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         choiceFields[i].value = "";
                     }
                     body = {
-                        patientID: ID,
                         question: enquiry.value,
                         question_type: "choice",
                         choices: choiceOptions
@@ -150,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 } else {
                     body = {
-                        patientID: ID,
                         question: enquiry.value,
                         question_type: "custom",
                         question_charLim: characterLimit.value

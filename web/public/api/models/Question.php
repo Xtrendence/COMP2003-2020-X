@@ -71,6 +71,11 @@
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
+
+            $query = 'CALL deleteChoice(:id)';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':id', $this->questionID);
+            $command->execute();
         }
 
         public function readAll() {
