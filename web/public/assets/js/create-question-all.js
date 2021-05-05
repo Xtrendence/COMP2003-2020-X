@@ -128,56 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         submitButton.addEventListener("click", function() {
             if (checkForm()) {
-                let xhr = new XMLHttpRequest();
-                xhr.addEventListener("readystatechange", async function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        let json = xhr.responseText;
-                        let users = JSON.parse(json);
-                        let keys = Object.keys(users["data"]);
-                        
-                        try {
-                            Notify.info({
-                                title: "Please Wait", 
-                                description: "Your question is being submitted to all patients.", 
-                                duration: 4000,
-                                background: "var(--accent-gradient)",
-                                color: "var(--accent-contrast)",
-                            });
-                            let patient = users["data"];
-                            for (let i = 0; i < keys.length; i++){
-                                let userID = patient[i]["patientID"];
-                                let checkCreateQuestion = await createQuestion(userID);
-                                console.log(checkCreateQuestion);
-                            };
-                            Notify.success({
-                                title: "Success", 
-                                description: "Your question has been submitted.", 
-                                duration: 4000,
-                                background: "var(--accent-gradient)",
-                                color: "var(--accent-contrast)",
-                            });
-                        } catch {
-                            console.error("error");
-                        }
-                    };
-                });
-                xhr.open("GET", "./api/users/read-all.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
-                xhr.send();
-
-                
-            } else {
-                Notify.error({
-                    title: "Error", 
-                    description: "Your question is missing elements.", 
-                    duration: 4000,
-                    background: "linear-gradient(120deg, rgb(130,30,30) 25%, rgb(100,30,30) 50%, rgb(70,30,30) 100%)",
-                    color: "var(--accent-contrast)",
-                });
-            }
-        });
-
-        function createQuestion(ID) {
-            return new Promise (resolve => {
                 let body;
                 let xhr = new XMLHttpRequest();
                 if (multipleChoiceRadioButton.classList.contains("active")) {
@@ -210,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     characterLimit.value = null;
                 }
                 
-                xhr.open("POST", "./api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+                xhr.open("POST", "./api/questions/create-all.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
                 xhr.send(JSON.stringify(body));
                 
                 xhr.addEventListener("readystatechange", function() {
@@ -226,15 +176,23 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     }
                 });
-            });
-        };
+            } else {
+                Notify.error({
+                    title: "Error", 
+                    description: "Your question is missing elements.", 
+                    duration: 4000,
+                    background: "linear-gradient(120deg, rgb(130,30,30) 25%, rgb(100,30,30) 50%, rgb(70,30,30) 100%)",
+                    color: "var(--accent-contrast)",
+                });
+            }
+        });
 
         /**
          * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
          *      when that is true, it sets the body with an attribute to turn the theme dark.
          */
-         checkTheme()
-         
+        checkTheme()
+
     //}).catch(error => {
     //    window.location.replace("./login.php");
     //});
