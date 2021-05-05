@@ -11,7 +11,11 @@
         public function __construct($db) {
 			$this->connection = $db;
         }
-        
+
+        public function createAll($patientID, $choices) {
+
+        }
+
         public function create($patientID, $choices) {
             $query = 'CALL createQuestion(:question, :question_charLim, :question_type)'; 
             $command = $this->connection->prepare($query);
