@@ -1,0 +1,14 @@
+
+@media screen and (min-width:887px) {
+
+    .navbar-button {
+        width: 100px;
+        height: 80px;
+    }
+
+    .svg-button {
+        width: 30px;
+        height: 30px;
+    }
+
+}
