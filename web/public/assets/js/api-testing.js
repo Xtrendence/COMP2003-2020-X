@@ -2167,7 +2167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function validJSON(json) {
 		try {
 			let object = JSON.parse(json);
-			if(object && typeof object === "object") {
+			if (object && typeof object === "object") {
 				return true;
 			}
 		}

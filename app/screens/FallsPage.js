@@ -30,7 +30,7 @@ export class FallsPage extends Component {
 
 		let patientID = await AsyncStorage.getItem("patientID");
 
-		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/api/falls/create.php?key=" + token;
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/falls/create.php?key=" + token;
 
 		let body = { patientID:patientID, falls:this.state.falls};
 

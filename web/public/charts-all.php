@@ -12,13 +12,13 @@
 		<meta name="theme-color" content="#a3acd1">
 		<link rel="stylesheet" href="./assets/css/themes.css">
 		<link rel="stylesheet" href="./assets/css/global.css">
-		<link rel="stylesheet" href="./assets/css/answers-summary/style.css">
+		<link rel="stylesheet" href="./assets/css/charts/style.css">
 		<script src="./assets/js/global.js"></script>
 		<script src="./assets/js/lib/chart.js"></script>
 		<script src="./assets/js/lib/x-notify.js"></script>
-		<script src="./assets/js/answers-summary.js"></script>
+		<script src="./assets/js/charts-all.js"></script>
 		<meta charset="UTF-8">
-		<title>Answers Summary</title>
+		<title>Falls Chart</title>
 	</head>
 	<body>
 		<div class="navbar">
@@ -53,9 +53,17 @@
 				</button>
 			</a>
 		</div>
-		<div class="wrapper" id="answers-list">
+		<div class="wrapper">
 			<div class="title-card">
-				<span>Answers Summary</span>
+				<span>Falls Chart - All Users</span>
+			</div>
+			<div class="chart-wrapper" id="chart-wrapper"></div>
+			<div class="buttons-wrapper">
+				<span id="time-span">-</span>
+				<button id="previous-button"><svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z"/></svg></button>
+				<button id="this-week-button">This Week</button>
+				<button id="next-button"><svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"/></svg></button>
+				<button id="export-button">Export to Spreadsheet</button>
 			</div>
 		</div>
 	</body>

@@ -12,13 +12,12 @@
 		<meta name="theme-color" content="#a3acd1">
 		<link rel="stylesheet" href="./assets/css/themes.css">
 		<link rel="stylesheet" href="./assets/css/global.css">
-		<link rel="stylesheet" href="./assets/css/answers-summary/style.css">
+		<link rel="stylesheet" href="./assets/css/create-user/style.css">
 		<script src="./assets/js/global.js"></script>
-		<script src="./assets/js/lib/chart.js"></script>
 		<script src="./assets/js/lib/x-notify.js"></script>
-		<script src="./assets/js/answers-summary.js"></script>
+		<script src="./assets/js/create-user.js"></script>
 		<meta charset="UTF-8">
-		<title>Answers Summary</title>
+		<title>Create User</title>
 	</head>
 	<body>
 		<div class="navbar">
@@ -53,9 +52,28 @@
 				</button>
 			</a>
 		</div>
-		<div class="wrapper" id="answers-list">
+		<div class="wrapper">
 			<div class="title-card">
-				<span>Answers Summary</span>
+				<span>Create User</span>
+			</div>
+			<div class="wide-card" id="create-form">
+				<span>Researcher Details</span>
+				<input id="researcher-id" type="number" placeholder="Researcher ID..." data-key="researcherID">
+				<span>Patient Details</span>
+				<input id="patient-nhs-ref" type="number" placeholder="NHS Ref..." data-key="patient_nhsRef">
+				<input id="patient-username" type="text" placeholder="Username..." data-key="patient_username">
+				<input id="patient-password" type="text" placeholder="Password..." data-key="patient_password">
+				<input id="patient-first-name" type="text" placeholder="First Name..." data-key="patient_fName">
+				<input id="patient-last-name" type="text" placeholder="Last Name..." data-key="patient_lName">
+				<input id="patient-dob" type="text" placeholder="Date of Birth..." data-key="patient_dob">
+				<input id="patient-address-line-1" type="text" placeholder="Address Line 1..." data-key="patient_addressI">
+				<input id="patient-address-line-2" type="text" placeholder="Address Line 2..." data-key="patient_addressII">
+				<input id="patient-postcode" type="text" placeholder="Postcode..." data-key="patient_postcode">
+				<input id="patient-telephone" type="text" placeholder="Telephone Number..." data-key="patient_tel">
+				<input id="patient-mobile" type="text" placeholder="Mobile Number..." data-key="patient_mobile">
+				<input id="patient-email" type="text" placeholder="Email Address..." data-key="patient_email">
+				<input id="patient-comment" type="text" placeholder="Comment..." data-key="patient_comment">
+				<button id="create-user">Create User</button>
 			</div>
 		</div>
 	</body>
