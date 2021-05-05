@@ -39,8 +39,9 @@ export class SettingsPopup extends Component{
 	render() {
 
 		let notifier = new Notifier(
-			notification.bind(this)
-		);
+            onRegister.bind(this),
+            onNotification.bind(this)
+        );
 		
 		return (	
 			<View style={styles.settingsContainer}>
@@ -48,9 +49,9 @@ export class SettingsPopup extends Component{
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Enter the time of day you'd like to recieve notifications of your falls</Text>
 						<Text style={[styles.settingsText, styles[`settingsText${this.state.theme}`]]}>Time of day:</Text>
-						<TextInput style={[globalComponentStyles.inputFieldMultiline, styles[`inputFieldMultiline${this.state.theme}`], { height: 50 }]} placeholder="HH.MM" multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({time:value})} value={this.state.time} placeholderTextColor={this.state.theme === "Dark" ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
+						<TextInput style={[globalComponentStyles.inputFieldMultiline, styles[`inputFieldMultiline${this.state.theme}`], { height: 50 }]} placeholder="HH.MM" multiline={false} onChangeText={(value) => this.setState({time:value})} value={this.state.time} placeholderTextColor={this.state.theme === "Dark" ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
 						<View style={styles.buttonWrapper}>
-							<TouchableOpacity style={styles.actionButton} onPress={() => notification()}>
+							<TouchableOpacity style={styles.actionButton} onPress={() => notification(this.state.time)}>
 								<Text style={styles.actionText}>Save</Text>
 							</TouchableOpacity>
 						</View>
@@ -64,14 +65,22 @@ export class SettingsPopup extends Component{
 			</View>
 		);
 
-		function notification(){
-			notifier.cancelAll();
-			notifier.repeatNotification("Record Fall", "Please remember to record the number of falls you had today.", new Date(Date.parse(SomeDate)));
+		function onRegister(token) {
+			let fcm = token.token;
+		}
+		
+		function onNotification(notification) {
+			notifier.localNotification(notification.title, notification.message);
 		}
 
+		function notification(time) {
+            notifier.cancelAll();
+            let date = new Date(Date.parse(time));
+            let tomorrow = new Date(date.setDate(date.getDate() + 1));
+            notifier.repeatNotification("Record Fall", "Please remember to record the number of falls you had today.", tomorrow);
+        }
 	}
 }
-
 
 
 function saveAnswer(key, value) {
@@ -81,14 +90,7 @@ function saveAnswer(key, value) {
 	}, 100);
 }
 
-function onRegister(token) {
-	let fcm = token.token;
-}
 
-function onNotification(notification) {
-	notifier.localNotification(notification.title, notification.message);
-	getData();
-}
 
 const styles = StyleSheet.create({
 	settingsContainer: {
