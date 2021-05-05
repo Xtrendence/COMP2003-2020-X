@@ -110,9 +110,8 @@ export class QuestionsPage extends Component {
 							{ 
 								Object.keys(object[questionID]["choices"]).map(choiceKey => {
 									return (
-										<View style={styles.radioBlock} key={choiceKey}>
-											<RadioButton value={object[questionID]["choices"][choiceKey]} uncheckedColor={globalColors.accentMedium} color={globalColors.accentMedium}/>
-											<Text style={[styles.choiceText, styles[`choiceText${this.state.theme}`]]}>{object[questionID]["choices"][choiceKey]}</Text>
+										<View style={styles.radioView} key={choiceKey}>
+											<RadioButton.Item label={object[questionID]["choices"][choiceKey]} labelStyle={[styles.choiceText, styles[`choiceText${this.state.theme}`]]} value={object[questionID]["choices"][choiceKey]} uncheckedColor={globalColors.accentLight} style={[styles.radioBlock, styles[`radioBlock${this.state.theme}`]]} color={globalColors.accentLight}/>
 										</View>
 									);
 								})
@@ -343,7 +342,7 @@ const styles = StyleSheet.create({
 	},
 	cardContainer: {
 		width: "100%",
-		height: "100%"
+		height: "100%",
 	},
 	dividerWrapper: {
 		flex: 1,
@@ -363,6 +362,13 @@ const styles = StyleSheet.create({
 		flexWrap: "wrap",
 		alignItems: "center",
 		flexDirection: "row",
+		width: screenWidth - 60,
+		backgroundColor: globalColors.mainSecond,
+		marginTop: 10,
+		borderRadius: globalStyles.borderRadius
+	},
+	radioBlockDark: {
+		backgroundColor: globalColorsDark.mainFourth,
 	},
 	buttonWrapper: {
 		width: "100%",
@@ -391,7 +397,9 @@ const styles = StyleSheet.create({
 		color: globalColorsDark.mainContrast
 	},
 	choiceText: {
-		color: globalColors.mainContrast
+		color: globalColors.mainContrast,
+		width: "80%",
+		overflow: "hidden"
 	},
 	choiceTextDark: {
 		color: globalColorsDark.mainContrast
