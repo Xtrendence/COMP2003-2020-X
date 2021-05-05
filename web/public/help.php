@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/help/style.css">
+
+    <script src="./assets/js/global.js"></script>
     <script src="./assets/js/help-cards.js"></script>
     <meta charset="UTF-8">
     <title>Help Page</title>
