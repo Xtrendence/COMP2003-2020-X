@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./assets/css/help/style.css">
 
     <script src="./assets/js/global.js"></script>
-    <script src="./assets/js/help-cards.js"></script>
+    <script src="./assets/js/help.js"></script>
     <meta charset="UTF-8">
     <title>Help Page</title>
 </head>
