@@ -12,9 +12,8 @@
 		}
 
 		public function create($falls) {
-			$date = date('Y-m-d H:i:s');
 			for ($i = 0; $i < $falls; $i++) {
-				$query = 'INSERT INTO ' . $this->table . ' (patientID, fall_date) VALUES (:id, "' . $date . '")';
+				$query = 'CALL createFall(:id)';
 				$command = $this->connection->prepare($query);
 				$command->bindParam(':id', $this->patientID);
 				$command->execute();
@@ -42,6 +41,16 @@
 			return $command;
 		}
 
+		public function readAllDate($from, $to) {
+			$query = 'SELECT * FROM ' . $this->table . ' WHERE fall_date BETWEEN :from AND :to';
+			$command = $this->connection->prepare($query);
+			$command->bindParam(':from', $from);
+			$command->bindParam(':to', $to);
+			$command->execute();
+
+			return $command;
+		}
+
 		public function readUser() {
 			$query = 'SELECT * FROM ' . $this->table . ' WHERE patientID=:id';
 			$command = $this->connection->prepare($query);
@@ -63,7 +72,7 @@
 		}
 
 		public function delete() {
-			$query = 'DELETE FROM ' . $this->table . ' WHERE fallID=:id';
+			$query = 'CALL deleteFall(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->fallID);
 			$command->execute();

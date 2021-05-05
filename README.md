@@ -31,6 +31,8 @@ BRIMS Self-Management Software is a cross-platform mobile app that acts as a dai
 |[react-native-chart-kit](https://www.npmjs.com/package/react-native-chart-kit)|
 |[react-native-flash-message](https://www.npmjs.com/package/react-native-flash-message)|
 |[react-native-gesture-handler](https://www.npmjs.com/package/react-native-gesture-handler)|
+|[react-native-linear-gradient](https://www.npmjs.com/package/react-native-linear-gradient)|
+|[react-native-navigation-bar-color](https://www.npmjs.com/package/react-native-navigation-bar-color)|
 |[react-native-paper](https://www.npmjs.com/package/react-native-paper)|
 |[react-native-push-notification](https://www.npmjs.com/package/react-native-push-notification)|
 |[react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated)|
@@ -41,10 +43,10 @@ BRIMS Self-Management Software is a cross-platform mobile app that acts as a dai
 |[react-native-vector-icons](https://www.npmjs.com/package/react-native-vector-icons)|
 |[react-native-waveview](https://www.npmjs.com/package/react-native-waveview)|
 |[react-native-web](https://www.npmjs.com/package/react-native-web)|
-|[rn-curved-navigation-bar](https://www.npmjs.com/package/rn-curved-navigation-bar)|
 
 #### Web Interface
 
 |Library|
 |-------|
 |[Chart.js](https://www.chartjs.org/)|
+|[X:/Notify](https://www.github.com/Xtrendence/X-Notify/)|

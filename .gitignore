@@ -1,8 +1,7 @@
 .idea
+.vscode
 node_modules
 app/node_modules
 app/android/*.hprof
 app/.idea
 web/.idea
-web/public/assets/js/users.js
-web/public/assets/js/users.js
