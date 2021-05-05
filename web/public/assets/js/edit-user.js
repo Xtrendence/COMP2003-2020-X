@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let sessionToken = localStorage.getItem("sessionToken");
 
     verifySession(sessionToken).then(result => {
-        const xhr = new XMLHttpRequest();
-
         let researcherInput = document.getElementById("researcher-id");
         let nhsInput = document.getElementById("patient-nhs-ref");
         let usernameInput = document.getElementById("patient-username");
@@ -19,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let emailInput = document.getElementById("patient-email");
         let commInput = document.getElementById("patient-comment");
 
-
         let editBtn = document.getElementById("submit-edit")
 
         let url = new URL(window.location.href);
@@ -32,16 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
         let changes;
 
         function getUser() {
-            xhr.addEventListener("readystatechange", function () {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     let json = xhr.responseText;
                     let users = JSON.parse(json);
                     let keys = Object.keys(users);
-                    console.log(users);
                     try {
                         let patient = users;
                         for (let i = 0; i < keys.length; i++) {
-                            let res = patient["researcherID"];
+                            let res = result.researcherID;
                             let nhs = patient["patient_nhsRef"];
                             let username = patient["patient_username"];
                             let password = patient["patient_password"];
@@ -52,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             let ad2 = patient["patient_addressII"];
                             let pCode = patient["patient_postcode"];
                             let tel = patient["patient_tel"];
-                            let mobl = patient["patient_mobile"];
+                            let mobile = patient["patient_mobile"];
                             let email = patient["patient_email"];
                             let comm = patient["patient_comment"];
 
@@ -67,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             ad2Input.setAttribute("value", ad2);
                             postInput.setAttribute("value", pCode);
                             telInput.setAttribute("value", tel);
-                            mobInput.setAttribute("value", mobl);
+                            mobInput.setAttribute("value", mobile);
                             emailInput.setAttribute("value", email);
                             commInput.setAttribute("value", comm);
                         }
@@ -80,27 +77,42 @@ document.addEventListener("DOMContentLoaded", () => {
             xhr.send();
         }
 
-        editBtn.addEventListener("click", function () {
-            changes = {
-                researcherID: result.researcherID,
-                patient_nhsRef: result.patient_nhsRef,
-                patient_username: usernameInput,
-                patient_password: passwordInput,
-                patient_fName: fNameInput.value,
-                patient_lName: sNameInput.value ,
-                patient_addressI: ad1Input,
-                patient_addressII: ad2Input,
-                patient_postcode: postInput,
-                patient_tel: telInput,
-                patient_mobile: mobInput,
-                patient_email: emailInput,
-                patient_comment: commInput
-            };
-            console.log(changes);
-
-        xhr.open("PUT", "./api/users/update.php?&key=" + result.token, true);
-        xhr.send(JSON.stringify(changes));
-        getUser();
+        editBtn.addEventListener("click", function() {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function() {
+                if (xhr.readystatechange === XMLHttpRequest.DONE) {
+                    console.log("123");
+                    let json = xhr.responseText;
+                    let users = JSON.parse(json);
+                    let keys = Object.keys(users);
+                    try {
+                        for (let i = 0; i < keys.length; i++) {
+                            changes = {
+                                researcherID: result.researcherID,
+                                patient_nhsRef: result.patient_nhsRef,
+                                patient_username: usernameInput.value,
+                                patient_password: passwordInput.value,
+                                patient_fName: fNameInput.value,
+                                patient_lName: lNameInput.value,
+                                patient_addressI: ad1Input.value,
+                                patient_addressII: ad2Input.value,
+                                patient_postcode: postInput.value,
+                                patient_tel: telInput.value,
+                                patient_mobile: mobInput.value,
+                                patient_email: emailInput.value,
+                                patient_comment: commInput.value
+                            };
+                        }
+                    } catch {
+                        console.error("error");
+                    }
+                }
+                else{
+                }
+            });
+            xhr.open("PUT", "./api/users/update.php?key=" + result.token, true);
+            xhr.send(JSON.stringify(changes));
+            getUser();
         });
 
         getUser();

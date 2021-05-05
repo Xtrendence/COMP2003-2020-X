@@ -80,9 +80,6 @@
             <button class="edit-button" id="submit-edit">Save Details</button>
         </div>
     </div>
-    </div>
 </div>
-
-
 </body>
 </html>
