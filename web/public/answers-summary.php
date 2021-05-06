@@ -53,10 +53,15 @@
 				</button>
 			</a>
 		</div>
-		<div class="wrapper" id="answers-list">
+		<div class="wrapper">
 			<div class="title-card">
 				<span>Answers Summary</span>
 			</div>
+			<div class="chart-selection-wrapper">
+				<button class="active" id="pie-chart-button">Pie Charts</button>
+				<button id="bar-chart-button">Bar Charts</button>
+			</div>
+			<div id="answers-list"></div>
 		</div>
 	</body>
 </html>
