@@ -62,7 +62,7 @@ export class FallsPage extends Component {
 
 		let patientID = await AsyncStorage.getItem("patientID");
 
-		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/diary-entries/create.php" + token;
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/diary-entries/create.php?key=" + token;
 
 		let body = { patientID:patientID, entry:this.state.diary};
 
@@ -73,7 +73,7 @@ export class FallsPage extends Component {
 			},
 			body: JSON.stringify(body)
 		})
-		.then(() => {
+		.then(() => { 
 			this.setState({diary:null});
 			showMessage({
 				message: "Diary Saved",
