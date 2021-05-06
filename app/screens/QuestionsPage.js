@@ -86,6 +86,10 @@ export class QuestionsPage extends Component {
 		})
 		.then(() => {
 			setTimeout(() => {
+				showMessage({
+					message: "Answer Confirmed",
+					type: "success"
+				})
 				this.getData();
 			}, 1000);
 		})
