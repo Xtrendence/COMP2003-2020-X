@@ -58,7 +58,35 @@ export class FallsPage extends Component {
 	}
 
 	async saveDiary() {
-		
+		let token = await AsyncStorage.getItem("token");
+
+		let patientID = await AsyncStorage.getItem("patientID");
+
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/diary-entries/create.php" + token;
+
+		let body = { patientID:patientID, entry:this.state.diary};
+
+		fetch(endpoint, {
+			method: "POST",
+			headers: {
+				Accept: "application/json", "Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+		.then(() => {
+			this.setState({diary:null});
+			showMessage({
+				message: "Diary Saved",
+				type: "success"
+			})
+		})
+		.catch((error) => {
+			console.log(error);
+			showMessage({
+				message: "Network Error",
+				type: "danger"
+			});
+		});
 	}
 
 	render() {
