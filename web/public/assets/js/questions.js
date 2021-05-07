@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
 
-            xhr.open("GET", "./api/questions/read-range.php?from=" + from + "&to=" + to + "&key=" + result.token, true);
+            xhr.open("GET", "./api/questions/read-all.php?from=" + from + "&to=" + to + "&key=" + result.token, true);
             xhr.send();
 
         }
