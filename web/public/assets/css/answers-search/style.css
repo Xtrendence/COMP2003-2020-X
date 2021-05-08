@@ -1,0 +1,25 @@
+.tab {
+    margin-top: -10px;
+    margin-left: 20px;
+    position: relative;
+    z-index: -1;
+    width: 204px;
+    background: var(--main-first);
+}
+
+.tab button {
+    background: transparent;
+    color: var(--main-contrast);
+    border: 5px;
+    border-color:  var(--main-contrast);
+    display: inline-block;
+    padding-top: 10px;
+    width: 68px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.tab button.active {
+    background: var(--accent-gradient);
+    color:  var(--accent-contrast);
+}
