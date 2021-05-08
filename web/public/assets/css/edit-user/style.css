@@ -52,7 +52,7 @@ input {
 
 .edit-button {
     color: var(--accent-contrast);
-    background: var(--accent-gradient);
+	background: var(--accent-light);
     box-shadow: var(--shadow-smooth);
     width: calc(100% - 80px);
     font-size: 16px;
@@ -65,6 +65,9 @@ input {
     border-radius: 10px;
     display: block;
     margin: 20px auto 20px auto;
+}
+.edit-button:hover {
+	background: var(--accent-medium);
 }
 
 .div-button {
