@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
+    let sessionToken = localStorage.getItem("sessionToken");
+
     verifySession(localStorage.getItem("sessionToken")).then(result => {
 
         const Notify = new XNotify("BottomRight");
@@ -14,10 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let longAnswerText = document.getElementById("single");
         let characterLimit = document.getElementById("characters");
-
-        let submitButton = document.getElementById("submit");
-
-        let sessionToken = localStorage.getItem("sessionToken");
 
         /**
          * @desc checks to see is all input boxes have been inputted into
