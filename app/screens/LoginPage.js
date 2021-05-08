@@ -133,7 +133,7 @@ export class LoginPage extends Component {
 			let token = await AsyncStorage.getItem("token");
 			let patientID = await AsyncStorage.getItem("patientID");
 
-			if(!empty(token) && !empty(patientID)) {
+			if (!empty(token) && !empty(patientID)) {
 				resolve({ token:token, patientID:patientID });
 			} else {
 				reject();
