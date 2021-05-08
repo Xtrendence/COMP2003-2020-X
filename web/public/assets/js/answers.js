@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+        let sessionToken = localStorage.getItem("sessionToken");
+
     verifySession(localStorage.getItem("sessionToken")).then(result => {
 
         let url = new URL(window.location.href);
@@ -24,8 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let seperator = document.getElementById("sep");
         let seperator2 = document.getElementById("sep2");
-
-        let sessionToken = localStorage.getItem("sessionToken");
 
         function theSeperators() {
             if (recentNoAns.childNodes.length !== 0){
@@ -291,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("GET", "./api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("GET", "./api/answers/read-user.php?id=" + patID + "&" + sessionToken + "", true);
             xhr.send();
         }
 
@@ -312,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("DELETE", "./api/questions/delete.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("DELETE", "./api/questions/delete.php?" + sessionToken + "", true);
             xhr.send(JSON.stringify(body));
             //location.reload(true); 
         }
