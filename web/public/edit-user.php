@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
@@ -20,7 +19,6 @@
         <meta charset="UTF-8">
         <title>Edit User</title>
     </head>
-
     <body>
         <div class="navbar">
             <a href="index.php">
