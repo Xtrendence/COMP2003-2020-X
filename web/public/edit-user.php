@@ -57,10 +57,10 @@
             <div class="title-card">
                 <span id="user-id"></span>
             </div>
-            <div class="wide-card">
-                <span>Researcher Details</span>
+            <div class="main-card">
+                <span class="subtitle">Researcher Details</span>
                 <input id="researcher-id" type="number" placeholder="Researcher ID...">
-                <span>Patient Details</span>
+                <span class="subtitle">Patient Details</span>
                 <input id="patient-nhs-ref" type="number" placeholder="NHS Ref...">
                 <input id="patient-username" type="text" placeholder="Username...">
                 <input id="patient-password" type="password" placeholder="Password...">
@@ -74,7 +74,7 @@
                 <input id="patient-mobile" type="text" placeholder="Mobile Number...">
                 <input id="patient-email" type="text" placeholder="Email Address...">
                 <input id="patient-comment" type="text" placeholder="Comment...">
-                <button id="submit-edit">Save Details</button>
+                <button id="submit-edit" class="edit-button">Save Details</button>
             </div>
         </div>
     </body>
