@@ -61,36 +61,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     searchButton.addEventListener("click", function () {
         let id = idInput.value;
-        let xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                let json = xhr.responseText;
-                let patient = JSON.parse(json);
-                let keys = Object.keys(patient);
-                try {
-                    layer.innerHTML = "";
-                    let userID = patient["patientID"];
-                    let firstName = patient["patient_fName"];
-                    let lastName = patient["patient_lName"];
-                    let row = document.createElement("tr");
-                    let cell1 = row.insertCell(0);
-                    let cell2 = row.insertCell(1);
-                    let cell3 = row.insertCell(2);
-                    let cellAct = row.insertCell(3);
-                    row.id = userID;
-                    cell1.innerHTML = (userID);
-                    cell2.innerHTML = (firstName);
-                    cell3.innerHTML = (lastName);
-                    layer.appendChild(row);
+        if (id !== "") {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    let json = xhr.responseText;
+                    let patient = JSON.parse(json);
+                    let keys = Object.keys(patient);
+                    try {
+                        layer.innerHTML = "";
+                        let userID = patient["patientID"];
+                        let firstName = patient["patient_fName"];
+                        let lastName = patient["patient_lName"];
+                        let row = document.createElement("tr");
+                        let cell1 = row.insertCell(0);
+                        let cell2 = row.insertCell(1);
+                        let cell3 = row.insertCell(2);
+                        let cellAct = row.insertCell(3);
+                        row.id = userID;
+                        cell1.innerHTML = (userID);
+                        cell2.innerHTML = (firstName);
+                        cell3.innerHTML = (lastName);
+                        layer.appendChild(row);
 
-                    createButtons(deleteButton, editButton, profileButton, chartButton, answerButton, questButton, userID, cellAct, row);
-                } catch {
-                    console.error("error");
+                        createButtons(deleteButton, editButton, profileButton, chartButton, answerButton, questButton, userID, cellAct, row);
+                    } catch {
+                        console.error("error");
+                    }
                 }
-            }
-        });
-        xhr.open("GET", "./api/users/read.php?id=" + id + "&key=" + sessionToken, true);
-        xhr.send();
+            });
+            xhr.open("GET", "./api/users/read.php?id=" + id + "&key=" + sessionToken, true);
+            xhr.send();
+        }
+        else {
+            getUsers(from, to);
+        }
     });
 
     nextButton.addEventListener("click", function () {
