@@ -1,11 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     let sessionToken = localStorage.getItem("sessionToken");
-
 
     verifySession(sessionToken).then(result => {
         try {
-
             /* Variables for getting api URI data */
             let url = new URL(window.location.href);
             let patID = url.searchParams.get("id");
@@ -15,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             titleCard.innerText = addID;
 
             /* Variables used for "content" div class that wraps each data field small card: XML request initiated for HTML content  */
-            let content = document.getElementById("content")
+            let content = document.getElementById("content");
             let xhr = new XMLHttpRequest();
 
             /* Variables used for small card api field values that transform the ID of each span into the field characters */
@@ -32,20 +29,19 @@ document.addEventListener("DOMContentLoaded", () => {
             let emailCard = document.getElementById("email");
             let commentsCard = document.getElementById("comments");
 
-
             /* Event listener for xhr containing if statement for try catch for retrieving data  */
             xhr.addEventListener("readystatechange", function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     let json = xhr.responseText;
-                    let users = JSON.parse(json);
-                    let keys = Object.keys(users);
-
-
+                    
                     try {
+						let users = JSON.parse(json);
+						let keys = Object.keys(users);
+
                         let patient = users;
                         let userID = patient["patientID"];
-                        for (let i = 0; i < keys.length; i++){
 
+                        for (let i = 0; i < keys.length; i++){
                             /* Variables used for "read" api endpoint field values */
                             let userID = patient["patientID"];
                             let ref = patient["patient_nhsRef"];
@@ -74,20 +70,15 @@ document.addEventListener("DOMContentLoaded", () => {
                             mnCard.innerText = mobileNumber;
                             emailCard.innerText = emailAddress;
                             commentsCard.innerText = comments;
-
-
-                            console.log("hello");
-
-
                         }
 
                         createButton(chartsButton, userID);
-                    } catch {
-                        console.error("error");
+                    } catch(error) {
+                        console.log(error);
                     }
-
                 }
             });
+
             /* XHR element: XML HTTP GET REQUEST: followed by URI link for "read" api end point */
             xhr.open("GET", "./api/users/read.php?key=" + result.token + "&id=" + patID, true);
             xhr.send();
@@ -97,38 +88,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /* createButton function used to Generate charts button and direct web page to the appropriate charts page for currently viewed user profile */
             function createButton(chartsButton, userID){
-
                 let chartsAnchor = document.createElement("a");
 
                 chartsButton = document.createElement("button");
                 chartsButton.classList.add("page-button");
                 chartsButton.id = "charts-button";
                 chartsButton.textContent = 'View User Charts';
-                chartsAnchor.href = "./charts.php?id=" + userID + "";
+                chartsAnchor.href = "./charts.php?id=" + userID;
 
                 chartsAnchor.appendChild(chartsButton);
                 buttonDiv.appendChild(chartsAnchor);
             }
 
-            /**
-             * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
-             *      when that is true, it sets the body with an attribute to turn the theme dark.
-             */
-            if(localStorage.getItem('theme') === 'dark') {
-                document.body.setAttribute('data-theme', 'dark');
-            } else {
-                document.body.removeAttribute('data-theme', 'dark');
-            }
-
+            checkTheme();
         } catch(error) {
             console.trace(error);
         }
     }).catch(error => {
         window.location.replace("./login.php");
     });
-
-
-
 });
 
 
