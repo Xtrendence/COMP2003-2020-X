@@ -22,6 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let idInput = document.getElementById("id-search");
 
+	idInput.addEventListener("keydown", (e) => {
+		if (e.key.toLowerCase() === "enter") {
+			searchButton.click();
+		}
+	});
+
     function getUsers(from, to) {
         let xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function() {
