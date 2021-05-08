@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
+    let sessionToken = localStorage.getItem("sessionToken");
+    
     verifySession(localStorage.getItem("sessionToken")).then(result => {
 
         let togglePosition = document.getElementById("toggle-button");
         let toggleContainer = document.getElementById('toggle');
 
         let logout = document.getElementById('logout');
-        
-        let sessionToken = localStorage.getItem("sessionToken");
 
         /**
          * @desc when toggle is clicked, the page will switch between a light mode and dark mode
