@@ -36,13 +36,10 @@
     margin-right: 10px;
 }
 
-.question-all{
-    width: 150px;
-    height: 45px;
-}
-.charts-all {
-    width: 150px;
-    height: 45px;
+.question-all, .charts-all, .create-user {
+    width: auto;
+    height: 40px;
+    padding: 0 10px 0 10px;
 }
 
 .button-div{
@@ -54,6 +51,7 @@
 .wide-card{
     height: 100%;
     margin-top: 30px;
+    position: relative;
 }
 
 .text-names {
@@ -84,7 +82,8 @@ td {
 .search-div{
     margin-left: 40%;
     margin-top: 10px;
-    position: relative;
+    position: absolute;
+    right: 10px;
 }
 
 .search-child{

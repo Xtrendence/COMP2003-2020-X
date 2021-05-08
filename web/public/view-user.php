@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/view-user/style.css">
+
+    <script src="./assets/js/global.js"></script>
     <script src="./assets/js/view-user.js"></script>
 
     <meta charset="UTF-8">

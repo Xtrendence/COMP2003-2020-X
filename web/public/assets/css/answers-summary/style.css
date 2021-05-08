@@ -1,21 +1,45 @@
 .wide-card {
-	min-height:290px;
-	position:relative;
+	min-height: 290px;
+	position: relative;
 }
 .wide-card span {
-	font-size:16px;
-	display:block;
-	line-height:24px;
+	font-size: 16px;
+	display: block;
+	line-height: 24px;
 }
 .wide-card span.title {
-	font-weight:bold;
-	margin-bottom:20px;
-	color:var(--main-contrast);
+	font-weight: bold;
+	margin-bottom: 20px;
+	color: var(--main-contrast);
 }
 .chart-wrapper {
-	width:calc(100% - 100px);
-	max-width:800px;
-	display:block;
-	margin:10px auto 10px auto;
-	padding:20px;
+	width: calc(100% - 100px);
+	max-width: 800px;
+	display: block;
+	margin: 10px auto 10px auto;
+	padding: 20px;
+}
+
+.chart-selection-wrapper {
+	font-size: 0;
+}
+.chart-selection-wrapper button {
+	color: var(--main-contrast);
+	display: inline-block;
+	margin: 20px 0 0 20px;
+	box-shadow: var(--shadow-smooth);
+	outline: none;
+	border: none;
+	height: 40px;
+	padding: 0 10px 0 10px;
+	border-radius: 10px;
+	width: auto;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	color: var(--accent-contrast);
+	background: var(--accent-light);
+}
+.chart-selection-wrapper button:hover, .chart-selection-wrapper button.active {
+	background: var(--accent-dark);
 }
