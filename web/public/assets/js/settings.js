@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     try {
                         let response = JSON.parse(responseJSON);
-                        localStorage.removeItem('sessionToken', sessionToken);
+                        localStorage.removeItem("sessionToken");
                     } catch(e) {
                         console.log(e);
                     }
