@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
         verifySession(sessionToken).then(result => {
             try {
 
-                console.log("123");
                 let wideCard;
                 let cardWrap = document.getElementById("cards");
                 const xhr = new XMLHttpRequest();
@@ -20,11 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 function getQuestions(from, to) {
                     xhr.addEventListener("readystatechange", function () {
-                        console.log("hello");
                         if (xhr.readyState === XMLHttpRequest.DONE) {
                             let json = xhr.responseText;
                             let users = JSON.parse(json);
-                            console.log("hello 2");
+
 
                             if ("data" in users) {
                                 let keys = Object.keys(users["data"]);
@@ -32,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 try {
                                     layer.innerHTML = "";
                                     let question = users["data"];
-                                    console.log(keys.length + "look");
                                     for (let i = 0; i < keys.length; i++) {
 
 
