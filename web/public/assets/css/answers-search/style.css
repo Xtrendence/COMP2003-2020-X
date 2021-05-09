@@ -5,13 +5,12 @@
     z-index: -1;
     width: 204px;
     background: var(--main-first);
+    border-radius: 0 0 10px 10px;
 }
 
 .tab button {
     background: transparent;
     color: var(--main-contrast);
-    border: 5px;
-    border-color:  var(--main-contrast);
     display: inline-block;
     padding-top: 10px;
     width: 68px;
@@ -19,7 +18,13 @@
     cursor: pointer;
 }
 
+.tab button:hover {
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    transition: 0.25s;
+}
+
 .tab button.active {
     background: var(--accent-gradient);
-    color:  var(--accent-contrast);
+    color: var(--accent-contrast);
 }
