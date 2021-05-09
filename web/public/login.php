@@ -19,7 +19,7 @@
 		<script src="./assets/js/global.js"></script>
 		<script src="./assets/js/lib/x-notify.js"></script>
 		<script src="./assets/js/login.js"></script>
-		<title>Login Page</title>
+		<title>Login</title>
 	</head>
 	<body>
 		<div class="title-card">
