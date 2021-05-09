@@ -14,7 +14,11 @@
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/answers-search/style.css">
+	<link rel="stylesheet" href="./assets/css/answers-summary/style.css">
     <script src="./assets/js/answers-search.js"></script>
+	<script src="./assets/js/lib/chart.js"></script>
+	<script src="./assets/js/lib/x-notify.js"></script>
+    <script src="./assets/js/global.js"></script>
     <meta charset="UTF-8">
     <title>Questions &amp; Answers</title>
 </head>
@@ -56,16 +60,24 @@
 <div class="wrapper">
     <div class="title-wrapper">
         <div class="title-card">
-            <span id="analaysis">test width</span>
+            <span id="analysis"></span>
         </div>
     </div>
 
     <div class="tab-wrapper">
         <div class="tab">
-            <button id="choice-summery">Choice</button>
-            <button id="custom-search">Custom</button>
-            <button id="editable questions">Editable</button>
+            <button class="active" id="choice-summery">Choice</button>
+            <button class="" id="custom-search">Custom</button>
+            <button class="" id="editable-questions">Editable</button>
         </div>
+    </div>
+
+    <div class="hidden" id="answer-choice-summery">
+        <div class="chart-selection-wrapper">
+				<button class="active" id="pie-chart-button">Pie Charts</button>
+				<button id="bar-chart-button">Bar Charts</button>
+        </div>
+        <div id="answers-list"></div>
     </div>
 </div>
 </body>
