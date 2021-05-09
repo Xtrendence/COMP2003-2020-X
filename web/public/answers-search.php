@@ -54,14 +54,18 @@
 </div>
 
 <div class="wrapper">
-    <div class="title-card">
-        <span id="analaysis">test width</span>
+    <div class="title-wrapper">
+        <div class="title-card">
+            <span id="analaysis">test width</span>
+        </div>
     </div>
 
-    <div class="tab">
-        <button id="choice-summery">Choice</button>
-        <button id="custom-search">Long</button>
-        <button id="editable questions">Editable</button>
+    <div class="tab-wrapper">
+        <div class="tab">
+            <button id="choice-summery">Choice</button>
+            <button id="custom-search">Custom</button>
+            <button id="editable questions">Editable</button>
+        </div>
     </div>
 </div>
 </body>
