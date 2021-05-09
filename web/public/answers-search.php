@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/answers-search/style.css">
 	<link rel="stylesheet" href="./assets/css/answers-summary/style.css">
-    <script src="./assets/js/answers-search.js"></script>
 	<script src="./assets/js/lib/chart.js"></script>
 	<script src="./assets/js/lib/x-notify.js"></script>
     <script src="./assets/js/global.js"></script>
+    <script src="./assets/js/answers-search.js"></script>
     <meta charset="UTF-8">
     <title>Questions &amp; Answers</title>
 </head>
