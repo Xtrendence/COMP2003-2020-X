@@ -62,7 +62,7 @@
 
 }
 
-.card-button {
+.delete-button {
     text-align: center;
     padding: 10px 10px 10px 10px;
     background: var(--accent-gradient);
@@ -77,6 +77,24 @@
     display: inline-block;
     vertical-align: center;
 }
+
+.edit-button {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    margin: auto 10px auto auto;
+    display: inline-block;
+    vertical-align: center;
+}
+
+
 
 .card-button-wrapper {
     display: inline-block;
