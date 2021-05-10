@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
-        xhr.open("GET", "./api/questions/read.php?id=" + qID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6" , true);
+        xhr.open("GET", "./api/questions/read.php?id=" + qID + "&key=" + sessionToken, true);
         xhr.send();
     }
 
