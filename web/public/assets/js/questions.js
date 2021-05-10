@@ -166,6 +166,22 @@ document.addEventListener("DOMContentLoaded", () => {
                             '    </div>'
 
                         cardAnchor.appendChild(wideCard);
+
+
+                        wideCard.getElementsByClassName("delete-button")[0].addEventListener("click", () => {
+                            // API request to delete the question
+
+                            try {
+                                if (xhr.responseText === "") {
+                                    document.getElementById(questionID).remove();
+                                } else {
+                                    console.log(xhr.responseText);
+                                }
+                            } catch(error) {
+                                console.log(error);
+                            }
+                        });
+
                         cardWrap.appendChild(cardAnchor);
 
 
@@ -182,7 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 document.getElementById("prev-button").addEventListener("click", function () {
-                    let xhr = new XMLHttpRequest();
                     layer.innerHTML = "";
                     from = to - 4 ;
                     to = to - 5 ;
@@ -191,7 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 document.getElementById("next-button").addEventListener("click", function () {
-                    let xhr = new XMLHttpRequest();
                     layer.innerHTML = "";
                     from = to + 1;
                     to = to + 5;
