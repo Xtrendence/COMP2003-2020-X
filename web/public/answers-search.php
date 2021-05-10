@@ -85,7 +85,7 @@
     </div>
 
     <div class="hidden" id="editable-question">
-        <div id="content-not-answered-recent" class="">
+        <div id="content-not-answered-recent" class="edit-wrapper">
         </div>
 
         <div id="sep" class="seperator"></div>

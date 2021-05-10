@@ -92,6 +92,7 @@
     float: right;
     display: inline-block;
     line-height: 75px;
+    margin-top: -10px;
 }
 
 .button-wrapper svg {
@@ -106,14 +107,18 @@
     font-weight: bolder;
 }
 
-#editable-question .wide-card {
+.new-wide {
     background: var(--main-first);
     box-shadow: var(--shadow-smooth);
     color: var(--main-contrast);
-    padding: 10px 10px 10px 10px;
+    padding: 10px 10px 20px 10px;
     margin: 20px auto 0 auto;
     width: calc(100% - 40px - 20px);
     border-radius: 10px;
     display: block;
     font-size: var(--font-smaller);
+}
+
+.new-wide:last-of-type {
+    margin: 20px auto 20px auto;
 }

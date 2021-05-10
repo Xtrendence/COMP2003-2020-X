@@ -38,6 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 customTab.classList.remove("active");
                 editTab.classList.add("active");
 
+                contentNoAns.innerHTML = "";
+                recentNoAns.innerHTML = "";
+
                 displayInfo()
             });
 
@@ -372,7 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 let choices = editable[key].choices;
 
                                 let cardDiv = document.createElement("div");
-                                cardDiv.classList.add("wide-card");
+                                cardDiv.classList.add("new-wide");
     
                                 let titleSpan = document.createElement("span");
                                 titleSpan.classList.add("title-span")
@@ -386,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     for (let j = 0; j < choiceKeys.length; j++){
                                         choice.push(choices[j+1]);
                                     }
-                                    let choiceStr = choice.join(",");
+                                    let choiceStr = choice.join(", ");
                                     span.innerHTML = ("<br />Question Type: " + questionType + "<br />Choices: " + choiceStr);
                                 } else {
                                     let charLim = editable[key].question_charLim;
@@ -429,10 +432,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
                                 cardDiv.appendChild(butContainer);
                                 contentNoAns.appendChild(cardDiv);
-    
-                                let recentQuestion = contentNoAns.lastChild;
-                                recentNoAns.appendChild(recentQuestion);
                             });
+                            let recentQuestion = contentNoAns.lastChild;
+                            recentNoAns.appendChild(recentQuestion);
                         } catch(error) {
                             console.trace(error)
                         }
