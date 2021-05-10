@@ -62,3 +62,58 @@
     background: var(--accent-gradient);
     color: var(--accent-contrast);
 }
+
+.action-button {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    margin: auto 10px auto auto;
+    display: inline-block;
+    vertical-align: center;
+    
+}
+
+.text-wrapper {
+    display: inline-block;
+}
+
+.question-wrapper {
+    display: block;
+}
+
+.button-wrapper {
+    float: right;
+    display: inline-block;
+    line-height: 75px;
+}
+
+.button-wrapper svg {
+    fill: var(--accent-contrast);
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.title-span {
+    font-size: var(--font-medium);
+    font-weight: bolder;
+}
+
+#editable-question .wide-card {
+    background: var(--main-first);
+    box-shadow: var(--shadow-smooth);
+    color: var(--main-contrast);
+    padding: 10px 10px 10px 10px;
+    margin: 20px auto 0 auto;
+    width: calc(100% - 40px - 20px);
+    border-radius: 10px;
+    display: block;
+    font-size: var(--font-smaller);
+}

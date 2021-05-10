@@ -79,8 +79,20 @@
         </div>
         <div id="answers-list"></div>
     </div>
-    <div class="hidden" id="answer-custom-summary"></div>
-    <div class="hidden" id="editable-question"></div>
+
+    <div class="hidden" id="answer-custom-summary">
+
+    </div>
+
+    <div class="hidden" id="editable-question">
+        <div id="content-not-answered-recent" class="">
+        </div>
+
+        <div id="sep" class="seperator"></div>
+
+        <div id="content-not-answered" class="">
+        </div>
+    </div>
 </div>
 </body>
 </html>
