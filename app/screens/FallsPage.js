@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import { SettingsPopup } from '../components/SettingsPopup';
 import { RadioButton } from 'react-native-paper';
+import { wait } from '../utils/Utils';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -19,25 +20,16 @@ export class FallsPage extends Component {
 		this.state = {
 			falls: 0,
 			diary: null,
-			loading: false,
 			settings: false,
 			modalVisible: false,
-			firstNavigator: true,
-			refreshing: false,
-			recent: null,
-			unanswered: {},
-			answered: {},
 			loading: false,
-			checked: {},
-			custom: {},
+			refreshing: false,
+			entries: {},
+			from: 0,
+			to: 10,
 		};
 		this.navigation = props.navigation;
 	}
-
-	setModalVisible = (visible) => {
-		this.setState({ modalVisible: visible });
-	}
-
 
 	setSettings(page, value){
 		page.setState({settings:value})
@@ -107,13 +99,12 @@ export class FallsPage extends Component {
 		});
 	}
 
-	// Fetch the user's questions and answers from the API.
 	async getData() {
 		let token = await AsyncStorage.getItem("token");
 
 		let patientID = await AsyncStorage.getItem("patientID");
 
-		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/answers/read-user.php?id=" + patientID + "&key=" + token;
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/diary-entries/read-user.php?id=" + patientID + "&key=" + token;
 
 		if (this._mounted) {
 			this.setState({loading:true});
@@ -129,42 +120,18 @@ export class FallsPage extends Component {
 			return response.json();
 		})
 		.then(async (json) => {
-			let recentQuestion = {};
-			let unansweredQuestions = {};
-			let answeredQuestions = {};
-			let checkedChoices = {};
-			let answeredFields = {};
-
 			if ("data" in json) {
-				let questions = json.data;
-				Object.keys(questions).map(key => {
-					let question = questions[key];
-					let questionID = question["questionID"];
-					if (empty(question["answer"])) {
-						Object.assign(unansweredQuestions, { [questionID]:question });
-					} else {
-						if (question["question_type"] === "choice") {
-							Object.assign(checkedChoices, { [questionID]:question["answer"] });
-						} else {
-							Object.assign(answeredFields, { [questionID]:question["answer"] });
-						}
-						Object.assign(answeredQuestions, { [questionID]:question });
-					}
-				});
-
-				// Since the keys of the unansweredQuestions object would be the questionIDs, and since questionIDs are incremented automatically, the highest one would always be the most recent question.
-				if (Object.keys(unansweredQuestions).length > 0) {
-					let max = Math.max.apply(null, Object.keys(unansweredQuestions));
-					Object.assign(recentQuestion, { [max]:unansweredQuestions[max] });
-					delete unansweredQuestions[max];
-				}
-
 				if (this._mounted) {
-					this.setState({recent:recentQuestion});
-					this.setState({unanswered:unansweredQuestions});
-					this.setState({answered:answeredQuestions});
-					this.setState({checked:checkedChoices});
-					this.setState({custom:answeredFields});
+					let diaryEntries = {};
+
+					Object.keys(json.data).map(key => {
+						let entry = json.data[key];
+						let entryID = entry.entryID;
+						delete entry.entryID;
+						diaryEntries[entryID] = entry;
+					});
+
+					this.setState({entries:diaryEntries});
 				}
 			}
 
@@ -190,19 +157,6 @@ export class FallsPage extends Component {
 		wait(750).then(() => this.setState({refreshing:false}));
 	};
 
-	// Save radio input answers.
-	saveChecked(key, answerID, value) {
-		if (this._mounted) {
-			this.setState({checked:{ ...this.state.checked, [key]:value }});
-		}
-		this.saveAnswer(key, answerID, value);
-	}
-
-	// Save text field answers.
-	saveCustom(key, answerID, value) {
-		this.saveAnswer(key, answerID, value);
-	}
-
 	componentDidUpdate() {
 		AsyncStorage.getItem("theme").then(result => {
 			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
@@ -227,23 +181,8 @@ export class FallsPage extends Component {
 			this.setState({loading:true});
 		}
 
-		// By default, since the BottomBar NavigationContainer is a child of the StackNavigator, going back isn't possible unless the app's back action is overridden.
-		const goBack = () => {
-			if (this.state.firstNavigator) {
-				this.navigation.dangerouslyGetParent().navigate("LoginPage");
-				return true;
-			} else {
-				return false;
-			}
-		}
-
 		this.navigation.addListener("focus", () => {
 			this.getData();
-			BackHandler.addEventListener("hardwareBackPress", goBack);
-		});
-		
-		this.navigation.addListener("blur", () => {
-			BackHandler.removeEventListener("hardwareBackPress", goBack);
 		});
 	}
 
@@ -251,53 +190,66 @@ export class FallsPage extends Component {
 		this._mounted = false;
 	}
 
-
-
-	// Generate the appropriate Card components given an object containing the questions asked by researchers, and the user's answers.
 	getCards(object) {
-		return Object.keys(object).map(questionID => {
+		return Object.keys(object).map(entryID => {
 			return (
-				<Card key={questionID}>
-					<Text style={[globalComponentStyles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>{ object[questionID]["question"] }</Text>
-					{ object[questionID]["question_type"] === "choice" ?
-						<RadioButton.Group onValueChange={value => this.saveChecked(questionID, object[questionID]["answerID"], value)} value={this.state.checked[questionID]}>
-							{ 
-								Object.keys(object[questionID]["choices"]).map(choiceKey => {
-									return (
-										<View style={[styles.radioView, styles[`radioView${this.state.theme}`]]} key={choiceKey}>
-											<RadioButton.Item label={object[questionID]["choices"][choiceKey]} labelStyle={[styles.choiceText, styles[`choiceText${this.state.theme}`]]} value={object[questionID]["choices"][choiceKey]} uncheckedColor={globalColors.accentLight} style={styles.radioBlock} color={globalColors.accentLight}/>
-										</View>
-									);
-								})
-							}
-						</RadioButton.Group>
-					:
-						<View>
-							<TextInput style={[globalComponentStyles.inputFieldMultiline, styles[`inputFieldMultiline${this.state.theme}`]]} placeholder="Answer..." multiline={true} onChangeText={(value) => this.setState({custom:{ ...this.state.custom, [questionID]:value }})} value={this.state.custom[questionID]} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
-							<View style={styles.buttonWrapper}>
-								<TouchableOpacity style={styles.actionButton} onPress={() => this.saveCustom(questionID, object[questionID]["answerID"], this.state.custom[questionID])}>
-									<Text style={styles.actionText}>Save</Text>
-								</TouchableOpacity>
-							</View>
+				<Card key={entryID}>
+					<View>
+						<TextInput style={[globalComponentStyles.inputFieldMultiline, styles[`inputFieldMultiline${this.state.theme}`]]} placeholder="Entry..." multiline={true} onChangeText={(value) => this.updateEntry(entryID, value)} value={this.state.entries[entryID]["entry"]} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
+						<View style={styles.cardButtonWrapper}>
+							<TouchableOpacity style={styles.actionButton} onPress={() => this.deleteEntry(entryID)}>
+								<Text style={styles.actionText}>Delete</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={[styles.actionButton, { marginLeft:10 }]} onPress={() => this.saveEntry(entryID, this.state.entries[entryID]["entry"])}>
+								<Text style={styles.actionText}>Save</Text>
+							</TouchableOpacity>
 						</View>
-					}
+					</View>
 				</Card>
 			);
 		});
 	}
 
-	// Send a request to the /answers/ endpoint of the API to update an answer.
-	async saveAnswer(questionID, answerID, answer) {		
+	getPrevious() {
+		if (this.state.from - 10 >= 0) {
+			this.setState({from:this.state.from - 10});
+			this.setState({to:this.state.to - 10});
+		}
+	}
+
+	getNext() {
+		this.setState({from:this.state.from + 10});
+		this.setState({to:this.state.to + 10});
+	}
+
+	getRange(from, to, object) {
+		let items = {};
+		let keys = Object.keys(object);
+
+		for (let i = from; i < to; i++) {
+			if (!empty(object[keys[i]])) {
+				items[keys[i]] = object[keys[i]];
+			}
+		}
+		return items;
+	}
+
+	updateEntry(entryID, entry) {
+		let current = this.state.entries;
+		
+		if (entryID in current) {
+			current[entryID]["entry"] = entry;
+			this.setState({entries:current});
+		}
+	}
+
+	async saveEntry(entryID, entry) {		
 		let patientID = await AsyncStorage.getItem("patientID");
 		let key = await AsyncStorage.getItem("token");
 
-		let endpoint;
-		let method;
-		let body;
-
-		endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/answers/update.php?key=" + key;
-		method = "PUT";
-		body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/diary-entries/update.php?key=" + key;
+		let method = "PUT";
+		let body = { patientID:patientID, entryID:entryID, entry:entry };
 
 		if (this._mounted) {
 			this.setState({loading:true});
@@ -313,7 +265,45 @@ export class FallsPage extends Component {
 		.then(() => {
 			setTimeout(() => {
 				showMessage({
-					message: "Answer Confirmed",
+					message: "Entry Updated",
+					type: "success"
+				})
+				this.getData();
+			}, 1000);
+		})
+		.catch((error) => {
+			console.log(error);
+			this.getData();
+			showMessage({
+				message: "Network Error",
+				type: "danger"
+			});
+		});
+	}
+
+	async deleteEntry(entryID) {		
+		let patientID = await AsyncStorage.getItem("patientID");
+		let key = await AsyncStorage.getItem("token");
+
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/diary-entries/delete.php?key=" + key;
+		let method = "DELETE";
+		let body = { patientID:patientID, entryID:entryID };
+
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
+		
+		fetch(endpoint, {
+			method: method,
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+		.then(() => {
+			setTimeout(() => {
+				showMessage({
+					message: "Entry Deleted",
 					type: "success"
 				})
 				this.getData();
@@ -330,7 +320,6 @@ export class FallsPage extends Component {
 	}
 	
 	render() {
-		const { modalVisible } = this.state;
 		return (
 			<View>
 				{ this.state.loading &&
@@ -360,65 +349,43 @@ export class FallsPage extends Component {
 						</View>
 					</Card>
 					<View style={styles.diaryWrapper}>
-						<TouchableOpacity style={styles.diaryButton} onPress={() => this.setModalVisible(true)}>
+						<TouchableOpacity style={styles.diaryButton} onPress={() => this.setState({modalVisible:true})}>
 							<Text style={styles.actionText}>View Diary Entries</Text>
 						</TouchableOpacity>
 					</View>
 					<View style={styles.centeredView}>
-					<Modal
-					animationType="slide"
-					transparent={true}
-					visible={modalVisible}
-					onRequestClose={() => {
-						Alert.alert("Modal has been closed.");
-						this.setModalVisible(!modalVisible);}}>
-					<View style={styles.centeredView}>
-						<View style={styles.modalView}>
-							<Text style={[globalComponentStyles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Diary Entries</Text>
-								<View style={styles.buttonWrapper}>
-									<Pressable style={styles.actionButton} onPress={() => this.setModalVisible(!modalVisible)}>
-										<Text style={styles.textStyle}>Cancel</Text>
-									</Pressable>
+						<Modal
+							animationType="slide"
+							transparent={true}
+							visible={this.state.modalVisible}
+							onRequestClose={() => {this.setState({modalVisible:false})}}
+						>
+							<View style={styles.centeredView}>
+								<View style={styles.modalView}>
+									<View style={styles.modalButtonWrapper}>
+										<TouchableOpacity style={[styles.actionButton, styles.backButton]} onPress={() => this.setState({modalVisible:false})}>
+											<Text style={styles.textStyle}>Back</Text>
+										</TouchableOpacity>
+										<TouchableOpacity style={[styles.actionButton, styles.previousButton]} onPress={() => this.getPrevious()}>
+											<Text style={styles.textStyle}>Previous</Text>
+										</TouchableOpacity>
+										<TouchableOpacity style={[styles.actionButton, styles.nextButton]} onPress={() => this.getNext()}>
+											<Text style={styles.textStyle}>Next</Text>
+										</TouchableOpacity>
+									</View>
+									<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
+										{ !empty(this.state.entries) &&
+											<View>
+												{
+													this.getCards(this.getRange(this.state.from, this.state.to, this.state.entries))
+												}
+											</View>
+										}
+									</ScrollView>
 								</View>
-							
-							<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
-								{ !empty(this.state.recent) &&
-									<View>
-										{
-											this.getCards(this.state.recent)
-										}
-										{ !empty(this.state.unanswered) &&
-											<View style={styles.dividerWrapper}>
-												<View style={styles.divider}></View>
-											</View>
-										}
-									</View>
-								}
-								{ !empty(this.state.unanswered) &&
-									<View>
-										{
-											this.getCards(this.state.unanswered)
-										}
-										{ !empty(this.state.answered) &&
-											<View style={styles.dividerWrapper}>
-												<View style={styles.divider}></View>
-											</View>
-										}
-									</View>
-								}
-								{ !empty(this.state.answered) &&
-									<View>
-										{
-											this.getCards(this.state.answered)
-										}
-									</View>
-								}
-							</ScrollView>
-							
-						</View>
+							</View>
+						</Modal>
 					</View>
-					</Modal>
-				</View>
 				</ScrollView>
 			</View>
 		);
@@ -474,7 +441,24 @@ const styles = StyleSheet.create({
 		width: "100%",
 		marginTop: 15,
 		justifyContent: "center",
-		alignItems: "center"
+		alignItems: "center",
+	},
+	cardButtonWrapper: {
+		width: "100%",
+		marginTop: 15,
+		justifyContent: "center",
+		alignItems: "center",
+		flexDirection: "row"
+	},
+	modalButtonWrapper: {
+		width: "100%",
+		height: 70,
+		marginTop: 0,
+		justifyContent: "center",
+		alignItems: "center",
+		borderBottomColor: globalColors.mainSecond,
+		borderBottomWidth: 2,
+		borderStyle: "solid"
 	},
 	actionButton: {
 		backgroundColor: globalColors.accentDark,
@@ -482,6 +466,24 @@ const styles = StyleSheet.create({
 		height: 35,
 		justifyContent: "center",
 		borderRadius: globalStyles.borderRadius,
+	},
+	backButton: {
+		position: "absolute",
+		top: 20,
+		left: 20,
+		width: 60,
+	},
+	previousButton: {
+		position: "absolute",
+		top: 20,
+		right: 120,
+		width: 90
+	},
+	nextButton: {
+		position: "absolute",
+		top: 20,
+		right: 20,
+		width: 90
 	},
 	diaryWrapper: {
 		width: "95%",
@@ -491,8 +493,10 @@ const styles = StyleSheet.create({
 	},
 	diaryButton: {
 		backgroundColor: globalColors.accentDark,
-		width: 110,
-		height: 55,
+		width: "auto",
+		height: 40,
+		paddingLeft: 10,
+		paddingRight: 10,
 		justifyContent: "center",
 		borderRadius: globalStyles.borderRadius,
 	},
@@ -535,37 +539,28 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
-		marginTop: 22
-	  },
-	  modalView: {
+	},
+	modalView: {
 		backgroundColor: "white",
 		width: "100%",
-		height: "105%",
+		height: "100%",
 		alignItems: "center",
-		shadowColor: "#000",
-		shadowOffset: {
-		  width: 0,
-		  height: 2
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 4,
-		elevation: 5
-	  },
-	  button: {
+	},
+	button: {
 		borderRadius: 20,
 		padding: 10,
 		marginTop: "150%",
-	  },
-	  textStyle: {
+	},
+	textStyle: {
 		color: "white",
 		fontWeight: "bold",
 		textAlign: "center"
-	  },
-	  modalText: {
+	},
+	modalText: {
 		marginBottom: 15,
 		textAlign: "center"
-	  },
-	  inputFieldMultilineDark: {
+	},
+	inputFieldMultilineDark: {
 		backgroundColor: globalColorsDark.mainThird,
 		color: globalColorsDark.mainContrast
 	}
