@@ -108,5 +108,3 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.replace("./login.php");
     });
 });
-
-

@@ -26,7 +26,6 @@
     outline: none;
     border: none;
     background: var(--accent-gradient);
-    /* box-shadow: var(--shadow-smooth); */
     color: var(--accent-contrast);
     font-size: var(--font-medium);
     border-radius: 10px;

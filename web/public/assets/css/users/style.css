@@ -42,13 +42,13 @@
 	padding-top: 2px;
 }
 
-.button-div{
+.button-div {
     margin-left: 40%;
     margin-top: 10px;
     position: relative;
 }
 
-.wide-card{
+.wide-card {
     width: 80%;
 	margin-top: 5px;
 }
@@ -79,7 +79,7 @@ td {
     width: 800px;
 }
 
-.search-div{
+.search-div {
     float: right;
     padding-top: 10px;
     padding-right: 10px;
@@ -120,7 +120,7 @@ td {
 	fill: var(--accent-contrast);
 }
 
-.top-buttons{
+.top-buttons {
     padding-top: 10px;
     padding-left: 10px;
 }

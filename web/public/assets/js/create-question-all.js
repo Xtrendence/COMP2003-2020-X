@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
     let sessionToken = localStorage.getItem("sessionToken");
 
     verifySession(sessionToken).then(result => {
@@ -192,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			 * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
 			 *      when that is true, it sets the body with an attribute to turn the theme dark.
 			 */
-			checkTheme()
+			checkTheme();
 		} catch(error) {
 			console.trace(error);
 		}
