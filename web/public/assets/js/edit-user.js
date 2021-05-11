@@ -109,6 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 
 			getUser();
+
+			checkTheme();
 		} catch(error) {
 			console.trace(error);
 		}
