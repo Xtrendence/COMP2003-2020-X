@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //verifySession(localStorage.getItem("sessionToken")).then(result => {
+
+        let sessionToken = localStorage.getItem("sessionToken");
+
+    verifySession(sessionToken).then(result => {
 
         let url = new URL(window.location.href);
         let patID = url.searchParams.get("id");
@@ -11,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let dropdownButton = document.getElementById("dropdown-button");
         let dropdownContent = document.getElementById("dropdown-content");
+        let cardContent = document.getElementById("card-content");
         
         let qAll = document.getElementById("dd-1");
         let qMost = document.getElementById("dd-2");
@@ -23,11 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let seperator = document.getElementById("sep");
         let seperator2 = document.getElementById("sep2");
-
-        let sessionToken = localStorage.getItem("sessionToken");
-        
-        //let recentQuestion = contentNoAns.lastChild.nodeValue;
-        //console.log(recentQuestion);
 
         function theSeperators() {
             if (recentNoAns.childNodes.length !== 0){
@@ -51,10 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 dropdownContent.classList.remove("hidden");
                 dropdownContent.classList.add("dropdown-content");
                 dropdownButton.classList.add("dropdown-button-radius");
+                cardContent.classList.add("card-container");
             }
             else {
                 dropdownContent.classList.add("hidden");
                 dropdownButton.classList.remove("dropdown-button-radius");
+                cardContent.classList.remove("card-container");
             }
         });
 
@@ -74,6 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
             caretContainer.appendChild(leftCaret);
             caretContainer.appendChild(rightCaret);
             dropdownButton.appendChild(caretContainer);
+
+            cardContent.classList.remove("card-container");
 
             if (contentAns.classList.contains("hidden")) {
                 contentAns.classList.remove("hidden");
@@ -103,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
             caretContainer.appendChild(leftCaret);
             caretContainer.appendChild(rightCaret);
             dropdownButton.appendChild(caretContainer);
+
+            cardContent.classList.remove("card-container");
 
             if (recentNoAns.classList.contains("hidden")) {
                 recentNoAns.classList.remove("hidden");
@@ -137,6 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
             caretContainer.appendChild(rightCaret);
             dropdownButton.appendChild(caretContainer);
 
+            cardContent.classList.remove("card-container");
+
             if (contentAns.classList.contains("hidden")) {
                 contentAns.classList.remove("hidden");
             }
@@ -169,6 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
             caretContainer.appendChild(leftCaret);
             caretContainer.appendChild(rightCaret);
             dropdownButton.appendChild(caretContainer);
+
+            cardContent.classList.remove("card-container");
 
             if (contentNoAns.classList.contains("hidden")) {
                 contentNoAns.classList.remove("hidden");
@@ -269,17 +278,21 @@ document.addEventListener("DOMContentLoaded", () => {
                                 contentAns.appendChild(cardDiv);
                             }
                         }
+
+                        let recentQuestion = contentNoAns.lastChild;
+                        recentNoAns.appendChild(recentQuestion);
+
                         theSeperators();
-                    } catch {
+                    } catch(error) {
                         seperator.classList.add("hidden");
                         seperator2.classList.add("hidden");
                         seperator.classList.remove("seperator");
                         seperator2.classList.remove("seperator");
-                        console.error("error");
+                        console.log(error);
                     }
                 }
             });
-            xhr.open("GET", "../../api/answers/read-user.php?id=" + patID + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("GET", "./api/answers/read-user.php?id=" + patID + "&key=" + sessionToken + "", true);
             xhr.send();
         }
 
@@ -300,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("DELETE", "../../api/questions/delete.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+            xhr.open("DELETE", "./api/questions/delete.php?key=" + sessionToken + "", true);
             xhr.send(JSON.stringify(body));
             //location.reload(true); 
         }
@@ -311,12 +324,9 @@ document.addEventListener("DOMContentLoaded", () => {
          * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
          *      when that is true, it sets the body with an attribute to turn the theme dark.
          */
-        if(localStorage.getItem('theme') === 'dark') { 
-            document.body.setAttribute('data-theme', 'dark'); 
-        } else { 
-            document.body.removeAttribute('data-theme', 'dark');
-        }
-    //}).catch(error => {
-    //    window.location.replace("./login.php");
-    //});
+        checkTheme()
+
+    }).catch(error => {
+        window.location.replace("./login.php");
+    });
 });

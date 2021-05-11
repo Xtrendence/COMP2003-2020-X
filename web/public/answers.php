@@ -11,11 +11,14 @@
 	<meta name="msapplication-TileColor" content="#2b5797">
 	<meta name="msapplication-config" content="./assets/img/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#a3acd1">
+    <script src="./assets/js/global.js"></script>
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/answers/style.css">
+    <link rel="stylesheet" href="./assets/css/answers/resize.css">
     <script src="./assets/js/answers.js"></script>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions &amp; Answers</title>
 </head>
 
@@ -77,17 +80,19 @@
         </div>
     </div>
 
-    <div id="content-not-answered-recent" class="">
-    </div>
+    <div id="card-content" class="">
+        <div id="content-not-answered-recent" class="">
+        </div>
 
-    <div id="sep" class="seperator"></div>
+        <div id="sep" class="seperator"></div>
 
-    <div id="content-not-answered" class="">
-    </div>
+        <div id="content-not-answered" class="">
+        </div>
 
-    <div id="sep2" class="seperator"></div>
+        <div id="sep2" class="seperator"></div>
 
-    <div id="content-answered" class="">
+        <div id="content-answered" class="">
+        </div>
     </div>
 </div>
 
