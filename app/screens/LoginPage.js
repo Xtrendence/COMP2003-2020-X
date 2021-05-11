@@ -32,10 +32,6 @@ export class LoginPage extends Component {
 	}
 
 	async login(params) {
-		// To be removed once testing is complete.
-		let username = "maureenW38";
-		let password = "Iamthedefault";
-
 		let fcm = await AsyncStorage.getItem("fcm");
 
 		if (!empty(fcm)) {
@@ -73,7 +69,7 @@ export class LoginPage extends Component {
 					});
 				});
 			} else {
-				let body = { patient_username:username, patient_password:password, fcmToken:fcm };
+				let body = { patient_username:this.state.username, patient_password:this.state.password, fcmToken:fcm };
 
 				fetch("http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/login.php", {
 					method: "POST",
@@ -160,14 +156,12 @@ export class LoginPage extends Component {
 		this._mounted = true;
 
 		this.getToken().then(patient => {
-			this.login({ patient });
+			if (!empty(patient)) {
+				this.login({ patient });
+			}
 		}).catch(error => {
 			console.log(error);
 		});
-
-		// To be removed once testing is complete.
-		this.setState({username:"maureenW38"});
-		this.setState({password:"Iamthedefault"});
 	}
 
 	componentWillUnmount() {
@@ -189,8 +183,8 @@ export class LoginPage extends Component {
 					<Image style={styles.image} source={require("../assets/Logo.png")}/>
 				</View>
 				<View style={styles.loginForm}>
-					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder} autoCorrect={false}></TextInput>
-					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder} autoCorrect={false}>{this.state.password}</TextInput>
+					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username..." onChangeText={(value) => this.setState({username:value})} value={this.state.username} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder} autoCorrect={false}></TextInput>
+					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password..." onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry={!empty(this.state.password)} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder} autoCorrect={false}>{this.state.password}</TextInput>
 					<TouchableOpacity style={styles.actionButton} onPress={() => this.login()}>
 						<Text style={styles.actionText}>Login</Text>
 					</TouchableOpacity>
@@ -214,7 +208,8 @@ export class LoginPage extends Component {
 						</Svg>
 						<LinearGradient start={{x: 0, y: 0}} end={{x: 0, y: 0.9}} colors={[globalColors.accentLightest, globalColors.accentDark]} style={styles.bottomFill}></LinearGradient>
 					</View>
-				}				
+				}
+				<StatusBar translucent={true} style={(this.state.theme === "Dark") ? "dark" : "light"} backgroundColor={globalColors.accentLight}></StatusBar>
 			</View>
 		);
 

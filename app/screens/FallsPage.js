@@ -21,7 +21,7 @@ export class FallsPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			falls: 0,
+			falls: null,
 			diary: null,
 			settings: false,
 			modalVisible: false,
@@ -352,7 +352,7 @@ export class FallsPage extends Component {
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Today's Number of Falls</Text>
-						<TextInput style={[globalComponentStyles.inputField, styles[`inputFieldMultiline${this.state.theme}`], styles[`textColour${this.state.theme}`]]} placeholder="Number..." multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({falls:value})} value={this.state.falls.toString()}></TextInput>
+						<TextInput style={[globalComponentStyles.inputField, styles[`inputFieldMultiline${this.state.theme}`], styles[`textColor${this.state.theme}`]]} placeholder="Number..." multiline={false} keyboardType="numeric" onChangeText={(value) => this.setState({falls:value})} value={this.state.falls} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => this.saveFalls()}>
 								<Text style={styles.actionText}>Confirm</Text>
@@ -361,7 +361,7 @@ export class FallsPage extends Component {
 					</Card>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>Diary Entry</Text>
-						<TextInput style={[[globalComponentStyles.inputFieldMultiline,{height: 120}], styles[`inputFieldMultiline${this.state.theme}`], styles[`textColour${this.state.theme}`]]} placeholder="..." multiline={true} onChangeText={(value) => this.setState({diary:value})} value={this.state.diary}></TextInput>
+						<TextInput style={[[globalComponentStyles.inputFieldMultiline,{height: 120}], styles[`inputFieldMultiline${this.state.theme}`], styles[`textColor${this.state.theme}`]]} placeholder="Entry..." multiline={true} onChangeText={(value) => this.setState({diary:value})} value={this.state.diary} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity style={styles.actionButton} onPress={() => this.saveDiary()}>
 								<Text style={styles.actionText}>Save</Text>
@@ -380,9 +380,9 @@ export class FallsPage extends Component {
 							visible={this.state.modalVisible}
 							onRequestClose={() => {this.setState({modalVisible:false})}}
 						>
-							<View style={styles.centeredView}>
-								<View style={styles.modalView}>
-									<View style={styles.modalButtonWrapper}>
+							<View style={[styles.centeredView, styles[`centeredView${this.state.theme}`]]}>
+								<View style={[styles.modalView, styles[`modalView${this.state.theme}`]]}>
+									<View style={[styles.modalButtonWrapper, styles[`modalButtonWrapper${this.state.theme}`]]}>
 										<TouchableOpacity style={[styles.actionButton, styles.backButton]} onPress={() => this.setState({modalVisible:false})}>
 											<Text style={styles.textStyle}>Back</Text>
 										</TouchableOpacity>
@@ -447,18 +447,10 @@ const styles = StyleSheet.create({
 		backgroundColor: globalColorsDark.mainThird,
 		color: globalColorsDark.mainContrast
 	},
-	textColour: {
+	textColor: {
 		color: globalColors.mainContrast
 	},
-	textColourDark: {
-		color: globalColorsDark.mainContrast
-	},
-	choiceText: {
-		color: globalColors.mainContrast,
-		width: "80%",
-		overflow: "hidden"
-	},
-	choiceTextDark: {
+	textColorDark: {
 		color: globalColorsDark.mainContrast
 	},
 	buttonWrapper: {
@@ -483,6 +475,9 @@ const styles = StyleSheet.create({
 		borderBottomColor: globalColors.mainSecond,
 		borderBottomWidth: 2,
 		borderStyle: "solid"
+	},
+	modalButtonWrapperDark: {
+		borderBottomColor: globalColorsDark.mainFourth,
 	},
 	actionButton: {
 		backgroundColor: globalColors.accentDark,
@@ -524,34 +519,6 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderRadius: globalStyles.borderRadius,
 	},
-	dividerWrapper: {
-		flex: 1,
-		width: "100%",
-		justifyContent: "center",
-		alignItems: "center",
-		marginLeft: -20
-	},
-	divider: {
-		width: screenWidth - 200,
-		height: 4,
-		backgroundColor: globalColors.accentLightest,
-		marginTop: 20,
-		borderRadius: globalStyles.borderRadius,
-	},
-	radioView: {
-		marginTop: 10,
-		backgroundColor: globalColors.mainThird,
-		borderRadius: globalStyles.borderRadius
-	},
-	radioViewDark: {
-		backgroundColor: globalColorsDark.mainFourth,
-	},
-	radioBlock: {
-		flexWrap: "wrap",
-		alignItems: "center",
-		flexDirection: "row",
-		width: screenWidth - 60,
-	},
 	actionText: {
 		fontFamily: globalStyles.fontFamily,
 		fontSize: globalStyles.mediumFont,
@@ -564,11 +531,17 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 	},
+	centeredViewDark: {
+		backgroundColor: globalColorsDark.mainThird
+	},
 	modalView: {
 		backgroundColor: "white",
 		width: "100%",
 		height: "100%",
 		alignItems: "center",
+	},
+	modalViewDark: {
+		backgroundColor: globalColorsDark.mainThird
 	},
 	button: {
 		borderRadius: 20,
