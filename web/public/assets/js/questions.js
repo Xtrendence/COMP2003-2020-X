@@ -6,12 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
 
                 let wideCard;
-                let cardWrap = document.getElementById("cards");
-                const xhr = new XMLHttpRequest();
-                let layer = document.getElementById("cards");
 
-                let from = 60;
-                let to = 65;
+                const xhr = new XMLHttpRequest();
+
+
+                let from = 50;
+                let to = 150;
+                
+                let previous = document.getElementById("prev-button");
+                let next = document.getElementById("next-button");
 
                 let title = document.getElementById("questions");
                 title.innerText = "All Questions";
@@ -323,18 +326,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-                document.getElementById("prev-button").addEventListener("click", function () {
-                    layer.innerHTML = "";
-                    from = to - 4 ;
-                    to = to - 5 ;
+                previous.addEventListener("click", function () {
+                    console.log("previous");
+                    contentEditable.innerHTML = "";
+                    contentNotEditable.innerHTML = "";
+                    from = to - 199 ;
+                    to = to - 200 ;
                     getQuestions(from, to);
                 });
 
 
-                document.getElementById("next-button").addEventListener("click", function () {
-                    layer.innerHTML = "";
+                next.addEventListener("click", function () {
+                    console.log("next");
+                    contentEditable.innerHTML = "";
+                    contentNotEditable.innerHTML = "";
                     from = to + 1;
-                    to = to + 5;
+                    to = to + 200;
                     getQuestions(from, to);
                 });
 
