@@ -25,7 +25,7 @@ export class FallsPage extends Component {
 		
 	}
 
-	setSettings(page, value){
+	setSettings(page, value) {
 		page.setState({settings:value})
 	}
 

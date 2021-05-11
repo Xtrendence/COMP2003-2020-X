@@ -21,7 +21,7 @@
 			$question = new Question($db);
 			$question->questionID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
-			if (empty($missing)){
+			if (empty($missing)) {
 				$question->read($choices);
 
 				if (!empty($question->questionID)) {

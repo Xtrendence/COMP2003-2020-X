@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
          * @desc when toggle is clicked, the page will switch between a light mode and dark mode
          * adds and removes the theme appropriatly from local storage
          */
-        toggleContainer.addEventListener('click', function(){
-            if (document.body.hasAttribute('data-theme','dark')){
+        toggleContainer.addEventListener('click', function() {
+            if (document.body.hasAttribute('data-theme','dark')) {
                 document.body.removeAttribute('data-theme', 'dark');
                 togglePosition.classList.remove("toggle-button-active");
                 localStorage.removeItem('theme', 'dark');
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /**
          * @desc logout button calls the logout api then returns user to login page.
          */
-        logout.addEventListener('click', function(){
+        logout.addEventListener('click', function() {
             let xhr = new XMLHttpRequest();
 
             xhr.open("POST", "./api/admins/logout.php?key=" + sessionToken + "", true);

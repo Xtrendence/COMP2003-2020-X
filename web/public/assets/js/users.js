@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 try {
                     layer.innerHTML = "";
                     let patient = users["data"];
-                    for (let i = 0; i < keys.length; i++){
+                    for (let i = 0; i < keys.length; i++) {
                         let userID = patient[i]["patientID"];
                         let firstName = patient[i]["patient_fName"];
                         let lastName = patient[i]["patient_lName"];
@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
         getUsers(from, to);
     });
 
-    function deleteCheck(userID){
-        if (confirm("Are you sure you want to delete this user?")){
+    function deleteCheck(userID) {
+        if (confirm("Are you sure you want to delete this user?")) {
             window.location = "./api/users/delete.php?id=" + userID + "";
         }
         else{
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function createButtons(deleteButton, editButton, profileButton, chartButton, answerButton, questButton, userID, cellAct, row){
+    function createButtons(deleteButton, editButton, profileButton, chartButton, answerButton, questButton, userID, cellAct, row) {
         let editAnchor = document.createElement("a");
         let profileAnchor = document.createElement("a");
         let chartAnchor = document.createElement("a");

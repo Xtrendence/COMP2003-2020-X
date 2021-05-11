@@ -19,7 +19,7 @@ export class HelpPage extends Component {
 		};
 	}
 
-	setSettings(page, value){
+	setSettings(page, value) {
 		page.setState({settings:value})
 	}
 

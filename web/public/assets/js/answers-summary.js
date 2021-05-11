@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 										if (span.includes(query)) {
 											spanParent.children[i].classList.remove("hidden");
-											if (!spanParent.children[i].classList.contains("inner-card")){
+											if (!spanParent.children[i].classList.contains("inner-card")) {
 												spanParent.children[i].classList.add("inner-card");
 											}
 										} else {
@@ -391,7 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 									if (span.includes(query)) {
 										spanParent.children[i].classList.remove("hidden");
-										if (!spanParent.children[i].classList.contains("inner-card")){
+										if (!spanParent.children[i].classList.contains("inner-card")) {
 											spanParent.children[i].classList.add("inner-card");
 										}
 									} else {
@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", () => {
 								let choice = [];
 								let choiceKeys = Object.keys(choices);
 
-								for (let j = 0; j < choiceKeys.length; j++){
+								for (let j = 0; j < choiceKeys.length; j++) {
 									choice.push(choices[j+1]);
 								}
 

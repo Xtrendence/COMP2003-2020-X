@@ -29,14 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let seperator2 = document.getElementById("sep2");
 
         function theSeperators() {
-            if (recentNoAns.childNodes.length !== 0){
+            if (recentNoAns.childNodes.length !== 0) {
                 seperator.classList.remove("hidden");
                 seperator.classList.add("seperator");
             } else {
                 seperator.classList.remove("seperator");
                 seperator.classList.add("hidden");
             }
-            if (contentAns.childNodes.length !== 0){
+            if (contentAns.childNodes.length !== 0) {
                 seperator2.classList.remove("hidden");
                 seperator2.classList.add("seperator");
             } else {
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         contentAns.innerHTML = "";
                         let quest = ans["data"];
 
-                        for (let i = 0; i < keys.length; i++){
+                        for (let i = 0; i < keys.length; i++) {
                             let questionId = quest[keys[i]]["questionID"];
                             let question = quest[keys[i]]["question"];
                             let questionType = quest[keys[i]]["question_type"];
@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 let choice = [];
                                 let choiceKeys = Object.keys(choices);
 
-                                for (let j = 0; j < choiceKeys.length; j++){
+                                for (let j = 0; j < choiceKeys.length; j++) {
                                     choice.push(choices[j+1]);
                                 }
                                 let choiceStr = choice.join(",");
@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     try {
                         let response = JSON.parse(responseJSON);
                         let questionID = response["questionID"];
-                    } catch(error){
+                    } catch(error) {
                         console.log(error);
                     }
                 }
