@@ -46,10 +46,10 @@ export class HelpPage extends Component {
 				{ this.state.settings &&
                     <SettingsPopup></SettingsPopup> 
 				}
-				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 70, paddingLeft: 20}}>
+				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<View style={styles.imageWrapper}>
 						<Image style={styles.image} source={require("../assets/Logo.png")}/>
-						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>BRIMS SMS</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`], { marginTop:10 }]}>BRIMS SMS</Text>
 					</View>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>How do I change the notification time?</Text>

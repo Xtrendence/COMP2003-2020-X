@@ -37,7 +37,6 @@ export class SettingsPopup extends Component{
 	}
 
 	render() {
-
 		let notifier = new Notifier(
             onRegister.bind(this),
             onNotification.bind(this)
@@ -81,16 +80,6 @@ export class SettingsPopup extends Component{
         }
 	}
 }
-
-
-function saveAnswer(key, value) {
-	setLoading(true);
-	setTimeout(() => {
-		setLoading(false);
-	}, 100);
-}
-
-
 
 const styles = StyleSheet.create({
 	settingsContainer: {
