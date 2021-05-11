@@ -63,9 +63,20 @@
 
 <div class="wrapper">
 
-    <div class="title-card">
-        <span>Questions</span>
+    <div class="title-wrapper">
+        <div class="title-card">
+            <span id="questions"></span>
+        </div>
     </div>
+
+    <div class="tab-wrapper">
+        <div class="tab">
+            <button class="active" id="question-summary">All</button>
+            <button class="" id="editable-questions">Editable</button>
+            <button class="" id="fixed-questions">Fixed</button>
+        </div>
+    </div>
+
 
     <div class="button-wrapper" id="buttons">
 

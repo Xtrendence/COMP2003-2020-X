@@ -13,6 +13,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 let from = 1;
                 let to = 5;
 
+                let title = document.getElementById("questions");
+                title.innerText = "All Questions";
+                let allTab = document.getElementById("question-summary");
+                let editTab = document.getElementById("editable-questions");
+                let fixedTab = document.getElementById("fixed-questions");
+
+
+
+                allTab.addEventListener("click", ()=> {
+                    allTab.classList.add("active");
+                    editTab.classList.remove("active");
+                    fixedTab.classList.remove("active");
+                    title.innerText = "All Questions";
+
+                    displayAllInfo()
+                });
+
+                editTab.addEventListener("click", ()=> {
+                    allTab.classList.remove("active");
+                    editTab.classList.add("active");
+                    fixedTab.classList.remove("active");
+                    title.innerText = "Editable Questions";
+
+                });
+
+                fixedTab.addEventListener("click", ()=> {
+                    allTab.classList.remove("active");
+                    editTab.classList.remove("active");
+                    fixedTab.classList.add("active");
+                    title.innerText = "Non-editable Questions";
+                });
 
 
 
@@ -213,19 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
 
-                document.getElementById("ask-button").addEventListener("click", function () {
 
-                });
-
-
-                document.getElementById("").addEventListener("click", function () {
-
-                });
-
-
-                document.getElementById("").addEventListener("click", function () {
-
-                });
 
 
 
