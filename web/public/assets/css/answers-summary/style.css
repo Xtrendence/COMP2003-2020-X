@@ -145,6 +145,8 @@
 	font-size: var(--font-medium);
 	font-weight: bolder;
 	display: inline-block;
+	line-height: 35px;
+	margin-left: 10px;
 }
 
 .new-wide-card {
@@ -163,7 +165,7 @@
 }
 
 .inner-card-wrapper {
-	max-height: 250px;
+	max-height: 252px;
 	margin-top: 30px;
 	padding-bottom: 20px;
 	overflow: auto;
@@ -186,14 +188,20 @@
 
 .search-div {
 	float: right;
-	margin-right: 20px;
+	margin-right: 10px;
 }
 
-.search-child {
+.search-input {
 	display: inline-block;
 	height: 28px;
-	margin: auto 0 auto 0;
+	margin: auto 10px auto 0;
 	outline: none;
+	border: none;
+	background: var(--main-third);
+	border-radius: 10px;
+	padding: 0 10px 0 10px;
+	height: 35px;
+	box-shadow: var(--shadow-smooth);
 }
 
 .search-button {
@@ -212,5 +220,5 @@
 	text-align: center;
 }
 .search-button svg {
-	margin: 7px 5px 5px 5px;
+	margin-top: 2px;
 }

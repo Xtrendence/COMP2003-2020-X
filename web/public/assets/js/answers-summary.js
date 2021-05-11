@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 
 			function showCustomSummary() {
-				title.innerText = "Answers Summary - Custom Questions";
+				spanTitle.innerText = "Answers Summary - Custom Questions";
 
 				divChoiceSummaryWrapper.classList.add("hidden");
 				divCustomSummaryWrapper.classList.remove("hidden");
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 
 			function showEditableQuestions() {
-				title.innerText = "Editable Questions";
+				spanTitle.innerText = "Editable Questions";
 
 				divChoiceSummaryWrapper.classList.add("hidden");
 				divCustomSummaryWrapper.classList.add("hidden");
@@ -329,12 +329,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 							let input = document.createElement("input");
 							input.type = "text";
-							input.classList.add("search-child");
+							input.classList.add("search-input");
+							input.placeholder = "Search..."
 
 							searchWrapper.appendChild(input);
 
 							let searchButton = document.createElement("button");
-							searchButton.classList.add("search-child");
+							searchButton.classList.add("search-input");
 							searchButton.classList.add("search-button");
 							searchButton.id = "search-button";
 							searchButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>';
