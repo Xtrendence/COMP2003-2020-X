@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
             let buttonBarChart = document.getElementById("bar-chart-button");
             let divAnswersList = document.getElementById("answers-list");
 
+            let customAnswerData = document.getElementById("custom-answer-data")
+
             let answerChoiceSummary = document.getElementById("answer-choice-summary");
             let answerCustomSummary = document.getElementById("answer-custom-summary");
             let editableQuestions = document.getElementById("editable-question");
@@ -51,6 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 customTab.classList.add("active");
                 editTab.classList.remove("active");
 
+                customAnswerData.innerHTML = "";
+
                 displayCustomInfo()
             });
 
@@ -72,18 +76,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 answerCustomSummary.classList.add("hidden");
                 editableQuestions.classList.add("hidden");
 
-                getData();
+                getChoiceData();
 
                 buttonPieChart.addEventListener("click", () => {
                     buttonPieChart.classList.add("active");
                     buttonBarChart.classList.remove("active");
-                    getData();
+                    getChoiceData();
                 });
 
                 buttonBarChart.addEventListener("click", () => {
                     buttonPieChart.classList.remove("active");
                     buttonBarChart.classList.add("active");
-                    getData();
+                    getChoiceData();
                 });
             }
 
@@ -93,6 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 answerChoiceSummary.classList.add("hidden");
                 answerCustomSummary.classList.remove("hidden");
                 editableQuestions.classList.add("hidden");
+
+                getCustomData()
             }
 
             function displayEditInfo () {
@@ -102,10 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 answerCustomSummary.classList.add("hidden");
                 editableQuestions.classList.remove("hidden");
 
-                allQuestionInfo()
+                getEditData()
             }
 
-            function getData() {
+            function getChoiceData() {
                 divAnswersList.innerHTML = "";
 
                 getAnswers().then(answers => {
@@ -345,7 +351,60 @@ document.addEventListener("DOMContentLoaded", () => {
                 return false;
             }
 
-            function allQuestionInfo () {
+            function getCustomData () {
+                getAnswers().then(answers => {
+                    if ("data" in answers) {
+                        let customAnswers = getCustomAnswers(answers.data);
+
+                        Object.keys(customAnswers).map(key => {
+                            let customInfoAccess = customAnswers[key];
+                            let card = document.createElement("div");
+                            card.classList.add("new-wide");
+                            card.innerHTML += '<span class="title">' + customInfoAccess["question"] + '</span>';
+                            console.log(customInfoAccess);
+
+                            Object.keys(customInfoAccess).map(index => {
+                                card.innerHTML += '<span class="title">' + customInfoAccess["answers"][index]["answer"] + '</span>';
+                                console.log(customInfoAccess["answers"][index]["answer"]);
+                            });
+
+                            customAnswerData.appendChild(card);
+                        });
+                    } else {
+                        Notify.alert({
+                            color:"var(--accent-contrast)",
+                            background:"var(--accent-gradient)",
+                            title:"No Answers Found",
+                            description:"No answers were found..."
+                        });
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
+
+            function getCustomAnswers (answers) {
+                let customAnswers = {};
+
+                Object.keys(answers).map(key => {
+                    let answer = answers[key];
+                    
+                    if (answer["question_type"] === "custom" && !empty(answer["answer"])) {
+                        if (answer["question"] in customAnswers) {
+                            customAnswers[answer["question"]]["answers"].push(answer);
+                        } else {
+                            customAnswer = {
+                                question: answer["question"],
+                            };
+                            customAnswers[answer["question"]] = customAnswer;
+                            customAnswers[answer["question"]]["answers"] = [answer];
+                        }
+                    }
+                });
+                return customAnswers;
+            }
+
+            function getEditData () {
                 let xhr = new XMLHttpRequest();
                 xhr.addEventListener("readystatechange", function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -365,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             });
 
                             let keysOfEditable = Object.keys(editable);
-                            keysOfEditable.map(key => {
+                                keysOfEditable.map(key => {
                                 let questionId = editable[key].questionID
                                 let question = editable[key].question;
                                 let questionType = editable[key].question_type;
@@ -373,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                                 let cardDiv = document.createElement("div");
                                 cardDiv.classList.add("new-wide");
-    
+
                                 let titleSpan = document.createElement("span");
                                 titleSpan.classList.add("title-span")
                                 let span = document.createElement("span");
@@ -382,7 +441,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 if (questionType == "choice") {
                                     let choice = [];
                                     let choiceKeys = Object.keys(choices);
-    
+
                                     for (let j = 0; j < choiceKeys.length; j++){
                                         choice.push(choices[j+1]);
                                     }
@@ -392,21 +451,21 @@ document.addEventListener("DOMContentLoaded", () => {
                                     let charLim = editable[key].question_charLim;
                                     span.innerHTML = ("<br />Question Type: " + questionType + "<br />Character Limit: " + charLim);
                                 }
-    
+
                                 let spanContainer = document.createElement("div");
                                 spanContainer.classList.add("text-wrapper");
-    
+
                                 let titleContainer = document.createElement("div");
                                 titleContainer.classList.add("question-wrapper");
-    
+
                                 spanContainer.appendChild(span)
                                 titleContainer.appendChild(titleSpan);
                                 cardDiv.appendChild(titleContainer);
                                 cardDiv.appendChild(spanContainer);
-    
+
                                 let butContainer = document.createElement("div");
                                 butContainer.classList.add("button-wrapper");
-    
+
                                 let delAnchor = document.createElement("a");
                                 let delBut = document.createElement("button");
                                 delBut.classList.add("action-button");
@@ -414,19 +473,19 @@ document.addEventListener("DOMContentLoaded", () => {
                                 delBut.addEventListener('click', function() {
                                     deleteQuestion(questionId);
                                 });
-    
+
                                 delAnchor.appendChild(delBut);
                                 butContainer.appendChild(delAnchor);
-    
+
                                 let editAnchor = document.createElement("a");
                                 let editBut = document.createElement("button");
                                 editBut.classList.add("action-button");
                                 editBut.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>';
-    
+
                                 editAnchor.appendChild(editBut);
                                 editAnchor.href = "./edit-question.php?id=" + questionId + "";
                                 butContainer.appendChild(editAnchor);
-    
+
                                 cardDiv.appendChild(butContainer);
                                 contentNoAns.appendChild(cardDiv);
                             });
@@ -437,7 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     }
                 });
-                xhr.open("GET", "./api/answers/read-all.php?key=" + sessionToken + "", true);
+                xhr.open("GET", "./api/answers/read-all.php?key=" + result.token, true);
                 xhr.send();
             }
 
@@ -458,7 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     }
                 });
-                xhr.open("DELETE", "./api/questions/delete.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+                xhr.open("DELETE", "./api/questions/delete.php?key=" + result.token, true);
                 xhr.send(JSON.stringify(body));
                 location.reload(true); 
             }
