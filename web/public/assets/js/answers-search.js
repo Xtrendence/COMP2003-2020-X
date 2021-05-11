@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let buttonBarChart = document.getElementById("bar-chart-button");
             let divAnswersList = document.getElementById("answers-list");
 
-            let customAnswerData = document.getElementById("custom-answer-data")
+            let customAnswerData = document.getElementById("custom-answer-data");
 
             let answerChoiceSummary = document.getElementById("answer-choice-summary");
             let answerCustomSummary = document.getElementById("answer-custom-summary");
@@ -367,7 +367,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             let input = document.createElement("input");
                             input.setAttribute("type", "text");
-                            input.id = "id-search";
                             input.classList.add("search-child");
                             searchWrapper.appendChild(input);
 
@@ -384,16 +383,54 @@ document.addEventListener("DOMContentLoaded", () => {
                             innerCardWapper.classList.add("inner-card-wrapper");
                             
                             Object.keys(question["answers"]).map(index => {
-                                
-
                                 let innerCard = document.createElement("div");
                                 innerCard.classList.add("inner-card")
                                 innerCard.innerHTML += '<span>' + question["answers"][index]["answer"] + '</span>';
                                 innerCardWapper.appendChild(innerCard);
                                 card.appendChild(innerCardWapper);
                             });
-                    
+
                             customAnswerData.appendChild(card);
+
+                            input.addEventListener('keypress', function (e) {
+                                if (e.key === 'Enter') {
+                                    let query = input.value;
+                                    let inputParent = input.parentNode;
+                                    let spanParent = inputParent.nextElementSibling;
+                                    for (i = 0; i < spanParent.children.length; i++) {
+                                        let span = spanParent.children[i].innerText;
+                                        span = span.toLowerCase();
+                                        if (span.includes(query)) {
+                                            spanParent.children[i].classList.remove("hidden");
+                                            if (!spanParent.children[i].classList.contains("inner-card")){
+                                                spanParent.children[i].classList.add("inner-card");
+                                            }
+                                        } else {
+                                            spanParent.children[i].classList.add("hidden");
+                                            spanParent.children[i].classList.remove("inner-card");
+                                        }
+                                    }
+                                }
+                            });
+
+                            searchButton.addEventListener('click', function() {
+                                let query = input.value;
+                                let inputParent = input.parentNode;
+                                let spanParent = inputParent.nextElementSibling;
+                                for (i = 0; i < spanParent.children.length; i++) {
+                                    let span = spanParent.children[i].innerText;
+                                    span = span.toLowerCase();
+                                    if (span.includes(query)) {
+                                        spanParent.children[i].classList.remove("hidden");
+                                        if (!spanParent.children[i].classList.contains("inner-card")){
+                                            spanParent.children[i].classList.add("inner-card");
+                                        }
+                                    } else {
+                                        spanParent.children[i].classList.add("hidden");
+                                        spanParent.children[i].classList.remove("inner-card");
+                                    }
+                                }
+                            });
                         });
                     } else {
                         Notify.alert({
