@@ -146,7 +146,6 @@
 	font-weight: bolder;
 	display: inline-block;
 	line-height: 35px;
-	margin-left: 10px;
 }
 
 .new-wide-card {
@@ -164,9 +163,17 @@
 	margin: 20px auto 20px auto;
 }
 
+.new-wide-card .title-span {
+	margin-left: 10px;
+}
+
+.new-wide-card.editable-card .title-span {
+	margin-left: 0;
+}
+
 .inner-card-wrapper {
-	max-height: 252px;
-	margin-top: 30px;
+	max-height: 260px;
+	margin-top: 20px;
 	padding-bottom: 20px;
 	overflow: auto;
 }
@@ -175,20 +182,24 @@
 	background: var(--main-third);
 	box-shadow: var(--shadow-smooth);
 	color: var(--main-contrast);
-	padding: 10px 10px 20px 10px;
+	padding: 10px;
 	margin: 20px auto 0 auto;
 	width: calc(100% - 40px - 20px);
 	border-radius: 10px;
 	display: block;
 	font-size: var(--font-smaller);
+	min-height: 30px;
 }
 .inner-card:first-of-type {
-	margin: 0 auto 0 auto;
+	margin-top: 0;
+}
+.inner-card span {
+	margin: 0;
+	line-height: 30px;
 }
 
 .search-div {
 	float: right;
-	margin-right: 10px;
 }
 
 .search-input {
@@ -208,6 +219,7 @@
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 5px;
+	margin-right: 0;
 	outline: none;
 	border: none;
 	background: var(--accent-gradient);
@@ -221,4 +233,5 @@
 }
 .search-button svg {
 	margin-top: 2px;
+	fill: var(--accent-contrast);
 }
