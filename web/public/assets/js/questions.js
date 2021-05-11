@@ -167,19 +167,57 @@ document.addEventListener("DOMContentLoaded", () => {
                         contentNotEditable.appendChild(cardAnchor);
                     } else {
                         contentEditable.appendChild(cardAnchor);
-                        wideCard.innerHTML +=  '\n' +
-                        '       <div class="card-button-wrapper">\n' +
-                        '             <button type="button" class="delete-button"><svg class="SVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"/></svg></button>\n' +
-                        '             <button type="button" class="edit-button"><svg class="SVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z"/></svg></button>\n' +
-                        '       </div>\n' +
-                        ''
+                        let butContainer = document.createElement("div");
+                        butContainer.classList.add("card-button-wrapper");
+
+                        let delAnchor = document.createElement("a");
+                        let delBut = document.createElement("button");
+                        delBut.classList.add("delete-button");
+                        delBut.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com/ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"/></svg>';
+
+                        let editAnchor = document.createElement("a");
+                        let editBut = document.createElement("button");
+                        editBut.classList.add("edit-button");
+                        editBut.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com/ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>';
+                        editAnchor.appendChild(editBut);
+                        editAnchor.href = "./edit-question.php?id=" + questionID + "";
+                        delAnchor.appendChild(delBut);
+                        butContainer.appendChild(delAnchor);
+                        butContainer.appendChild(editAnchor);
+                        wideCard.appendChild(butContainer);
+
+
+                        delBut.addEventListener("click", () => {
+                            // API request to delete the question
+
+                            let xhr = new XMLHttpRequest();
+                            let body = {
+                                questionID: questionID
+                            };
+
+                            xhr.addEventListener("readystatechange", function() {
+                                if (xhr.readyState === XMLHttpRequest.DONE) {
+                                    let responseJSON = xhr.responseText;
+                                    try {
+                                        let response = JSON.parse(responseJSON);
+                                        let questionID = response["questionID"];
+                                    } catch(error){
+                                        console.log(error);
+                                    }
+                                }
+                            });
+                            xhr.open("DELETE", "./api/questions/delete.php?key=" + result.token, true);
+                            xhr.send(JSON.stringify(body));
+                            location.reload();
+                        });
                     }
+
 
                 }
 
                 getQuestions(from, to);
 
-                function choiceCard(wideCard, questionID, q, questionLim, questionType, choices) {
+                function choiceCard(wideCard, questionID, q, questionLim, questionType, choices, answered) {
 
                     try {
                         let cardAnchor = document.createElement("a");
@@ -215,41 +253,69 @@ document.addEventListener("DOMContentLoaded", () => {
                             '\n' +
                             '    </div>'
 
+
+
                         cardAnchor.appendChild(wideCard);
 
 
-                        wideCard.getElementsByClassName("delete-button")[0].addEventListener("click", () => {
-                            // API request to delete the question
 
-                            try {
-                                if (xhr.responseText === "") {
-                                    document.getElementById(questionID).remove();
-                                } else {
-                                    console.log(xhr.responseText);
-                                }
-                            } catch(error) {
-                                console.log(error);
-                            }
-                        });
 
                         if(answered) {
                             contentNotEditable.appendChild(cardAnchor);
                         } else {
                             contentEditable.appendChild(cardAnchor);
-                            wideCard.innerHTML +=  '\n' +
-                            '       <div class="card-button-wrapper">\n' +
-                            '             <button type="button" class="delete-button"><svg class="SVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"/></svg></button>\n' +
-                            '             <button type="button" class="edit-button"><svg class="SVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z"/></svg></button>\n' +
-                            '       </div>\n' +
-                            ''
+                            let butContainer = document.createElement("div");
+                            butContainer.classList.add("card-button-wrapper");
+
+                            let delAnchor = document.createElement("a");
+                            let delBut = document.createElement("button");
+                            delBut.classList.add("delete-button");
+                            delBut.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com/ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"/></svg>';
+
+                            let editAnchor = document.createElement("a");
+                            let editBut = document.createElement("button");
+                            editBut.classList.add("edit-button");
+                            editBut.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com/ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>';
+                            editAnchor.appendChild(editBut);
+                            editAnchor.href = "./edit-question.php?id=" + questionID + "";
+                            delAnchor.appendChild(delBut);
+                            butContainer.appendChild(delAnchor);
+                            butContainer.appendChild(editAnchor);
+                            wideCard.appendChild(butContainer);
+
+
+                            delBut.addEventListener("click", () => {
+                                // API request to delete the question
+
+                                let xhr = new XMLHttpRequest();
+                                let body = {
+                                    questionID: questionID
+                                };
+
+                                xhr.addEventListener("readystatechange", function() {
+                                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                                        let responseJSON = xhr.responseText;
+                                        try {
+                                            let response = JSON.parse(responseJSON);
+                                            let questionID = response["questionID"];
+                                        } catch(error){
+                                            console.log(error);
+                                        }
+                                    }
+                                });
+                                xhr.open("DELETE", "./api/questions/delete.php?key=" + result.token, true);
+                                xhr.send(JSON.stringify(body));
+                                location.reload();
+
+                            });
                         }
 
 
 
 
 
-                    } catch {
-                        console.log("error");
+                    } catch (error) {
+                        console.log(error);
                     }
 
 
