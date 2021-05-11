@@ -22,8 +22,8 @@
     position: center;
 }
 
-.nav-button {
-    outline: none;
+.top-buttons button, .button-div button {
+	outline: none;
     border: none;
     background: var(--accent-gradient);
     box-shadow: var(--shadow-smooth);
@@ -31,16 +31,15 @@
     font-size: var(--font-medium);
     border-radius: 10px;
     cursor: pointer;
-    height: 40px;
-    width: 90px;
     margin-right: 10px;
-}
-
-.top-buttons button {
     width: auto;
     height: 35px;
     padding: 0 10px 0 10px;
 	margin-bottom: 20px;
+}
+.button-div button {
+	margin-bottom: 10px;
+	padding-top: 2px;
 }
 
 .button-div{
@@ -50,7 +49,8 @@
 }
 
 .wide-card{
-    width: 75%;
+    width: 80%;
+	margin-top: 5px;
 }
 
 .text-names {
