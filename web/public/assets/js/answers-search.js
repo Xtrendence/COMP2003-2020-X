@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             if (!document.getElementById(id)) {
                                 card.classList.add("wide-card");
                                 card.id = md5(question);
-                                card.innerHTML += '<span class="title">' + question + '</span>';
+                                card.innerHTML += '<span class="title-span">' + question + '</span>';
 
                                 let choiceAnswer = choiceAnswers[question];
                                 let answerObjects = choiceAnswer["answers"];
@@ -355,19 +355,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 getAnswers().then(answers => {
                     if ("data" in answers) {
                         let customAnswers = getCustomAnswers(answers.data);
-
+                    
                         Object.keys(customAnswers).map(key => {
-                            let customInfoAccess = customAnswers[key];
+                            let question = customAnswers[key];
                             let card = document.createElement("div");
                             card.classList.add("new-wide");
-                            card.innerHTML += '<span class="title">' + customInfoAccess["question"] + '</span>';
-                            console.log(customInfoAccess);
+                            card.innerHTML += '<span class="title-span">' + question["question"] + '</span>';
+                            let innerCardWapper = document.createElement("div");
+                            innerCardWapper.classList.add("inner-card-wrapper");
+                            
+                            Object.keys(question["answers"]).map(index => {
+                                
 
-                            Object.keys(customInfoAccess).map(index => {
-                                card.innerHTML += '<span class="title">' + customInfoAccess["answers"][index]["answer"] + '</span>';
-                                console.log(customInfoAccess["answers"][index]["answer"]);
+                                let innerCard = document.createElement("div");
+                                innerCard.classList.add("inner-card")
+                                innerCard.innerHTML += '<span>' + question["answers"][index]["answer"] + '</span>';
+                                innerCardWapper.appendChild(innerCard);
+                                card.appendChild(innerCardWapper);
                             });
-
+                    
                             customAnswerData.appendChild(card);
                         });
                     } else {

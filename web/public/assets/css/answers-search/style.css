@@ -117,6 +117,30 @@
     border-radius: 10px;
     display: block;
     font-size: var(--font-smaller);
+    
+}
+
+.inner-card-wrapper {
+    max-height: 250px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    overflow: auto;
+}
+
+.inner-card {
+    background: var(--main-third);
+    box-shadow: var(--shadow-smooth);
+    color: var(--main-contrast);
+    padding: 10px 10px 20px 10px;
+    margin: 20px auto 0 auto;
+    width: calc(100% - 40px - 20px);
+    border-radius: 10px;
+    display: block;
+    font-size: var(--font-smaller);
+}
+
+.inner-card:first-of-type {
+    margin: 0 auto 0 auto;
 }
 
 .new-wide:last-of-type {
