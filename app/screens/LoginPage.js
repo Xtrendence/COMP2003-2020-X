@@ -189,8 +189,8 @@ export class LoginPage extends Component {
 					<Image style={styles.image} source={require("../assets/Logo.png")}/>
 				</View>
 				<View style={styles.loginForm}>
-					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}></TextInput>
-					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder}>{this.state.password}</TextInput>
+					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Username" onChangeText={(value) => this.setState({username:value})} value={this.state.username} placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder} autoCorrect={false}></TextInput>
+					<TextInput style={[styles.inputField, styles[`inputField${this.state.theme}`]]} selectionColor={globalColors.accentDark} underlineColorAndroid="transparent" placeholder="Password" onChangeText={(value) => this.setState({password:value})} onSubmitEditing={() => this.login()} secureTextEntry placeholderTextColor={(this.state.theme === "Dark") ? globalColorsDark.mainPlaceholder : globalColors.mainPlaceholder} autoCorrect={false}>{this.state.password}</TextInput>
 					<TouchableOpacity style={styles.actionButton} onPress={() => this.login()}>
 						<Text style={styles.actionText}>Login</Text>
 					</TouchableOpacity>
