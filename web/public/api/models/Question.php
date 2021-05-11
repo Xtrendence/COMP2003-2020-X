@@ -137,7 +137,8 @@
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
-            $query = 'DELETE FROM answer WHERE questionID = :id AND answer = ""';
+
+            $query = 'CALL deleteChoice(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
