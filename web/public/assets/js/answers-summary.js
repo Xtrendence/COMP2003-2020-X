@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 
 			function getChoiceData() {
-				divAnswersList.innerHTML = "";
+				divChoiceList.innerHTML = "";
 
 				getAnswers().then(answers => {
 					if ("data" in answers) {
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						
 								card.appendChild(chart);
 
-								divAnswersList.appendChild(card);
+								divChoiceList.appendChild(card);
 							}
 						});
 					} else {
@@ -534,9 +534,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		
 				xhr.addEventListener("readystatechange", function() {
 					if (xhr.readyState === XMLHttpRequest.DONE) {
-
+						getEditableData();
 					}
 				});
+
 				xhr.open("DELETE", "./api/questions/delete.php?key=" + result.token, true);
 				xhr.send(JSON.stringify(body));
 			}
