@@ -37,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				"9bbcbf"
 			];
 
+			showChoiceSummary();
+
 			buttonChoiceTab.addEventListener("click", () => {
 				buttonChoiceTab.classList.add("active");
 				buttonCustomTab.classList.remove("active");
@@ -330,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
 							let input = document.createElement("input");
 							input.type = "text";
 							input.classList.add("search-input");
-							input.placeholder = "Search..."
+							input.placeholder = "Search...";
 
 							searchWrapper.appendChild(input);
 
@@ -348,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
 							
 							Object.keys(question["answers"]).map(index => {
 								let innerCard = document.createElement("div");
-								innerCard.classList.add("inner-card")
+								innerCard.classList.add("inner-card");
 								innerCard.innerHTML += '<span>' + question["answers"][index]["answer"] + '</span>';
 								innerCardWapper.appendChild(innerCard);
 								card.appendChild(innerCardWapper);
@@ -577,8 +579,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				catch(e) { }
 				return false;
 			}
-
-			showChoiceSummary();
 
 			checkTheme();
 		} catch(error) {
