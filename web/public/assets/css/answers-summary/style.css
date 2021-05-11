@@ -222,6 +222,7 @@
 	margin-right: 0;
 	outline: none;
 	border: none;
+	box-shadow: var(--shadow-smooth);
 	background: var(--accent-gradient);
 	color: var(--accent-contrast);
 	font-size: var(--font-medium);

@@ -59,19 +59,13 @@
     <div class="title-card">
         <span>Settings</span>
     </div>
-
     <div class="wide-card">
         <span>Theme</span>
         <div  id="toggle" class="toggle-container">
             <div id="toggle-button" class="toggle-button"></div>
         </div>
     </div>      
-    <div class="seperator"></div>
-    <div class="wide-card">
-        <span>Settings to come!</span>
-    </div> 
     <a href="login.php" class="logout" id="logout">Logout</a>
-
     </div>
 </div>
 </body>
