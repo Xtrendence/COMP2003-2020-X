@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let sessionToken = localStorage.getItem("sessionToken");
     
-    verifySession(localStorage.getItem("sessionToken")).then(result => {
+    verifySession(sessionToken).then(result => {
 
         let togglePosition = document.getElementById("toggle-button");
         let toggleContainer = document.getElementById('toggle');
@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     let responseJSON = xhr.responseText;
 
                     try {
-                        let response = JSON.parse(responseJSON);
                         localStorage.removeItem("sessionToken");
                     } catch(e) {
                         console.log(e);
