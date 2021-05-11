@@ -65,17 +65,14 @@
     </div>
     <div class="wide-card">
         <div class="search-div">
-            <!--            <p class="search-child">Search: </p>-->
-            <input type="text" id="id-search" class="search-child">
-            <button class="search-child search-button" id="search-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg></button>
+            <input type="number" id="id-search" class="search-child" placeholder="ID Search">
+            <button class="search-child search-button" id="search-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg></button>
         </div>
-
-        <button type="button" class="nav-button question-all" id="q-all-button">Ask Question to All Users</button>
-        <a href="./answers-summary.php"><button type="button" class="nav-button charts-all" id="c-all-button">Answers Summary</button></a>
-        <a href="./create-user.php"><button type="button" class="nav-button create-user" id="create-user-button">Create A New User</button></a>
-
+        <div class="top-buttons">
+            <button type="button" class="nav-button question-all" id="q-all-button">Ask Question to All Users</button>
+            <a href="./answers-summary.php"><button type="button" class="nav-button charts-all" id="c-all-button">Answers Summary</button></a>
+            <a href="./create-user.php"><button type="button" class="nav-button create-user" id="create-user-button">Create A New User</button></a>
+        </div>
         <table class="patient-table">
             <thead id="table-header">
             <tr>

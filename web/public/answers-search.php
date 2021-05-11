@@ -11,14 +11,15 @@
 	<meta name="msapplication-TileColor" content="#2b5797">
 	<meta name="msapplication-config" content="./assets/img/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#a3acd1">
-    <script src="./assets/js/global.js"></script>
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
-    <link rel="stylesheet" href="./assets/css/answers/style.css">
-    <link rel="stylesheet" href="./assets/css/answers/resize.css">
-    <script src="./assets/js/answers.js"></script>
+    <link rel="stylesheet" href="./assets/css/answers-search/style.css">
+	<link rel="stylesheet" href="./assets/css/answers-summary/style.css">
+	<script src="./assets/js/lib/chart.js"></script>
+	<script src="./assets/js/lib/x-notify.js"></script>
+    <script src="./assets/js/global.js"></script>
+	<script src="./assets/js/answers-search.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions &amp; Answers</title>
 </head>
 
@@ -57,44 +58,41 @@
 </div>
 
 <div class="wrapper">
-    <div class="title-card">
-        <span id="question-answer"></span>
-    </div>
-
-    <div class="blocker"></div>
-
-    <div id="dd-container" class="dd-container">
-        <button id="dropdown-button" class="dropdown-button">
-            All Questions 
-            <div class="caret-container">
-                <span class="left-caret"></span>
-                <span class="right-caret"></span>
-            </div>
-        </button>
-    
-        <div id="dropdown-content" class="hidden">
-            <a id="dd-1">All Questions</a>
-            <a id="dd-2">Most Recent Question</a>
-            <a id="dd-3">Answered Questions</a>
-            <a id="dd-4">Unanswered Questions</a>
+    <div class="title-wrapper">
+        <div class="title-card">
+            <span id="analysis"></span>
         </div>
     </div>
 
-    <div id="card-content" class="">
-        <div id="content-not-answered-recent" class="">
+    <div class="tab-wrapper">
+        <div class="tab">
+            <button class="active" id="choice-summary">Choice</button>
+            <button class="" id="custom-search">Custom</button>
+            <button class="" id="editable-questions">Editable</button>
+        </div>
+    </div>
+
+    <div class="hidden" id="answer-choice-summary">
+        <div class="chart-selection-wrapper">
+				<button class="active" id="pie-chart-button">Pie Charts</button>
+				<button id="bar-chart-button">Bar Charts</button>
+        </div>
+        <div id="answers-list"></div>
+    </div>
+
+    <div class="hidden" id="answer-custom-summary">
+        <div id="custom-answer-data"></div>
+    </div>
+
+    <div class="hidden" id="editable-question">
+        <div id="content-not-answered-recent" class="edit-wrapper">
         </div>
 
         <div id="sep" class="seperator"></div>
 
         <div id="content-not-answered" class="">
         </div>
-
-        <div id="sep2" class="seperator"></div>
-
-        <div id="content-answered" class="">
-        </div>
     </div>
 </div>
-
 </body>
 </html>

@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     let from = 1;
     let to = 50;
-    const xhr = new XMLHttpRequest();
-    let header = document.getElementById("table-header");
     let layer = document.getElementById("table-body");
     let deleteButton;
     let editButton;
@@ -21,22 +19,25 @@ document.addEventListener("DOMContentLoaded", () => {
         '</svg>';
 
     let sessionToken = localStorage.getItem("sessionToken");
-    let url = "./api/users/read-range.php?from=" + from + "to=" + to + "key=" + sessionToken;
 
     let idInput = document.getElementById("id-search");
-    let searchID = parseInt(idInput.value);
 
-    function getUsers(from, to, userID, firstName, lastName) {
+	idInput.addEventListener("keydown", (e) => {
+		if (e.key.toLowerCase() === "enter") {
+			searchButton.click();
+		}
+	});
+
+    function getUsers(from, to) {
+        let xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 let json = xhr.responseText;
                 let users = JSON.parse(json);
                 let keys = Object.keys(users["data"]);
-                console.log(users);
                 try {
                     layer.innerHTML = "";
                     let patient = users["data"];
-
                     for (let i = 0; i < keys.length; i++){
                         let userID = patient[i]["patientID"];
                         let firstName = patient[i]["patient_fName"];
@@ -60,9 +61,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         });
-        xhr.open("GET", "./api/users/read-range.php?from=" + from + "&to=" + to + "&key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+        xhr.open("GET", "./api/users/read-range.php?from=" + from + "&to=" + to + "&key=" + sessionToken, true);
         xhr.send();
     }
+
+    searchButton.addEventListener("click", function () {
+        let id = idInput.value;
+        if (id !== "") {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    let json = xhr.responseText;
+                    let patient = JSON.parse(json);
+                    let keys = Object.keys(patient);
+                    try {
+                        layer.innerHTML = "";
+                        let userID = patient["patientID"];
+                        let firstName = patient["patient_fName"];
+                        let lastName = patient["patient_lName"];
+                        let row = document.createElement("tr");
+                        let cell1 = row.insertCell(0);
+                        let cell2 = row.insertCell(1);
+                        let cell3 = row.insertCell(2);
+                        let cellAct = row.insertCell(3);
+                        row.id = userID;
+                        cell1.innerHTML = (userID);
+                        cell2.innerHTML = (firstName);
+                        cell3.innerHTML = (lastName);
+                        layer.appendChild(row);
+
+                        createButtons(deleteButton, editButton, profileButton, chartButton, answerButton, questButton, userID, cellAct, row);
+                    } catch {
+                        console.error("error");
+                    }
+                }
+            });
+            xhr.open("GET", "./api/users/read.php?id=" + id + "&key=" + sessionToken, true);
+            xhr.send();
+        }
+        else {
+            getUsers(from, to);
+        }
+    });
 
     nextButton.addEventListener("click", function () {
         let xhr = new XMLHttpRequest();
@@ -159,15 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
         row.appendChild(cellAct);
     }
 
-    searchButton.addEventListener("click", function () {
-        if(searchID!= null) {
-            console.log(searchID);
-            from = searchID;
-            to = searchID;
-            getUsers(from, to);
-        }
-    });
-
     getUsers(from, to);
 
     /**
@@ -180,3 +211,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.removeAttribute('data-theme', 'dark');
     }
 });
+
+
+// if(searchID!= null) {
+//     console.log(searchID);
+//     from = searchID;
+//     to = searchID;
+//     getUsers(from, to);
+// }

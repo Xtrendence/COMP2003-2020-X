@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //verifySession(localStorage.getItem("sessionToken")).then(result => {
+    let sessionToken = localStorage.getItem("sessionToken");
+    verifySession(sessionToken).then(result => {
     
         /**
          * @desc used for noticication creation
@@ -32,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let addID = title.concat(patID);
         titleCard.innerText = addID;
 
-        let sessionToken = localStorage.getItem("sessionToken");
 
         /**
          * @desc checks to see is all input boxes have been inputted into
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     color: "var(--accent-contrast)",
                 });
 
-                xhr.open("POST", "./api/questions/create.php?key=8c068d98-874e-46ab-b2a1-5a5eb45a40a6", true);
+                xhr.open("POST", "./api/questions/create.php?key=" + sessionToken + "", true);
                 xhr.send(JSON.stringify(body));
 
                 xhr.addEventListener("readystatechange", function() {
@@ -236,13 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
          * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
          *      when that is true, it sets the body with an attribute to turn the theme dark.
          */
-        if(localStorage.getItem('theme') === 'dark') { 
-            document.body.setAttribute('data-theme', 'dark'); 
-        } else { 
-            document.body.removeAttribute('data-theme', 'dark');
-        } 
+        checkTheme()
         
-    //}).catch(error => {
-    //    window.location.replace("./login.php");
-    //});
+    }).catch(error => {
+        window.location.replace("./login.php");
+    });
 });

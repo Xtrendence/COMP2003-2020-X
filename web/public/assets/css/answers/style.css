@@ -1,4 +1,4 @@
-
+    
 .action-button {
     text-align: center;
     padding: 10px 10px 10px 10px;
@@ -121,7 +121,7 @@
     color: var(--accent-contrast);
     font-size: var(--font-smaller);
     width: 220px;
-    transition: 0.25s;
+    transition: 1s;
     cursor: pointer;
 }
 
@@ -137,6 +137,10 @@
 .dropdown-content a:hover:nth-child(4) {
     background-color: var(--accent-darkest);
     border-radius: 0 0 10px 10px;
+}
+
+.card-container {
+    margin-top: 130px;
 }
 
 .blocker {

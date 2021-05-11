@@ -28,7 +28,9 @@
                     $array['data'] = array();
 
                     $row = $result->fetch(PDO::FETCH_ASSOC);
+
                     extract($row);
+
                     $item = array(
                         'patientID' => $patientID,
                         'questionID' => $questionID,
@@ -57,8 +59,10 @@
                             $item['choices'][$i + 1] = $choices[$i];
                         }					
                     }
+
                     $item['answerID'] = $answerID;
                     $item['answer'] = $answer;
+					
                     array_push($array['data'], $item);
 
                     echo json_encode($array, JSON_PRETTY_PRINT);

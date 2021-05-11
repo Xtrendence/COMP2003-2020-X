@@ -49,9 +49,7 @@
 }
 
 .wide-card{
-    height: 100%;
-    margin-top: 30px;
-    position: relative;
+    width: 75%;
 }
 
 .text-names {
@@ -64,6 +62,7 @@
     text-align: center;
     border-collapse: separate;
     border-spacing: 0 10px;
+    padding-top: 30px;
 }
 
 td {
@@ -80,13 +79,16 @@ td {
 }
 
 .search-div{
-    margin-left: 40%;
-    margin-top: 10px;
-    position: absolute;
-    right: 10px;
+    float: right;
+    padding-top: 10px;
+    padding-right: 10px;
 }
 
 .search-child{
+    background: var(--main-third);
+    color: var(--main-contrast);
+    outline: none;
+    border: none;
     display: inline-block;
     height: 20px;
 }
@@ -105,4 +107,9 @@ td {
     height: 25px;
     width: 40px;
     text-align: center;
+}
+
+.top-buttons{
+    padding-top: 10px;
+    padding-left: 10px;
 }

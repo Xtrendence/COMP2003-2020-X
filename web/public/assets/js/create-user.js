@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+	let sessionToken = localStorage.getItem("sessionToken");
+	
 	verifySession(sessionToken).then(result => {
 		const Notify = new XNotify("BottomRight");
 
