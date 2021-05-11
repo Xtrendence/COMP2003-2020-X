@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    verifySession(localStorage.getItem("sessionToken")).then(result => {
+    let sessionToken = localStorage.getItem("sessionToken");
+    verifySession(sessionToken).then(result => {
     
         /**
          * @desc used for noticication creation
@@ -32,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let addID = title.concat(patID);
         titleCard.innerText = addID;
 
-        let sessionToken = localStorage.getItem("sessionToken");
 
         /**
          * @desc checks to see is all input boxes have been inputted into
