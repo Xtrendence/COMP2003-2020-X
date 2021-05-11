@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let sessionToken = localStorage.getItem("sessionToken");
 
-    verifySession(localStorage.getItem("sessionToken")).then(result => {
+    verifySession(sessionToken).then(result => {
 
         const Notify = new XNotify("BottomRight");
 
