@@ -123,8 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			function deleteCheck(userID) {
 				if (confirm("Are you sure you want to delete this user?")) {
 					window.location = "./api/users/delete.php?id=" + userID + "";
-				}
-				else{
+				} else {
 					window.alert("User was not deleted");
 				}
 			}

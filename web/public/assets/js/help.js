@@ -31,5 +31,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }).catch(error => {
         window.location.replace("./login.php");
     });
-
 });

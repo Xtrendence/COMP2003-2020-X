@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						if (xhr.readyState === XMLHttpRequest.DONE) {
 							let responseJSON = xhr.responseText;
 							try {
-								if(xhr.status == 200) {
+								if (xhr.status == 200) {
 									let response = JSON.parse(responseJSON);
 									resolve(response["questionID"]);
 								}

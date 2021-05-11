@@ -58,84 +58,72 @@
 			<div id="content">
 				<div class="view-small-card">
 					<span class="field-title">NHS Reference Number</span>
-
 					<div class="text-margin">
 						<span id="nhs-rn"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Username</span>
-
 					<div class="text-margin">
 						<span id="username"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">First Name</span>
-
 					<div class="text-margin">
 						<span id="firstname"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Last Name</span>
-
 					<div class="text-margin">
 						<span id="lastname"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Date of Birth</span>
-
 					<div class="text-margin">
 						<span id="dob"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Address Line 1</span>
-
 					<div class="text-margin">
 						<span id="al-1"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Address Line 2</span>
-
 					<div class="text-margin">
 						<span id="al-2"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Postcode</span>
-
 					<div class="text-margin">
 						<span id="post-code"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Telephone Number</span>
-
 					<div class="text-margin">
 						<span id="tn"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Mobile Number</span>
-
 					<div class="text-margin">
 						<span id="mn"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Email Address</span>
-
 					<div class="text-margin">
 						<span id="email"></span>
 					</div>
 				</div>
 				<div class="view-small-card">
 					<span class="field-title">Comments</span>
-
 					<div class="text-margin">
 						<span id="comments"></span>
 					</div>

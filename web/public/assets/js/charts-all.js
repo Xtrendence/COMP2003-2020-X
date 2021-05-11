@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				let pathname = window.location.pathname;
 				let frame = document.createElement("iframe");
 				frame.classList.add("hidden");
-				frame.src = pathname.substring(0, pathname.lastIndexOf('/')) + "/api/falls/export-all.php?key=" + result.token;
+				frame.src = pathname.substring(0, pathname.lastIndexOf("/")) + "/api/falls/export-all.php?key=" + result.token;
 				frame.addEventListener("load", () => {
 					setTimeout(() => {
 						frame.remove();
