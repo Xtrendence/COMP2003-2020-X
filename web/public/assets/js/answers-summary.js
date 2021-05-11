@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		try {
 			const Notify = new XNotify("BottomRight");
 
+			let answersData;
+
 			let spanTitle = document.getElementById("title-span");
 
 			let buttonChoiceTab = document.getElementById("choice-summary-button");
@@ -113,89 +115,97 @@ document.addEventListener("DOMContentLoaded", () => {
 			function getChoiceData() {
 				divChoiceList.innerHTML = "";
 
-				getAnswers().then(answers => {
-					if ("data" in answers) {
-						let choiceAnswers = getChoiceAnswers(answers.data);
+				if (empty(answersData) || !"data" in answersData) {
+					getAnswers().then(answers => {
+						processChoiceData(answers);
+					}).catch(error => {
+						console.log(error);
+					});
+				} else {
+					processChoiceData(answersData);
+				}
+			}
 
-						Object.keys(choiceAnswers).map(question => {
-							let card = document.createElement("div");
-							let id = md5(question);
+			function processChoiceData(answers) {
+				if ("data" in answers) {
+					let choiceAnswers = getChoiceAnswers(answers.data);
+
+					Object.keys(choiceAnswers).map(question => {
+						let card = document.createElement("div");
+						let id = md5(question);
 							
-							if (!document.getElementById(id)) {
-								card.classList.add("wide-card");
-								card.id = md5(question);
-								card.innerHTML += '<span class="title-span">' + question + '</span>';
+						if (!document.getElementById(id)) {
+							card.classList.add("wide-card");
+							card.id = md5(question);
+							card.innerHTML += '<span class="title-span">' + question + '</span>';
 
-								let choiceAnswer = choiceAnswers[question];
-								let answerObjects = choiceAnswer["answers"];
+							let choiceAnswer = choiceAnswers[question];
+							let answerObjects = choiceAnswer["answers"];
 
-								let counts = {};
-								let choices = [];
-								let colors = [];
+							let counts = {};
+							let choices = [];
+							let colors = [];
 
-								Object.keys(choiceAnswer["choices"]).map(key => {
-									choices.push(choiceAnswer["choices"][key]);
-									counts[choiceAnswer["choices"][key]] = 0;
-								});
+							Object.keys(choiceAnswer["choices"]).map(key => {
+								choices.push(choiceAnswer["choices"][key]);
+								counts[choiceAnswer["choices"][key]] = 0;
+							});
 
-								let answers = [];
+							let answers = [];
 
-								Object.keys(answerObjects).map(key => {
-									let answerInfo = answerObjects[key];
-									let answer = answerInfo["answer"];
-									answers.push(answer);
-								});
+							Object.keys(answerObjects).map(key => {
+								let answerInfo = answerObjects[key];
+								let answer = answerInfo["answer"];
+								answers.push(answer);
+							});
 
-								for (let i = 0; i < answers.length; i++) {
-									let answer = answers[i];
-									counts[answer] = counts[answer] ? counts[answer] + 1 : 1;
-								}
-
-								let index = 0;
-								let total = 100;
-								let percentages = {};
-
-								choices.map(choice => {
-									colors.push("#" + colorArray[index]);
-
-									index++;
-
-									let count = counts[choice];
-									let percentage = parseInt(((count * 100) / answers.length).toFixed(0));
-							
-									if (index === choices.length) {
-										percentages[choice] = total;
-									} else {
-										percentages[choice] = percentage;
-										total -= percentage;
-									}
-
-									card.innerHTML += '<span>' + choice + ': ' + percentages[choice].toFixed(0) + '%</span>';
-								});
-
-								let chart;
-								if (buttonPieChart.classList.contains("active")) {
-									chart = generatePieChart(choices, counts, colors);
-								} else {
-									chart = generateBarChart(choices, counts, colors);
-								}
-						
-								card.appendChild(chart);
-
-								divChoiceList.appendChild(card);
+							for (let i = 0; i < answers.length; i++) {
+								let answer = answers[i];
+								counts[answer] = counts[answer] ? counts[answer] + 1 : 1;
 							}
-						});
-					} else {
-						Notify.alert({
-							color:"var(--accent-contrast)",
-							background:"var(--accent-gradient)",
-							title:"No Answers Found",
-							description:"No answers were found..."
-						});
-					}
-				}).catch(error => {
-					console.log(error);
-				});
+
+							let index = 0;
+							let total = 100;
+							let percentages = {};
+
+							choices.map(choice => {
+								colors.push("#" + colorArray[index]);
+
+								index++;
+
+								let count = counts[choice];
+								let percentage = parseInt(((count * 100) / answers.length).toFixed(0));
+							
+								if (index === choices.length) {
+									percentages[choice] = total;
+								} else {
+									percentages[choice] = percentage;
+									total -= percentage;
+								}
+
+								card.innerHTML += '<span>' + choice + ': ' + percentages[choice].toFixed(0) + '%</span>';
+							});
+
+							let chart;
+							if (buttonPieChart.classList.contains("active")) {
+								chart = generatePieChart(choices, counts, colors);
+							} else {
+								chart = generateBarChart(choices, counts, colors);
+							}
+						
+							card.appendChild(chart);
+
+							divChoiceList.appendChild(card);
+						}
+					});
+				} else {
+					Notify.alert({
+						color:"var(--accent-contrast)",
+						background:"var(--accent-gradient)",
+						title:"No Answers Found",
+						description:"No answers were found..."
+					});
+				}
 			}
 
 			function generatePieChart(labels, dataset, colors) {
@@ -316,72 +326,61 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 
 			function getCustomData() {
-				getAnswers().then(answers => {
-					if ("data" in answers) {
-						let customAnswers = getCustomAnswers(answers.data);
+				if (empty(answersData) || !"data" in answersData) {
+					getAnswers().then(answers => {
+						processCustomData(answers);
+					}).catch(error => {
+						console.log(error);
+					});
+				} else {
+					processCustomData(answersData);
+				}
+			}
+
+			function processCustomData(answers) {
+				if ("data" in answers) {
+					let customAnswers = getCustomAnswers(answers.data);
 					
-						Object.keys(customAnswers).map(key => {
-							let question = customAnswers[key];
-							let card = document.createElement("div");
-							card.classList.add("new-wide-card");
-							card.innerHTML += '<span class="title-span">' + question["question"] + '</span>';
+					Object.keys(customAnswers).map(key => {
+						let question = customAnswers[key];
+						let card = document.createElement("div");
+						card.classList.add("new-wide-card");
+						card.innerHTML += '<span class="title-span">' + question["question"] + '</span>';
 
-							let searchWrapper = document.createElement("div");
-							searchWrapper.classList.add("search-div");
+						let searchWrapper = document.createElement("div");
+						searchWrapper.classList.add("search-div");
 
-							let input = document.createElement("input");
-							input.type = "text";
-							input.classList.add("search-input");
-							input.placeholder = "Search...";
+						let input = document.createElement("input");
+						input.type = "text";
+						input.classList.add("search-input");
+						input.placeholder = "Search...";
 
-							searchWrapper.appendChild(input);
+						searchWrapper.appendChild(input);
 
-							let searchButton = document.createElement("button");
-							searchButton.classList.add("search-button");
-							searchButton.id = "search-button";
-							searchButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>';
+						let searchButton = document.createElement("button");
+						searchButton.classList.add("search-button");
+						searchButton.id = "search-button";
+						searchButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>';
 
-							searchWrapper.appendChild(searchButton);
+						searchWrapper.appendChild(searchButton);
 
-							card.appendChild(searchWrapper);
+						card.appendChild(searchWrapper);
 
-							let innerCardWapper = document.createElement("div");
-							innerCardWapper.classList.add("inner-card-wrapper");
+						let innerCardWapper = document.createElement("div");
+						innerCardWapper.classList.add("inner-card-wrapper");
 							
-							Object.keys(question["answers"]).map(index => {
-								let innerCard = document.createElement("div");
-								innerCard.classList.add("inner-card");
-								innerCard.innerHTML += '<span>' + question["answers"][index]["answer"] + '</span>';
-								innerCardWapper.appendChild(innerCard);
-								card.appendChild(innerCardWapper);
-							});
+						Object.keys(question["answers"]).map(index => {
+							let innerCard = document.createElement("div");
+							innerCard.classList.add("inner-card");
+							innerCard.innerHTML += '<span>' + question["answers"][index]["answer"] + '</span>';
+							innerCardWapper.appendChild(innerCard);
+							card.appendChild(innerCardWapper);
+						});
 
-							divCustomList.appendChild(card);
+						divCustomList.appendChild(card);
 
-							input.addEventListener("keypress", function (e) {
-								if (e.key.toLocaleLowerCase() === "enter") {
-									let query = input.value;
-									let inputParent = input.parentNode;
-									let spanParent = inputParent.nextElementSibling;
-
-									for (i = 0; i < spanParent.children.length; i++) {
-										let span = spanParent.children[i].innerText;
-										span = span.toLowerCase();
-
-										if (span.includes(query)) {
-											spanParent.children[i].classList.remove("hidden");
-											if (!spanParent.children[i].classList.contains("inner-card")) {
-												spanParent.children[i].classList.add("inner-card");
-											}
-										} else {
-											spanParent.children[i].classList.add("hidden");
-											spanParent.children[i].classList.remove("inner-card");
-										}
-									}
-								}
-							});
-
-							searchButton.addEventListener("click", function() {
+						input.addEventListener("keypress", function (e) {
+							if (e.key.toLocaleLowerCase() === "enter") {
 								let query = input.value;
 								let inputParent = input.parentNode;
 								let spanParent = inputParent.nextElementSibling;
@@ -400,19 +399,38 @@ document.addEventListener("DOMContentLoaded", () => {
 										spanParent.children[i].classList.remove("inner-card");
 									}
 								}
-							});
+							}
 						});
-					} else {
-						Notify.alert({
-							color:"var(--accent-contrast)",
-							background:"var(--accent-gradient)",
-							title:"No Answers Found",
-							description:"No answers were found..."
+
+						searchButton.addEventListener("click", function() {
+							let query = input.value;
+							let inputParent = input.parentNode;
+							let spanParent = inputParent.nextElementSibling;
+
+							for (i = 0; i < spanParent.children.length; i++) {
+								let span = spanParent.children[i].innerText;
+								span = span.toLowerCase();
+
+								if (span.includes(query)) {
+									spanParent.children[i].classList.remove("hidden");
+									if (!spanParent.children[i].classList.contains("inner-card")) {
+										spanParent.children[i].classList.add("inner-card");
+									}
+								} else {
+									spanParent.children[i].classList.add("hidden");
+									spanParent.children[i].classList.remove("inner-card");
+								}
+							}
 						});
-					}
-				}).catch(error => {
-					console.log(error);
-				});
+					});
+				} else {
+					Notify.alert({
+						color:"var(--accent-contrast)",
+						background:"var(--accent-gradient)",
+						title:"No Answers Found",
+						description:"No answers were found..."
+					});
+				}
 			}
 
 			function getCustomAnswers(answers) {
@@ -437,98 +455,106 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 
 			function getEditableData () {
-				getAnswers().then(answers => {
-					if ("data" in answers) {
-						let allQuestions = answers.data;
-						let editable = {};
-						let keys = Object.keys(allQuestions);
-						keys.map(key => {
-							if (empty(allQuestions[key].answer)) {
-								editable[allQuestions[key].question] = allQuestions[key];
-							} else {
-								if (allQuestions[key].question in editable) {
-									delete editable[allQuestions[key].question];
-								}
+				if (empty(answersData) || !"data" in answersData) {
+					getAnswers().then(answers => {
+						processEditableData(answers);
+					}).catch(error => {
+						console.log(error);
+					});
+				} else {
+					processEditableData(answersData);
+				}
+			}
+
+			function processEditableData(answers) {
+				if ("data" in answers) {
+					let allQuestions = answers.data;
+					let editable = {};
+					let keys = Object.keys(allQuestions);
+					keys.map(key => {
+						if (empty(allQuestions[key].answer)) {
+							editable[allQuestions[key].question] = allQuestions[key];
+						} else {
+							if (allQuestions[key].question in editable) {
+								delete editable[allQuestions[key].question];
 							}
+						}
+					});
+
+					keys = Object.keys(editable);
+					keys.map(key => {
+						let questionId = editable[key].questionID;
+						let question = editable[key].question;
+						let questionType = editable[key].question_type;
+						let choices = editable[key].choices;
+
+						let card = document.createElement("div");
+						card.classList.add("new-wide-card");
+						card.classList.add("editable-card");
+
+						let title = document.createElement("span");
+						title.classList.add("title-span");
+						let span = document.createElement("span");
+						title.innerHTML = (question);
+							
+						if (questionType == "choice") {
+							let choice = [];
+							let choiceKeys = Object.keys(choices);
+
+							for (let j = 0; j < choiceKeys.length; j++) {
+								choice.push(choices[j+1]);
+							}
+
+							let choiceString = choice.join(", ");
+							span.innerHTML = ("<br />Question Type: " + questionType + "<br />Choices: " + choiceString);
+						} else {
+							let charLim = editable[key].question_charLim;
+							span.innerHTML = ("<br />Question Type: " + questionType + "<br />Character Limit: " + charLim);
+						}
+
+						let titleWrapper = document.createElement("div");
+						titleWrapper.classList.add("question-wrapper");
+							
+						let spanWrapper = document.createElement("div");
+						spanWrapper.classList.add("text-wrapper");
+
+						titleWrapper.appendChild(title);
+						spanWrapper.appendChild(span);
+
+						card.appendChild(titleWrapper);
+						card.appendChild(spanWrapper);
+
+						let buttonWrapper = document.createElement("div");
+						buttonWrapper.classList.add("button-wrapper");
+
+						let deleteButton = document.createElement("button");
+						deleteButton.classList.add("action-button");
+						deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"/></svg>';
+
+						deleteButton.addEventListener("click", function() {
+							deleteQuestion(questionId);
 						});
 
-						keys = Object.keys(editable);
-						keys.map(key => {
-							let questionId = editable[key].questionID;
-							let question = editable[key].question;
-							let questionType = editable[key].question_type;
-							let choices = editable[key].choices;
+						buttonWrapper.appendChild(deleteButton);
 
-							let card = document.createElement("div");
-							card.classList.add("new-wide-card");
-							card.classList.add("editable-card");
+						let editLink = document.createElement("a");
+						let editButton = document.createElement("button");
+						editButton.classList.add("action-button");
+						editButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>';
 
-							let title = document.createElement("span");
-							title.classList.add("title-span");
-							let span = document.createElement("span");
-							title.innerHTML = (question);
-							
-							if (questionType == "choice") {
-								let choice = [];
-								let choiceKeys = Object.keys(choices);
+						editLink.appendChild(editButton);
+						editLink.href = "./edit-question.php?id=" + questionId + "";
 
-								for (let j = 0; j < choiceKeys.length; j++) {
-									choice.push(choices[j+1]);
-								}
+						buttonWrapper.appendChild(editLink);
 
-								let choiceString = choice.join(", ");
-								span.innerHTML = ("<br />Question Type: " + questionType + "<br />Choices: " + choiceString);
-							} else {
-								let charLim = editable[key].question_charLim;
-								span.innerHTML = ("<br />Question Type: " + questionType + "<br />Character Limit: " + charLim);
-							}
+						card.appendChild(buttonWrapper);
 
-							let titleWrapper = document.createElement("div");
-							titleWrapper.classList.add("question-wrapper");
-							
-							let spanWrapper = document.createElement("div");
-							spanWrapper.classList.add("text-wrapper");
+						divUnansweredList.appendChild(card);
+					});
 
-							titleWrapper.appendChild(title);
-							spanWrapper.appendChild(span);
-
-							card.appendChild(titleWrapper);
-							card.appendChild(spanWrapper);
-
-							let buttonWrapper = document.createElement("div");
-							buttonWrapper.classList.add("button-wrapper");
-
-							let deleteButton = document.createElement("button");
-							deleteButton.classList.add("action-button");
-							deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"/></svg>';
-
-							deleteButton.addEventListener("click", function() {
-								deleteQuestion(questionId);
-							});
-
-							buttonWrapper.appendChild(deleteButton);
-
-							let editLink = document.createElement("a");
-							let editButton = document.createElement("button");
-							editButton.classList.add("action-button");
-							editButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>';
-
-							editLink.appendChild(editButton);
-							editLink.href = "./edit-question.php?id=" + questionId + "";
-
-							buttonWrapper.appendChild(editLink);
-
-							card.appendChild(buttonWrapper);
-
-							divUnansweredList.appendChild(card);
-						});
-
-						let recentQuestion = divUnansweredList.lastChild;
-						divUnansweredRecentWrapper.appendChild(recentQuestion);
-					}
-				}).catch(error => {
-					console.log(error);
-				});
+					let recentQuestion = divUnansweredList.lastChild;
+					divUnansweredRecentWrapper.appendChild(recentQuestion);
+				}
 			}
 
 			function deleteQuestion(id) {
@@ -551,7 +577,8 @@ document.addEventListener("DOMContentLoaded", () => {
 					xhr.addEventListener("readystatechange", () => {
 						if (xhr.readyState === XMLHttpRequest.DONE) {
 							if (validJSON(xhr.responseText)) {
-								resolve(JSON.parse(xhr.responseText));
+								answersData = JSON.parse(xhr.responseText);
+								resolve(answersData);
 							} else {
 								reject("Invalid JSON.");
 							}
@@ -563,7 +590,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 
 			function empty(string) {
-				if (string != null && typeof string != "undefined" && string.trim() != "" && JSON.stringify(string) != "" && JSON.stringify(string) != "{}") {
+				if (string != null && typeof string != "undefined" && string.toString().trim() != "" && JSON.stringify(string) != "" && JSON.stringify(string) != "{}") {
 					return false;
 				}
 				return true;
