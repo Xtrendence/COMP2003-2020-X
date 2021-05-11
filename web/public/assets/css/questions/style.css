@@ -19,30 +19,13 @@
     font-size: var(--font-medium);
     border-radius: 10px;
     cursor: pointer;
-    width: 100px;
+    width: 90px;
     margin-right: 10px;
     margin-bottom: 3px;
     text-align: center;
     -webkit-transition: all .1s ease;
     padding: 10px 10px 10px 10px;
 }
-
-.page-button-right {
-    outline: none;
-    border: none;
-    background: var(--accent-gradient);
-    color: var(--accent-contrast);
-    font-size: var(--font-medium);
-    border-radius: 10px;
-    cursor: pointer;
-    width: 128px;
-    margin-right: 20px;
-    text-align: right;
-    -webkit-transition: all .1s ease;
-    float: right;
-    padding: 10px 10px 10px 10px;
-}
-
 
 .button-wrapper {
     text-align: left;
