@@ -84,15 +84,13 @@
         <button type="button" class="page-button" id="next-button">Next</button>
         <button type="button" class="page-button-right" id="ask-button">Ask All Users</button>
     </div>
+    
+    <div id="content-editable" class="">
+    </div>
 
+    <div id="sep" class="seperator"></div>
 
-<div class="card-wrapper" id="cards">
-
-
-
-</div>
-
-
+    <div id="content-not-editable" class="">
 
 </div>
 
