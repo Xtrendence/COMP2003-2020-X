@@ -13,7 +13,6 @@
 		}
 
 		public function create() {
-			$date = date('Y-m-d H:i:s');
 			$query = 'CALL createDiaryEntry(:id, :entry)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->patientID);

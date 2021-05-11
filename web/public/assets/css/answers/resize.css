@@ -1,0 +1,14 @@
+@media screen and (max-width:800px) {
+    .navbar {
+        width: 75px;
+    }
+
+    .wrapper {
+        margin-left: 75px;
+        font-size: 0;
+    }
+
+    .navbar button {
+        font-size: 0;
+    }
+}

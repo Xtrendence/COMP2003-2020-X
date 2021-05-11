@@ -7,7 +7,7 @@
 
 		$api_key = isset($_GET['key']) ? $_GET['key'] : die(json_encode(array('message' => 'No API key provided.')));
 
-		$researcherID = explode("$", $api_key)[2];
+		$researcherID = explode('$', $api_key)[2];
 
 		$database = new Database();
 
