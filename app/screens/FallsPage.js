@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Modal, Pressable, Alert, RefreshControl, Dimensions } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, Modal, Pressable, Alert, RefreshControl, Dimensions, BackHandler } from 'react-native';
 import { globalColors, globalColorsDark, globalStyles, globalComponentStyles,  } from '../styles/global';
 import { TopBar } from '../components/TopBar';
 import Card from '../components/Card';
@@ -8,6 +8,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import { SettingsPopup } from '../components/SettingsPopup';
+import { RadioButton } from 'react-native-paper';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -20,7 +21,15 @@ export class FallsPage extends Component {
 			diary: null,
 			loading: false,
 			settings: false,
-			modalVisible: false
+			modalVisible: false,
+			firstNavigator: true,
+			refreshing: false,
+			recent: null,
+			unanswered: {},
+			answered: {},
+			loading: false,
+			checked: {},
+			custom: {},
 		};
 		this.navigation = props.navigation;
 	}
@@ -175,6 +184,75 @@ export class FallsPage extends Component {
 		});
 	}
 
+	onRefresh = () => {
+		this.setState({refreshing:true})
+		this.getData();
+		wait(750).then(() => this.setState({refreshing:false}));
+	};
+
+	// Save radio input answers.
+	saveChecked(key, answerID, value) {
+		if (this._mounted) {
+			this.setState({checked:{ ...this.state.checked, [key]:value }});
+		}
+		this.saveAnswer(key, answerID, value);
+	}
+
+	// Save text field answers.
+	saveCustom(key, answerID, value) {
+		this.saveAnswer(key, answerID, value);
+	}
+
+	componentDidUpdate() {
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
+
+	componentDidMount() {
+		this._mounted = true;
+
+		const { theme, toggleTheme } = this.context;
+		
+		this.setState({theme:theme});
+		this.toggleTheme = toggleTheme;
+
+		this.getData();
+
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
+
+		// By default, since the BottomBar NavigationContainer is a child of the StackNavigator, going back isn't possible unless the app's back action is overridden.
+		const goBack = () => {
+			if (this.state.firstNavigator) {
+				this.navigation.dangerouslyGetParent().navigate("LoginPage");
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		this.navigation.addListener("focus", () => {
+			this.getData();
+			BackHandler.addEventListener("hardwareBackPress", goBack);
+		});
+		
+		this.navigation.addListener("blur", () => {
+			BackHandler.removeEventListener("hardwareBackPress", goBack);
+		});
+	}
+
+	componentWillUnmount() {
+		this._mounted = false;
+	}
+
+
+
 	// Generate the appropriate Card components given an object containing the questions asked by researchers, and the user's answers.
 	getCards(object) {
 		return Object.keys(object).map(questionID => {
@@ -208,6 +286,48 @@ export class FallsPage extends Component {
 		});
 	}
 
+	// Send a request to the /answers/ endpoint of the API to update an answer.
+	async saveAnswer(questionID, answerID, answer) {		
+		let patientID = await AsyncStorage.getItem("patientID");
+		let key = await AsyncStorage.getItem("token");
+
+		let endpoint;
+		let method;
+		let body;
+
+		endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/answers/update.php?key=" + key;
+		method = "PUT";
+		body = { patientID:patientID, questionID:questionID, answerID:answerID, answer:answer };
+
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
+		
+		fetch(endpoint, {
+			method: method,
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+		.then(() => {
+			setTimeout(() => {
+				showMessage({
+					message: "Answer Confirmed",
+					type: "success"
+				})
+				this.getData();
+			}, 1000);
+		})
+		.catch((error) => {
+			console.log(error);
+			this.getData();
+			showMessage({
+				message: "Network Error",
+				type: "danger"
+			});
+		});
+	}
 	
 	render() {
 		const { modalVisible } = this.state;
