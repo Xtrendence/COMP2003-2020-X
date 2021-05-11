@@ -14,9 +14,11 @@
     <link rel="stylesheet" href="./assets/css/themes.css">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/create-question/style.css">
+    <script src="./assets/js/global.js"></script>
     <script src="./assets/js/create-question.js"></script>
     <script src="./assets/js/lib/x-notify.js"></script>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create A Question</title>
 </head>
 
