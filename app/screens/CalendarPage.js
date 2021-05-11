@@ -10,14 +10,14 @@ import LoadingScreen from '../components/LoadingScreen';
 import { SettingsPopup} from '../components/SettingsPopup';
 import { Calendar, CalendarList, Agenda, LocaleConfig } from 'react-native-calendars';
 
-LocaleConfig.locales['en'] = {
-	monthNames: ['Janurary','Feburary','March','April','May','June','July','August','September','October','November','Decemeber'],
-	monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul.','Aug','Sept.','Oct.','Nov','Dec'],
-	dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-	dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
-	today: 'Today'
+LocaleConfig.locales["en"] = {
+	monthNames: ["Janurary","Feburary","March","April","May","June","July","August","September","October","November","Decemeber"],
+	monthNamesShort: ["Jan","Feb","Mar","Apr","May","Jun","Jul.","Aug","Sept.","Oct.","Nov","Dec"],
+	dayNames: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+	dayNamesShort: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+	today: "Today"
 };
-LocaleConfig.defaultLocale = 'en';
+LocaleConfig.defaultLocale = "en";
 
 const calendarTheme = {
 	backgroundColor: "rgba(0,0,0,0)",

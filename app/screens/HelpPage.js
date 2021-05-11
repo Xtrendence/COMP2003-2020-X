@@ -61,15 +61,15 @@ export class HelpPage extends Component {
 					</Card>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>What's the "Questions" page for?</Text>
-						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Your researchers might have questions for you that you can answer if you go to the "Questions" page you can fill out those questions.</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Your researchers might have questions for you that you can answer. If you go to the "Questions" page, you can fill out those questions.</Text>
 					</Card>
 					<Card>
 						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>How does the "Charts" page work?</Text>
-						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Allows the user to see a clear graph for trends displaying the progression of their falls.</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>It allows you to see a clear graph for trends by displaying the progression of your falls.</Text>
 					</Card>
 					<Card>
-						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>What's the Calendar page for?</Text>
-						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>Calendar page highlights the days in a month recorded by the falls page that the user has fallen.</Text>
+						<Text style={[globalComponentStyles.cardTitle, styles.cardTitle, styles[`cardTitle${this.state.theme}`]]}>What's the "Calendar" page for?</Text>
+						<Text style={[globalComponentStyles.textColour, styles.textColour, styles[`textColour${this.state.theme}`]]}>The "Calendar" page highlights the days in a month on which you had at least one fall.</Text>
 					</Card>
 				</ScrollView>
 			</View>
