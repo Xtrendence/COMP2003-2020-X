@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/edit-question/style.css">
     <script src="./assets/js/edit-question.js"></script>
+    <script src="./assets/js/global.js"></script>
     <meta charset="UTF-8">
     <title>Edit A Question</title>
 </head>
