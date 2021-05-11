@@ -105,6 +105,7 @@
 .title-span {
     font-size: var(--font-medium);
     font-weight: bolder;
+    display: inline-block;
 }
 
 .new-wide {
@@ -122,7 +123,7 @@
 
 .inner-card-wrapper {
     max-height: 250px;
-    margin-top: 20px;
+    margin-top: 30px;
     padding-bottom: 20px;
     overflow: auto;
 }
@@ -145,4 +146,36 @@
 
 .new-wide:last-of-type {
     margin: 20px auto 20px auto;
+}
+
+.search-div{
+    float: right;
+    margin-right: 20px;
+}
+
+.search-child{
+    display: inline-block;
+    height: 28px;
+    margin: auto 0 auto 0;
+    outline: none;
+}
+
+.search-button{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    text-align: center;
+}
+
+.search-button svg{
+    margin: 7px 5px 5px 5px;
 }

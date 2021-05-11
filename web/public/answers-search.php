@@ -81,7 +81,6 @@
     </div>
 
     <div class="hidden" id="answer-custom-summary">
-        <div id="search-bar"></div>
         <div id="custom-answer-data"></div>
     </div>
 
