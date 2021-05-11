@@ -63,7 +63,7 @@
 			<div class="tab-wrapper">
 				<div class="tab">
 					<button class="active" id="choice-summary-button">Choice</button>
-					<button id="custom-search-button">Custom</button>
+					<button id="custom-summary-button">Custom</button>
 					<button id="editable-questions-button">Editable</button>
 				</div>
 			</div>

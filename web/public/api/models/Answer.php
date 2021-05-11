@@ -42,7 +42,7 @@
             $query = 'SELECT answer.answerID, answer.patientID, answer.questionID, answer.answer, question.question, question.question_type, question.question_charLim
             FROM ' . $this->table . ' 
             INNER JOIN question ON answer.questionID = question.questionID
-			WHERE questionID BETWEEN :from AND :to';
+			WHERE answer.questionID BETWEEN :from AND :to';
             $command = $this->connection->prepare($query);
 			$command->bindParam(':from', $from);
 			$command->bindParam(':to', $to);

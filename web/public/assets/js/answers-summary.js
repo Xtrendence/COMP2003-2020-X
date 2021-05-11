@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			let divChoiceSummaryWrapper = document.getElementById("choice-summary-wrapper");
 			let divCustomSummaryWrapper = document.getElementById("custom-summary-wrapper");
-			let divEditableQuestionsWrapper = document.getElementById("editable-question-wrapper");
+			let divEditableQuestionsWrapper = document.getElementById("editable-questions-wrapper");
 
 			let divUnansweredRecentWrapper = document.getElementById("unanswered-recent-wrapper");
 
@@ -577,7 +577,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				return false;
 			}
 
-			displayChartInfo();
+			showChoiceSummary();
 
 			checkTheme();
 		} catch(error) {
