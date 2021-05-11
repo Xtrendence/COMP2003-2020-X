@@ -30,6 +30,7 @@
 
                     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                         extract($row);
+
                         $item = array(
                             'patientID' => $patientID,
                             'questionID' => $questionID,
@@ -39,7 +40,6 @@
 
                         if ($question_type == 'custom') {
                             $item['question_charLim'] = $question_charLim;
-
                         } else {
                             $choices = [];
 
@@ -58,8 +58,10 @@
                                 $item['choices'][$i + 1] = $choices[$i];
                             }					
                         }
+
                         $item['answerID'] = $answerID;
                         $item['answer'] = $answer;
+						
                         array_push($array['data'], $item);
                     }
                     

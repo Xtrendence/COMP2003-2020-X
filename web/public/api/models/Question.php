@@ -42,12 +42,11 @@
             $command->execute();
             $users = array();
 
-            while($row = $command->fetch(PDO::FETCH_ASSOC))
-            {
+            while($row = $command->fetch(PDO::FETCH_ASSOC)) {
                 $users[] = $row['patientID'];
             }
 
-            for ($i = 0; $i < count($users); $i++){
+            for ($i = 0; $i < count($users); $i++) {
                 $query = 'CALL createAnswer(:questionID, :patientID, "")';
                 $command = $this->connection->prepare($query);
                 $command->bindParam(':questionID', $this->questionID);

@@ -32,7 +32,6 @@
 							'question_charLim' => $question_charLim,
 							'question_type' => $question_type						
 						);
-					
 					} else {
 						$item = array(
 							'questionID' => $questionID,
@@ -58,6 +57,7 @@
 							$item['choices'][$i + 1] = $choices[$i];
 						}
 					}
+					
 					array_push($array['data'], $item);
 				}
 
