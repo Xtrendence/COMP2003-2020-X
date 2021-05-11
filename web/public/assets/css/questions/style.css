@@ -1,4 +1,3 @@
-
 .question-wide-card {
     background: var(--main-first);
     box-shadow: var(--shadow-smooth);
@@ -20,11 +19,12 @@
     font-size: var(--font-medium);
     border-radius: 10px;
     cursor: pointer;
-    height: 30px;
+    width: 100px;
     margin-right: 10px;
     margin-bottom: 3px;
     text-align: center;
     -webkit-transition: all .1s ease;
+    padding: 10px 10px 10px 10px;
 }
 
 .page-button-right {
@@ -35,13 +35,12 @@
     font-size: var(--font-medium);
     border-radius: 10px;
     cursor: pointer;
-    height: 30px;
+    width: 128px;
     margin-right: 20px;
     text-align: right;
     -webkit-transition: all .1s ease;
-    position: relative;
     float: right;
-
+    padding: 10px 10px 10px 10px;
 }
 
 
@@ -62,7 +61,7 @@
 
 }
 
-.delete-button {
+.action-button {
     text-align: center;
     padding: 10px 10px 10px 10px;
     background: var(--accent-gradient);
@@ -75,26 +74,8 @@
     cursor: pointer;
     margin: auto 10px auto auto;
     display: inline-block;
-    vertical-align: center;
+    vertical-align: center; 
 }
-
-.edit-button {
-    text-align: center;
-    padding: 10px 10px 10px 10px;
-    background: var(--accent-gradient);
-    color: var(--accent-contrast);
-    font-weight: bold;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    font-size: var(--font-medium);
-    cursor: pointer;
-    margin: auto 10px auto auto;
-    display: inline-block;
-    vertical-align: center;
-}
-
-
 
 .card-button-wrapper {
     display: inline-block;
@@ -104,13 +85,6 @@
     top: calc(50% - 60px / 2);
     right: 20px;
 
-}
-
-.SVG {
-    fill: var(--accent-contrast);
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
 }
 
 .text-margin {

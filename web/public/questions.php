@@ -79,12 +79,11 @@
 
 
     <div class="button-wrapper" id="buttons">
-
         <button type="button" class="page-button" id="prev-button">Previous</button>
         <button type="button" class="page-button" id="next-button">Next</button>
         <button type="button" class="page-button-right" id="ask-button">Ask All Users</button>
     </div>
-    
+
     <div id="content-editable" class="">
     </div>
 
