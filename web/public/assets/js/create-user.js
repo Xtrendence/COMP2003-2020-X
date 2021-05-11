@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			let createForm = document.getElementById("create-form");
 			let createUser = document.getElementById("create-user");
 
+			checkTheme();
+
 			createUser.addEventListener("click", () => {
 				let user = {};
 
