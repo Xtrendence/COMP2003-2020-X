@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let sessionToken = localStorage.getItem("sessionToken");
 
-    verifySession(localStorage.getItem("sessionToken")).then(result => {
+    verifySession(sessionToken).then(result => {
 
         let url = new URL(window.location.href);
         let patID = url.searchParams.get("id");
@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("GET", "./api/answers/read-user.php?id=" + patID + "&" + sessionToken + "", true);
+            xhr.open("GET", "./api/answers/read-user.php?id=" + patID + "&key=" + sessionToken + "", true);
             xhr.send();
         }
 
@@ -313,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-            xhr.open("DELETE", "./api/questions/delete.php?" + sessionToken + "", true);
+            xhr.open("DELETE", "./api/questions/delete.php?key=" + sessionToken + "", true);
             xhr.send(JSON.stringify(body));
             //location.reload(true); 
         }
