@@ -1,3 +1,5 @@
+![Banner](https://i.imgur.com/TjHn0nd.png)
+
 ## BRIMS SMS (Self-Management Software)
 
 ### Group Name: **COMP2003-2020-X**

@@ -7,6 +7,7 @@ import { globalColors, globalColorsDark, globalStyles, globalComponentStyles } f
 import { showMessage, hideMessage } from 'react-native-flash-message';
 import { TopBar } from '../components/TopBar';
 import LoadingScreen from '../components/LoadingScreen';
+import { ThemeContext } from '../utils/ThemeProvider';
 import { SettingsPopup} from '../components/SettingsPopup';
 import { Calendar, CalendarList, Agenda, LocaleConfig } from 'react-native-calendars';
 
@@ -50,6 +51,8 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 export class CalendarPage extends Component {
+	static contextType = ThemeContext;
+	
 	constructor(props) {
 		super(props);
 		this.navigation = props.navigation;

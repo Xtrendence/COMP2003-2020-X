@@ -72,9 +72,22 @@ export class FallsPage extends Component {
 	}
 
 	componentDidMount() {
+		this._mounted = true;
+
 		const { theme, toggleTheme } = this.context;
+		
 		this.setState({theme:theme});
 		this.toggleTheme = toggleTheme;
+
+		this.getData();
+
+		if (this._mounted) {
+			this.setState({loading:true});
+		}
+
+		this.navigation.addListener("focus", () => {
+			this.getData();
+		});
 	}
 
 	componentDidUpdate() {
@@ -85,6 +98,10 @@ export class FallsPage extends Component {
 		}).catch(error => {
 			console.log(error);
 		});
+	}
+
+	componentWillUnmount() {
+		this._mounted = false;
 	}
 
 	async saveDiary() {
@@ -176,39 +193,6 @@ export class FallsPage extends Component {
 		this.getData();
 		wait(750).then(() => this.setState({refreshing:false}));
 	};
-
-	componentDidUpdate() {
-		AsyncStorage.getItem("theme").then(result => {
-			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
-				this.setState({theme:result});
-			}
-		}).catch(error => {
-			console.log(error);
-		});
-	}
-
-	componentDidMount() {
-		this._mounted = true;
-
-		const { theme, toggleTheme } = this.context;
-		
-		this.setState({theme:theme});
-		this.toggleTheme = toggleTheme;
-
-		this.getData();
-
-		if (this._mounted) {
-			this.setState({loading:true});
-		}
-
-		this.navigation.addListener("focus", () => {
-			this.getData();
-		});
-	}
-
-	componentWillUnmount() {
-		this._mounted = false;
-	}
 
 	getCards(object) {
 		return Object.keys(object).map(entryID => {
