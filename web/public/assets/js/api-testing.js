@@ -2115,7 +2115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function generateID() {
-		return new Date().getTime() + "-" + [...Array(32)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+		return new Date().getTime() + "-" + [...Array(32)].map(() => Math.floor(Math.random() * 16).toString(16)).join("");
 	}
 
 	function output(testID, type, text, className) {

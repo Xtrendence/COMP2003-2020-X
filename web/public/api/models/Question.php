@@ -42,7 +42,7 @@
             $command->execute();
             $users = array();
 
-            while($row = $command->fetch(PDO::FETCH_ASSOC)) {
+            while ($row = $command->fetch(PDO::FETCH_ASSOC)) {
                 $users[] = $row['patientID'];
             }
 
@@ -137,7 +137,8 @@
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
-            $query = 'DELETE FROM answer WHERE questionID = :id AND answer = ""';
+
+            $query = 'CALL deleteChoice(:id)';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
             $command->execute();
@@ -161,7 +162,9 @@
 			return $command;
         }
 
-        public function read($choices) {
+        public function read() {
+			$choices = [];
+			
             $query = 'SELECT * FROM ' . $this->table . ' WHERE questionID=:id';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
@@ -184,6 +187,8 @@
                     array_push($choices, $row['choice']);
                 }
             }
+
+			return $choices;
         }
 
         public function update($choices) {

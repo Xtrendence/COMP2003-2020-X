@@ -37,7 +37,7 @@ export class QuestionsPage extends Component {
 		this.toggleTheme;
 	}
 
-	setSettings(page, value){
+	setSettings(page, value) {
 		page.setState({settings:value})
 	}
 
