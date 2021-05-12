@@ -1,75 +1,75 @@
 .subtitle {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--main-contrast);
-    width: calc(100% - 100px);
-    margin: 20px auto 20px auto;
-    text-align: center;
-    display: block;
+	font-size: 18px;
+	font-weight: bold;
+	color: var(--main-contrast);
+	width: calc(100% - 100px);
+	margin: 20px auto 20px auto;
+	text-align: center;
+	display: block;
 }
 
 .wrapper {
-    overflow: hidden auto;
-    position: absolute;
-    width: calc(100% - 225px);
-    height: 100%;
+	overflow: hidden auto;
+	position: absolute;
+	width: calc(100% - 225px);
+	height: 100%;
 }
 
 .main-card {
-    background: var(--main-first);
-    box-shadow: var(--shadow-smooth);
-    color: var(--main-contrast);
-    font-size: var(--font-larger);
-    padding: 10px 10px 10px 10px;
-    margin: 20px auto 20px auto;
-    max-width: 400px;
-    border-radius: 10px;
-    display: block;
-    position: center;
+	background: var(--main-first);
+	box-shadow: var(--shadow-smooth);
+	color: var(--main-contrast);
+	font-size: var(--font-larger);
+	padding: 10px 10px 10px 10px;
+	margin: 20px auto 20px auto;
+	max-width: 400px;
+	border-radius: 10px;
+	display: block;
+	position: center;
 }
 
 .text-names {
-    text-align: center;
-    font-weight: bold;
-    margin: 20px auto 0 auto
+	text-align: center;
+	font-weight: bold;
+	margin: 20px auto 0 auto
 }
 
 input {
-    background: var(--main-third);
-    box-shadow: var(--shadow-smooth);
-    color: var(--main-contrast);
-    margin: 20px auto 20px auto;
-    width: calc(100% - 100px);
-    border-radius: 10px;
-    display: block;
-    border: none;
-    outline: none;
-    background: var(--main-third);
-    height: 40px;
-    padding: 0 10px 0 10px;
-    font-size: 13.3333px;
+	background: var(--main-third);
+	box-shadow: var(--shadow-smooth);
+	color: var(--main-contrast);
+	margin: 20px auto 20px auto;
+	width: calc(100% - 100px);
+	border-radius: 10px;
+	display: block;
+	border: none;
+	outline: none;
+	background: var(--main-third);
+	height: 40px;
+	padding: 0 10px 0 10px;
+	font-size: 13.3333px;
 }
 
 .edit-button {
-    color: var(--accent-contrast);
+	color: var(--accent-contrast);
 	background: var(--accent-light);
-    box-shadow: var(--shadow-smooth);
-    width: calc(100% - 80px);
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    height: 40px;
-    padding: 0 10px 0 10px;
-    border-radius: 10px;
-    display: block;
-    margin: 20px auto 20px auto;
+	box-shadow: var(--shadow-smooth);
+	width: calc(100% - 80px);
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	height: 40px;
+	padding: 0 10px 0 10px;
+	border-radius: 10px;
+	display: block;
+	margin: 20px auto 20px auto;
 }
 .edit-button:hover {
 	background: var(--accent-medium);
 }
 
 .div-button {
-    padding-top: 10px;
+	padding-top: 10px;
 }

@@ -1,58 +1,58 @@
 /*span text classes for styling */
 .body-text {
-    font-size: var(--font-medium);
-    font-weight: bold;
+	font-size: var(--font-medium);
+	font-weight: bold;
 }
 
 .caret-text {
-    font-size: var(--font-medium);
+	font-size: var(--font-medium);
 }
 
 .margin-space {
-    padding: 10px 10px 10px 0px;
+	padding: 10px 10px 10px 0px;
 }
 
 /*drop down button containing Title question text for collapsible */
 .drop-down {
-    background: var(--main-third);
-    color: var(--main-contrast);
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    border-radius: 10px 10px 10px 10px;
+	background: var(--main-third);
+	color: var(--main-contrast);
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
+	border-radius: 10px 10px 10px 10px;
 }
 
 /*drop down button hover color for when cursor is hovering over question on the web page */
 .wrapper .active, .drop-down:hover {
-    background: var(--main-fifth);
+	background: var(--main-fifth);
 }
 
 .wrapper .active {
-    border-radius: 10px 10px 0 0;
+	border-radius: 10px 10px 0 0;
 }
 
 /*div class containing properties that hold the caret hidden text as the answers to the questions on the web page */
 .caret-content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background: var(--main-third);
-    border-radius: 0 0 10px 10px;
+	padding: 0 18px;
+	display: none;
+	overflow: hidden;
+	background: var(--main-third);
+	border-radius: 0 0 10px 10px;
 }
 
 .caret-icon {
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    float: right;
-    fill: var(--accent-light);
-    margin: -2px 0 0 5px;
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	float: right;
+	fill: var(--accent-light);
+	margin: -2px 0 0 5px;
 }
 
 .caret-icon.active {
-    transform: rotate(90deg);
+	transform: rotate(90deg);
 }

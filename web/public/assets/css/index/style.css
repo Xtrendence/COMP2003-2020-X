@@ -1,125 +1,125 @@
 .landing-wrapper {
-    font-size: 0;
+	font-size: 0;
 }
 
 /*text styling classes*/
 .body-text {
-    font-size: var(--font-medium);
+	font-size: var(--font-medium);
 }
 
 /*main title text*/
 .title-text {
-    font-size: var(--font-larger);
-    font-weight: bold;
-    margin-left: auto;
-    margin-right: auto;
-    width: 8em;
+	font-size: var(--font-larger);
+	font-weight: bold;
+	margin-left: auto;
+	margin-right: auto;
+	width: 8em;
 }
 
 /*subtitle text used in the two small cards*/
 .subtitle-text {
-    font-size: medium;
-    font-weight: bold;
+	font-size: medium;
+	font-weight: bold;
 }
 
 .subtitle-align {
-    text-align: center;
+	text-align: center;
 }
 
 /*title card styling*/
 .landing-title-card {
-    background: var(--accent-gradient);
-    box-shadow: var(--shadow-smooth);
-    color: var(--accent-contrast);
-    font-size: var(--font-larger);
-    text-align: center;
-    padding: 25px 25px 25px 25px;
-    width: auto;
-    display: block;
-    margin-bottom: 15px;
+	background: var(--accent-gradient);
+	box-shadow: var(--shadow-smooth);
+	color: var(--accent-contrast);
+	font-size: var(--font-larger);
+	text-align: center;
+	padding: 25px 25px 25px 25px;
+	width: auto;
+	display: block;
+	margin-bottom: 15px;
 }
 
 /*purple NHS button: with hyperlink to NHS website about MS*/
 .nhs-button {
-    background-color: var(--accent-medium);
-    box-shadow: var(--shadow-smooth);
-    color: var(--accent-contrast);
-    font-size: var(--font-medium);
-    font-weight: bold;
-    padding: 10px 10px 10px 10px;
-    margin: 15px auto 0 auto;
-    width: auto;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: 0.25s;
+	background-color: var(--accent-medium);
+	box-shadow: var(--shadow-smooth);
+	color: var(--accent-contrast);
+	font-size: var(--font-medium);
+	font-weight: bold;
+	padding: 10px 10px 10px 10px;
+	margin: 15px auto 0 auto;
+	width: auto;
+	border-radius: 10px;
+	border: none;
+	cursor: pointer;
+	transition: 0.25s;
 }
 
 .nhs-button:hover {
-    background-color: var(--accent-darkest);
+	background-color: var(--accent-darkest);
 }
 
 /*wrapper for NHS link button*/
 .nhs-div {
-    text-align: center;
+	text-align: center;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .margin-space {
-    padding: 30px 10px 0px 5px;
+	padding: 30px 10px 0px 5px;
 }
 
 /*nav bar format/positioning*/
 .landing-navbar  {
-    height: auto;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    font-size: 0;
+	height: auto;
+	width: 100%;
+	text-align: center;
+	position: relative;
+	font-size: 0;
 }
 
 /*nav bar buttons format/styling*/
 .navbar-button {
-    fill: var(--accent-contrast);
-    color: var(--accent-contrast);
-    background-color: var(--accent-medium);
-    font-weight: bold;
-    border-radius: 10px 10px 10px 10px;
-    display: inline-block;font-size: medium;
-    padding: 10px 10px 10px 10px;
-    margin: 10px;
-    cursor: pointer;
-    height: 100px;
-    width: 140px;
-    border: none;
-    outline: none;
-    transition: 0.25s;
+	fill: var(--accent-contrast);
+	color: var(--accent-contrast);
+	background-color: var(--accent-medium);
+	font-weight: bold;
+	border-radius: 10px 10px 10px 10px;
+	display: inline-block;font-size: medium;
+	padding: 10px 10px 10px 10px;
+	margin: 10px;
+	cursor: pointer;
+	height: 100px;
+	width: 140px;
+	border: none;
+	outline: none;
+	transition: 0.25s;
 }
 
 .navbar-button:hover {
-    background-color: var(--accent-darkest);
+	background-color: var(--accent-darkest);
 }
 
 /*svg icon for nav buttons: styling*/
 .svg-button {
-    padding: 2px 10px 10px 10px;
-    width: 40px;
-    height: 40px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+	padding: 2px 10px 10px 10px;
+	width: 40px;
+	height: 40px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .small-card {
-    vertical-align: top;
+	vertical-align: top;
 }
 
 /*HR break line styling*/
 hr {
-    border: none;
-    height: 4px;
-    background-color: var(--accent-light);
+	border: none;
+	height: 4px;
+	background-color: var(--accent-light);
 }

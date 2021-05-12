@@ -1,39 +1,39 @@
 .logout {
-    text-align: center;
-    padding: 10px 10px 10px 10px;
-    background: var(--accent-gradient);
-    color: var(--accent-contrast);
-    font-weight: bold;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    font-size: var(--font-medium);
-    cursor: pointer;
-    margin: auto auto;
-    display: block;
-    text-decoration: none;
-    width: 81px;
+	text-align: center;
+	padding: 10px 10px 10px 10px;
+	background: var(--accent-gradient);
+	color: var(--accent-contrast);
+	font-weight: bold;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	font-size: var(--font-medium);
+	cursor: pointer;
+	margin: auto auto;
+	display: block;
+	text-decoration: none;
+	width: 81px;
 }
 
 .toggle-container {
-    float: right;
-    border-radius: 18px;
-    width: 35px;
-    height: 18px;
-    background-color: var(--main-sixth);
-    margin: 0 20px 0 0;
+	float: right;
+	border-radius: 18px;
+	width: 35px;
+	height: 18px;
+	background-color: var(--main-sixth);
+	margin: 0 20px 0 0;
 }
 
 .toggle-button {
-    background: var(--accent-gradient);
-    box-shadow: var(--shadow-smooth);
-    height: 18px;
-    width: 18px;
-    border-radius: 18px;
-    display: inline-block;
-    transition: transform 0.5s;
+	background: var(--accent-gradient);
+	box-shadow: var(--shadow-smooth);
+	height: 18px;
+	width: 18px;
+	border-radius: 18px;
+	display: inline-block;
+	transition: transform 0.5s;
 }
 
 .toggle-button-active {
-    transform: translateX(17px);
+	transform: translateX(17px);
 }

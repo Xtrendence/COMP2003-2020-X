@@ -1,108 +1,108 @@
 .thick-card {
-    background: var(--main-first);
-    box-shadow: var(--shadow-smooth);
-    color: var(--main-contrast);
-    padding: 10px 10px 10px 10px;
-    margin: 20px auto 20px auto;
-    width: 50%;
-    border-radius: 10px;
-    display: block;
-    position: center;
-    font-size: var(--font-smaller);
+	background: var(--main-first);
+	box-shadow: var(--shadow-smooth);
+	color: var(--main-contrast);
+	padding: 10px 10px 10px 10px;
+	margin: 20px auto 20px auto;
+	width: 50%;
+	border-radius: 10px;
+	display: block;
+	position: center;
+	font-size: var(--font-smaller);
 }
 
 .text {
-    text-align: center;
-    font-weight: bold;
-    margin: 20px auto 0 auto
+	text-align: center;
+	font-weight: bold;
+	margin: 20px auto 0 auto
 }
 
 input {
-    background: var(--main-second);
-    box-shadow: var(--shadow-smooth);
-    color: var(--main-contrast);
-    padding: 10px 10px 10px 10px;
-    margin: 10px auto 10px auto;
-    width: calc(100% - 40px - 20px);
-    border-radius: 10px;
-    display: block;
-    font-size: var(--font-smaller);
-    border: none;
-    outline: none;
+	background: var(--main-second);
+	box-shadow: var(--shadow-smooth);
+	color: var(--main-contrast);
+	padding: 10px 10px 10px 10px;
+	margin: 10px auto 10px auto;
+	width: calc(100% - 40px - 20px);
+	border-radius: 10px;
+	display: block;
+	font-size: var(--font-smaller);
+	border: none;
+	outline: none;
 }
 
 /*radio button */
 .radio-button-container {
-    display: block;
-    font-weight: bold;
-    margin: 20px auto 0 auto;
-    line-height: 25px;
+	display: block;
+	font-weight: bold;
+	margin: 20px auto 0 auto;
+	line-height: 25px;
 }
 
 .form-radio-button {
-    background: var(--main-second);
-    box-shadow: var(--shadow-smooth);
-    height: 25px;
-    width: 25px;
-    border-radius: 25px;
-    display: inline-block;
-    margin: auto 10px 0 20px;
+	background: var(--main-second);
+	box-shadow: var(--shadow-smooth);
+	height: 25px;
+	width: 25px;
+	border-radius: 25px;
+	display: inline-block;
+	margin: auto 10px 0 20px;
 }
 
 .form-radio-button:hover {
-    background: var(--main-fifth);
-    cursor: pointer;
+	background: var(--main-fifth);
+	cursor: pointer;
 }
 
 .form-radio-button.active {
-    background: var(--accent-gradient);
-    pointer-events: none;
+	background: var(--accent-gradient);
+	pointer-events: none;
 }
 
 .radio-button-container span {
-    vertical-align: top;
+	vertical-align: top;
 }
 
 .choice {
-    display: block;
+	display: block;
 }
 
 /*submit button*/
 .button-wrapper {
-    padding: 20px 20px 10px 20px;
+	padding: 20px 20px 10px 20px;
 }
 
 .submit-button {
-    text-align: center;
-    padding: 10px 10px 10px 10px;
-    background: var(--accent-gradient);
-    color: var(--accent-contrast);
-    font-weight: bold;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    font-size: var(--font-medium);
-    cursor: pointer;
-    margin: auto auto;
-    display: block;
+	text-align: center;
+	padding: 10px 10px 10px 10px;
+	background: var(--accent-gradient);
+	color: var(--accent-contrast);
+	font-weight: bold;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	font-size: var(--font-medium);
+	cursor: pointer;
+	margin: auto auto;
+	display: block;
 }
 
 /*misc*/
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 input[type=number] {
-    -moz-appearance: textfield;
+	-moz-appearance: textfield;
 }
 
 input.error {
-    box-shadow: var(--error-shadow);
+	box-shadow: var(--error-shadow);
 }
 
 .submission {
-    font-size: var(--font-medium);
-    color: var(--accent-gradient);
-    text-align: center;
+	font-size: var(--font-medium);
+	color: var(--accent-gradient);
+	text-align: center;
 }

@@ -1,162 +1,162 @@
 :root {
-    /*shadow*/
-    --shadow-dark: 0 6px 10px rgba(0,0,0,0.2);
-    --shadow-darker: 0 6px 10px rgba(0,0,0,0.4);
-    --shadow-smooth: 0 1px 1px rgba(0,0,0,0.08), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.16), 0 8px 8px rgba(0,0,0,0.20);
+	/*shadow*/
+	--shadow-dark: 0 6px 10px rgba(0,0,0,0.2);
+	--shadow-darker: 0 6px 10px rgba(0,0,0,0.4);
+	--shadow-smooth: 0 1px 1px rgba(0,0,0,0.08), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.16), 0 8px 8px rgba(0,0,0,0.20);
 
-    /*fonts*/
-    --font-family: "Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif;
-    --font-smaller: 16px;
-    --font-medium: 18px;
-    --font-larger: 20px;
+	/*fonts*/
+	--font-family: "Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif;
+	--font-smaller: 16px;
+	--font-medium: 18px;
+	--font-larger: 20px;
 }
 
 html, input, textarea {
-    font-family: var(--font-family);
+	font-family: var(--font-family);
 }
 
 /*body*/
 body {
-    background: var(--main-second);
-    margin: 0;
-    font-size: var(--font-smaller);
+	background: var(--main-second);
+	margin: 0;
+	font-size: var(--font-smaller);
 }
 
 .wrapper {
-    margin-left: 225px;
-    font-size: 0;
+	margin-left: 225px;
+	font-size: 0;
 }
 
 .title-card {
-    background: var(--accent-gradient);
-    box-shadow: var(--shadow-smooth);
-    color: var(--accent-contrast);
-    font-size: var(--font-medium);
-    padding: 10px 10px 10px 10px;
-    margin: 20px auto 0 auto;
-    width: calc(100% - 40px - 20px);
-    border-radius: 10px;
-    display: block;
+	background: var(--accent-gradient);
+	box-shadow: var(--shadow-smooth);
+	color: var(--accent-contrast);
+	font-size: var(--font-medium);
+	padding: 10px 10px 10px 10px;
+	margin: 20px auto 0 auto;
+	width: calc(100% - 40px - 20px);
+	border-radius: 10px;
+	display: block;
 }
 
 .wide-card {
-    background: var(--main-first);
-    box-shadow: var(--shadow-smooth);
-    color: var(--main-contrast);
-    padding: 10px 10px 10px 10px;
-    margin: 20px auto 0 auto;
-    width: calc(100% - 40px - 20px);
-    border-radius: 10px;
-    display: block;
-    font-size: var(--font-smaller);
+	background: var(--main-first);
+	box-shadow: var(--shadow-smooth);
+	color: var(--main-contrast);
+	padding: 10px 10px 10px 10px;
+	margin: 20px auto 0 auto;
+	width: calc(100% - 40px - 20px);
+	border-radius: 10px;
+	display: block;
+	font-size: var(--font-smaller);
 }
 
 .wide-card:last-of-type {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .small-card {
-    background: var(--main-first);
-    box-shadow: var(--shadow-smooth);
-    color: var(--main-contrast);
-    padding: 10px 10px 10px 10px;
-    margin: 20px auto 0 20px;
-    width: calc(50% - 20px - 20px - 10px);
-    border-radius: 10px;
-    display: inline-block;
-    font-size: var(--font-smaller);
+	background: var(--main-first);
+	box-shadow: var(--shadow-smooth);
+	color: var(--main-contrast);
+	padding: 10px 10px 10px 10px;
+	margin: 20px auto 0 20px;
+	width: calc(50% - 20px - 20px - 10px);
+	border-radius: 10px;
+	display: inline-block;
+	font-size: var(--font-smaller);
 }
 
 /*all navbar design*/
 .navbar {
-    height: 100%;
-    width: 225px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background: var(--accent-gradient);
+	height: 100%;
+	width: 225px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background: var(--accent-gradient);
 }
 
 .navbar button {
-    background: transparent;
-    outline: none;
-    border: none;
-    display: block;
-    text-align: left;
-    height: 70px;
-    width: 225px;
-    cursor: pointer;
-    color: var(--accent-contrast);
-    font-size: var(--font-larger);
+	background: transparent;
+	outline: none;
+	border: none;
+	display: block;
+	text-align: left;
+	height: 70px;
+	width: 225px;
+	cursor: pointer;
+	color: var(--accent-contrast);
+	font-size: var(--font-larger);
 }
 
 .navbar a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .navbar button:hover {
-    background: var(--accent-darkest);
-    transition: 0.25s;
+	background: var(--accent-darkest);
+	transition: 0.25s;
 }
 
 .navbar button.active {
-    background: var(--accent-darkest);
+	background: var(--accent-darkest);
 }
 
 /*icons*/
 .navbar svg {
-    fill: var(--accent-contrast);
-    padding: 15px 15px 15px 10px;
-    width: 40px;
-    height: 40px;
-    vertical-align: middle;
+	fill: var(--accent-contrast);
+	padding: 15px 15px 15px 10px;
+	width: 40px;
+	height: 40px;
+	vertical-align: middle;
 }
 
 /*scroll bar*/
 ::-webkit-scrollbar {
-    width: 8px;
+	width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 4px var(--main-first);
-    border-radius: 10px;
+	box-shadow: inset 0 0 4px var(--main-first);
+	border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--accent-dark);
-    border-radius: 10px;
+	background: var(--accent-dark);
+	border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-darkest);
+	background: var(--accent-darkest);
 }
 
 /*stop text selection*/
 .noselect  {
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    outline: none;
-    cursor: default;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: none;
+	cursor: default;
 }
 
 /*misc*/
 .seperator {
-    background: var(--accent-gradient);
-    color: var(--main-contrast);
-    box-shadow: var(--shadow-smooth);
-    padding: 2px 2px 2px 2px;
-    margin: 20px auto 0 auto;
-    width: calc(100% - 40px - 20px);
-    border-radius: 10px;
-    display: block;
+	background: var(--accent-gradient);
+	color: var(--main-contrast);
+	box-shadow: var(--shadow-smooth);
+	padding: 2px 2px 2px 2px;
+	margin: 20px auto 0 auto;
+	width: calc(100% - 40px - 20px);
+	border-radius: 10px;
+	display: block;
 }
 
 .hidden {
-    display: none;
+	display: none;
 }
 
 button {

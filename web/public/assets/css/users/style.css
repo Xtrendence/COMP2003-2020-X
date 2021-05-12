@@ -1,40 +1,40 @@
 .action-button {
-    outline: none;
-    border: none;
-    background: var(--accent-gradient);
-    color: var(--accent-contrast);
-    font-size: var(--font-medium);
-    border-radius: 10px;
-    cursor: pointer;
-    height: 40px;
-    width: 40px;
-    margin-right: 10px;
-    text-align: center;
-    -webkit-transition: all .1s ease;
-    -moz-transition: all .1s ease;
-    -ms-transition: all .1s ease;
-    -o-transition: all .1s ease;
-    transition: all .1s ease;
+	outline: none;
+	border: none;
+	background: var(--accent-gradient);
+	color: var(--accent-contrast);
+	font-size: var(--font-medium);
+	border-radius: 10px;
+	cursor: pointer;
+	height: 40px;
+	width: 40px;
+	margin-right: 10px;
+	text-align: center;
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
 }
 
 .svg-div {
-    margin-top: 3px;
-    position: center;
+	margin-top: 3px;
+	position: center;
 }
 
 .top-buttons button, .button-div button {
 	outline: none;
-    border: none;
-    background: var(--accent-gradient);
-    box-shadow: var(--shadow-smooth);
-    color: var(--accent-contrast);
-    font-size: var(--font-medium);
-    border-radius: 10px;
-    cursor: pointer;
-    margin-right: 10px;
-    width: auto;
-    height: 35px;
-    padding: 0 10px 0 10px;
+	border: none;
+	background: var(--accent-gradient);
+	box-shadow: var(--shadow-smooth);
+	color: var(--accent-contrast);
+	font-size: var(--font-medium);
+	border-radius: 10px;
+	cursor: pointer;
+	margin-right: 10px;
+	width: auto;
+	height: 35px;
+	padding: 0 10px 0 10px;
 	margin-bottom: 20px;
 }
 .button-div button {
@@ -43,46 +43,46 @@
 }
 
 .button-div {
-    margin-left: 40%;
-    margin-top: 10px;
-    position: relative;
+	margin-left: 40%;
+	margin-top: 10px;
+	position: relative;
 }
 
 .wide-card {
-    width: 90%;
+	width: 90%;
 	margin-top: 5px;
 }
 
 .text-names {
-    text-align: center;
-    font-weight: bold;
-    margin: 20px auto 0 auto
+	text-align: center;
+	font-weight: bold;
+	margin: 20px auto 0 auto
 }
 
 .patient-table {
-    text-align: center;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    padding-top: 10px;
+	text-align: center;
+	border-collapse: separate;
+	border-spacing: 0 10px;
+	padding-top: 10px;
 }
 
 td {
-    border-bottom: var(--accent-light) 1px solid;
-    padding-bottom: 10px;
+	border-bottom: var(--accent-light) 1px solid;
+	padding-bottom: 10px;
 }
 
 .table-header {
-    width: 150px;
+	width: 150px;
 }
 
 .actions-header {
-    width: 800px;
+	width: 800px;
 }
 
 .search-div {
-    float: right;
-    padding-top: 10px;
-    padding-right: 10px;
+	float: right;
+	padding-top: 10px;
+	padding-right: 10px;
 }
 
 .search-input {
@@ -121,6 +121,6 @@ td {
 }
 
 .top-buttons {
-    padding-top: 10px;
-    padding-left: 10px;
+	padding-top: 10px;
+	padding-left: 10px;
 }
