@@ -1,0 +1,147 @@
+.question-wide-card {
+    background: var(--main-first);
+    box-shadow: var(--shadow-smooth);
+    color: var(--main-contrast);
+    padding: 10px 10px 10px 10px;
+    margin: 20px auto 0 auto;
+    width: calc(100% - 40px - 20px);
+    border-radius: 10px;
+    display: block;
+    font-size: var(--font-smaller);
+    position: relative;
+}
+
+.page-button {
+    outline: none;
+    border: none;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-size: var(--font-medium);
+    border-radius: 10px;
+    cursor: pointer;
+    width: 90px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    text-align: center;
+    -webkit-transition: all .1s ease;
+    padding: 10px 10px 10px 10px;
+}
+
+.button-wrapper {
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.card-heading {
+    font-weight: bold;
+    display: inline;
+}
+
+.card-text {
+    font-weight: normal;
+    display: inline;
+
+}
+
+.action-button {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    font-weight: bold;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    cursor: pointer;
+    margin: auto 10px auto auto;
+    display: inline-block;
+    vertical-align: center; 
+}
+
+.card-button-wrapper {
+    display: inline-block;
+    line-height: 60px;
+    position: absolute;
+    height: 60px;
+    top: calc(50% - 60px / 2);
+    right: 20px;
+
+}
+
+.text-margin {
+    margin-bottom: 2px;
+}
+
+.title-wrapper {
+    position: relative;
+    width: calc(100% - 40px);
+    height: 60px;
+    margin: 20px auto 0 auto;
+}
+
+.tab-wrapper {
+    position: relative;
+    margin-top: -30px;
+    margin-left: 20px;
+    width: 204px;
+    height: 45px;
+}
+
+.title-card {
+    z-index: 3;
+    position: absolute;
+    margin: 0 0 0 0;
+    width: calc(100% - 20px);
+    border-radius: 10px 10px 10px 0;
+}
+
+.tab {
+    position: absolute;
+    z-index: 1;
+    width: 204px;
+    background: var(--main-first);
+    box-shadow: var(--shadow-smooth);
+    border-radius: 0 0 10px 10px;
+}
+
+.tab button {
+    background: transparent;
+    color: var(--main-contrast);
+    display: inline-block;
+    padding-top: 10px;
+    width: 68px;
+    height: 45px;
+    cursor: pointer;
+    outline: none;
+    border-right: 1px solid rgba(75,75,75, 0.25);
+    border-bottom: 1px solid rgba(75,75,75, 0.25);
+    border-left: none;
+}
+
+.tab button:first-of-type {
+    border-bottom-left-radius: 10px;
+    border-left: 1px solid rgba(75,75,75, 0.25);
+}
+.tab button:last-of-type {
+    border-bottom-right-radius: 10px;
+}
+
+.tab button:hover {
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+    transition: 0.25s;
+}
+
+.tab button.active {
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+}
+
+.card-button-wrapper svg {
+    fill: var(--accent-contrast);
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
