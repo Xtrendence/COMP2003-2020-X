@@ -22,7 +22,7 @@
 			$question->questionID = isset($_GET['id']) ? $_GET['id'] : array_push($missing, 'id');
 
 			if (empty($missing)) {
-				$question->read($choices);
+				$choices = $question->read();
 
 				if (!empty($question->questionID)) {
 					if ($question->question_type == 'custom') {
@@ -32,7 +32,6 @@
 							'question_charlim' => $question->question_charLim,
 							'question_type' => $question->question_type
 						);
-
 					} else {
 						$item = array(
 							'questionID' => $question->questionID,
