@@ -50,3 +50,15 @@ BRIMS Self-Management Software is a cross-platform mobile app that acts as a dai
 |-------|
 |[Chart.js](https://www.chartjs.org/)|
 |[X:/Notify](https://www.github.com/Xtrendence/X-Notify/)|
+
+### Images
+
+![Screenshot](https://i.imgur.com/wbPVFo6.png)
+![Screenshot](https://i.imgur.com/GXekskl.png)
+![Screenshot](https://i.imgur.com/IfqgWq0.png)
+![Screenshot](https://i.imgur.com/1RWHmyY.png)
+![Screenshot](https://i.imgur.com/GpkWOf4.png)
+![Screenshot](https://i.imgur.com/6JYh7Tf.png)
+![Screenshot](https://i.imgur.com/Mu567U1.png)
+![Screenshot](https://i.imgur.com/putQz1L.png)
+![Screenshot](https://i.imgur.com/I9Q0PhY.png)
