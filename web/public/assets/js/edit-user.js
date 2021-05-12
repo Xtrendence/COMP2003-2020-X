@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let sessionToken = localStorage.getItem("sessionToken");
+	let sessionToken = localStorage.getItem("sessionToken");
 
-    verifySession(sessionToken).then(result => {
+	verifySession(sessionToken).then(result => {
 		try {
 			let researcherInput = document.getElementById("researcher-id");
 			let nhsInput = document.getElementById("patient-nhs-ref");
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		} catch(error) {
 			console.trace(error);
 		}
-    }).catch(error => {
-        window.location.replace("./login.php");
-    });
+	}).catch(error => {
+		window.location.replace("./login.php");
+	});
 });

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			let from = 1;
 			let to = 100;
-            
+			
 			let previous = document.getElementById("prev-button");
 			let next = document.getElementById("next-button");
 			let askButton = document.getElementById("ask-button");
@@ -133,23 +133,23 @@ document.addEventListener("DOMContentLoaded", () => {
 				wideCard.classList.add("question-wide-card");
 				wideCard.id = "wide-card";
 				wideCard.innerHTML = '\n' +
-					'        <div class="text-margin">\n' +
-					'            <span class="card-heading">Question ID: <span class="card-text">'+ questionID +'</span> </span>\n' +
-					'        </div>\n' +
+					'		<div class="text-margin">\n' +
+					'			<span class="card-heading">Question ID: <span class="card-text">'+ questionID +'</span> </span>\n' +
+					'		</div>\n' +
 					'\n' +
-					'        <div class="text-margin">\n' +
-					'            <span class="card-heading">Question: <span class="card-text">'+ q +'</span> </span>\n' +
-					'        </div>\n' +
+					'		<div class="text-margin">\n' +
+					'			<span class="card-heading">Question: <span class="card-text">'+ q +'</span> </span>\n' +
+					'		</div>\n' +
 					'\n' +
-					'        <div class="text-margin">\n' +
-					'            <span class="card-heading">Character Limit: <span class="card-text">'+ questionLim +'</span></span>\n' +
-					'        </div>\n' +
+					'		<div class="text-margin">\n' +
+					'			<span class="card-heading">Character Limit: <span class="card-text">'+ questionLim +'</span></span>\n' +
+					'		</div>\n' +
 					'\n' +
-					'        <div class="text-margin">\n' +
-					'            <span class="card-heading">Type: <span class="card-text">'+ questionType +'</span> </span>\n' +
-					'        </div>\n' +
+					'		<div class="text-margin">\n' +
+					'			<span class="card-heading">Type: <span class="card-text">'+ questionType +'</span> </span>\n' +
+					'		</div>\n' +
 
-					'    </div>';
+					'	</div>';
 
 				cardAnchor.appendChild(wideCard);
 
@@ -224,23 +224,23 @@ document.addEventListener("DOMContentLoaded", () => {
 					let choiceStr = choice.join(", ");
 
 					wideCard.innerHTML = '\n' +
-						'        <div class="text-margin">\n' +
-						'            <span class="card-heading">Question ID: <span class="card-text">' + questionID + '</span> </span>\n' +
-						'        </div>\n' +
+						'		<div class="text-margin">\n' +
+						'			<span class="card-heading">Question ID: <span class="card-text">' + questionID + '</span> </span>\n' +
+						'		</div>\n' +
 						'\n' +
-						'        <div class="text-margin">\n' +
-						'            <span class="card-heading">Question: <span class="card-text">' + q + '</span> </span>\n' +
-						'        </div>\n' +
+						'		<div class="text-margin">\n' +
+						'			<span class="card-heading">Question: <span class="card-text">' + q + '</span> </span>\n' +
+						'		</div>\n' +
 						'\n' +
-						'        <div class="text-margin">\n' +
-						'            <span class="card-heading">Type: <span class="card-text">Choices</span> </span>\n' +
-						'        </div>\n' +
+						'		<div class="text-margin">\n' +
+						'			<span class="card-heading">Type: <span class="card-text">Choices</span> </span>\n' +
+						'		</div>\n' +
 						'\n' +
-						'        <div class="text-margin">\n' +
-						'            <span class="card-heading">Choices: <span class="card-text">' + choiceStr + '</span> </span>\n' +
-						'        </div>\n' +
+						'		<div class="text-margin">\n' +
+						'			<span class="card-heading">Choices: <span class="card-text">' + choiceStr + '</span> </span>\n' +
+						'		</div>\n' +
 						'\n' +
-						'    </div>';
+						'	</div>';
 
 					cardAnchor.appendChild(wideCard);
 
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			/**
 			* @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
-			*      when that is true, it sets the body with an attribute to turn the theme dark.
+			*	  when that is true, it sets the body with an attribute to turn the theme dark.
 			*/
 			checkTheme();
 

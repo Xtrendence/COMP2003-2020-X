@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let sessionToken = localStorage.getItem("sessionToken");
+	let sessionToken = localStorage.getItem("sessionToken");
 
-    verifySession(sessionToken).then(result => {
+	verifySession(sessionToken).then(result => {
 		try {
 			const Notify = new XNotify("BottomRight");
 
@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			/**
 			 * @desc event listener removes any error boxes, then looks for the click on the multiple choice radio button
-			 *      it clears all the input boxes, not the question box, and shows all the relevant information boxes to be
-			 *      filled in
+			 *	  it clears all the input boxes, not the question box, and shows all the relevant information boxes to be
+			 *	  filled in
 			 */
 			multipleChoiceRadioButton.addEventListener("click", function() {
 				let input = document.getElementsByTagName("input");
@@ -65,8 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			/**
 			 * @desc event listener removes any error boxes, then looks for the click on the long answer radio button
-			 *      it clears all the input boxes, not the question box, and shows all the relevant information boxes to be
-			 *      filled in
+			 *	  it clears all the input boxes, not the question box, and shows all the relevant information boxes to be
+			 *	  filled in
 			 */
 			longAnswerRadioButton.addEventListener("click", function() {
 				let input = document.getElementsByTagName("input");
@@ -84,8 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			/**
 			 * @desc event listener waits for keyup then checks to see if the key pressed is back space,
-			 *      once that is checked, it removes all the child nodes from the option container where the
-			 *      number of choices are larger than 2 and 16 or less
+			 *	  once that is checked, it removes all the child nodes from the option container where the
+			 *	  number of choices are larger than 2 and 16 or less
 			 */
 			numberOfChoices.addEventListener("keyup", function(e) {
 				if (e.key.toLowerCase() === "backspace") {
@@ -97,9 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			/**
 			 * @desc event listener awaits key press and checks if it was the enter button.
-			 *      when this is true it will then check to see if the value is 16 or less,
-			 *      when this is the case it will add the appropriate number of choice boxes into
-			 *      the option container. if not it will highlight the box with an error
+			 *	  when this is true it will then check to see if the value is 16 or less,
+			 *	  when this is the case it will add the appropriate number of choice boxes into
+			 *	  the option container. if not it will highlight the box with an error
 			 */
 			numberOfChoices.addEventListener("keyup", function() {
 				optionContainer.innerHTML = "";
@@ -189,13 +189,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			/**
 			 * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
-			 *      when that is true, it sets the body with an attribute to turn the theme dark.
+			 *	  when that is true, it sets the body with an attribute to turn the theme dark.
 			 */
 			checkTheme();
 		} catch(error) {
 			console.trace(error);
 		}
-    }).catch(error => {
-        window.location.replace("./login.php");
-    });
+	}).catch(error => {
+		window.location.replace("./login.php");
+	});
 });
