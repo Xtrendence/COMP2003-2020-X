@@ -15,9 +15,13 @@
 
 BRIMS Self-Management Software is a cross-platform mobile app that acts as a daily diary for those who suffer from Multiple Sclerosis. The aim of this project is to regularly monitor the patient, how regularly they fall/lose balance and by retaining this information it can be charted, and trends can be identified, which ultimately allows for a progression of degradation to be found for each individual user. This software also provides a web-based admin interface which allows the researchers to analyze incoming data, export it to Excel, and view graphs of the data. It would also provide [full CRUD functionality](http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/).
 
+### Teams Planner
+
+To view our project planner, please visit [this link](https://teams.microsoft.com/l/entity/com.microsoft.teamspace.tab.planner/_djb2_msteams_prefix_2295414514?context=%7B%22subEntityId%22%3Anull%2C%22channelId%22%3A%2219%3A586afab9c4244bc787e4e523197c0057%40thread.tacv2%22%7D&groupId=404239ae-998e-4b0d-b2f9-282651f80530&tenantId=5437e7eb-83fb-4d1a-bfd3-bb247e061bf1).
+
 ### Download
 
-You can download the app and a compatible version of the API from the [Releases](https://github.com/Xtrendence/COMP2003-2020-X/releases) of this repository.
+You can download the app and a compatible version of the API from the [Releases](https://github.com/Xtrendence/COMP2003-2020-X/releases) section of this repository.
 
 ### Credits
 
