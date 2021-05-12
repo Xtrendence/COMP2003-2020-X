@@ -274,7 +274,7 @@ export class QuestionsPage extends Component {
 				}
 				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Questions</TopBar>
 				{ this.state.settings &&
-                    <SettingsPopup></SettingsPopup> 
+					<SettingsPopup></SettingsPopup> 
 				}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
 					{ !empty(this.state.recent) &&

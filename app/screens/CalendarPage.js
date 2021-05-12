@@ -93,7 +93,7 @@ export class CalendarPage extends Component {
 				}
 				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Calendar</TopBar>
 				{ this.state.settings &&
-                    <SettingsPopup></SettingsPopup> 
+					<SettingsPopup></SettingsPopup> 
 				}
 				<View style={[styles.calendarWrapper, styles[`calendarWrapper${this.state.theme}`]]}>
 					<Calendar

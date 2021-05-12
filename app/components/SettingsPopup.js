@@ -38,9 +38,9 @@ export class SettingsPopup extends Component{
 
 	render() {
 		let notifier = new Notifier(
-            onRegister.bind(this),
-            onNotification.bind(this)
-        );
+			onRegister.bind(this),
+			onNotification.bind(this)
+		);
 		
 		return (	
 			<View style={styles.settingsContainer}>
@@ -73,11 +73,11 @@ export class SettingsPopup extends Component{
 		}
 
 		function notification(time) {
-            notifier.cancelAll();
-            let date = new Date(Date.parse(time));
-            let tomorrow = new Date(date.setDate(date.getDate() + 1));
-            notifier.repeatNotification("Record Fall", "Please remember to record the number of falls you had today.", tomorrow);
-        }
+			notifier.cancelAll();
+			let date = new Date(Date.parse(time));
+			let tomorrow = new Date(date.setDate(date.getDate() + 1));
+			notifier.repeatNotification("Record Fall", "Please remember to record the number of falls you had today.", tomorrow);
+		}
 	}
 }
 

@@ -78,14 +78,14 @@ export class FallsPage extends Component {
 	}
 
 	componentDidUpdate() {
-        AsyncStorage.getItem("theme").then(result => {
-            if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
-                this.setState({theme:result});
-            }
-        }).catch(error => {
-            console.log(error);
-        });
-    }
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
 
 	async saveDiary() {
 		let token = await AsyncStorage.getItem("token");
@@ -347,7 +347,7 @@ export class FallsPage extends Component {
 				}
 				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Recording Falls</TopBar>
 				{ this.state.settings &&
-                    <SettingsPopup></SettingsPopup> 
+					<SettingsPopup></SettingsPopup> 
 				}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<Card>

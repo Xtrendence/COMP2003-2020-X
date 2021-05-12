@@ -30,21 +30,21 @@ export class HelpPage extends Component {
 	}
 
 	componentDidUpdate() {
-        AsyncStorage.getItem("theme").then(result => {
-            if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
-                this.setState({theme:result});
-            }
-        }).catch(error => {
-            console.log(error);
-        });
-    }
+		AsyncStorage.getItem("theme").then(result => {
+			if (result !== this.state.theme && (result === "Light" || result === "Dark")) {
+				this.setState({theme:result});
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	}
 
 	render() {
 		return (
 			<View style={[styles.container, styles[`container${this.state.theme}`]]}>
 				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Help</TopBar>
 				{ this.state.settings &&
-                    <SettingsPopup></SettingsPopup> 
+					<SettingsPopup></SettingsPopup> 
 				}
 				<ScrollView style={styles.cardContainer} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}}>
 					<View style={styles.imageWrapper}>

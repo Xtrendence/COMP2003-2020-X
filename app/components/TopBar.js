@@ -11,19 +11,19 @@ const screenHeight = Dimensions.get("window").height;
 export class TopBar extends Component {
 	constructor(props) {
 		super(props);
-		this.navigation = props.navigation;     
+		this.navigation = props.navigation;
 	}
 
 	async logout() {
-        let patientID = await AsyncStorage.getItem("patientID");
+		let patientID = await AsyncStorage.getItem("patientID");
 
-        let token = await AsyncStorage.getItem("token");
+		let token = await AsyncStorage.getItem("token");
 
-        let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/logout.php";
+		let endpoint = "http://web.socem.plymouth.ac.uk/COMP2003/COMP2003_X/public/api/users/logout.php";
 
-        let body = { patientID:patientID, token:token };
+		let body = { patientID:patientID, token:token };
 
-        fetch(endpoint, {
+		fetch(endpoint, {
 			method: "POST",
 			headers: {
 				Accept: "application/json", "Content-Type": "application/json"
@@ -31,9 +31,9 @@ export class TopBar extends Component {
 			body: JSON.stringify(body)
 		})
 		.then(async () => {
-            await AsyncStorage.removeItem("token");
-            await AsyncStorage.removeItem("patientID");
-            this.navigation.dangerouslyGetParent().navigate("LoginPage");
+			await AsyncStorage.removeItem("token");
+			await AsyncStorage.removeItem("patientID");
+			this.navigation.dangerouslyGetParent().navigate("LoginPage");
 		})
 		.catch((error) => {
 			console.log(error);
@@ -62,43 +62,43 @@ export class TopBar extends Component {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        width: "100%",
-        height: 50,
-        backgroundColor: globalColors.accentLight,       
-    },
-    headerText: {
-        fontWeight: "bold",
+	header: {
+		width: "100%",
+		height: 50,
+		backgroundColor: globalColors.accentLight,	   
+	},
+	headerText: {
+		fontWeight: "bold",
 		fontSize: globalStyles.bigFont,
 		fontFamily: globalStyles.fontFamily,
-        color: globalColors.accentContrast,
-        letterSpacing: 1,
-    },
-    cogView: {
-        width: 50,
-        height: 50,
-        top: 0,
-        left: 0,
-        justifyContent: "center",
-        alignItems: "center",
-        position: "absolute",
-    },
-    logoutView: {
-        width:  50,
-        height: 50,
-        top: 0,
-        right: 0,
-        justifyContent: "center",
-        alignItems: "center",
-        position: "absolute",
-    },
-    textView: {
-        width: screenWidth - 50 - 50,
-        height: 50,
-        top: 0,
-        left: 50,
-        justifyContent: "center",
-        alignItems: "center",
-        position: "absolute",
-    }
+		color: globalColors.accentContrast,
+		letterSpacing: 1,
+	},
+	cogView: {
+		width: 50,
+		height: 50,
+		top: 0,
+		left: 0,
+		justifyContent: "center",
+		alignItems: "center",
+		position: "absolute",
+	},
+	logoutView: {
+		width:  50,
+		height: 50,
+		top: 0,
+		right: 0,
+		justifyContent: "center",
+		alignItems: "center",
+		position: "absolute",
+	},
+	textView: {
+		width: screenWidth - 50 - 50,
+		height: 50,
+		top: 0,
+		left: 50,
+		justifyContent: "center",
+		alignItems: "center",
+		position: "absolute",
+	}
 });

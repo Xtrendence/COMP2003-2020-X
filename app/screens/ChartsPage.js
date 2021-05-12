@@ -272,7 +272,7 @@ export class ChartsPage extends Component {
 				}
 				<TopBar navigation={this.navigation} settings={this.state.settings} setSettings={this.setSettings} page={this}>Charts</TopBar>
 				{ this.state.settings &&
-                    <SettingsPopup></SettingsPopup> 
+					<SettingsPopup></SettingsPopup> 
 				}
 				<ScrollView style={styles.scrollView} contentContainerStyle={{paddingBottom: 20, paddingLeft: 20}} refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefresh}/>}>
 					{ !this.state.loading &&
