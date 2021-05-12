@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				allTab.classList.remove("active");
 				editTab.classList.remove("active");
 				fixedTab.classList.add("active");
-				title.innerText = "Non-editable Questions";
+				title.innerText = "Non-Editable Questions";
 
 				contentEditable.classList.add("hidden");
 				contentNotEditable.classList.remove("hidden");
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					'            <span class="card-heading">Type: <span class="card-text">'+ questionType +'</span> </span>\n' +
 					'        </div>\n' +
 
-					'    </div>'
+					'    </div>';
 
 				cardAnchor.appendChild(wideCard);
 
@@ -178,8 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					delBut.addEventListener("click", () => {
 						// API request to delete the question
-
 						let xhr = new XMLHttpRequest();
+
 						let body = {
 							questionID: questionID
 						};
@@ -195,8 +195,10 @@ document.addEventListener("DOMContentLoaded", () => {
 								}
 							}
 						});
+
 						xhr.open("DELETE", "./api/questions/delete.php?key=" + result.token, true);
 						xhr.send(JSON.stringify(body));
+
 						location.reload();
 					});
 				}
@@ -205,7 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			getQuestions(from, to);
 
 			function choiceCard(wideCard, questionID, q, questionLim, choices, answered) {
-
 				try {
 					let cardAnchor = document.createElement("a");
 
@@ -219,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					for (let j = 0; j < choiceKeys.length; j++){
 						choice.push(choices[j+1]);
 					}
+
 					let choiceStr = choice.join(", ");
 
 					wideCard.innerHTML = '\n' +
@@ -238,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						'            <span class="card-heading">Choices: <span class="card-text">' + choiceStr + '</span> </span>\n' +
 						'        </div>\n' +
 						'\n' +
-						'    </div>'
+						'    </div>';
 
 					cardAnchor.appendChild(wideCard);
 
@@ -265,7 +267,6 @@ document.addEventListener("DOMContentLoaded", () => {
 						butContainer.appendChild(editAnchor);
 						wideCard.appendChild(butContainer);
 
-
 						delBut.addEventListener("click", () => {
 							// API request to delete the question
 
@@ -288,7 +289,6 @@ document.addEventListener("DOMContentLoaded", () => {
 							xhr.open("DELETE", "./api/questions/delete.php?key=" + result.token, true);
 							xhr.send(JSON.stringify(body));
 							location.reload();
-
 						});
 					}
 				} catch (error) {
@@ -313,10 +313,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 
 			/**
-				* @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
-				*      when that is true, it sets the body with an attribute to turn the theme dark.
-				*/
-            
+			* @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
+			*      when that is true, it sets the body with an attribute to turn the theme dark.
+			*/
 			checkTheme();
 
 			function empty(value) {

@@ -162,7 +162,9 @@
 			return $command;
         }
 
-        public function read($choices) {
+        public function read() {
+			$choices = [];
+			
             $query = 'SELECT * FROM ' . $this->table . ' WHERE questionID=:id';
 			$command = $this->connection->prepare($query);
 			$command->bindParam(':id', $this->questionID);
@@ -185,6 +187,8 @@
                     array_push($choices, $row['choice']);
                 }
             }
+
+			return $choices;
         }
 
         public function update($choices) {
