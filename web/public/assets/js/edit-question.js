@@ -36,10 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     let json = xhr.responseText;
                     let questions = JSON.parse(json);
-                    let keys = Object.keys(questions);
 
                     try{
-                        let questionID = questions["questionID"];
                         let questionTxt = questions["question"];
                         let questionLim = questions["question_charlim"];
                         let questionType = questions["question_type"];
@@ -82,14 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             });
-			
+
             xhr.open("GET", "./api/questions/read.php?id=" + qID + "&key=" + result.token, true);
             xhr.send();
         }
 
         submitButton.addEventListener("click", function (){
             let xhr = new XMLHttpRequest();
+
             let changes;
+
             if (multipleChoiceRadioButton.classList.contains("active")) {
                 let choiceOptions = [];
                 let choiceFields = document.getElementsByClassName("choice-field");
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     choices: choiceOptions
                 };
             }
-            else{
+            else {
                 changes = {
                     questionID: hidInputID.value,
                     question: questionText.value,
@@ -117,21 +117,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     getQuestion();
                 }
             });
+
             xhr.open("PUT", "./api/users/update.php?key=" + result.token, true);
             xhr.send(JSON.stringify(changes));
         });
 
         getQuestion();
 
-        /**
-         * @desc on DOM loaded, it checks to see if localStorage has the key:'theme', and if it does is it's value:'dark'.
-         *      when that is true, it sets the body with an attribute to turn the theme dark.
-         */
-        if(localStorage.getItem('theme') === 'dark') {
-            document.body.setAttribute('data-theme', 'dark');
-        } else {
-            document.body.removeAttribute('data-theme', 'dark');
-        }
+        checkTheme();
     }).catch(error => {
         window.location.replace("./login.php");
     });
