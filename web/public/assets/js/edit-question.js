@@ -31,12 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function getQuestion(){
             let xhr = new XMLHttpRequest();
+
             xhr.addEventListener("readystatechange", function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     let json = xhr.responseText;
                     let questions = JSON.parse(json);
                     let keys = Object.keys(questions);
-                    console.log(json);
+
                     try{
                         let questionID = questions["questionID"];
                         let questionTxt = questions["question"];
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 optionContainer.appendChild(input);
                             }
                         }
-                        else{
+                        else {
                             longAnswerText.classList.remove("hidden");
                             longAnswerRadioButton.classList.add("active");
                             multipleChoiceRadioButton.classList.remove("active");
@@ -76,12 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
                             multipleChoiceRadioButton.classList.remove("active");
                         }
                     }
-                    catch{
-                        console.error("error");
+                    catch(error) {
+                        console.log(error);
                     }
                 }
             });
-            xhr.open("GET", "./api/questions/read.php?id=" + qID + "&key=" + result.token , true);
+			
+            xhr.open("GET", "./api/questions/read.php?id=" + qID + "&key=" + result.token, true);
             xhr.send();
         }
 
