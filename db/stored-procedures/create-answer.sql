@@ -1,17 +1,17 @@
 CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `createAnswer`(
 	IN questionID INTEGER,
-    IN patientID INTEGER,
-    IN answer VARCHAR(1000)
+	IN patientID INTEGER,
+	IN answer VARCHAR(1000)
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
+	BEGIN
 		ROLLBACK;
-        SELECT 'SQLException has occurred. Please try again.';
+		SELECT 'SQLException has occurred. Please try again.';
 	END;
-    
-	INSERT INTO ANSWER (questionID, patientID, answer) VALUES (questionID, patientID, answer);    
-    
-    COMMIT;
-    SELECT 'Answer added successfully.';
+		
+	INSERT INTO ANSWER (questionID, patientID, answer) VALUES (questionID, patientID, answer);	
+		
+	COMMIT;
+	SELECT 'Answer added successfully.';
 END

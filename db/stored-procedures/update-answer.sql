@@ -4,11 +4,11 @@ CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `updateAnswer`(
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
+	BEGIN
 		ROLLBACK;
-        SELECT 'Exception occurred. Please try again.';
-    END;
-    
-    UPDATE ANSWER SET answer = answerText WHERE answerID = answerIdNo;
-    SELECT 'Answer updated successfully.';
+		SELECT 'Exception occurred. Please try again.';
+	END;
+		
+	UPDATE ANSWER SET answer = answerText WHERE answerID = answerIdNo;
+	SELECT 'Answer updated successfully.';
 END

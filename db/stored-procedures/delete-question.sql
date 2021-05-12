@@ -3,12 +3,12 @@ CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deleteQuestion`(
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
+	BEGIN
 		ROLLBACK;
-        SELECT 'SQLException occurred. Please try again.';
+		SELECT 'SQLException occurred. Please try again.';
 	END;
-    
-    DELETE FROM QUESTION WHERE questionID = questionIdNo;
-    COMMIT;
-    SELECT 'Question deleted successfully.';
+		
+	DELETE FROM QUESTION WHERE questionID = questionIdNo;
+	COMMIT;
+	SELECT 'Question deleted successfully.';
 END

@@ -3,12 +3,12 @@ CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deleteResearcher`(
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
+	BEGIN
 		ROLLBACK;
-        SELECT 'SQLException occurred. Please try again.';
+		SELECT 'SQLException occurred. Please try again.';
 	END;
-    
-    DELETE FROM RESEARCHER WHERE researcherID = researcherIdNo;
-    COMMIT;
-    SELECT 'Researcher deleted successfully.';
+		
+	DELETE FROM RESEARCHER WHERE researcherID = researcherIdNo;
+	COMMIT;
+	SELECT 'Researcher deleted successfully.';
 END

@@ -3,12 +3,12 @@ CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deleteAdmission`(
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
+	BEGIN
 		ROLLBACK;
-        SELECT 'SQLException occurred. Please try again.';
+		SELECT 'SQLException occurred. Please try again.';
 	END;
-    
-    DELETE FROM ADMISSION WHERE admissionID = admissionIdNo;
-    COMMIT;
-    SELECT 'Admission deleted successfully.';
+		
+	DELETE FROM ADMISSION WHERE admissionID = admissionIdNo;
+	COMMIT;
+	SELECT 'Admission deleted successfully.';
 END

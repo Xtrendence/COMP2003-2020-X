@@ -3,12 +3,12 @@ CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deleteFall`(
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
+	BEGIN
 		ROLLBACK;
-        SELECT 'SQLException occurred. Please try again.';
+		SELECT 'SQLException occurred. Please try again.';
 	END;
-    
-    DELETE FROM FALL WHERE fallID = fallIdNo;
-    COMMIT;
-    SELECT 'Fall deleted successfully.';
+		
+	DELETE FROM FALL WHERE fallID = fallIdNo;
+	COMMIT;
+	SELECT 'Fall deleted successfully.';
 END

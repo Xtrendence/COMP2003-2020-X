@@ -7,8 +7,8 @@ BEGIN
 			ROLLBACK;
 			SELECT 'SQLException has occurred. Please try again.';
 		END;
-    
-    DELETE FROM PATIENT WHERE patientID = patientIdNo;
-    COMMIT;
-    SELECT 'Patient deleted successfully.';
+		
+	DELETE FROM PATIENT WHERE patientID = patientIdNo;
+	COMMIT;
+	SELECT 'Patient deleted successfully.';
 END

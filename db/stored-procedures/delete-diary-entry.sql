@@ -3,12 +3,12 @@ CREATE DEFINER=`COMP2003_X`@`%` PROCEDURE `deleteDiaryEntry`(
 )
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
+	BEGIN
 		ROLLBACK;
-        SELECT 'SQLException occurred. Please try again.';
+		SELECT 'SQLException occurred. Please try again.';
 	END;
-    
-    DELETE FROM DIARYENTRY WHERE entryID = entryIdNo;
-    COMMIT;
-    SELECT 'Diary entry deleted successfully.';
+		
+	DELETE FROM DIARYENTRY WHERE entryID = entryIdNo;
+	COMMIT;
+	SELECT 'Diary entry deleted successfully.';
 END
