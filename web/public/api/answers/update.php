@@ -32,7 +32,7 @@
 		} else {
 			echo json_encode(array('message' => 'Invalid API key.'));
 		}
-    } else {
+	} else {
 		echo json_encode(array('message' => 'Wrong HTTP request method. Use PUT instead.'));
 	}
 ?>
