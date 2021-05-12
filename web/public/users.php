@@ -68,6 +68,7 @@
 					<a href="./create-question-all.php"><button type="button">Ask A Question</button></a>
 					<a href="./answers-summary.php"><button type="button">Answers Summary</button></a>
 					<a href="./questions.php"><button type="button">Questions</button></a>
+					<a href="./charts-all.php"><button type="button">Falls Chart</button></a>
 					<a href="./create-user.php"><button type="button">Create A New User</button></a>
 				</div>
 				<table class="patient-table">
