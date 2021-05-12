@@ -52,7 +52,6 @@
                 </button>
             </a>
         </div>
-
         <div class="wrapper">
             <div class="title-card">
                 <span id="user-id"></span>

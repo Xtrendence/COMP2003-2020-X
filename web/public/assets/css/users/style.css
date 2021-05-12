@@ -22,8 +22,8 @@
     position: center;
 }
 
-.nav-button {
-    outline: none;
+.top-buttons button, .button-div button {
+	outline: none;
     border: none;
     background: var(--accent-gradient);
     box-shadow: var(--shadow-smooth);
@@ -31,25 +31,26 @@
     font-size: var(--font-medium);
     border-radius: 10px;
     cursor: pointer;
-    height: 40px;
-    width: 90px;
     margin-right: 10px;
-}
-
-.question-all, .charts-all, .create-user {
     width: auto;
-    height: 40px;
+    height: 35px;
     padding: 0 10px 0 10px;
+	margin-bottom: 20px;
+}
+.button-div button {
+	margin-bottom: 10px;
+	padding-top: 2px;
 }
 
-.button-div{
+.button-div {
     margin-left: 40%;
     margin-top: 10px;
     position: relative;
 }
 
-.wide-card{
-    width: 75%;
+.wide-card {
+    width: 80%;
+	margin-top: 5px;
 }
 
 .text-names {
@@ -62,11 +63,11 @@
     text-align: center;
     border-collapse: separate;
     border-spacing: 0 10px;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 td {
-    border-bottom: lightslategray 1px solid;
+    border-bottom: var(--accent-light) 1px solid;
     padding-bottom: 10px;
 }
 
@@ -78,38 +79,48 @@ td {
     width: 800px;
 }
 
-.search-div{
+.search-div {
     float: right;
     padding-top: 10px;
     padding-right: 10px;
 }
 
-.search-child{
-    background: var(--main-third);
-    color: var(--main-contrast);
-    outline: none;
-    border: none;
-    display: inline-block;
-    height: 20px;
+.search-input {
+	display: inline-block;
+	height: 28px;
+	margin: auto 10px auto 0;
+	outline: none;
+	border: none;
+	background: var(--main-third);
+	border-radius: 10px;
+	padding: 0 10px 0 10px;
+	height: 35px;
+	box-shadow: var(--shadow-smooth);
 }
 
-.search-button{
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 5px;
-    outline: none;
-    border: none;
-    background: var(--accent-gradient);
-    color: var(--accent-contrast);
-    font-size: var(--font-medium);
-    border-radius: 10px;
-    cursor: pointer;
-    height: 25px;
-    width: 40px;
-    text-align: center;
+.search-button {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 5px;
+	margin-right: 0;
+	outline: none;
+	border: none;
+	background: var(--accent-gradient);
+	color: var(--accent-contrast);
+	font-size: var(--font-medium);
+	box-shadow: var(--shadow-smooth);
+	border-radius: 10px;
+	cursor: pointer;
+	height: 35px;
+	width: 35px;
+	text-align: center;
+}
+.search-button svg {
+	margin-top: 2px;
+	fill: var(--accent-contrast);
 }
 
-.top-buttons{
+.top-buttons {
     padding-top: 10px;
     padding-left: 10px;
 }
