@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		let hidInputType = document.createElement("input");
 		hidInputType.classList.add("hidden");
 
-		function getQuestion(){
+		function getQuestion() {
 			let xhr = new XMLHttpRequest();
 
 			xhr.addEventListener("readystatechange", function() {
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						questionText.setAttribute("value", questionTxt);
 						characterLimit.setAttribute("value", questionLim);
 
-						if(questionType == "choice"){
+						if (questionType == "choice") {
 							multipleOption.classList.remove("hidden");
 							multipleChoiceRadioButton.classList.add("active");
 							longAnswerText.classList.add("hidden");
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 							let choiceLength = Object.keys(questionChoice);
 							let leng = choiceLength.length.toString();
 
-							for (let x = 1; x <= choiceLength.length; x++){
+							for (let x = 1; x <= choiceLength.length; x++) {
 								numberOfChoices.setAttribute("value", leng);
 								let input = document.createElement("input");
 								input.setAttribute("value", questionChoice[x]);
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			xhr.send();
 		}
 
-		submitButton.addEventListener("click", function (){
+		submitButton.addEventListener("click", function () {
 			let xhr = new XMLHttpRequest();
 
 			let changes;

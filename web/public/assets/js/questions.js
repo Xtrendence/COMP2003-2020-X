@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				cardAnchor.appendChild(wideCard);
 
-				if(answered) {
+				if (answered) {
 					contentNotEditable.appendChild(cardAnchor);
 				} else {
 					contentEditable.appendChild(cardAnchor);
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
 								try {
 									let response = JSON.parse(responseJSON);
 									let questionID = response["questionID"];
-								} catch(error){
+								} catch(error) {
 									console.log(error);
 								}
 							}
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					let choice = [];
 					let choiceKeys = Object.keys(choices);
 
-					for (let j = 0; j < choiceKeys.length; j++){
+					for (let j = 0; j < choiceKeys.length; j++) {
 						choice.push(choices[j+1]);
 					}
 
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					cardAnchor.appendChild(wideCard);
 
-					if(answered) {
+					if (answered) {
 						contentNotEditable.appendChild(cardAnchor);
 					} else {
 						contentEditable.appendChild(cardAnchor);
@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
 									try {
 										let response = JSON.parse(responseJSON);
 										let questionID = response["questionID"];
-									} catch(error){
+									} catch(error) {
 										console.log(error);
 									}
 								}

@@ -171,8 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
 									let response = JSON.parse(responseJSON);
 									resolve(response["questionID"]);
 								}
-							} catch(e) {
-								console.log(e);
+							} catch(error) {
+								console.log(error);
 							}
 						}
 					});
