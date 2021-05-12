@@ -87,8 +87,6 @@
             <div class="text">
                 <span>Choices</span>
             </div>
-            <input class="choice-field" type="text">
-            <input class="choice-field" type="text">
             <div id="multiple-sub">
             </div>
         </div>
