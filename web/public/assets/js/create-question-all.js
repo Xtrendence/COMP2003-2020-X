@@ -131,7 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			submitButton.addEventListener("click", function() {
 				if (checkForm()) {
 					let body;
+
 					let xhr = new XMLHttpRequest();
+
 					if (multipleChoiceRadioButton.classList.contains("active")) {
 						let choiceOptions = [];
 						let choiceFields = document.getElementsByClassName("choice-field");
@@ -159,23 +161,46 @@ document.addEventListener("DOMContentLoaded", () => {
 						enquiry.value = "";
 						characterLimit.value = null;
 					}
-					
-					xhr.open("POST", "./api/questions/create-all.php?" + sessionToken + "", true);
-					xhr.send(JSON.stringify(body));
-					
+
+					Notify.success({
+						title: "Processing...", 
+						description: "Your question is being processed...", 
+						duration: 4000,
+						background: "var(--accent-gradient)",
+						color: "var(--accent-contrast)",
+					});
+
 					xhr.addEventListener("readystatechange", function() {
 						if (xhr.readyState === XMLHttpRequest.DONE) {
-							let responseJSON = xhr.responseText;
 							try {
 								if (xhr.status == 200) {
-									let response = JSON.parse(responseJSON);
-									resolve(response["questionID"]);
+									let response = JSON.parse(xhr.responseText);
+									if ("questionID" in response) {
+										Notify.success({
+											title: "Success", 
+											description: "Your question has been submitted.", 
+											duration: 4000,
+											background: "var(--accent-gradient)",
+											color: "var(--accent-contrast)",
+										});
+									} else {
+										Notify.error({
+											title: "Error", 
+											description: "Submission failed.", 
+											duration: 4000,
+											background: "linear-gradient(120deg, rgb(130,30,30) 25%, rgb(100,30,30) 50%, rgb(70,30,30) 100%)",
+											color: "var(--accent-contrast)",
+										});
+									}
 								}
 							} catch(error) {
 								console.log(error);
 							}
 						}
 					});
+					
+					xhr.open("POST", "./api/questions/create-all.php?key=" + sessionToken + "", true);
+					xhr.send(JSON.stringify(body));
 				} else {
 					Notify.error({
 						title: "Error", 
