@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			let from = 1;
 			let to = 100;
-			
+
 			let previous = document.getElementById("prev-button");
 			let next = document.getElementById("next-button");
 			let askButton = document.getElementById("ask-button");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			let contentNotEditable = document.getElementById("content-not-editable");
 			let seperator = document.getElementById("sep");
 
-			allTab.addEventListener("click", ()=> {
+			allTab.addEventListener("click", () => {
 				allTab.classList.add("active");
 				editTab.classList.remove("active");
 				fixedTab.classList.remove("active");
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				seperator.classList.add("seperator");
 			});
 
-			editTab.addEventListener("click", ()=> {
+			editTab.addEventListener("click", () => {
 				allTab.classList.remove("active");
 				editTab.classList.add("active");
 				fixedTab.classList.remove("active");
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				seperator.classList.remove("seperator");
 			});
 
-			fixedTab.addEventListener("click", ()=> {
+			fixedTab.addEventListener("click", () => {
 				allTab.classList.remove("active");
 				editTab.classList.remove("active");
 				fixedTab.classList.add("active");
@@ -70,10 +70,10 @@ document.addEventListener("DOMContentLoaded", () => {
 							let json = xhr.responseText;
 							let questions = JSON.parse(json).data;
 							let editableQs = {};
-							let fixedQs = {} ;
+							let fixedQs = {};
 							let keys = Object.keys(questions);
 
-							keys.map(key => {								
+							keys.map(key => {
 								if (empty(questions[key].answer)) {
 									editableQs[questions[key].question] = questions[key];
 								} else {
@@ -134,19 +134,19 @@ document.addEventListener("DOMContentLoaded", () => {
 				wideCard.id = "wide-card";
 				wideCard.innerHTML = '\n' +
 					'		<div class="text-margin">\n' +
-					'			<span class="card-heading">Question ID: <span class="card-text">'+ questionID +'</span> </span>\n' +
+					'			<span class="card-heading">Question ID: <span class="card-text">' + questionID + '</span> </span>\n' +
 					'		</div>\n' +
 					'\n' +
 					'		<div class="text-margin">\n' +
-					'			<span class="card-heading">Question: <span class="card-text">'+ q +'</span> </span>\n' +
+					'			<span class="card-heading">Question: <span class="card-text">' + q + '</span> </span>\n' +
 					'		</div>\n' +
 					'\n' +
 					'		<div class="text-margin">\n' +
-					'			<span class="card-heading">Character Limit: <span class="card-text">'+ questionLim +'</span></span>\n' +
+					'			<span class="card-heading">Character Limit: <span class="card-text">' + questionLim + '</span></span>\n' +
 					'		</div>\n' +
 					'\n' +
 					'		<div class="text-margin">\n' +
-					'			<span class="card-heading">Type: <span class="card-text">'+ questionType +'</span> </span>\n' +
+					'			<span class="card-heading">Type: <span class="card-text">' + questionType + '</span> </span>\n' +
 					'		</div>\n' +
 
 					'	</div>';
@@ -169,6 +169,15 @@ document.addEventListener("DOMContentLoaded", () => {
 					let editBut = document.createElement("button");
 					editBut.classList.add("action-button");
 					editBut.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com/ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>';
+
+					delBut.setAttribute("aria-label", "Delete");
+					delBut.setAttribute("data-microtip-position", "top");
+					delBut.setAttribute("role", "tooltip");
+
+					editBut.setAttribute("aria-label", "Edit");
+					editBut.setAttribute("data-microtip-position", "top");
+					editBut.setAttribute("role", "tooltip");
+
 					editAnchor.appendChild(editBut);
 					editAnchor.href = "./edit-question.php?id=" + questionID + "";
 					delAnchor.appendChild(delBut);
@@ -184,13 +193,13 @@ document.addEventListener("DOMContentLoaded", () => {
 							questionID: questionID
 						};
 
-						xhr.addEventListener("readystatechange", function() {
+						xhr.addEventListener("readystatechange", function () {
 							if (xhr.readyState === XMLHttpRequest.DONE) {
 								let responseJSON = xhr.responseText;
 								try {
 									let response = JSON.parse(responseJSON);
 									let questionID = response["questionID"];
-								} catch(error) {
+								} catch (error) {
 									console.log(error);
 								}
 							}
@@ -218,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					let choiceKeys = Object.keys(choices);
 
 					for (let j = 0; j < choiceKeys.length; j++) {
-						choice.push(choices[j+1]);
+						choice.push(choices[j + 1]);
 					}
 
 					let choiceStr = choice.join(", ");
@@ -260,6 +269,15 @@ document.addEventListener("DOMContentLoaded", () => {
 						let editBut = document.createElement("button");
 						editBut.classList.add("action-button");
 						editBut.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com/ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>';
+
+						delBut.setAttribute("aria-label", "Delete");
+						delBut.setAttribute("data-microtip-position", "top");
+						delBut.setAttribute("role", "tooltip");
+
+						editBut.setAttribute("aria-label", "Edit");
+						editBut.setAttribute("data-microtip-position", "top");
+						editBut.setAttribute("role", "tooltip");
+
 						editAnchor.appendChild(editBut);
 						editAnchor.href = "./edit-question.php?id=" + questionID + "";
 						delAnchor.appendChild(delBut);
@@ -275,13 +293,13 @@ document.addEventListener("DOMContentLoaded", () => {
 								questionID: questionID
 							};
 
-							xhr.addEventListener("readystatechange", function() {
+							xhr.addEventListener("readystatechange", function () {
 								if (xhr.readyState === XMLHttpRequest.DONE) {
 									let responseJSON = xhr.responseText;
 									try {
 										let response = JSON.parse(responseJSON);
 										let questionID = response["questionID"];
-									} catch(error) {
+									} catch (error) {
 										console.log(error);
 									}
 								}
@@ -327,7 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 				return false;
 			}
-		} catch(error) {
+		} catch (error) {
 			console.trace(error);
 		}
 	}).catch(error => {

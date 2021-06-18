@@ -24,7 +24,7 @@
 			$answer = new Answer($db);
 			$answer->questionID = isset($_POST['questionID']) ? $_POST['questionID'] : array_push($missing, 'questionID');
 			$answer->patientID = isset($_POST['patientID']) ? $_POST['patientID'] : array_push($missing, 'patientID');
-			$answer->answer = isset($_POST['answer']) ? $_POST['answer'] : array_push($missing, 'answer');
+			$answer->answer = isset($_POST['answer']) ? htmlspecialchars($_POST['answer']) : array_push($missing, 'answer');
 
 			if (empty($missing)) {
 				$answer->create();

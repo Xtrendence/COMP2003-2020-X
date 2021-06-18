@@ -22,7 +22,7 @@
 
 			$answer = new Answer($db);
 			$answer->answerID = isset($input['answerID']) ? $input['answerID'] : array_push($missing, 'answerID');
-			$answer->answer = isset($input['answer']) ? $input['answer'] : array_push($missing, 'answer');
+			$answer->answer = isset($input['answer']) ? htmlspecialchars($input['answer']) : array_push($missing, 'answer');
 
 			if (empty($missing)) {
 				$answer->update();

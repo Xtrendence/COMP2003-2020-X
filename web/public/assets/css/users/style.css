@@ -95,6 +95,7 @@ td {
 	border-radius: 10px;
 	padding: 0 10px 0 10px;
 	height: 35px;
+	color: var(--main-contrast);
 	box-shadow: var(--shadow-smooth);
 }
 

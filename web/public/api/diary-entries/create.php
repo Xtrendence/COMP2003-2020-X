@@ -25,7 +25,7 @@
 
 			$diaryEntry = new DiaryEntry($db);
 			$diaryEntry->patientID = $patientID;
-			$diaryEntry->entry = isset($_POST['entry']) ? $_POST['entry'] : array_push($missing, 'entry');
+			$diaryEntry->entry = isset($_POST['entry']) ? htmlspecialchars($_POST['entry']) : array_push($missing, 'entry');
 
 			if (empty($missing)) {
 				$diaryEntry->create();

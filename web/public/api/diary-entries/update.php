@@ -23,7 +23,7 @@
 			$diaryEntry = new DiaryEntry($db);
 
 			$diaryEntry->entryID = !empty($input['entryID']) ? $input['entryID'] : array_push($missing, 'entryID');
-			$diaryEntry->entry = !empty($input['entry']) ? $input['entry'] : array_push($missing, 'entry');
+			$diaryEntry->entry = !empty($input['entry']) ? htmlspecialchars($input['entry']) : array_push($missing, 'entry');
 
 			if (empty($missing)) {
 				$diaryEntry->update();

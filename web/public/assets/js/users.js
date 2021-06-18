@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			function getUsers(from, to) {
 				let xhr = new XMLHttpRequest();
-				xhr.addEventListener("readystatechange", function() {
+				xhr.addEventListener("readystatechange", function () {
 					if (xhr.readyState === XMLHttpRequest.DONE) {
 						let json = xhr.responseText;
 						let users = JSON.parse(json);
@@ -122,7 +122,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			function deleteCheck(userID) {
 				if (confirm("Are you sure you want to delete this user?")) {
-					window.location = "./api/users/delete.php?id=" + userID + "";
+					let xhr = new XMLHttpRequest();
+					xhr.addEventListener("readystatechange", () => {
+						if (xhr.readyState === XMLHttpRequest.DONE) {
+							getUsers(from, to);
+						}
+					});
+					xhr.open("DELETE", "./api/users/delete.php?key=" + result.token, true);
+					xhr.send(JSON.stringify({ patientID: userID }));
 				} else {
 					window.alert("User was not deleted");
 				}
@@ -136,15 +143,20 @@ document.addEventListener("DOMContentLoaded", () => {
 				deleteButton = document.createElement("button");
 				deleteButton.classList.add("action-button");
 				deleteButton.id = "delete-button";
+				deleteButton.setAttribute("aria-label", "Delete");
+				deleteButton.setAttribute("data-microtip-position", "top");
+				deleteButton.setAttribute("role", "tooltip");
 				deleteButton.innerHTML = '<div class="svg-div"></div><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">\n' +
 					'  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>\n' +
 					'</svg></div>'
-				deleteButton.addEventListener("click", deleteCheck)
-				// deleteButton.href = "./api/users/delete.php" + userID + "";
+				deleteButton.addEventListener("click", () => deleteCheck(userID));
 
 				editButton = document.createElement("button");
 				editButton.classList.add("action-button");
 				editButton.id = "edit-button";
+				editButton.setAttribute("aria-label", "Edit");
+				editButton.setAttribute("data-microtip-position", "top");
+				editButton.setAttribute("role", "tooltip");
 				editButton.innerHTML = '<div class="svg-div"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">\n' +
 					'  <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>\n' +
 					'</svg></div>'
@@ -154,6 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				profileButton = document.createElement("button");
 				profileButton.classList.add("action-button");
 				profileButton.id = "profile-button";
+				profileButton.setAttribute("aria-label", "Profile");
+				profileButton.setAttribute("data-microtip-position", "top");
+				profileButton.setAttribute("role", "tooltip");
 				profileButton.innerHTML = '<div class="svg-div"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">\n' +
 					'  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>\n' +
 					'</svg></div>'
@@ -163,6 +178,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				chartButton = document.createElement("button");
 				chartButton.classList.add("action-button");
 				chartButton.id = "chart-button";
+				chartButton.setAttribute("aria-label", "Chart");
+				chartButton.setAttribute("data-microtip-position", "top");
+				chartButton.setAttribute("role", "tooltip");
 				chartButton.innerHTML = '<div class="svg-div"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bar-chart-fill" viewBox="0 0 16 16">\n' +
 					'   <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>\n' +
 					'</svg></div>'
@@ -183,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			 *	  when that is true, it sets the body with an attribute to turn the theme dark.
 			 */
 			checkTheme();
-		} catch(error) {
+		} catch (error) {
 			console.trace(error);
 		}
 	}).catch(error => {
